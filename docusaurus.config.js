@@ -7,7 +7,7 @@ module.exports = {
   // 网站副标题
   tagline: '勇敢牛牛 不怕困难',
   // 个人网站地址
-  url: 'https://zshasozi.github.io/shaozi.github.io/',
+  url: 'https://zhgt-shaozi.github.io',
   baseUrl: '/',
   // 当 docusaurus 检测到无效链接时的反应，throw - 抛错
   onBrokenLinks: 'throw',
@@ -16,9 +16,9 @@ module.exports = {
   // 网站图表 logo（可直接引用 static 静态目录下的文件）
   favicon: 'img/favicon.ico',
   // 拥有此源码仓库的 GitHub 用户或组织，部署命令（deployment command）会用到此参数。
-  organizationName: 'zhgt-beiyuan',
+  organizationName: 'zhgt-shaozi',
   // GitHub 源码仓库的名称。部署命令（deployment command）会用到此参数。
-  projectName: 'shaozi.github.io',
+  projectName: 'zhgt-shaozi.github.io',
   // 网站主题设置
   themeConfig: {
     // 是否显示侧边栏收起功能
