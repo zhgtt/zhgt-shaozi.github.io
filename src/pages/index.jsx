@@ -11,6 +11,8 @@ import HomepageFeatures from '../components/HomepageFeatures';
 import styles from './index.module.scss';
 import dinoAnimation from '@site/static/img/Dino.lottie2.json';
 
+const img = require('../../static/img/docusaurus.png');
+
 const Homepage = () => {
   const [isPaused, setIsPaused] = useState(false);
   const { siteConfig } = useDocusaurusContext();
@@ -38,12 +40,13 @@ const Homepage = () => {
               isStopped={false} //是否停止动画（动画回到起点）
             />
           </div>
-          <h1>起个什么名ne？</h1>
+          <h1>路人丁 Github</h1>
           <p>就随便写写。。。🐶 至死是少年啊！反正身体这么好，今天也继续笑下去吧。。。😁</p>
+          <button className="btn-success">Success</button>
         </div>
       </header>
       <main>
-        <div className={styles['main-']}></div>
+        {/* <div className={styles['main-']}></div> */}
       </main>
     </Layout>
   );

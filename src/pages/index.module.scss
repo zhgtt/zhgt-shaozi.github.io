@@ -1,4 +1,5 @@
 /* stylelint-disable docusaurus/copyright-header */
+// @import url('../css/font.scss');
 
 .dino-banner {
   padding: 2rem 4rem;
@@ -25,16 +26,16 @@
   }
 }
 
-html[data-theme='dark'] {
-  .dino-banner {
-    background-color: #0d1117;
-    // #161b22
+// html[data-theme='dark'] {
+//   .dino-banner {
+//     background-color: #0d1117;
+//     // #161b22
 
-    .dino-contained-content {
-      h1,
-      p {
-        color: #c9d1d9;
-      }
-    }
-  }
-}
+//     .dino-contained-content {
+//       h1,
+//       p {
+//         color: #c9d1d9;
+//       }
+//     }
+//   }
+// }

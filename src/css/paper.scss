@@ -1,0 +1,44 @@
+/* paper-scss */
+$paper-white-dark: rgba(0, 0, 0, 0.03);
+$paper-primary: #41403e;
+$paper-primary-text: #272625;
+$paper-primary-light: #c1c0bd;
+$paper-secondary: #0071de;
+$paper-secondary-text: #0057ab;
+$paper-secondary-light: #deefff;
+$paper-success: #86a361;
+$paper-success-text: #6c844d;
+$paper-success-light: #d0dbc2;
+$paper-warning: #ddcd45;
+$paper-warning-text: #cab925;
+$paper-warning-light: #f5f0c6;
+$paper-danger: #a7342d;
+$paper-danger-text: #7f2722;
+$paper-danger-light: #f0cbc9;
+$paper-muted: #868e96;
+$paper-muted-text: #6c757d;
+$paper-muted-light: #e6e7e9;
+$paper-main-background: #fffffe;
+
+html[data-theme='dark'] {
+  $paper-white-dark: rgba(255, 255, 255, 0.03);
+  $paper-primary: #fffffe;
+  $paper-primary-text: #41403e;
+  $paper-primary-light: #fffffe;
+  $paper-secondary: #0071de;
+  $paper-secondary-text: #0057ab;
+  $paper-secondary-light: #007ef8;
+  $paper-success: #189418;
+  $paper-success-text: #116811;
+  $paper-success-light: #1caa1c;
+  $paper-warning: #ddcd45;
+  $paper-warning-text: #cab925;
+  $paper-warning-light: #e1d35b;
+  $paper-danger: #ff8c86;
+  $paper-danger-text: #ff5c53;
+  $paper-danger-light: #ffa4a0;
+  $paper-muted: #868e96;
+  $paper-muted-text: #6c757d;
+  $paper-muted-light: #949ba2;
+  $paper-main-background: #41403e;
+}
