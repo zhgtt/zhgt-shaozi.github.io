@@ -7,7 +7,6 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'; // 获取 .docusaurus.config 配置上下文内容
 
-import HomepageFeatures from '../components/HomepageFeatures';
 import styles from './index.module.scss';
 import dinoAnimation from '@site/static/img/Dino.lottie2.json';
 

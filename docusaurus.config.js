@@ -110,10 +110,7 @@ module.exports = {
         // 主题
         theme: {
           // 全局样式文件
-          customCss: [
-            require.resolve('./src/css/custom.scss'),
-            require.resolve('./src/css/font.scss'),
-          ],
+          customCss: [require.resolve('./src/css/custom.scss')],
         },
       },
     ],

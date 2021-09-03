@@ -8,12 +8,9 @@ author_image_url: /static/img/logo.svg
 tags: [Docusaurus2, Markdown]
 ---
 
-摘要
+摘要内容
 
-<!--truncate-->
-
-
-import Link from '@docusaurus/Link'; 
+<!-- truncate -->
 
 ***
 
