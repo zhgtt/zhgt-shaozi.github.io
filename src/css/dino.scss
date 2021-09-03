@@ -1,0 +1,226 @@
+/* 原子化样式 - 参考 tailwindcss，部分样式与 infima 源码重叠，仅供学习使用 */
+
+/* Margin */
+$margin-list: (0, (2, 2rem), (xl, 4.5rem), (lg, 1.5rem), (md, 1rem), (sm, 0.5rem), (xs, 0.25rem));
+@each $key, $value in $margin-list {
+  .m-#{$key} {
+    margin: $value or $key;
+  }
+  .mb-#{$key} {
+    margin-bottom: $value or $key;
+  }
+  .mt-#{$key} {
+    margin-top: $value or $key;
+  }
+  .ml-#{$key} {
+    margin-left: $value or $key;
+  }
+  .mr-#{$key} {
+    margin-right: $value or $key;
+  }
+  .my-#{$key} {
+    margin-top: $value or $key;
+    margin-bottom: $value or $key;
+  }
+  .mx-#{$key} {
+    margin-left: $value or $key;
+    margin-right: $value or $key;
+  }
+}
+
+/* Padding */
+$padding-list: (0, (2, 2rem), (xl, 4.5rem), (lg, 2rem), (md, 1rem), (sm, 0.5rem), (xs, 0.25rem));
+@each $key, $value in $padding-list {
+  .p-#{$key} {
+    padding: $value or $key;
+  }
+  .pb-#{$key} {
+    padding-bottom: $value or $key;
+  }
+  .pt-#{$key} {
+    padding-top: $value or $key;
+  }
+  .pl-#{$key} {
+    padding-left: $value or $key;
+  }
+  .pr-#{$key} {
+    padding-right: $value or $key;
+  }
+  .py-#{$key} {
+    padding-top: $value or $key;
+    padding-bottom: $value or $key;
+  }
+  .px-#{$key} {
+    padding-left: $value or $key;
+    padding-right: $value or $key;
+  }
+}
+
+/* Width */
+$width-list: ((full, 100%), auto);
+@each $key, $value in $width-list {
+  .w-#{$key} {
+    width: $value or $key;
+  }
+}
+
+/* Height */
+$height-list: ((full, 100%), auto);
+@each $key, $value in $height-list {
+  .h-#{$key} {
+    height: $value or $key;
+  }
+}
+
+/* Text-Align */
+$text-align-list: (center, left, right, justify);
+@each $key in $text-align-list {
+  .text-#{$key} {
+    text-align: $key;
+  }
+}
+
+/* Color */
+$color-list: (inherit);
+@each $key, $value in $color-list {
+  .color-#{$key} {
+    color: $value or $key;
+  }
+}
+
+/* Hover-Color */
+$hover-color-list: (inherit);
+@each $key, $value in $hover-color-list {
+  .hover-color-#{$key} {
+    &:hover {
+      color: $value or $key;
+    }
+  }
+}
+
+/* Text-Decoration */
+$text-decoration-list: (underline, line-through, (no-underline, none));
+@each $key, $value in $text-decoration-list {
+  .#{$key} {
+    text-decoration: $value or $key;
+  }
+}
+
+/* Font-Weight */
+$font-weight-list: ((light, 300), (normal, 400), (bold, 500));
+@each $key, $value in $font-weight-list {
+  .font-#{$key} {
+    font-weight: $value;
+  }
+}
+
+/* Display */
+$display-list: (block, inline-block, inline, flex, grid, hidden);
+@each $key in $display-list {
+  .#{$key} {
+    display: $key;
+  }
+}
+
+/* Flex-Direction */
+$flex-direction-list: (row, (col, column), row-reverse, column-reverse);
+@each $key, $value in $flex-direction-list {
+  .flex-#{$key} {
+    flex-direction: $value or $key;
+  }
+}
+
+/* Flex-Wrap */
+$flex-wrap-list: (wrap, wrap-reverse, nowrap);
+@each $key in $flex-wrap-list {
+  .flex-#{$key} {
+    flex-wrap: $key;
+  }
+}
+
+/* Justify-Content */
+$justify-content-list: (
+  center,
+  (between, space-between),
+  (around, space-around),
+  (evenly, space-evenly),
+  (start, flex-start),
+  (end, flex-end)
+);
+@each $key, $value in $justify-content-list {
+  .justify-#{$key} {
+    justify-content: $value or $key;
+  }
+}
+
+/* Align-Items */
+$align-items-list: (center, baseline, stretch, (start, flex-start), (end, flex-end));
+@each $key, $value in $align-items-list {
+  .items-#{$key} {
+    align-items: $value or $key;
+  }
+}
+
+/* Align-Self */
+$align-self-list: (center, auto, stretch, (start, flex-start), (end, flex-end));
+@each $key, $value in $align-self-list {
+  .self-#{$key} {
+    align-self: $value or $key;
+  }
+}
+
+/* Position */
+$position-list: (static, fixed, absolute, relative, sticky);
+@each $key in $position-list {
+  .#{$key} {
+    position: $key;
+  }
+}
+
+/* Cursor */
+$cursor-list: (default, auto, pointer, wait, text, move, not-allowed);
+@each $key in $cursor-list {
+  .cursor-#{$key} {
+    cursor: $key;
+  }
+}
+
+/* User-Select */
+$user-select-list: (text, all, auto, none);
+@each $key in $user-select-list {
+  .select-#{$key} {
+    user-select: $key;
+  }
+}
+
+/* Border-Style */
+$border-style-list: (solid, dashed, dotted, double, none);
+@each $key in $border-style-list {
+  .border-#{$key} {
+    border-style: $key;
+  }
+}
+
+/* Border-Width */
+$border-width-list: (0, (1, 1px), (2, 2px));
+@each $key, $value in $border-width-list {
+  .border-#{$key} {
+    border-width: $value or $key;
+  }
+}
+
+/* Border-Color */
+$border-color-list: (transparent);
+@each $key, $value in $border-color-list {
+  .border-#{'' + $key} {
+    border-color: $value or $key;
+  }
+}
+
+/* Background-Color */
+$background-color-list: (transparent, (primary, var(--ifm-color-primary)));
+@each $key, $value in $background-color-list {
+  .bg-#{'' + $key} {
+    background-color: $value or $key;
+  }
+}

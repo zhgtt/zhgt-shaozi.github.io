@@ -1,0 +1,192 @@
+@mixin button-type-interactive(
+  $hover-bg-color,
+  $hover-border-color,
+  $active-bg-color,
+  $active-border-color,
+  // $focus-bg-color: none,
+  // $focus-border-color: none,
+) {
+  &:hover {
+    background-color: $hover-bg-color;
+    border-color: $hover-border-color;
+  }
+
+  &:active {
+    border-color: $active-border-color;
+    background-color: $active-bg-color;
+    transition: none;
+  }
+
+  // &:focus {
+  //   border-color: $paper-secondary;
+  //   box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
+  // }
+}
+
+@mixin button-type($color, $bg-color, $border-color: $color) {
+  color: $color;
+  background-color: $bg-color;
+  border-color: $border-color;
+
+  &:hover {
+    transform: translate3d(0, 2px, 0);
+    box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
+    color: $color;
+    text-decoration: none;
+  }
+}
+
+@mixin button-size($font-size: 1rem, $padding: 0.75rem) {
+  transition: all 235ms ease 0s;
+  font-size: $font-size;
+  padding: $padding;
+}
+
+.paper-btn,
+.paper-btn-default {
+  background-image: none;
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 15px 28px 25px -18px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  line-height: normal;
+  @include button-size;
+  @include button-type(var(--paper-primary), var(--paper-main-background));
+  @include button-type-interactive(
+    var(--paper-main-background),
+    var(--paper-primary),
+    var(--paper-main-background),
+    rgba(0, 0, 0, 0.2)
+  );
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.paper-btn-primary {
+  @include button-type(var(--paper-primary-text), var(--paper-primary-light), var(--paper-primary));
+  @include button-type-interactive(
+    var(--paper-primary-light),
+    var(--paper-primary),
+    #a8a6a3,
+    var(--paper-primary)
+  );
+}
+
+.paper-btn-secondary {
+  @include button-type(
+    var(--paper-secondary-text),
+    var(--paper-secondary-light),
+    var(--paper-secondary)
+  );
+  @include button-type-interactive(
+    var(--paper-secondary-light),
+    var(--paper-secondary),
+    #abd6ff,
+    var(--paper-secondary)
+  );
+}
+
+.paper-btn-success {
+  @include button-type(var(--paper-success-text), var(--paper-success-light), var(--paper-success));
+  @include button-type-interactive(
+    var(--paper-success-light),
+    var(--paper-success),
+    #b7c9a1,
+    var(--paper-success)
+  );
+}
+
+.paper-btn-warning {
+  @include button-type(var(--paper-warning-text), var(--paper-warning-light), var(--paper-warning));
+  @include button-type-interactive(
+    var(--paper-warning-light),
+    var(--paper-warning),
+    #ede49b,
+    var(--paper-warning)
+  );
+}
+
+.paper-btn-danger {
+  @include button-type(var(--paper-danger-text), var(--paper-danger-light), var(--paper-danger));
+  @include button-type-interactive(
+    var(--paper-danger-light),
+    var(--paper-danger),
+    #e6a5a1,
+    var(--paper-danger)
+  );
+}
+
+.paper-btn-muted {
+  @include button-type(var(--paper-muted-text), var(--paper-muted-light), var(--paper-muted));
+  @include button-type-interactive(
+    var(--paper-muted-light),
+    var(--paper-muted),
+    #caced1,
+    var(--paper-muted)
+  );
+}
+
+.paper-btn-large {
+  @include button-size(2rem, 1rem);
+  box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
+}
+
+.paper-btn-small {
+  @include button-size(0.75rem, 0.5rem);
+  box-shadow: 10px 19px 17px -13px rgba(0, 0, 0, 0.2);
+}
+
+.paper-btn-block {
+  display: block;
+  width: 100%;
+}
+
+@mixin button-outline($color, $border-color, $hover-bg-color, $hover-border-color) {
+  background-color: #fffffe;
+  border-color: $border-color;
+  color: $color;
+
+  &:hover {
+    background-color: $hover-bg-color;
+    border-color: $hover-border-color;
+  }
+
+  &:active {
+    background-color: $border-color;
+  }
+}
+
+// scss 定义数组
+$btn-list: (primary, secondary, success, warning, danger, muted);
+
+@each $label in $btn-list {
+  .paper-btn-#{$label}-outline {
+    @if $label == primary {
+      @include button-outline(#41403e, #a8a6a3, #c1c0bd, #41403e);
+    }
+    @if $label == secondary {
+      @include button-outline(#0057ab, #abd6ff, #deefff, #0071de);
+    }
+    @if $label == success {
+      @include button-outline(#6c844d, #b7c9a1, #d0dbc2, #86a361);
+    }
+    @if $label == warning {
+      @include button-outline(#cab925, #ede49b, #f5f0c6, #ddcd45);
+    }
+    @if $label == danger {
+      @include button-outline(#7f2722, #e6a5a1, #f0cbc9, #a7342d);
+    }
+    @if $label == muted {
+      @include button-outline(#6c757d, #caced1, #e6e7e9, #868e96);
+    }
+  }
+}

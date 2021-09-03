@@ -1,0 +1,60 @@
+@mixin bg-style {
+  background-color: var(--paper-white-dark);
+  border-color: var(--paper-muted-light);
+  padding: 0.75rem 1.25rem;
+}
+
+.paper-card {
+  transition: all 235ms ease 0s;
+  box-shadow: 15px 28px 25px -18px rgba(0, 0, 0, 0.2);
+  border: 2px var(--paper-muted-light) solid;
+  backface-visibility: hidden; // 当前元素背面向屏幕时是否可见
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  will-change: transform; // 告知浏览器该元素会有哪些变化
+  word-wrap: break-word; // 允许长单词换行
+  width: 100%;
+
+  &-head {
+    @include bg-style;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-title {
+      font-size: 1.6rem;
+    }
+
+    &-extra {
+      font-size: 1.4rem;
+    }
+  }
+
+  &-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+  }
+
+  &-footer {
+    @include bg-style;
+    border-top-style: solid;
+    border-top-width: 2px;
+    font-size: 1.6rem;
+  }
+
+  // &-image {
+  //   border: 0;
+  //   border-radius: 0;
+  // }
+}
+
+.paper-card-hover {
+  &:hover {
+    transform: translate3d(0, 2px, 0);
+    box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
+  }
+}
