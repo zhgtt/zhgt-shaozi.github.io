@@ -42,7 +42,7 @@ const PaperCard: React.FC<CardProps> = (props) => {
           {extra && <div className='paper-card-head-extra'>{extra}</div>}
         </div>
       )}
-      <div className={clsx('paper-card-body', bodyClassName)} style={bodyStyle}>
+      <div className={clsx('p-5', bodyClassName)} style={bodyStyle}>
         {children}
       </div>
       {footerContent && <div className='paper-card-footer'>{footerContent}</div>}

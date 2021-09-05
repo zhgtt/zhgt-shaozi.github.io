@@ -7,8 +7,9 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'; // 获取 .docusaurus.config 配置上下文内容
 
+import { Animation_Dashboard } from '@site/src/utils/lotties';
 import styles from './index.module.scss';
-import dinoAnimation from '@site/static/img/Dino.lottie2.json';
+// import dinoAnimation from '@site/static/img/Dino.lottie2.json';
 
 const img = require('../../static/img/docusaurus.png');
 
@@ -30,23 +31,21 @@ const Homepage = () => {
                 loop: true, // 是否循环
                 autoplay: true, // 是否自动播放
                 renderer: 'svg', // 渲染动画的方式
-                animationData: dinoAnimation, // 数据源
+                animationData: Animation_Dashboard, // 数据源
               }}
-              width={286}
-              height={256}
+              width={700}
+              height={400}
               speed={1} // 动画播放的速度
               isPaused={false} // 是否暂停动画
               isStopped={false} //是否停止动画（动画回到起点）
             />
           </div>
-          <h1>路人丁 Github</h1>
+          <h1>路人丁</h1>
           <p>就随便写写。。。🐶 至死是少年啊！反正身体这么好，今天也继续笑下去吧。。。😁</p>
-          <button className="btn-success">Success</button>
+          <button className='btn-success'>Success</button>
         </div>
       </header>
-      <main>
-        {/* <div className={styles['main-']}></div> */}
-      </main>
+      <main>{/* <div className={styles['main-']}></div> */}</main>
     </Layout>
   );
 };
