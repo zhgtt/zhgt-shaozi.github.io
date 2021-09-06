@@ -2,21 +2,21 @@
 <rss version="2.0">
     <channel>
         <title>勺子 Blog</title>
-        <link>https://zhgt-shaozi.github.io/blog</link>
+        <link>https://shaozi.vercel.app/blog</link>
         <description>勺子 Blog</description>
         <lastBuildDate>Tue, 24 Aug 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[test]]></title>
-            <link>https://zhgt-shaozi.github.io/blog/docusaurus2-test</link>
+            <link>https://shaozi.vercel.app/blog/docusaurus2-test</link>
             <guid>docusaurus2-test</guid>
             <pubDate>Tue, 24 Aug 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[哈哈哈]]></description>
         </item>
         <item>
             <title><![CDATA[使用 Docusaurus2 写博客]]></title>
-            <link>https://zhgt-shaozi.github.io/blog/docusaurus2-blog</link>
+            <link>https://shaozi.vercel.app/blog/docusaurus2-blog</link>
             <guid>docusaurus2-blog</guid>
             <pubDate>Mon, 23 Aug 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[摘要内容]]></description>

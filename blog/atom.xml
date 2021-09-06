@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://zhgt-shaozi.github.io/blog</id>
+    <id>https://shaozi.vercel.app/blog</id>
     <title>勺子 Blog</title>
     <updated>2021-08-24T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://zhgt-shaozi.github.io/blog"/>
+    <link rel="alternate" href="https://shaozi.vercel.app/blog"/>
     <subtitle>勺子 Blog</subtitle>
-    <icon>https://zhgt-shaozi.github.io/img/favicon.ico</icon>
+    <icon>https://shaozi.vercel.app/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[test]]></title>
         <id>docusaurus2-test</id>
-        <link href="https://zhgt-shaozi.github.io/blog/docusaurus2-test"/>
+        <link href="https://shaozi.vercel.app/blog/docusaurus2-test"/>
         <updated>2021-08-24T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[哈哈哈]]></summary>
         <author>
@@ -21,7 +21,7 @@
     <entry>
         <title type="html"><![CDATA[使用 Docusaurus2 写博客]]></title>
         <id>docusaurus2-blog</id>
-        <link href="https://zhgt-shaozi.github.io/blog/docusaurus2-blog"/>
+        <link href="https://shaozi.vercel.app/blog/docusaurus2-blog"/>
         <updated>2021-08-23T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[摘要内容]]></summary>
         <author>
