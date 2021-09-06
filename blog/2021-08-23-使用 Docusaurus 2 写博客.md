@@ -12,7 +12,7 @@ tags: [Docusaurus2, Markdown]
 
 <!-- truncate -->
 
-***
+<!-- *** -->
 
 ## 文章写法介绍 🚀
 

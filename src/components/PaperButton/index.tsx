@@ -1,19 +1,5 @@
 /**
  * button 组件 - 部分代码取自 antd 源码
- *
- * @Typescript 笔记：
- *
- * React.FC - FC 是 FunctionComponent 的简写，该类型定义了一些默认属性，如 children 等
- * defaultProps - 对 props 进行解构，在解构对象中对 props 的属性设置默认值
- *
- * T & P - 交叉类型，将多个类型合并为一个类型，复用性强
- * T | P - 联合类型，取值为 多种类型中的一种类型
- * Partial<T> - 将一个类型内的属性全部转换为 可选 属性
- * Omit<T, Key | Key2> - 将 T 类型中的 Key 和 Key2 属性剔除，组成一个新的类型
- * [T, T1][number] - 索引类型，将该数组中的值解构合并成 联合类型
- *
- * keyof T - 类似于 Objcet.keys，使用 keyof 遍历一个类型 T，获取 T 上所有的 public（公共）属性，并组成 联合类型
- * P in Keys - 使用 in 遍历联合类型 keys，将值赋给 P
  */
 import React from 'react';
 import clsx from 'clsx';

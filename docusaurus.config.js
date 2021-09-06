@@ -4,7 +4,8 @@ const path = require('path');
 module.exports = {
   title: '勺子', // 网站标题（非 header 标题）
   tagline: '勇敢牛牛 不怕困难', // 网站副标题
-  url: 'https://zhgt-shaozi.github.io', // 个人网站地址
+  // url: 'https://zhgt-shaozi.github.io', // 个人网站地址
+  url: 'https://shaozi.vercel.app',
   baseUrl: '/',
   onBrokenLinks: 'throw', // 当 docusaurus 检测到无效链接时的反应，throw - 抛错
   onBrokenMarkdownLinks: 'warn', // 当 docusaurus 检测到无效的 markdown warn - 提醒

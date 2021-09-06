@@ -28,19 +28,6 @@
 }
 
 :root {
-  /* Base */
-  --ifm-color-white: #fffffe;
-  --ifm-color-black: #0f0e17;
-  --ifm-color-gray-100: #f5f6f7;
-  --ifm-color-gray-200: #ebedf0;
-  --ifm-color-gray-300: #dadde1;
-  --ifm-color-gray-400: #c9d1d9;
-  --ifm-color-gray-500: #bec3c9;
-  --ifm-color-gray-600: #8d949e;
-  --ifm-color-gray-700: #606770;
-  --ifm-color-gray-800: #444950;
-  --ifm-color-gray-900: #1c1e21;
-
   /* Theme - 主题 */
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
@@ -50,12 +37,7 @@
   --ifm-color-primary-lighter: #66d4bd;
   --ifm-color-primary-lightest: #92e0d0;
 
-  /* Font */
-  --ifm-font-weight-normal: 400;
-  --ifm-font-weight-bold: 600;
-  --ifm-font-family-base: 'FZZJ-QNTJW', sans-serif;
-  --ifm-font-family-monospace: 'Raleway', 'PingFang SC', 'Microsoft Yahei', sans-serif;
-
+  /* Container */
   --ifm-container-width: 1140px;
   --ifm-container-width-xl: 1320px;
 
@@ -63,18 +45,6 @@
   --ifm-transition-fast: 300ms;
   --ifm-transition-slow: 500ms;
   --ifm-transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1); // 贝塞尔曲线
-
-  /* Heading - 标题 */
-  --ifm-h1-font-size: 2rem;
-  --ifm-h2-font-size: 1.5rem;
-  --ifm-h3-font-size: 1.25rem;
-  --ifm-h4-font-size: 1rem;
-  --ifm-h5-font-size: 0.875rem;
-  --ifm-h6-font-size: 0.85rem;
-  --ifm-heading-color: inherit;
-  --ifm-heading-font-weigh: var(--ifm-font-weight-bold);
-  --ifm-heading-line-height: 1.25;
-  --ifm-heading-font-family: var(--ifm-font-family-monospace);
 
   --ifm-leading-desktop: 1.25;
   --ifm-leading: calc(var(--ifm-leading-desktop) * 1rem);
@@ -91,11 +61,6 @@
 
   /* Code */
   --ifm-code-font-size: 95%;
-
-  /* Dino - 自定义 */
-  --dino-color-purple-100: #2e2f3e;
-  --dino-body-color-font: var(--ifm-color-black); // 全局字体颜色
-  --dino-divider-color-border: var(--ifm-color-gray-600);
 
   /* PaperCss 风格 */
   --paper-white-dark: rgba(0, 0, 0, 0.03);
@@ -118,25 +83,6 @@
   --paper-muted-text: #6c757d;
   --paper-muted-light: #e6e7e9;
   --paper-main-background: var(--ifm-color-white);
-}
-
-body {
-  font-family: var(--ifm-font-family-monospace);
-  font-size: 16px;
-  background-color: var(--ifm-background-color);
-  color: var(--dino-body-color-font);
-  line-height: initial;
-  box-sizing: border-box;
-}
-
-@for $i from 1 to 7 {
-  h#{$i} {
-    color: var(--ifm-heading-color);
-    font-weight: var(--ifm-heading-font-weight);
-    line-height: var(--ifm-heading-line-height);
-    font-family: var(--ifm-heading-font-family);
-    margin: 0;
-  }
 }
 
 a {
@@ -165,6 +111,10 @@ code {
   max-width: var(--ifm-container-width);
   padding: 0 1rem;
   width: 100%;
+
+  @media (min-width: 1440px) {
+    max-width: var(--ifm-container-width-xl);
+  }
 }
 
 /* Footer */
@@ -246,11 +196,7 @@ code {
 
 /* Dark Theme */
 html[data-theme='dark'] {
-  --ifm-navbar-background-color: var(--dino-color-purple-100);
-  --ifm-background-color: var(--ifm-color-black);
-  --ifm-heading-color: var(--ifm-color-gray-200);
-
-  --dino-body-color-font: var(--ifm-color-gray-400);
+  // --ifm-navbar-background-color: var(--dino-color-purple-100);
 
   --paper-white-dark: rgba(255, 255, 255, 0.03);
   --paper-primary: var(--ifm-color-white);
@@ -279,15 +225,18 @@ html[data-theme='dark'] {
 }
 
 /* Antd Styles */
+.ant-divider-dashed {
+  border-color: $--dino-color-blueGray-200;
+}
 .ant-divider-horizontal.ant-divider-with-text.ant-divider-dashed {
-  border-color: var(--dino-divider-color-border);
+  border-color: $--dino-color-blueGray-400;
 }
 .ant-divider-horizontal.ant-divider-with-text .ant-divider-inner-text {
-  color: var(--dino-body-color-font);
+  @include theme_font_color('dino-font-color');
 }
 
 .ant-tag {
-  padding: 2px 8px;
+  font-weight: $--dino-font-weight-medium;
 }
 .ant-tag > a:first-child:last-child {
   margin: 0;
@@ -295,5 +244,5 @@ html[data-theme='dark'] {
 }
 .ant-tag a,
 .ant-tag a:hover {
-  color: var(--ifm-color-white);
+  color: $--dino-color-white !important;
 }
