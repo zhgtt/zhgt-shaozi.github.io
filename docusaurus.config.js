@@ -42,13 +42,13 @@ module.exports = {
       },
       // 导航栏菜单内容
       items: [
-        {
-          type: 'doc', // 菜单类型，doc - markdown 文档
-          docId: 'hello', // 点击菜单跳转的文档页面，docId 和 type 配合使用
-          position: 'right', // 菜单在导航栏的位置
-          label: '前端学习', // 菜单标题
-          // to: 'docs/hello',  // 点击菜单跳转的路径
-        },
+        // {
+        //   type: 'doc', // 菜单类型，doc - markdown 文档
+        //   docId: 'hello', // 点击菜单跳转的文档页面，docId 和 type 配合使用
+        //   position: 'right', // 菜单在导航栏的位置
+        //   label: '前端学习', // 菜单标题
+        //   // to: 'docs/hello',  // 点击菜单跳转的路径
+        // },
         {
           label: '笔记',
           position: 'right',
@@ -103,6 +103,8 @@ module.exports = {
           editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
         },
         blog: {
+          // path: './blog',
+          // routeBasePath: '/',
           showReadingTime: true,
           // blogTitle: '', // blog 标题
           // logDescription: '', // blog 描述

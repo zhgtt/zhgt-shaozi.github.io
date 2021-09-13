@@ -1,8 +1,17 @@
 /* 原子化样式 - 参考 tailwindcss 文档，https://docs.tailwindchina.com/docs/customizing-colors，部分样式与 infima 源码重叠，仅供学习使用
  * 
- * 0.125rem 为 1px 
+ * 变量一般为 可控或改动较平凡的值
+ * 0.0625rem 为 1px
  * 1rem 为 16px
 */
+
+/* 🍋 基础变量 🍋 */
+/* 响应式 */
+$--dino-sm: 640px;
+$--dino-md: 768px;
+$--dino-lg: 1140px;
+$--dino-xl: 1320px;
+$--dino-2xl: 1536px;
 
 /* Color */
 $--dino-color-white: #ffffff;
@@ -30,6 +39,28 @@ $--dino-color-blueGray-700: #334155;
 $--dino-color-blueGray-800: #1e293b;
 $--dino-color-blueGray-900: #0f172a;
 
+$--dino-color-coolGray-50: #fafafa;
+$--dino-color-coolGray-100: #f4f4f5;
+$--dino-color-coolGray-200: #e4e4e7;
+$--dino-color-coolGray-300: #d4d4d8;
+$--dino-color-coolGray-400: #a1a1aa;
+$--dino-color-coolGray-500: #71717a;
+$--dino-color-coolGray-600: #52525b;
+$--dino-color-coolGray-700: #3f3f46;
+$--dino-color-coolGray-800: #27272a;
+$--dino-color-coolGray-900: #18181b;
+
+$--dino-color-warmGray-50: #fafaf9;
+$--dino-color-warmGray-100: #f5f5f4;
+$--dino-color-warmGray-200: #e7e5e4;
+$--dino-color-warmGray-300: #d6d3d1;
+$--dino-color-warmGray-400: #a8a29e;
+$--dino-color-warmGray-500: #78716c;
+$--dino-color-warmGray-600: #57534e;
+$--dino-color-warmGray-700: #44403c;
+$--dino-color-warmGray-800: #292524;
+$--dino-color-warmGray-900: #1c1917;
+
 $--dino-color-red-50: #fef2f2;
 $--dino-color-red-100: #fee2e2;
 $--dino-color-red-200: #fecaca;
@@ -52,16 +83,38 @@ $--dino-color-yellow-700: #b45309;
 $--dino-color-yellow-800: #92400e;
 $--dino-color-yellow-900: #78350f;
 
-$--dino-color-green-50: #ecfdf5;
-$--dino-color-green-100: #d1fae5;
-$--dino-color-green-200: #a7f3d0;
-$--dino-color-green-300: #6ee7b7;
-$--dino-color-green-400: #34d399;
-$--dino-color-green-500: #10b981;
-$--dino-color-green-600: #059669;
-$--dino-color-green-700: #047857;
-$--dino-color-green-800: #065f46;
-$--dino-color-green-900: #064e3b;
+$--dino-color-emeraldGreen-50: #ecfdf5;
+$--dino-color-emeraldGreen-100: #d1fae5;
+$--dino-color-emeraldGreen-200: #a7f3d0;
+$--dino-color-emeraldGreen-300: #6ee7b7;
+$--dino-color-emeraldGreen-400: #34d399;
+$--dino-color-emeraldGreen-500: #10b981;
+$--dino-color-emeraldGreen-600: #059669;
+$--dino-color-emeraldGreen-700: #047857;
+$--dino-color-emeraldGreen-800: #065f46;
+$--dino-color-emeraldGreen-900: #064e3b;
+
+$--dino-color-limeGreen-50: #f7fee7;
+$--dino-color-limeGreen-100: #ecfccb;
+$--dino-color-limeGreen-200: #d9f99d;
+$--dino-color-limeGreen-300: #bef264;
+$--dino-color-limeGreen-400: #a3e635;
+$--dino-color-limeGreen-500: #86a361;
+$--dino-color-limeGreen-600: #65a30d;
+$--dino-color-limeGreen-700: #4d7c0f;
+$--dino-color-limeGreen-800: #3f6212;
+$--dino-color-limeGreen-900: #365314;
+
+$--dino-color-green-50: #f0fdf4;
+$--dino-color-green-100: #dcfce7;
+$--dino-color-green-200: #bbf7d0;
+$--dino-color-green-300: #86efac;
+$--dino-color-green-400: #4ade80;
+$--dino-color-green-500: #22c55e;
+$--dino-color-green-600: #16a34a;
+$--dino-color-green-700: #15803d;
+$--dino-color-green-800: #166534;
+$--dino-color-green-900: #14532d;
 
 $--dino-color-teal-50: #f0fdfa;
 $--dino-color-teal-100: #ccfbf1;
@@ -114,25 +167,24 @@ $--dino-font-weight-normal: 400;
 $--dino-font-weight-medium: 500;
 $--dino-font-weight-bold: 600;
 
-$--dino-font-size-xs: 0.75rem;
-$--dino-font-size-sm: 0.875rem;
-$--dino-font-size-base: 1rem;
-$--dino-font-size-lg: 1.125rem;
-$--dino-font-size-xl: 1.25rem;
-$--dino-font-size-2xl: 1.5rem;
-$--dino-font-size-3xl: 1.875rem;
-$--dino-font-size-4xl: 2rem;
-$--dino-font-size-5xl: 2.5rem;
-$--dino-font-size-6xl: 3rem;
-$--dino-font-size-7xl: 3.75rem;
-$--dino-font-size-8xl: 4.5rem;
-$--dino-font-size-9xl: 6rem;
-$--dino-font-size-10xl: 8rem;
+$--dino-font-size-xs: 0.75rem; // 12px
+$--dino-font-size-sm: 0.875rem; // 14px
+$--dino-font-size-base: 1rem; // 16px
+$--dino-font-size-lg: 1.125rem; // 18px
+$--dino-font-size-xl: 1.25rem; // 20px
+$--dino-font-size-2xl: 1.5rem; // 24px
+$--dino-font-size-3xl: 1.875rem; // 30px
+$--dino-font-size-4xl: 2.25rem; // 36px
+$--dino-font-size-5xl: 3rem; // 48px
+$--dino-font-size-6xl: 3.75rem; // 60px
+$--dino-font-size-7xl: 4.5rem;
+$--dino-font-size-8xl: 6rem;
+$--dino-font-size-9xl: 8rem;
 
 $--dino-font-family-base: 'FZZJ-QNTJW', sans-serif;
 $--dino-font-family-secondary: 'Raleway', 'PingFang SC', 'Microsoft Yahei', sans-serif;
 
-/* Space（以 0.25rem 递增） */
+/* Space - 见局（以 0.25rem 递增） */
 $--dino-space-0: 0;
 $--dino-space-1: 0.25rem;
 $--dino-space-2: 0.5rem;
@@ -157,357 +209,115 @@ $--dino-space-48: 12rem;
 $--dino-space-60: 15rem;
 $--dino-space-80: 20rem;
 
+/* Leading - 行高（以 0.25rem 递增） */
+$--dino-leading-none: 1;
+$--dino-leading-tight: 1.25;
+$--dino-leading-snug: 1.375;
+$--dino-leading-normal: 1.5;
+$--dino-leading-relaxed: 1.625;
+$--dino-leading-loose: 2;
+$--dino-leading-3: 0.75rem;
+$--dino-leading-4: 1rem;
+$--dino-leading-5: 1.25rem;
+$--dino-leading-6: 1.5rem;
+$--dino-leading-7: 1.75rem;
+$--dino-leading-8: 2rem;
+$--dino-leading-9: 2.25rem;
+$--dino-leading-10: 2.5rem;
+
+/* Border - 边框 */
+$--dino-border-width-0: 0;
+$--dino-border-width-1: 1px;
+$--dino-border-width-2: 2px;
+$--dino-border-width-4: 4px;
+$--dino-border-width-8: 8px;
+
+$--dino-border-radius-none: 0;
+$--dino-border-radius-sm: 0.125rem;
+$--dino-border-radius-base: 0.25rem;
+$--dino-border-radius-md: 0.375rem;
+$--dino-border-radius-lg: 0.5rem;
+$--dino-border-radius-xl: 0.75rem;
+$--dino-border-radius-2xl: 1rem;
+$--dino-border-radius-3xl: 1.5rem;
+$--dino-border-radius-full: 9999px;
+
+/* Opacity - 透明度 */
+$--dino-opacity-0: 0;
+$--dino-opacity-5: 0.05;
+$--dino-opacity-10: 0.1;
+$--dino-opacity-15: 0.15;
+$--dino-opacity-20: 0.2;
+$--dino-opacity-25: 0.25;
+$--dino-opacity-30: 0.3;
+$--dino-opacity-35: 0.35;
+$--dino-opacity-40: 0.4;
+$--dino-opacity-45: 0.45;
+$--dino-opacity-50: 0.5;
+$--dino-opacity-55: 0.55;
+$--dino-opacity-60: 0.6;
+$--dino-opacity-65: 0.65;
+$--dino-opacity-70: 0.7;
+$--dino-opacity-75: 0.75;
+$--dino-opacity-80: 0.8;
+$--dino-opacity-85: 0.85;
+$--dino-opacity-90: 0.9;
+$--dino-opacity-95: 0.95;
+$--dino-opacity-100: 1;
+
+/* Box-Shadow - 盒阴影 */
+$--dino-box-shadow-xs: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+$--dino-box-shadow-sm: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+  rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+$--dino-box-shadow-md: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+  rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+$--dino-box-shadow-lg: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+  rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+$--dino-box-shadow-xl: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+$--dino-box-shadow-2xl: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+$--dino-box-shadow-3xl: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+  rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+$--dino-box-shadow-4xl: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+$--dino-box-shadow-inner: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+  rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset; // 内阴影
+$--dino-box-shadow-3d: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; // 立体感
+
+$--dino-box-shadow-light-sm: rgba(136, 165, 191, 0.48) 0px 13px 27px -5px,
+  rgba(255, 255, 255, 0.8) 0px 8px 16px -8px;
+
+/* Transition - 过渡 */
+$--dino-duration-75: 75ms;
+$--dino-duration-150: 150ms;
+$--dino-duration-200: 200ms;
+$--dino-duration-300: 300ms;
+$--dino-duration-400: 400ms;
+$--dino-duration-500: 500ms;
+$--dino-duration-700: 700ms;
+$--dino-duration-1000: 1000ms;
+
+$--dino-timing-function-ease-linear: linear;
+$--dino-timing-function-ease-in: cubic-bezier(0.4, 0, 1, 1);
+$--dino-timing-function-ease-out: cubic-bezier(0, 0, 0.2, 1);
+$--dino-timing-function-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+/* 🍋 样式变量 🍋 */
+/* Body */
+$--dino-body-font-family: $--dino-font-family-secondary;
+
 /* Heading */
-$--dino-h1-font-size: $--dino-font-size-5xl;
-$--dino-h2-font-size: $--dino-font-size-4xl;
-$--dino-h3-font-size: $--dino-font-size-3xl;
-$--dino-h4-font-size: $--dino-font-size-2xl;
-$--dino-h5-font-size: $--dino-font-size-xl;
-$--dino-h6-font-size: $--dino-font-size-lg;
+$--dino-h1-font-size: $--dino-font-size-4xl;
+$--dino-h2-font-size: $--dino-font-size-3xl;
+$--dino-h3-font-size: $--dino-font-size-2xl;
+$--dino-h4-font-size: $--dino-font-size-xl;
+$--dino-h5-font-size: $--dino-font-size-lg;
+$--dino-h6-font-size: $--dino-font-size-base;
 
 $--dino-heading-font-family: $--dino-font-family-secondary;
 
-/* 🔥 主题函数 🔥 */
-$theme-map: null; // 声明该变量才可使用 !global
-$themes: (
-  light: (
-    dino-bg-color: $--dino-color-gray-50,
-    dino-font-color: $--dino-color-gray-800,
-    dino-heading-color: $--dino-color-gray-900,
-  ),
-  dark: (
-    dino-bg-color: $--dino-color-gray-900,
-    dino-font-color: $--dino-color-gray-300,
-    dino-heading-color: $--dino-color-gray-200,
-  ),
-);
+/* Theme */
+$--dino-color-primary: $--dino-color-teal-500;
 
-@mixin themeify {
-  @each $name, $map in $themes {
-    // !global 把局部变量强升为全局变量
-    $theme-map: $map !global;
-    // & 父容器标识
-    // @content 是混合器插槽，像 vue 的 slot
-    html[data-theme='#{$name}'] & {
-      @content;
-    }
-  }
-}
-// map-get 函数，从 map 对象中根据 key 获取对应的 value
-@function themed($key) {
-  @return map-get($theme-map, $key);
-}
-
-// 获取背景颜色
-@mixin theme_bg_color($key) {
-  @include themeify {
-    background-color: themed($key);
-  }
-}
-// 获取字体颜色
-@mixin theme_font_color($key) {
-  @include themeify {
-    color: themed($key);
-  }
-}
-
-/* 🍉 Base Styles: 基础样式 🍉 */
-body {
-  font-family: $--dino-font-family-secondary;
-  font-size: 16px;
-  @include theme_bg_color('dino-bg-color');
-  @include theme_font_color('dino-font-color');
-  line-height: initial;
-  box-sizing: border-box;
-  height: auto !important;
-}
-
-$heading-list: (
-  (1, $--dino-h1-font-size),
-  (2, $--dino-h2-font-size),
-  (3, $--dino-h3-font-size),
-  (4, $--dino-h4-font-size),
-  (5, $--dino-h5-font-size),
-  (6, $--dino-h6-font-size)
-);
-@each $key, $size in $heading-list {
-  h#{$key} {
-    font-size: $size;
-    font-weight: $--dino-font-weight-bold;
-    font-family: $--dino-heading-font-family;
-    @include theme_font_color('dino-heading-color');
-    margin: 0;
-  }
-}
-
-/* Margin / Padding: 外/内边距 */
-$space-list: (
-  auto,
-  (0, $--dino-space-0),
-  (1, $--dino-space-1),
-  (2, $--dino-space-2),
-  (3, $--dino-space-3),
-  (4, $--dino-space-4),
-  (5, $--dino-space-5),
-  (6, $--dino-space-6),
-  (7, $--dino-space-7),
-  (8, $--dino-space-8),
-  (10, $--dino-space-10),
-  (12, $--dino-space-12),
-  (14, $--dino-space-14),
-  (16, $--dino-space-16),
-  (18, $--dino-space-18),
-  (20, $--dino-space-20),
-  (24, $--dino-space-24)
-);
-@each $key, $value in $space-list {
-  .m-#{$key} {
-    margin: $value or $key;
-  }
-  .mb-#{$key} {
-    margin-bottom: $value or $key;
-  }
-  .mt-#{$key} {
-    margin-top: $value or $key;
-  }
-  .ml-#{$key} {
-    margin-left: $value or $key;
-  }
-  .mr-#{$key} {
-    margin-right: $value or $key;
-  }
-  .my-#{$key} {
-    margin-top: $value or $key;
-    margin-bottom: $value or $key;
-  }
-  .mx-#{$key} {
-    margin-left: $value or $key;
-    margin-right: $value or $key;
-  }
-  .p-#{$key} {
-    padding: $value or $key;
-  }
-  .pb-#{$key} {
-    padding-bottom: $value or $key;
-  }
-  .pt-#{$key} {
-    padding-top: $value or $key;
-  }
-  .pl-#{$key} {
-    padding-left: $value or $key;
-  }
-  .pr-#{$key} {
-    padding-right: $value or $key;
-  }
-  .py-#{$key} {
-    padding-top: $value or $key;
-    padding-bottom: $value or $key;
-  }
-  .px-#{$key} {
-    padding-left: $value or $key;
-    padding-right: $value or $key;
-  }
-}
-
-/* Width: 宽度 */
-$width-list: ((full, 100%), auto);
-@each $key, $value in $width-list {
-  .w-#{$key} {
-    width: $value or $key;
-  }
-}
-
-/* Height: 高度 */
-$height-list: ((full, 100%), auto);
-@each $key, $value in $height-list {
-  .h-#{$key} {
-    height: $value or $key;
-  }
-}
-
-/* Text-Align: 文本对齐 */
-$text-align-list: (center, left, right, justify);
-@each $key in $text-align-list {
-  .text-#{$key} {
-    text-align: $key;
-  }
-}
-
-/* Font-Size: 字体大小 */
-$font-size-list: (
-  (xs, $--dino-font-size-xs, 1rem),
-  (sm, $--dino-font-size-sm, 1.25rem),
-  (base, $--dino-font-size-base, 1.5rem),
-  (lg, $--dino-font-size-lg, 1.75rem),
-  (xl, $--dino-font-size-xl, 1.75rem),
-  (2xl, $--dino-font-size-2xl, 2rem),
-  (3xl, $--dino-font-size-3xl, 2.25rem),
-  (4xl, $--dino-font-size-4xl, 2.5rem),
-  (5xl, $--dino-font-size-5xl, 1),
-  (6xl, $--dino-font-size-6xl, 1),
-  (7xl, $--dino-font-size-7xl, 1),
-  (8xl, $--dino-font-size-8xl, 1),
-  (9xl, $--dino-font-size-9xl, 1)
-);
-@each $key, $size, $line in $font-size-list {
-  .text-#{$key} {
-    font-size: $size;
-    line-height: $line;
-  }
-}
-
-/* Font-Weight: 字体粗细 */
-$font-weight-list: (
-  (thin, $--dino-font-weight-thin),
-  (light, $--dino-font-weight-light),
-  (normal, $--dino-font-weight-normal),
-  (medium, $--dino-font-weight-medium),
-  (bold, $--dino-font-weight-bold)
-);
-@each $key, $value in $font-weight-list {
-  .font-#{$key} {
-    font-weight: $value;
-  }
-}
-
-/* Color */
-$color-list: (
-  inherit,
-  (white, var(--ifm-color-white)),
-  (black, var(--ifm-color-black)),
-  (primary, var(--ifm-color-primary))
-);
-@each $key, $value in $color-list {
-  .color-#{'' + $key} {
-    color: $value or $key;
-  }
-}
-
-/* Hover-Color */
-$hover-color-list: (inherit, (white, var(--ifm-color-white)), (primary, var(--ifm-color-primary)));
-@each $key, $value in $hover-color-list {
-  .hover-color-#{'' + $key} {
-    &:hover {
-      color: $value or $key;
-    }
-  }
-}
-
-/* Text-Decoration */
-$text-decoration-list: (underline, line-through, (no-underline, none));
-@each $key, $value in $text-decoration-list {
-  .#{$key} {
-    text-decoration: $value or $key;
-  }
-}
-
-/* Display */
-$display-list: (block, inline-block, inline, flex, grid, hidden);
-@each $key in $display-list {
-  .#{$key} {
-    display: $key;
-  }
-}
-
-/* Flex-Direction */
-$flex-direction-list: (row, (col, column), row-reverse, column-reverse);
-@each $key, $value in $flex-direction-list {
-  .flex-#{$key} {
-    flex-direction: $value or $key;
-  }
-}
-
-/* Flex-Wrap */
-$flex-wrap-list: (wrap, wrap-reverse, nowrap);
-@each $key in $flex-wrap-list {
-  .flex-#{$key} {
-    flex-wrap: $key;
-  }
-}
-
-/* Justify-Content */
-$justify-content-list: (
-  center,
-  (between, space-between),
-  (around, space-around),
-  (evenly, space-evenly),
-  (start, flex-start),
-  (end, flex-end)
-);
-@each $key, $value in $justify-content-list {
-  .justify-#{$key} {
-    justify-content: $value or $key;
-  }
-}
-
-/* Align-Items */
-$align-items-list: (center, baseline, stretch, (start, flex-start), (end, flex-end));
-@each $key, $value in $align-items-list {
-  .items-#{$key} {
-    align-items: $value or $key;
-  }
-}
-
-/* Align-Self */
-$align-self-list: (center, auto, stretch, (start, flex-start), (end, flex-end));
-@each $key, $value in $align-self-list {
-  .self-#{$key} {
-    align-self: $value or $key;
-  }
-}
-
-/* Position */
-$position-list: (static, fixed, absolute, relative, sticky);
-@each $key in $position-list {
-  .#{$key} {
-    position: $key;
-  }
-}
-
-/* Cursor */
-$cursor-list: (default, auto, pointer, wait, text, move, not-allowed);
-@each $key in $cursor-list {
-  .cursor-#{$key} {
-    cursor: $key;
-  }
-}
-
-/* User-Select */
-$user-select-list: (text, all, auto, none);
-@each $key in $user-select-list {
-  .select-#{$key} {
-    user-select: $key;
-  }
-}
-
-/* Border-Style */
-$border-style-list: (solid, dashed, dotted, double, none);
-@each $key in $border-style-list {
-  .border-#{$key} {
-    border-style: $key;
-  }
-}
-
-/* Border-Width */
-$border-width-list: (0, (1, 1px), (2, 2px));
-@each $key, $value in $border-width-list {
-  .border-#{$key} {
-    border-width: $value or $key;
-  }
-}
-
-/* Border-Color */
-$border-color-list: (transparent);
-@each $key, $value in $border-color-list {
-  .border-#{'' + $key} {
-    border-color: $value or $key !important;
-  }
-}
-
-/* Background-Color */
-$background-color-list: (transparent, (primary, var(--ifm-color-primary)));
-@each $key, $value in $background-color-list {
-  .bg-#{'' + $key} {
-    background-color: $value or $key;
-  }
-}
+/* Link */
+$--dino-link-color: $--dino-color-primary;

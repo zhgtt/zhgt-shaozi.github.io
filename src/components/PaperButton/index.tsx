@@ -8,19 +8,10 @@ import type { LinkProps } from '@docusaurus/Link';
 import Link from '@docusaurus/Link';
 
 import { tuple } from '@site/src/utils/type';
-import './styles.scss';
 
-const ButtonTypes = tuple(
-  'default',
-  'primary',
-  'secondary',
-  'success',
-  'warning',
-  'danger',
-  'muted'
-);
+const ButtonTypes = tuple('primary', 'secondary', 'success', 'warning', 'danger', 'muted');
 type ButtonType = typeof ButtonTypes[number];
-const ButtonSizeTypes = tuple('default', 'small', 'large');
+const ButtonSizeTypes = tuple('small', 'large');
 type ButtonSizeType = typeof ButtonSizeTypes[number];
 // const ButtonShapes = tuple('circle', 'round');
 // type ButtonShape = typeof ButtonShapes[number];
@@ -83,14 +74,15 @@ const PaperButton: React.FC<ButtonProps> = (props) => {
   };
 
   const classes = clsx(
-    className,
-    'border-2 border-solid paper-border paper-btn',
+    'border-2 border-solid paper-btn cursor-pointer text-center inline-block transition-all',
+    'paper-border',
     {
-      [`paper-btn-${size}`]: size && size !== 'default',
-      [`paper-btn-${type}`]: type && type !== 'default',
+      [`paper-btn-${size}`]: size,
+      [`paper-btn-${type}`]: type,
       'paper-btn-block': block,
-      [`paper-btn-${type}-outline`]: outline && type && type !== 'default',
-    }
+      [`paper-btn-${type}-outline`]: outline && type,
+    },
+    className
   );
 
   if (isLink && (to || href)) {

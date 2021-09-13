@@ -60,7 +60,7 @@ const BlogListPage = (props: Props): JSX.Element => {
       searchMetadatas={{ tag: 'blog_posts_list' }}
     >
       <main className='container text-center'>
-        <h1 className='mt-8'>全部文章 😑</h1>
+        <h1 className='mt-8'>全部文章</h1>
         <div className={clsx('my-6', styles.switchBlogView)}>切换视图（TODO）</div>
 
         <div className='text-left'>

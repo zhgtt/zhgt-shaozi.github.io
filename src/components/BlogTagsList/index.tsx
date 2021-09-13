@@ -25,7 +25,10 @@ const BlogTagsList: React.FC<BlogTagsListProps> = (props) => {
     <div className='flex items-center my-6'>
       <TagsTwoTone className='mr-2' twoToneColor='#8d949e' />
       {tags.map(({ label, permalink: tagPermalink }) => (
-        <Tag key={tagPermalink} className='border-transparent paper-border-5 bg-primary'>
+        <Tag
+          key={tagPermalink}
+          className={clsx('border-transparent paper-border-5', styles.antdTag)}
+        >
           <Link to={tagPermalink}>{label}</Link>
         </Tag>
       ))}
