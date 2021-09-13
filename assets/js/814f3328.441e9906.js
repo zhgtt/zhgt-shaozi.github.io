@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[535],{5641:function(e){e.exports=JSON.parse('{"title":"\u968f\u7b14 \ud83c\udfaf","items":[{"title":"test","permalink":"/blog/docusaurus2-test"},{"title":"\u4f7f\u7528 Docusaurus2 \u5199\u535a\u5ba2","permalink":"/blog/docusaurus2-blog"}]}')}}]);

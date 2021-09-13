@@ -4,22 +4,27 @@
         <title>勺子 Blog</title>
         <link>https://shaozi.vercel.app/blog</link>
         <description>勺子 Blog</description>
-        <lastBuildDate>Tue, 24 Aug 2021 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 01 Oct 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
-            <title><![CDATA[test]]></title>
-            <link>https://shaozi.vercel.app/blog/docusaurus2-test</link>
-            <guid>docusaurus2-test</guid>
-            <pubDate>Tue, 24 Aug 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[哈哈哈]]></description>
+            <link>https://shaozi.vercel.app/blog/2021/09/31/</link>
+            <guid>https://shaozi.vercel.app/blog/2021/09/31/</guid>
+            <pubDate>Fri, 01 Oct 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[VS Code 个人常用拓展插件]]></title>
+            <link>https://shaozi.vercel.app/blog/docusaurus2-vscode</link>
+            <guid>docusaurus2-vscode</guid>
+            <pubDate>Mon, 13 Sep 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[---]]></description>
         </item>
         <item>
             <title><![CDATA[使用 Docusaurus2 写博客]]></title>
             <link>https://shaozi.vercel.app/blog/docusaurus2-blog</link>
             <guid>docusaurus2-blog</guid>
             <pubDate>Mon, 23 Aug 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[摘要内容]]></description>
+            <description><![CDATA[---]]></description>
         </item>
     </channel>
 </rss>
