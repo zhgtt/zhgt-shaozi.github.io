@@ -1,0 +1,78 @@
+/* TODO 全局主题变量 */
+:root {
+  --dino-body-color: #{$--dino-color-gray-800};
+  --dino-body-bg-color: #{$--dino-color-white};
+  --dino-heading-color: #{$--dino-color-gray-900};
+  --dino-navbar-bg-color: #{$--dino-color-white};
+
+  --dino-paper-card-shadow-color: #{$--dino-box-shadow-md};
+
+  --ifm-color-primary: #{$--dino-color-primary};
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #46cbae;
+  --ifm-color-primary-lighter: #66d4bd;
+  --ifm-color-primary-lightest: #92e0d0;
+}
+
+html[data-theme='dark'] {
+  --dino-body-color: #{$--dino-color-gray-300};
+  --dino-body-bg-color: #{$--dino-color-gray-900};
+  --dino-heading-color: #{$--dino-color-gray-200};
+  --dino-navbar-bg-color: #{$--dino-color-gray-800};
+
+  --dino-paper-card-shadow-color: #{$--dino-box-shadow-inner};
+}
+
+/* [x] 主题函数（废弃，统一通过 CSS 全局变量控制） */
+$theme-map: null; // 声明该变量才可使用 !global
+$themes: (
+  light: (
+    #{'key'}: #{'value'},
+  ),
+  dark: (
+    #{'key'}: #{'value'},
+  ),
+);
+
+@mixin themeify {
+  @each $name, $map in $themes {
+    // !global 把局部变量强升为全局变量
+    $theme-map: $map !global;
+    // & 父容器标识
+    // @content 是混合器插槽，像 vue 的 slot
+    [data-theme='#{$name}'] & {
+      @content;
+    }
+  }
+}
+// map-get 函数，从 map 对象中根据 key 获取对应的 value
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+// 背景颜色
+@mixin theme_bg_color($key) {
+  @include themeify {
+    background-color: themed($key);
+  }
+}
+// 字体颜色
+@mixin theme_font_color($key) {
+  @include themeify {
+    color: themed($key);
+  }
+}
+// 边框颜色
+@mixin theme_border_color($key) {
+  @include themeify {
+    border-color: themed($key);
+  }
+}
+// 盒阴影
+@mixin theme_shadow_color($key) {
+  @include themeify {
+    box-shadow: themed($key);
+  }
+}

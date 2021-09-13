@@ -60,7 +60,7 @@ import { MDXProvider } from '@mdx-js/react'; // markdown 组件
 
 import clsx from 'clsx';
 import Lottie from 'react-lottie'; // react 版 lottie - 加载 json 格式的动画
-import { Row, Col, Divider } from 'antd';
+import { Row, Col, Divider, Button } from 'antd';
 
 import { randomLottieFun } from '@site/src/utils/lotties';
 import PaperCard from '@site/src/components/PaperCard';
@@ -81,7 +81,7 @@ const RightLayout = { xxl: 16, xl: 17, lg: 18, md: 24, xs: 24 };
 const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
   console.log('BlogPostItem -- Props: ', props);
 
-  const { children, metadata, lottieDirection } = props;
+  const { children, metadata, truncated, lottieDirection } = props;
 
   const { date, permalink, tags, title } = metadata;
 
@@ -114,15 +114,17 @@ const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
           >
             <main>
               <h2 itemProp='headline（大字标题）'>
-                <Link to={permalink} className='color-inherit hover-color-inherit'>
+                <Link to={permalink} className='color-inherit'>
                   {title}
                 </Link>
               </h2>
               <BlogTagsList tags={tags} />
               {/* markdown 摘要/部分内容 */}
-              <div className='markdown mt-6' itemProp='articleBody（文章内容）'>
-                <MDXProvider components={MDXComponents}>{children}</MDXProvider>
-              </div>
+              {truncated && (
+                <div className='markdown mt-6' itemProp='articleBody（文章内容）'>
+                  <MDXProvider components={MDXComponents}>{children}</MDXProvider>
+                </div>
+              )}
             </main>
 
             <footer className='mt-16'>
@@ -130,8 +132,7 @@ const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
                 <PaperButton
                   isLink
                   to={permalink}
-                  type='primary'
-                  outline
+                  type='muted'
                   aria-label={`继续阅读更多 ${title} 的内容`}
                 >
                   <Translate description='read more'>继续阅读</Translate>

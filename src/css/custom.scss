@@ -5,170 +5,85 @@
  */
 @import '~antd/dist/antd.css';
 @import './dino.scss';
+@import './dino-styles.scss';
 @import './paper.scss';
-
-/* 方正莎儿硬笔简体 */
-@font-face {
-  font: {
-    family: 'FZSEYBJW';
-    weight: normal;
-    style: normal;
-  }
-  src: url(../../static/fonts/FZSEYBJW.ttf);
-}
-
-/* 方正字迹-青柠体 简 */
-@font-face {
-  font: {
-    family: 'FZZJ-QNTJW';
-    weight: normal;
-    style: normal;
-  }
-  src: url(../../static/fonts/FZZJ-QNTJW.ttf);
-}
+@import './theme.scss';
 
 :root {
-  /* Theme - 主题 */
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #46cbae;
-  --ifm-color-primary-lighter: #66d4bd;
-  --ifm-color-primary-lightest: #92e0d0;
-
-  /* Container */
-  --ifm-container-width: 1140px;
-  --ifm-container-width-xl: 1320px;
-
-  /* Transitions. */
-  --ifm-transition-fast: 300ms;
-  --ifm-transition-slow: 500ms;
-  --ifm-transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1); // 贝塞尔曲线
-
-  --ifm-leading-desktop: 1.25;
-  --ifm-leading: calc(var(--ifm-leading-desktop) * 1rem);
-  --ifm-list-paragraph-margin: 1rem;
-  --ifm-list-item-margin: 0.35rem;
-
-  /* Background */
-  --ifm-background-color: var(--ifm-color-white); // 全局背景
-  --ifm-navbar-background-color: var(--ifm-background-color); // 导航栏背景
-
-  /* Link */
-  --ifm-link-color: var(--ifm-color-primary);
-  --ifm-link-hover-color: var(--ifm-link-color);
-
-  /* Code */
-  --ifm-code-font-size: 95%;
-
-  /* PaperCss 风格 */
-  --paper-white-dark: rgba(0, 0, 0, 0.03);
-  --paper-primary: #41403e;
-  --paper-primary-text: #272625;
-  --paper-primary-light: #c1c0bd;
-  --paper-secondary: #0071de;
-  --paper-secondary-text: #0057ab;
-  --paper-secondary-light: #deefff;
-  --paper-success: #86a361;
-  --paper-success-text: #6c844d;
-  --paper-success-light: #d0dbc2;
-  --paper-warning: #ddcd45;
-  --paper-warning-text: #cab925;
-  --paper-warning-light: #f5f0c6;
-  --paper-danger: #a7342d;
-  --paper-danger-text: #7f2722;
-  --paper-danger-light: #f0cbc9;
-  --paper-muted: #868e96;
-  --paper-muted-text: #6c757d;
-  --paper-muted-light: #e6e7e9;
-  --paper-main-background: var(--ifm-color-white);
 }
 
-a {
-  color: var(--ifm-link-color);
-  transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--ifm-link-hover-color);
-    opacity: 0.8;
-    text-decoration: none;
-  }
-
-  // 没有 href 属性的 a 标签
-  :not([href]) {
-    text-decoration: none;
-  }
-}
-
-code {
-}
-
-/* Container */
+/* Container - 容器 */
 .container {
-  margin: 0 auto;
-  max-width: var(--ifm-container-width);
-  padding: 0 1rem;
-  width: 100%;
-
-  @media (min-width: 1440px) {
-    max-width: var(--ifm-container-width-xl);
-  }
+  padding: 0 $--dino-space-4;
 }
 
-/* Footer */
-.footer--dark {
-  // --ifm-footer-background-color: var(--user-color-black-200);
+/* TODO NavBar - 顶部导航栏 */
+.navbar {
+  background-color: var(--dino-navbar-bg-color);
 }
 
 /* Markdown */
 .markdown {
-  --ifm-h1-vertical-rhythm-top: 3;
-  --ifm-h1-vertical-rhythm-bottom: 1.25;
-  --ifm-h2-vertical-rhythm-top: 2;
-  --ifm-h3-vertical-rhythm-top: 1.5;
-  --ifm-heading-vertical-rhythm-top: 1.25;
-  --ifm-heading-vertical-rhythm-bottom: 1;
+  @mixin heading-styles {
+    margin-top: $--dino-space-8;
+    margin-bottom: $--dino-space-5;
+  }
+  @mixin heading-styles-small {
+    margin-top: $--dino-space-6;
+    margin-bottom: $--dino-space-3;
+  }
+  > h1 {
+    @include heading-styles;
+    font-size: $--dino-h1-font-size;
+  }
+  > h2 {
+    @include heading-styles;
+    font-size: $--dino-h2-font-size;
 
-  @mixin heading-styles($heading) {
-    margin-bottom: calc(var(--ifm-heading-vertical-rhythm-bottom) * var(--ifm-leading));
-
-    @if $heading == 1 {
-      font-size: 3rem;
-      margin-bottom: calc(var(--ifm-h1-vertical-rhythm-bottom) * var(--ifm-leading));
-    } @else if $heading == 2 {
-      font-size: 2rem;
-      margin-top: calc(var(--ifm-h2-vertical-rhythm-top) * var(--ifm-leading));
-    } @else if $heading == 3 {
-      font-size: 1.5rem;
-      margin-top: calc(var(--ifm-h3-vertical-rhythm-top) * var(--ifm-leading));
-    } @else {
-      margin-top: calc(var(--ifm-heading-vertical-rhythm-top) * var(--ifm-leading));
+    &:nth-of-type(n + 2) {
+      margin-top: $--dino-space-16;
     }
   }
-
-  @for $i from 1 to 7 {
-    h#{$i} {
-      @include heading-styles($i);
+  > h3 {
+    @include heading-styles;
+    font-size: $--dino-h3-font-size;
+  }
+  > h4 {
+    @include heading-styles-small;
+    font-size: $--dino-h4-font-size;
+  }
+  > h5 {
+    @include heading-styles-small;
+    font-size: $--dino-h5-font-size;
+  }
+  > h6 {
+    @include heading-styles-small;
+    font-size: $--dino-h6-font-size;
+  }
+  li {
+    line-height: $--dino-leading-7;
+    + li {
+      margin-top: $--dino-space-1;
     }
   }
-
-  > pre,
   > ul,
   > p {
-    margin-bottom: var(--ifm-leading);
+    margin-bottom: $--dino-space-5;
   }
+  pre > code {
+    font-size: $--dino-font-size-sm !important;
+  }
+  .codeBlockTitle_node_modules-\@docusaurus-theme-classic-lib-next-theme-CodeBlock-styles-module {
+    font-size: $--dino-font-size-base !important;
+  }
+}
 
-  li {
-    word-wrap: break-word;
-
-    > p {
-      margin-top: var(--ifm-list-paragraph-margin);
-    }
-
-    + li {
-      margin-top: var(--ifm-list-item-margin);
+/* 右侧目录 */
+.table-of-contents,
+.table-of-contents ul {
+  .table-of-contents__link {
+    > code {
+      font-size: $--dino-font-size-xs;
     }
   }
 }
@@ -194,31 +109,8 @@ code {
 //   /* background: url("./../../static/img/github.svg") no-repeat; */
 // }
 
-/* Dark Theme */
+/* TODO Dark Theme */
 html[data-theme='dark'] {
-  // --ifm-navbar-background-color: var(--dino-color-purple-100);
-
-  --paper-white-dark: rgba(255, 255, 255, 0.03);
-  --paper-primary: var(--ifm-color-white);
-  --paper-primary-text: #41403e;
-  --paper-primary-light: var(--ifm-color-white);
-  --paper-secondary: #0071de;
-  --paper-secondary-text: #0057ab;
-  --paper-secondary-light: #007ef8;
-  --paper-success: #189418;
-  --paper-success-text: #116811;
-  --paper-success-light: #1caa1c;
-  --paper-warning: #ddcd45;
-  --paper-warning-text: #cab925;
-  --paper-warning-light: #e1d35b;
-  --paper-danger: #ff8c86;
-  --paper-danger-text: #ff5c53;
-  --paper-danger-light: #ffa4a0;
-  --paper-muted: #868e96;
-  --paper-muted-text: #6c757d;
-  --paper-muted-light: #949ba2;
-  --paper-main-background: #41403e;
-
   .docusaurus-highlight-code-line {
     background-color: rgba(0, 0, 0, 0.3);
   }
@@ -232,7 +124,7 @@ html[data-theme='dark'] {
   border-color: $--dino-color-blueGray-400;
 }
 .ant-divider-horizontal.ant-divider-with-text .ant-divider-inner-text {
-  @include theme_font_color('dino-font-color');
+  color: var(--dino-body-color);
 }
 
 .ant-tag {

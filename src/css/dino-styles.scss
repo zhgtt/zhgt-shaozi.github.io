@@ -1,0 +1,536 @@
+// @import './dino.scss';
+
+/* TODO
+ * .w-{} - 宽度
+ * .h-{} - 高度
+ * .m-{} - 外边距
+ * .p-{} - 内边距
+ * .text-{} - 方向 / 粗细 / 大小 / 下划线
+ * .flex-{} - flex 方向 / 换行
+ * .justify-{} - flex 对齐方式
+ * .items-{} - flex 对齐方式
+ * .self-{} - flex 子元素对齐方式
+ * .{} - display 类型 / position 类型
+ * .color-{} - 文字颜色
+ * .bg-{} - 背景颜色
+ * .border-{} - 边框类型 / 宽度 / 颜色
+ * .transition-{} - 过渡类型
+ * .duration-{} - 过渡时间
+ * .opacity-{} - 透明度
+ * .bg-opacity-{} - 背景透明度
+ * .border-opacity-{} - 背景透明度
+ * .rounded-{} - 边框圆角
+ * .shadow-{} - 盒阴影
+ * .cursor-{} - 用户手势
+ * .select-{} - 用户文本选择行为
+ */
+
+/* 方正莎儿硬笔简体 */
+@font-face {
+  font: {
+    family: 'FZSEYBJW';
+    weight: normal;
+    style: normal;
+  }
+  src: url(../../static/fonts/FZSEYBJW.ttf);
+}
+
+/* 方正字迹-青柠体 简 */
+@font-face {
+  font: {
+    family: 'FZZJ-QNTJW';
+    weight: normal;
+    style: normal;
+  }
+  src: url(../../static/fonts/FZZJ-QNTJW.ttf);
+}
+
+/* 用于改变的变量 */
+:root {
+  --dino-bg-opacity: 1;
+  --dino-border-opacity: 1;
+}
+
+/* Base Styles - 基础样式 */
+/* html 和 body 如果都设置背景色，则 body 之外的背景色依然是 html 的背景色，不会撑满整个网页，所以二者只能选一个设置背景色 */
+html {
+  background-color: initial;
+  color: initial;
+  line-height: initial;
+  -webkit-font-smoothing: antialiased; // 抗锯齿，使字体看起来更清晰
+  text-rendering: optimizelegibility; // 文本渲染方式
+}
+
+body {
+  color: var(--dino-body-color);
+  background-color: var(--dino-body-bg-color);
+  font-size: 16px;
+  font-family: $--dino-body-font-family;
+  margin: 0;
+  line-height: initial;
+  box-sizing: border-box;
+  word-wrap: break-word; // 允许长单词换行
+}
+
+$heading-list: (
+  (1, $--dino-h1-font-size),
+  (2, $--dino-h2-font-size),
+  (3, $--dino-h3-font-size),
+  (4, $--dino-h4-font-size),
+  (5, $--dino-h5-font-size),
+  (6, $--dino-h6-font-size)
+);
+@each $key, $size in $heading-list {
+  h#{$key} {
+    font-size: $size;
+    font-weight: $--dino-font-weight-bold;
+    font-family: $--dino-heading-font-family;
+    color: var(--dino-heading-color);
+    margin: 0;
+  }
+}
+
+a {
+  color: $--dino-link-color;
+  @extend .transition-all;
+  text-decoration: none;
+
+  &:hover {
+    color: $--dino-link-color;
+    opacity: $--dino-opacity-80;
+    text-decoration: none;
+  }
+  // 没有 href 属性的 a 标签
+  :not([href]) {
+    text-decoration: none;
+  }
+}
+
+/* 🍋 原子化样式 🍋 */
+/* TODO Width - 宽度 */
+$width-list: ((full, 100%), auto);
+@each $key, $value in $width-list {
+  .w-#{$key} {
+    width: $value or $key;
+  }
+}
+
+/* TODO Height - 高度 */
+$height-list: ((full, 100%), auto);
+@each $key, $value in $height-list {
+  .h-#{$key} {
+    height: $value or $key;
+  }
+}
+
+/* Margin / Padding - 外/内边距 */
+$space-list: (
+  (0, $--dino-space-0),
+  (1, $--dino-space-1),
+  (2, $--dino-space-2),
+  (3, $--dino-space-3),
+  (4, $--dino-space-4),
+  (5, $--dino-space-5),
+  (6, $--dino-space-6),
+  (7, $--dino-space-7),
+  (8, $--dino-space-8),
+  (10, $--dino-space-10),
+  (12, $--dino-space-12),
+  (14, $--dino-space-14),
+  (16, $--dino-space-16),
+  (18, $--dino-space-18),
+  (20, $--dino-space-20),
+  (24, $--dino-space-24)
+);
+@each $key, $value in $space-list {
+  .m-#{$key} {
+    margin: $value;
+  }
+  .mb-#{$key} {
+    margin-bottom: $value;
+  }
+  .mt-#{$key} {
+    margin-top: $value;
+  }
+  .ml-#{$key} {
+    margin-left: $value;
+  }
+  .mr-#{$key} {
+    margin-right: $value;
+  }
+  .my-#{$key} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+  .mx-#{$key} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+  .p-#{$key} {
+    padding: $value;
+  }
+  .pb-#{$key} {
+    padding-bottom: $value;
+  }
+  .pt-#{$key} {
+    padding-top: $value;
+  }
+  .pl-#{$key} {
+    padding-left: $value;
+  }
+  .pr-#{$key} {
+    padding-right: $value;
+  }
+  .py-#{$key} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+}
+.mx-auto {
+  margin: 0 auto;
+}
+
+/* TODO Color - 颜色 */
+.color-inherit {
+  color: inherit !important;
+}
+.border-transparent {
+  border-color: transparent !important;
+}
+
+/* Text-Align - 文本对齐 */
+$text-align-list: (center, left, right, justify);
+@each $key in $text-align-list {
+  .text-#{$key} {
+    text-align: $key;
+  }
+}
+
+/* Font-Size - 字体大小 */
+$font-size-list: (
+  (xs, $--dino-font-size-xs, $--dino-leading-4),
+  (sm, $--dino-font-size-sm, $--dino-leading-5),
+  (base, $--dino-font-size-base, $--dino-leading-6),
+  (lg, $--dino-font-size-lg, $--dino-leading-7),
+  (xl, $--dino-font-size-xl, $--dino-leading-7),
+  (2xl, $--dino-font-size-2xl, $--dino-leading-8),
+  (3xl, $--dino-font-size-3xl, $--dino-leading-9),
+  (4xl, $--dino-font-size-4xl, $--dino-leading-10),
+  (5xl, $--dino-font-size-5xl, $--dino-leading-none),
+  (6xl, $--dino-font-size-6xl, $--dino-leading-none),
+  (7xl, $--dino-font-size-7xl, $--dino-leading-none),
+  (8xl, $--dino-font-size-8xl, $--dino-leading-none),
+  (9xl, $--dino-font-size-9xl, $--dino-leading-none)
+);
+@each $key, $size, $line in $font-size-list {
+  .text-#{$key} {
+    font-size: $size;
+    line-height: $line;
+  }
+}
+
+/* Font-Weight - 字体粗细 */
+$font-weight-list: (
+  (thin, $--dino-font-weight-thin),
+  (light, $--dino-font-weight-light),
+  (normal, $--dino-font-weight-normal),
+  (medium, $--dino-font-weight-medium),
+  (bold, $--dino-font-weight-bold)
+);
+@each $key, $value in $font-weight-list {
+  .text-#{$key} {
+    font-weight: $value;
+  }
+}
+
+/* Text-Decoration - 文字下划线 */
+$text-decoration-list: (underline, line-through, (no-underline, none));
+@each $key, $value in $text-decoration-list {
+  .text-#{$key} {
+    text-decoration: $value or $key;
+  }
+}
+
+/* Line-Height - 行高 */
+$line-height-list: (
+  (3, $--dino-leading-3),
+  (4, $--dino-leading-4),
+  (5, $--dino-leading-5),
+  (6, $--dino-leading-6),
+  (7, $--dino-leading-7),
+  (8, $--dino-leading-8),
+  (9, $--dino-leading-9),
+  (10, $--dino-leading-10),
+  (none, $--dino-leading-none),
+  (tight, $--dino-leading-tight),
+  (snug, $--dino-leading-snug),
+  (normal, $--dino-leading-normal),
+  (relaxed, $--dino-leading-relaxed),
+  (loose, $--dino-leading-loose)
+);
+@each $key, $line in $line-height-list {
+  .heading-#{$key} {
+    line-height: $line;
+  }
+}
+
+/* Display - 元素显示类型 */
+$display-list: (block, inline-block, inline, flex, grid, hidden);
+@each $key in $display-list {
+  .#{$key} {
+    display: $key;
+  }
+}
+
+/* Flex-Direction - flex 方向 */
+$flex-direction-list: (row, (col, column), row-reverse, column-reverse);
+@each $key, $value in $flex-direction-list {
+  .flex-#{$key} {
+    flex-direction: $value or $key;
+  }
+}
+
+/* Flex-Wrap - flex 换行 */
+$flex-wrap-list: (wrap, wrap-reverse, nowrap);
+@each $key in $flex-wrap-list {
+  .flex-#{$key} {
+    flex-wrap: $key;
+  }
+}
+
+/* Justify-Content - flex 对齐方式 */
+$justify-content-list: (
+  center,
+  (between, space-between),
+  (around, space-around),
+  (evenly, space-evenly),
+  (start, flex-start),
+  (end, flex-end)
+);
+@each $key, $value in $justify-content-list {
+  .justify-#{$key} {
+    justify-content: $value or $key;
+  }
+}
+
+/* Align-Items - flex 对齐方式 */
+$align-items-list: (center, baseline, stretch, (start, flex-start), (end, flex-end));
+@each $key, $value in $align-items-list {
+  .items-#{$key} {
+    align-items: $value or $key;
+  }
+}
+
+/* Align-Self - flex 子元素对齐方式 */
+$align-self-list: (center, auto, stretch, (start, flex-start), (end, flex-end));
+@each $key, $value in $align-self-list {
+  .self-#{$key} {
+    align-self: $value or $key;
+  }
+}
+
+/* Position - 定位 */
+$position-list: (static, fixed, absolute, relative, sticky);
+@each $key in $position-list {
+  .#{$key} {
+    position: $key;
+  }
+}
+
+/* Border-Style - 边框类型 */
+$border-style-list: (solid, dashed, dotted, double, none);
+@each $key in $border-style-list {
+  .border-#{$key} {
+    border-style: $key;
+  }
+  .border-t-#{$key} {
+    border-top-style: $key;
+  }
+  .border-r-#{$key} {
+    border-right-style: $key;
+  }
+  .border-b-#{$key} {
+    border-bottom-style: $key;
+  }
+  .border-l-#{$key} {
+    border-left-style: $key;
+  }
+}
+
+/* Border-Width - 边框宽度 */
+$border-width-list: (
+  (0, $--dino-border-width-0),
+  (1, $--dino-border-width-1),
+  (2, $--dino-border-width-2),
+  (4, $--dino-border-width-4),
+  (8, $--dino-border-width-8)
+);
+@each $key, $value in $border-width-list {
+  .border-#{$key} {
+    border-width: $value;
+  }
+  .border-t-#{$key} {
+    border-top-width: $value;
+  }
+  .border-r-#{$key} {
+    border-right-width: $value;
+  }
+  .border-b-#{$key} {
+    border-bottom-width: $value;
+  }
+  .border-l-#{$key} {
+    border-left-width: $value;
+  }
+}
+
+/* Border-Radius - 边框圆角 */
+$border-radius-list: (
+  (none, $--dino-border-radius-none),
+  (sm, $--dino-border-radius-sm),
+  (base, $--dino-border-radius-base),
+  (md, $--dino-border-radius-md),
+  (lg, $--dino-border-radius-lg),
+  (xl, $--dino-border-radius-xl),
+  (2xl, $--dino-border-radius-2xl),
+  (3xl, $--dino-border-radius-3xl),
+  (full, $--dino-border-radius-full)
+);
+@each $key, $value in $border-radius-list {
+  .rounded-#{$key} {
+    border-radius: $value;
+  }
+  .rounded-t-#{$key} {
+    border-top-left-radius: $value;
+    border-top-right-radius: $value;
+  }
+  .rounded-r-#{$key} {
+    border-top-right-radius: $value;
+    border-bottom-right-radius: $value;
+  }
+  .rounded-b-#{$key} {
+    border-bottom-left-radius: $value;
+    border-bottom-right-radius: $value;
+  }
+  .rounded-l-#{$key} {
+    border-top-left-radius: $value;
+    border-bottom-left-radius: $value;
+  }
+  .rounded-tl-#{$key} {
+    border-top-left-radius: $value;
+  }
+  .rounded-tr-#{$key} {
+    border-top-right-radius: $value;
+  }
+  .rounded-bl-#{$key} {
+    border-bottom-left-radius: $value;
+  }
+  .rounded-br-#{$key} {
+    border-bottom-right-radius: $value;
+  }
+}
+
+/* Transition - 过渡 */
+$transition-list: (
+  none,
+  (all, $--dino-duration-300),
+  (transform, $--dino-duration-400),
+  (opacity, $--dino-duration-300)
+);
+@each $property, $duration in $transition-list {
+  .transition-#{$property} {
+    transition-property: $property;
+    transition-duration: $duration;
+    transition-timing-function: $--dino-timing-function-ease-in-out;
+  }
+}
+
+/* Transition-Duration - 过渡时间 */
+$duration-list: (
+  (150, $--dino-duration-150),
+  (200, $--dino-duration-200),
+  (300, $--dino-duration-300),
+  (400, $--dino-duration-400),
+  (500, $--dino-duration-500),
+  (700, $--dino-duration-700),
+  (1000, $--dino-duration-1000)
+);
+@each $time, $duration in $duration-list {
+  .duration-#{$time} {
+    transition-duration: $duration;
+  }
+}
+
+/* Opacity - 透明度 */
+$opacity-list: (
+  (0, $--dino-opacity-0),
+  (5, $--dino-opacity-5),
+  (10, $--dino-opacity-10),
+  (15, $--dino-opacity-15),
+  (20, $--dino-opacity-20),
+  (25, $--dino-opacity-25),
+  (30, $--dino-opacity-30),
+  (35, $--dino-opacity-35),
+  (40, $--dino-opacity-40),
+  (45, $--dino-opacity-45),
+  (50, $--dino-opacity-50),
+  (55, $--dino-opacity-55),
+  (60, $--dino-opacity-60),
+  (65, $--dino-opacity-65),
+  (70, $--dino-opacity-70),
+  (75, $--dino-opacity-75),
+  (80, $--dino-opacity-80),
+  (85, $--dino-opacity-85),
+  (90, $--dino-opacity-90),
+  (95, $--dino-opacity-95),
+  (100, $--dino-opacity-100)
+);
+@each $key, $value in $opacity-list {
+  .opacity-#{'' + $key} {
+    opacity: $value;
+  }
+  .bg-opacity-#{'' + $key} {
+    --dino-bg-opacity: #{$value};
+  }
+  .border-opacity-#{'' + $key} {
+    --dino-border-opacity: #{$value};
+  }
+}
+
+/* Box-Shadow - 盒阴影 */
+$shadow-list: (
+  (sm, $--dino-box-shadow-sm),
+  (md, $--dino-box-shadow-md),
+  (lg, $--dino-box-shadow-lg),
+  (xl, $--dino-box-shadow-xl),
+  (2xl, $--dino-box-shadow-2xl),
+  (3xl, $--dino-box-shadow-3xl),
+  (4xl, $--dino-box-shadow-4xl),
+  (inner, $--dino-box-shadow-inner),
+  (3d, $--dino-box-shadow-3d),
+  (none)
+);
+@each $key, $value, $type in $shadow-list {
+  .shadow-#{$key} {
+    box-shadow: $value or $key;
+  }
+}
+
+/* Cursor - 手势 */
+$cursor-list: (default, auto, pointer, wait, text, move, not-allowed);
+@each $key in $cursor-list {
+  .cursor-#{$key} {
+    cursor: $key;
+  }
+}
+
+/* User-Select - 文本选中状态 */
+$user-select-list: (text, all, auto, none);
+@each $key in $user-select-list {
+  .select-#{$key} {
+    user-select: $key;
+  }
+}

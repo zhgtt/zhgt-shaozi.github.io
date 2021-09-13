@@ -16,6 +16,7 @@ import Seo from '@theme/Seo'; // 搜索引擎组件（须放到文章内容中�
 import BlogLayout from '@theme/BlogLayout';
 import BlogPostPaginator from '@theme/BlogPostPaginator'; // 内容分页器
 import BlogPostAuthors from '@theme/BlogPostAuthors'; // 作者信息组件
+import BackToTopButton from '@theme/BackToTopButton'; // 平滑滚动到顶部组件
 import MDXComponents from '@theme/MDXComponents'; // markdown 摘要内容
 import { MDXProvider } from '@mdx-js/react'; // markdown 组件
 import { ThemeClassNames } from '@docusaurus/theme-common';
@@ -66,6 +67,8 @@ const BlogPostPage = (props: Props): JSX.Element => {
         )}
       </Seo>
 
+      <BackToTopButton />
+
       {/* 文章内容 */}
       <article
         className='mb-xl'
@@ -81,7 +84,9 @@ const BlogPostPage = (props: Props): JSX.Element => {
             formattedDate='YYYY-MM-DD'
             readingTime={readingTime}
           />
-          <BlogPostAuthors authors={authors} assets={assets} />
+          <div className='mb-4'>
+            <BlogPostAuthors authors={authors} assets={assets} />
+          </div>
         </header>
 
         {image && <meta itemProp='image' content={withBaseUrl(image, { absolute: true })} />}
@@ -93,10 +98,9 @@ const BlogPostPage = (props: Props): JSX.Element => {
         </div>
 
         <footer className='mt-18'>
-          <Divider dashed />
-          <Divider dashed />
-
           <BlogTagsList tags={tags} />
+          <Divider dashed />
+          <Divider dashed />
         </footer>
       </article>
 
