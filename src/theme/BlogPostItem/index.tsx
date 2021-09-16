@@ -133,6 +133,7 @@ const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
                   isLink
                   to={permalink}
                   type='muted'
+                  outline
                   aria-label={`继续阅读更多 ${title} 的内容`}
                 >
                   <Translate description='read more'>继续阅读</Translate>
