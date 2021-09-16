@@ -4,20 +4,22 @@
         <title>勺子 Blog</title>
         <link>https://shaozi.vercel.app/blog</link>
         <description>勺子 Blog</description>
-        <lastBuildDate>Fri, 01 Oct 2021 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 16 Sep 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
-            <link>https://shaozi.vercel.app/blog/2021/09/31/</link>
-            <guid>https://shaozi.vercel.app/blog/2021/09/31/</guid>
-            <pubDate>Fri, 01 Oct 2021 00:00:00 GMT</pubDate>
+            <title><![CDATA[ahooks 中 useRequest 的使用]]></title>
+            <link>https://shaozi.vercel.app/blog/ahooks-useRequest</link>
+            <guid>ahooks-useRequest</guid>
+            <pubDate>Thu, 16 Sep 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[`jsx]]></description>
         </item>
         <item>
             <title><![CDATA[VS Code 个人常用拓展插件]]></title>
             <link>https://shaozi.vercel.app/blog/docusaurus2-vscode</link>
             <guid>docusaurus2-vscode</guid>
             <pubDate>Mon, 13 Sep 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[---]]></description>
+            <description><![CDATA[🤡 写在前面：VS Code 编辑器的强大之处就在于有很多社区或团队提供的拓展插件，可以帮助个人提高开发效率，节省开发成本，并且也有一些娱乐性的插件，可以在开发的闲暇之余，消遣一番；]]></description>
         </item>
         <item>
             <title><![CDATA[使用 Docusaurus2 写博客]]></title>
