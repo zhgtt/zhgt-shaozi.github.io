@@ -23,6 +23,8 @@
  * .shadow-{} - 盒阴影
  * .cursor-{} - 用户手势
  * .select-{} - 用户文本选择行为
+ * .z-{} - 元素堆栈顺序
+ * .overflow-{} - 控制元素超出容器的行为
  */
 
 /* 方正莎儿硬笔简体 */
@@ -62,7 +64,7 @@ html {
 }
 
 body {
-  color: var(--dino-body-color);
+  color: var(--dino-body-text-color);
   background-color: var(--dino-body-bg-color);
   font-size: 16px;
   font-family: $--dino-body-font-family;
@@ -104,6 +106,13 @@ a {
   :not([href]) {
     text-decoration: none;
   }
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* 🍋 原子化样式 🍋 */
@@ -338,6 +347,28 @@ $position-list: (static, fixed, absolute, relative, sticky);
 @each $key in $position-list {
   .#{$key} {
     position: $key;
+  }
+}
+
+/* Z-Index - 堆栈顺序 */
+$z-index-list: (auto, 0, 50, 100, 200, 500, 999);
+@each $key in $z-index-list {
+  .z-#{$key} {
+    z-index: $key;
+  }
+}
+
+/* Overflow - 控制内容超出容器的行为 */
+$overflow-list: (auto, hidden, visible, scroll);
+@each $key in $z-index-list {
+  .overflow-#{$key} {
+    overflow: $key;
+  }
+  .overflow-x-#{$key} {
+    overflow-x: $key;
+  }
+  .overflow-y-#{$key} {
+    overflow-y: $key;
   }
 }
 

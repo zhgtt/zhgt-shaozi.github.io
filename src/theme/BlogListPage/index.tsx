@@ -15,7 +15,7 @@ import React from 'react';
 
 import type { Props } from '@theme/BlogListPage';
 import Layout from '@theme/Layout';
-import BlogSidebar from '@theme/BlogSidebar'; // blog 侧边栏组件
+// import BlogSidebar from '@theme/BlogSidebar'; // blog 侧边栏组件
 // import BlogPostItem from '@theme/BlogPostItem'; // blog 列表页面中每一项 blog 组件
 import BlogPostItem from '../BlogPostItem';
 import BlogListPaginator from '@theme/BlogListPaginator'; // blog 列表分页器组件
@@ -42,7 +42,7 @@ const randomDirectionFun = (): DirectionType => {
 };
 
 const BlogListPage = (props: Props): JSX.Element => {
-  console.log('BlogListPage -- Props: ', props);
+  // console.log('BlogListPage -- Props: ', props);
 
   const { metadata, items, sidebar } = props;
   const { blogDescription, blogTitle, permalink } = metadata;

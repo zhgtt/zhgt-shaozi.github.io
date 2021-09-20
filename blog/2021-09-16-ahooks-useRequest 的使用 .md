@@ -29,4 +29,10 @@ const {
   onSuccess: (data, params) => {}, // 请求成功回调，参数为 data - 返回值，params - 请求参数
   onError: (error, params) => {}, // 请求失败回调，参数为 error - 返回的错误信息，params - 请求参数
 });
+
+react 同时操作多个数组时，如果其中有一个进行了 setState，则同时会改变其他数组的状态，因为 setState 重新触发了组件渲染，导致其他数组的状态不用通过 setState 就能发生改变。
+
+react table 翻页+多选，对多选数据进行记录？实现
+
+react 列表页 -> 详情页，在详情页中更改状  态后返回列表页，列表中对应数据状态也跟着改变？实现
 ```

@@ -4,17 +4,18 @@
 import React from 'react';
 import clsx from 'clsx';
 
+import { tuple } from '@site/src/utils/type';
+
 import type { LinkProps } from '@docusaurus/Link';
 import Link from '@docusaurus/Link';
-
-import { tuple } from '@site/src/utils/type';
+import './styles.scss';
 
 const ButtonTypes = tuple('primary', 'secondary', 'success', 'warning', 'danger', 'muted');
 type ButtonType = typeof ButtonTypes[number];
 const ButtonSizeTypes = tuple('small', 'large');
 type ButtonSizeType = typeof ButtonSizeTypes[number];
-// const ButtonShapes = tuple('circle', 'round');
-// type ButtonShape = typeof ButtonShapes[number];
+const ButtonShapes = tuple('circle', 'round');
+type ButtonShape = typeof ButtonShapes[number];
 // 约定 button 的 form 类型
 // const ButtonHTMLTypes = tuple('submit', 'button', 'reset');
 // type ButtonHTMLType = typeof ButtonHTMLTypes[number];
@@ -25,7 +26,7 @@ interface BaseButtonProps {
   style?: React.CSSProperties;
   type?: ButtonType; // button type
   size?: ButtonSizeType; // button size
-  // shape?: ButtonShape; // button 形状
+  shape?: ButtonShape; // button 形状
   // loading?: boolean; // 是否为加载按钮
   block?: boolean; // 是否为块状元素
   outline?: boolean; // 是否背景为白色样式
@@ -59,6 +60,7 @@ const PaperButton: React.FC<ButtonProps> = (props) => {
     block = false,
     outline = false,
     isLink = false,
+    shape,
     to,
     href,
     ...restProps
@@ -75,8 +77,9 @@ const PaperButton: React.FC<ButtonProps> = (props) => {
 
   const classes = clsx(
     'border-2 border-solid paper-btn cursor-pointer text-center inline-block transition-all',
-    'paper-border',
     {
+      'paper-border': !shape,
+      [`paper-btn-${shape}`]: shape,
       [`paper-btn-${size}`]: size,
       [`paper-btn-${type}`]: type,
       'paper-btn-block': block,
@@ -94,7 +97,7 @@ const PaperButton: React.FC<ButtonProps> = (props) => {
   }
 
   return (
-    <button {...restProps} className={classes} onClick={handleClick}>
+    <button type='button' {...restProps} className={classes} onClick={handleClick}>
       <span>{children}</span>
     </button>
   );

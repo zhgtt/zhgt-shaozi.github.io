@@ -11,6 +11,8 @@ $--dino-sm: 640px;
 $--dino-md: 768px;
 $--dino-lg: 1140px;
 $--dino-xl: 1320px;
+// $--dino-lg: 1024px;
+// $--dino-xl: 1280px;
 $--dino-2xl: 1536px;
 
 /* Color */
@@ -240,7 +242,7 @@ $--dino-border-radius-lg: 0.5rem;
 $--dino-border-radius-xl: 0.75rem;
 $--dino-border-radius-2xl: 1rem;
 $--dino-border-radius-3xl: 1.5rem;
-$--dino-border-radius-full: 9999px;
+$--dino-border-radius-full: 100%;
 
 /* Opacity - 透明度 */
 $--dino-opacity-0: 0;
