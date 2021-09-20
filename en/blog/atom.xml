@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://shaozi.vercel.app/en/blog</id>
+    <title>勺子 Blog</title>
+    <updated>2021-09-16T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://shaozi.vercel.app/en/blog"/>
+    <subtitle>勺子 Blog</subtitle>
+    <icon>https://shaozi.vercel.app/en/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[ahooks 中 useRequest 的使用]]></title>
+        <id>ahooks-useRequest</id>
+        <link href="https://shaozi.vercel.app/en/blog/ahooks-useRequest"/>
+        <updated>2021-09-16T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[`jsx]]></summary>
+        <author>
+            <name>勺子</name>
+            <uri>https://github.com/zhgt-shaozi/zhgt-shaozi.github.io</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[VS Code 个人常用拓展插件]]></title>
+        <id>docusaurus2-vscode</id>
+        <link href="https://shaozi.vercel.app/en/blog/docusaurus2-vscode"/>
+        <updated>2021-09-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[🤡 写在前面：VS Code 编辑器的强大之处就在于有很多社区或团队提供的拓展插件，可以帮助个人提高开发效率，节省开发成本，并且也有一些娱乐性的插件，可以在开发的闲暇之余，消遣一番；]]></summary>
+        <author>
+            <name>勺子</name>
+            <uri>https://github.com/zhgt-shaozi/zhgt-shaozi.github.io</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[使用 Docusaurus2 写博客]]></title>
+        <id>docusaurus2-blog</id>
+        <link href="https://shaozi.vercel.app/en/blog/docusaurus2-blog"/>
+        <updated>2021-08-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[---]]></summary>
+        <author>
+            <name>勺子</name>
+            <uri>https://github.com/zhgt-shaozi/zhgt-shaozi.github.io</uri>
+        </author>
+    </entry>
+</feed>
