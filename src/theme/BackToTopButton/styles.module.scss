@@ -1,0 +1,12 @@
+@import '../../css/dino.scss';
+
+.backToTopButton {
+  right: $--dino-space-6;
+  bottom: $--dino-space-10;
+  transform: scale(0); // 缩放
+}
+
+.backToTopButtonShow {
+  opacity: 1;
+  transform: scale(1);
+}

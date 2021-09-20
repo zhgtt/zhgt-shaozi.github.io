@@ -127,4 +127,9 @@ module.exports = {
   themes: [],
   // 需要加载的 CSS 线上资源地址，最终都会生成 link 标签
   stylesheets: [],
+  // 国际化
+  i18n: {
+    defaultLocale: 'zh-CN', // 默认语言
+    locales: ['zh-CN', 'en'], // 本地语言包
+  },
 };

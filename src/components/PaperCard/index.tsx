@@ -1,6 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
+import './styles.scss';
+
 export interface CardProps {
   title?: React.ReactNode;
   footerContent?: React.ReactNode; // 底部内容

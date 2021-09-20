@@ -1,11 +1,13 @@
 /* TODO 全局主题变量 */
 :root {
-  --dino-body-color: #{$--dino-color-gray-800};
+  --dino-body-text-color: #{$--dino-color-gray-800};
   --dino-body-bg-color: #{$--dino-color-white};
   --dino-heading-color: #{$--dino-color-gray-900};
   --dino-navbar-bg-color: #{$--dino-color-white};
 
   --dino-paper-card-shadow-color: #{$--dino-box-shadow-md};
+  --dino-paper-btn-border-color: #{$--dino-color-gray-800};
+  --dino-paper-btn-bg-color: #{$--dino-color-white};
 
   --ifm-color-primary: #{$--dino-color-primary};
   --ifm-color-primary-dark: #21af90;
@@ -17,12 +19,14 @@
 }
 
 html[data-theme='dark'] {
-  --dino-body-color: #{$--dino-color-gray-300};
+  --dino-body-text-color: #{$--dino-color-gray-300};
   --dino-body-bg-color: #{$--dino-color-gray-900};
   --dino-heading-color: #{$--dino-color-gray-200};
   --dino-navbar-bg-color: #{$--dino-color-gray-800};
 
   --dino-paper-card-shadow-color: #{$--dino-box-shadow-inner};
+  --dino-paper-btn-border-color: #{$--dino-color-gray-300};
+  --dino-paper-btn-bg-color: #{$--dino-color-blueGray-800};
 }
 
 /* [x] 主题函数（废弃，统一通过 CSS 全局变量控制） */

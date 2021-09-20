@@ -10,11 +10,16 @@
 @import './theme.scss';
 
 :root {
+  --ifm-navbar-height: 3.75rem;
 }
 
 /* Container - 容器 */
 .container {
   padding: 0 $--dino-space-4;
+
+  @media (min-width: $--dino-2xl) {
+    max-width: $--dino-2xl;
+  }
 }
 
 /* TODO NavBar - 顶部导航栏 */
@@ -67,16 +72,13 @@
     }
   }
   > ul,
-  > p {
+  > p,
+  > img {
     margin-bottom: $--dino-space-5;
   }
   pre > code {
     font-size: $--dino-font-size-sm !important;
   }
-  // TODO
-  // .codeBlockTitle_node_modules-\@docusaurus-theme-classic-lib-next-theme-CodeBlock-styles-module {
-  //   font-size: $--dino-font-size-base !important;
-  // }
 }
 
 /* 右侧目录 */
@@ -125,7 +127,7 @@ html[data-theme='dark'] {
   border-color: $--dino-color-blueGray-400;
 }
 .ant-divider-horizontal.ant-divider-with-text .ant-divider-inner-text {
-  color: var(--dino-body-color);
+  color: var(--dino-body-text-color);
 }
 
 .ant-tag {

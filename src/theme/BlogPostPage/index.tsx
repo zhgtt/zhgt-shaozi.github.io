@@ -30,7 +30,7 @@ import BlogTagsList from '@site/src/components/BlogTagsList';
 import styles from './styles.module.scss';
 
 const BlogPostPage = (props: Props): JSX.Element => {
-  console.log('BlogPostPage -- Props: ', props);
+  // console.log('BlogPostPage -- Props: ', props);
 
   const { content: BlogPostContents, sidebar } = props;
   const { frontMatter, assets, metadata, toc: Toc } = BlogPostContents;
