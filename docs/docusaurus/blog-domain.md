@@ -1,11 +1,6 @@
 ---
-slug: docusaurus2-blog
-title: 使用 Docusaurus2 写博客
-author: 勺子
-author_title: 前端(●—●) @ 无业游民
-author_url: https://github.com/zhgt-shaozi/zhgt-shaozi.github.io
-author_image_url: /static/img/logo.svg
-tags: [Docusaurus2]
+title: 博客功能记录
+# id: docusaurus-blog
 ---
 
 ---

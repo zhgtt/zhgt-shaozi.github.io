@@ -76,6 +76,10 @@
   > img {
     margin-bottom: $--dino-space-5;
   }
+  > ul,
+  > ol {
+    list-style: disc;
+  }
   pre > code {
     font-size: $--dino-font-size-sm !important;
   }
