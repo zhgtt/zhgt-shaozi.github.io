@@ -12,7 +12,7 @@ module.exports = {
   favicon: 'img/favicon.ico', // 网站图表 logo（可直接引用 static 静态目录下的文件）
   organizationName: 'zhgt-shaozi', // 拥有此源码仓库的 GitHub 用户或组织，部署命令（deployment command）会用到此参数。
   projectName: 'zhgt-shaozi.github.io', // GitHub 源码仓库的名称。部署命令（deployment command）会用到此参数。
-  // 网站主题设置
+  // 网站主题 / 导航栏设置
   themeConfig: {
     hideableSidebar: true, // 是否显示侧边栏收起功能
     // 主题颜色模块设置
@@ -42,21 +42,19 @@ module.exports = {
       },
       // 导航栏菜单内容
       items: [
-        // {
-        //   type: 'doc', // 菜单类型，doc - markdown 文档
-        //   docId: 'hello', // 点击菜单跳转的文档页面，docId 和 type 配合使用
-        //   position: 'right', // 菜单在导航栏的位置
-        //   label: '前端学习', // 菜单标题
-        //   // to: 'docs/hello',  // 点击菜单跳转的路径
-        // },
         {
-          label: '笔记',
+          label: '前端 Madao',
           position: 'right',
-          // 存放子菜单
+          // 子菜单
           items: [
-            { label: '前端学习', to: 'docs/hello' },
-            { label: '前端面试', to: 'docs/hello' },
+            { label: '学习 😒', type: 'doc', docId: 'introduction' },
+            { label: '面试 📋', to: 'docs/interview' },
           ],
+        },
+        {
+          label: '专栏',
+          to: 'docs/column-docusaurus/docs-domain',
+          position: 'right',
         },
         { label: '博客', position: 'right', to: '/blog' },
         {
@@ -99,12 +97,17 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'), // 侧边栏路径
-          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+          // editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+          // sidebarCollapsible: true,  // 全局配置，是否显示侧边菜单栏的展开 / 折叠按钮
+          // sidebarCollapsed: false, // 全局配置，页面初始化时侧边菜单栏是否默认展开 / 折叠
+          // showLastUpdateAuthor: true,
+          // showLastUpdateTime: true,
         },
         blog: {
-          // path: './blog',
-          // routeBasePath: '/',
+          // path: 'blog',
+          routeBasePath: 'blog',
           showReadingTime: true,
           // blogTitle: '', // blog 标题
           // logDescription: '', // blog 描述

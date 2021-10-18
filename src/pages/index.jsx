@@ -7,7 +7,7 @@ import clsx from 'clsx'; // 合并 className 的插件
 import Lottie from 'react-lottie'; // react 版 lottie - 加载 json 格式的动画
 import Layout from '@theme/Layout';
 
-import { Animation_Dashboard } from '@site/src/utils/lotties';
+import { Lottie_China_2 } from '@site/src/utils/lotties';
 import styles from './index.module.scss';
 
 const img = require('../../static/img/docusaurus.png');
@@ -28,7 +28,7 @@ const Homepage = () => {
               loop: true, // 是否循环
               autoplay: true, // 是否自动播放
               renderer: 'svg', // 渲染动画的方式
-              animationData: Animation_Dashboard, // 数据源
+              animationData: Lottie_China_2, // 数据源
             }}
             // width={700}
             height={365}

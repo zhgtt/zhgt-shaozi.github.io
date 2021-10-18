@@ -92,6 +92,11 @@ $heading-list: (
   }
 }
 
+p {
+  margin-top: 0;
+  margin-bottom: $--dino-space-4;
+}
+
 a {
   color: $--dino-link-color;
   @extend .transition-all;
@@ -112,7 +117,11 @@ ul,
 ol {
   list-style: none;
   margin: 0;
-  padding: 0;
+}
+
+strong {
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
 }
 
 /* 🍋 原子化样式 🍋 */

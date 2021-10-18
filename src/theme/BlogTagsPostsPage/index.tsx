@@ -39,7 +39,7 @@ const BlogTagsPostsPage = (props: Props): JSX.Element => {
   //   },
   //   { nPosts: blogPostsPlural(count), tagName }
   // );
-  const title = `找到 ${count} 篇 "${tagName}" 标签的文章`;
+  const title = `🤪 找到 ${count} 篇 "${tagName}" 标签的文章`;
 
   return (
     <Layout
