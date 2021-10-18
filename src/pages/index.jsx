@@ -7,7 +7,7 @@ import clsx from 'clsx'; // 合并 className 的插件
 import Lottie from 'react-lottie'; // react 版 lottie - 加载 json 格式的动画
 import Layout from '@theme/Layout';
 
-// import { Lottie_China_2 } from '@site/src/utils/lotties';
+import { Lottie_China_2 } from '@site/src/utils/lotties';
 import styles from './index.module.scss';
 
 const img = require('../../static/img/docusaurus.png');
@@ -23,7 +23,7 @@ const Homepage = () => {
     >
       <main className='text-center'>
         <div>
-          {/* <Lottie
+          <Lottie
             options={{
               loop: true, // 是否循环
               autoplay: true, // 是否自动播放
@@ -35,7 +35,7 @@ const Homepage = () => {
             speed={1} // 动画播放的速度
             isPaused={false} // 是否暂停动画
             isStopped={false} //是否停止动画（动画回到起点）
-          /> */}
+          />
         </div>
         <h1 className='my-3'>Dino</h1>
         <p className='text-lg'>就随便写写。。。反正身体这么好，今天也继续笑下去吧。。。😁</p>

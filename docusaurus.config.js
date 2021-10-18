@@ -48,7 +48,7 @@ module.exports = {
           // 子菜单
           items: [
             { label: '学习 😒', type: 'doc', docId: 'introduction' },
-            { label: '面试 📋', to: 'docs/interview' },
+            // { label: '面试 📋', to: 'docs/interview' },
           ],
         },
         {
