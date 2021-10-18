@@ -53,7 +53,7 @@ module.exports = {
         },
         {
           label: '专栏',
-          to: 'docs/docusaurus/docs-domain',
+          to: 'docs/column-docusaurus/docs-domain',
           position: 'right',
         },
         { label: '博客', position: 'right', to: '/blog' },
@@ -99,15 +99,15 @@ module.exports = {
         docs: {
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'), // 侧边栏路径
-          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+          // editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
           // sidebarCollapsible: true,  // 全局配置，是否显示侧边菜单栏的展开 / 折叠按钮
           // sidebarCollapsed: false, // 全局配置，页面初始化时侧边菜单栏是否默认展开 / 折叠
           // showLastUpdateAuthor: true,
           // showLastUpdateTime: true,
         },
         blog: {
-          // path: './blog',
-          // routeBasePath: '/',
+          // path: 'blog',
+          routeBasePath: 'blog',
           showReadingTime: true,
           // blogTitle: '', // blog 标题
           // logDescription: '', // blog 描述

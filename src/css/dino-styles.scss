@@ -92,6 +92,11 @@ $heading-list: (
   }
 }
 
+p {
+  margin-top: 0;
+  margin-bottom: $--dino-space-4;
+}
+
 a {
   color: $--dino-link-color;
   @extend .transition-all;

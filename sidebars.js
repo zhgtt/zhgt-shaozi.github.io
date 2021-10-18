@@ -28,7 +28,7 @@ module.exports = {
       type: 'category',
       label: 'Docusaurus 专栏',
       collapsed: false,
-      items: ['docusaurus/docs-domain', 'docusaurus/blog-domain'],
+      items: ['column-docusaurus/docs-domain', 'column-docusaurus/blog-domain'],
     },
     { 'CSS特效 🤖': [] },
   ],
