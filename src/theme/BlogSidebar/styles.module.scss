@@ -2,7 +2,7 @@
   max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
   top: calc(var(--ifm-navbar-height) + 2rem);
 
-  @media only screen and (max-width: 996px) {
+  @media (max-width: 996px) {
     display: none;
   }
 }

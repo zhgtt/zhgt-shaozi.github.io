@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import clsx from 'clsx';
-import { useLocation } from '@docusaurus/router';
-import useScrollPosition from '@theme/hooks/useScrollPosition';
+import { ThemeClassNames, useScrollPosition, useLocationChange } from '@docusaurus/theme-common';
 
 import PaperButton from '@site/src/components/PaperButton';
 import styles from './styles.module.scss';
@@ -53,36 +52,50 @@ function useSmoothScrollToTop(): UseSmoothScrollTopReturn {
 }
 
 const BackToTopButton = (): JSX.Element => {
-  const location = useLocation();
-  const { smoothScrollTop, cancelScrollToTop } = useSmoothScrollToTop();
   const [show, setShow] = useState(false);
+  const isFocusedAnchor = useRef(false);
+  const { smoothScrollTop, cancelScrollToTop } = useSmoothScrollToTop();
 
-  useScrollPosition(
-    ({ scrollY: scrollTop }, lastPosition) => {
-      if (!lastPosition) return;
+  useScrollPosition(({ scrollY: scrollTop }, lastPosition) => {
+    const lastScrollTop = lastPosition?.scrollY;
 
-      const lastScrollTop = lastPosition.scrollY;
-      const isScrollingUp = scrollTop < lastScrollTop;
+    if (!lastScrollTop) {
+      return;
+    }
 
-      if (!isScrollingUp) cancelScrollToTop();
+    if (isFocusedAnchor.current) {
+      isFocusedAnchor.current = false;
+      return;
+    }
 
-      if (scrollTop < threshold) {
-        setShow(false);
-        return;
+    const isScrollingUp = scrollTop < lastScrollTop;
+
+    if (!isScrollingUp) {
+      cancelScrollToTop();
+    }
+
+    if (scrollTop < threshold) {
+      setShow(false);
+      return;
+    }
+
+    if (isScrollingUp) {
+      const documentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      if (scrollTop + windowHeight < documentHeight) {
+        setShow(true);
       }
+    } else {
+      setShow(false);
+    }
+  });
 
-      if (isScrollingUp) {
-        const documentHeight = document.documentElement.scrollHeight;
-        const windowHeight = window.innerHeight;
-        if (scrollTop + windowHeight < documentHeight) {
-          setShow(true);
-        }
-      } else {
-        setShow(false);
-      }
-    },
-    [location]
-  );
+  useLocationChange((locationChangeEvent) => {
+    if (locationChangeEvent.location.hash) {
+      isFocusedAnchor.current = true;
+      setShow(false);
+    }
+  });
 
   return (
     <PaperButton

@@ -21,6 +21,7 @@ import MDXComponents from '@theme/MDXComponents'; // markdown 摘要内容
 import { MDXProvider } from '@mdx-js/react'; // markdown 组件
 import { ThemeClassNames } from '@docusaurus/theme-common';
 import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
+import TOC from '@theme/TOC'; // 右侧目录
 
 import clsx from 'clsx';
 import { Divider } from 'antd';
@@ -33,9 +34,14 @@ const BlogPostPage = (props: Props): JSX.Element => {
   // console.log('BlogPostPage -- Props: ', props);
 
   const { content: BlogPostContents, sidebar } = props;
-  const { frontMatter, assets, metadata, toc: Toc } = BlogPostContents;
+  const { frontMatter, assets, metadata } = BlogPostContents;
   const { title, description, nextItem, prevItem, date, readingTime, tags, authors } = metadata;
-  const { hide_table_of_contents: hideTableOfContents, keywords } = frontMatter; // 一些用于 seo 的属性
+  const {
+    hide_table_of_contents: hideTableOfContents,
+    keywords,
+    toc_min_heading_level: tocMinHeadingLevel,
+    toc_max_heading_level: tocMaxHeadingLevel,
+  } = frontMatter; // 一些用于 seo 的属性
 
   const image = assets.image ?? frontMatter.image; // 文章图片/封面
 
@@ -46,7 +52,15 @@ const BlogPostPage = (props: Props): JSX.Element => {
       wrapperClassName={ThemeClassNames.wrapper.blogPages}
       pageClassName={ThemeClassNames.page.blogPostPage}
       sidebar={sidebar}
-      toc={!hideTableOfContents && Toc ? Toc : undefined}
+      toc={
+        !hideTableOfContents && BlogPostContents.toc && BlogPostContents.toc.length > 0 ? (
+          <TOC
+            toc={BlogPostContents.toc}
+            minHeadingLevel={tocMinHeadingLevel}
+            maxHeadingLevel={tocMaxHeadingLevel}
+          />
+        ) : undefined
+      }
     >
       {/* Seo 组件 - 优化搜索引擎 */}
       <Seo title={title} description={description} keywords={keywords} image={image}>
