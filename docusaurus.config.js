@@ -99,6 +99,7 @@ module.exports = {
         docs: {
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'), // 侧边栏路径
+          remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
           // editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
           // sidebarCollapsible: true,  // 全局配置，是否显示侧边菜单栏的展开 / 折叠按钮
           // sidebarCollapsed: false, // 全局配置，页面初始化时侧边菜单栏是否默认展开 / 折叠
@@ -112,6 +113,7 @@ module.exports = {
           // blogTitle: '', // blog 标题
           // logDescription: '', // blog 描述
           blogSidebarTitle: '随笔 🎯', // blog 侧边栏标题
+          remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
         },
         // 主题
         theme: {
@@ -127,7 +129,7 @@ module.exports = {
     'docusaurus-plugin-sass',
   ],
   // 主题
-  themes: [],
+  themes: ['@docusaurus/theme-live-codeblock'],
   // 需要加载的 CSS 线上资源地址，最终都会生成 link 标签
   stylesheets: [],
   // 国际化

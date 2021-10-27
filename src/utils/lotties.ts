@@ -46,7 +46,6 @@ export const Lottie_Woman_4 = require('@site/static/json/lotties/itg-woman-4.jso
 export const Lottie_Woman_7 = require('@site/static/json/lotties/lottiefiles-woman-3.json');
 export const Lottie_Girl = require('@site/static/json/lotties/lottiefiles-girl.json');
 export const Lottie_Girl_2 = require('@site/static/json/lotties/lottiefiles-girl-2.json');
-export const Lottie_Girl_4 = require('@site/static/json/lotties/lottiefiles-girl-4.json');
 export const Lottie_Duck = require('@site/static/json/lotties/lottiefiles-duck.json');
 export const Lottie_Child_2 = require('@site/static/json/lotties/lottiefiles-child-2.json');
 export const Lottie_Car = require('@site/static/json/lotties/lottiefiles-car.json');
@@ -83,7 +82,6 @@ const lottieArr = [
   Lottie_Woman_7,
   Lottie_Girl,
   Lottie_Girl_2,
-  Lottie_Girl_4,
   Lottie_Duck,
   Lottie_Child_2,
   Lottie_Car,

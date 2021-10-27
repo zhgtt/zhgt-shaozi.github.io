@@ -13,7 +13,7 @@
  * Omit<T, Key | Key2> - 将 T 类型中的 Key 和 Key2 属性剔除，组成一个新的类型
  * [T, T1][number] - 索引类型，将该数组中的值解构合并成 联合类型
  *
- * keyof T - 类似于 Objcet.keys，使用 keyof 遍历一个类型 T（可以是 enum 类型），获取 T 上所有的 public（公共）属性，并组成 联合类型
+ * keyof T - 类似于 Objcet.keys，使用 keyof 遍历一个类型 T（可以是 enum 类型），获取 T 上所有的 public（公共）属性，再结合 typeof 可组成 联合类型（例：keyof typeof ENUM）
  * P in Keys - 使用 in 遍历联合类型 keys，将值赋给 P
  *
  * @<article> 标签：语义化标签，定义独立的文本内容，主要用于博客文章，新闻故事，帖子等，有利于 SEO

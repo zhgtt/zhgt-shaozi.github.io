@@ -1,0 +1,54 @@
+@import '../../css/dino.scss';
+
+.browserWindow {
+  border: 3px solid $--dino-color-coolGray-200;
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+  //   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $--dino-box-shadow-xs;
+
+  ul {
+    list-style: revert;
+  }
+
+  h2,
+  h3 {
+    margin-top: 0;
+    margin-bottom: $--dino-space-5;
+  }
+
+  .browserWindowHeader {
+    background-color: $--dino-color-coolGray-200;
+  }
+
+  .dot {
+    margin-right: 6px;
+    height: 12px;
+    width: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .browserWindowAddressBar {
+    flex: 1 0;
+    border-radius: 12.5px;
+    background-color: $--dino-color-white;
+    padding: 5px 15px;
+  }
+
+  .browserWindowMenuIcon {
+  }
+
+  .bar {
+    width: 17px;
+    height: 3px;
+    background-color: #aaa;
+    margin: 3px 0;
+    display: block;
+  }
+
+  .browserWindowBody {
+    padding: 1rem 1.5rem;
+  }
+}
