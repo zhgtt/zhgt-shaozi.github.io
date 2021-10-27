@@ -32,6 +32,9 @@
   @mixin heading-styles {
     margin-top: $--dino-space-8;
     margin-bottom: $--dino-space-5;
+    > code {
+      font-size: $--dino-font-size-xl !important;
+    }
   }
   @mixin heading-styles-small {
     margin-top: $--dino-space-6;
@@ -76,14 +79,39 @@
   > img {
     margin-bottom: $--dino-space-5;
   }
-  > ul,
-  > ol {
-    list-style: disc;
+  ul,
+  ol {
+    list-style: revert;
+  }
+  > ul + .tabs-container {
+    margin-top: -#{$--dino-space-5};
   }
   code {
     font-size: $--dino-font-size-sm !important;
   }
 }
+
+/* 告示框 组件 */
+.admonition {
+  ul {
+    list-style: revert;
+  }
+}
+
+/* 交互式代码编辑器 */
+// .playgroundContainer {
+//   .playgroundEditor {
+//     padding: 9px !important;
+//     > textarea {
+//       padding: 18px !important;
+//     }
+//     > pre {
+//       padding: 8px !important;
+//       border: 1px dashed $--dino-color-pink-200 !important;
+//       border-radius: initial;
+//     }
+//   }
+// }
 
 /* doc 页面 */
 .docs-doc-page {

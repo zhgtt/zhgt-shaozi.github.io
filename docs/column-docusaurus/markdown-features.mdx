@@ -1,0 +1,415 @@
+---
+title: 新增的 Markdown 功能
+sidebar_position: 1
+---
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';     // 标签组
+import TabItem from '@theme/TabItem';   // 标签组 item
+import TOCInline from '@theme/TOCInline';   // 引入文档目录
+import dayjs from 'dayjs'
+import BrowserWindow from '@site/src/components/BrowserWindow';
+```
+
+
+
+## 渲染 React 组件 🐤
+
+- Docusaurus 支持标准的 Markdown 语法，并使用 `MDX` 作为解析引擎；`MDX` 不仅仅能够解析 Markdown，还提供了更多功能，还能在文档内渲染 React 组件；
+- 渲染 React 组件时，可以直接在 Markdown 中引入并使用；或者在 **代码块** 中引入，只需将该代码块定义为 `mdx-code-block` 的代码格式即可；
+
+```md title="doc.md 示例"
+### 封装 details 标签组件
+
+<!-- 在 md 中定义 React 组件时，一定要进行导出 export -->
+export const CustomDetails = ({ children, title }) => (
+  <details>
+    <summary>{title}</summary>
+    <div>
+      <div>{children}</div>
+    </div>
+  </details>
+);
+
+<CustomDetails title='点击 details 标签 ✋🏻!'>这是 details 内容...</CustomDetails>
+
+文档其他内容...
+```
+
+- 效果展示如下：
+
+```mdx-code-block
+export const CustomDetails = ({ children, title }) => (
+  <details>
+    <summary>{title}</summary>
+    <div>
+      <div>{children}</div>
+    </div>
+  </details>
+)
+
+<BrowserWindow>
+  <h3>封装 details 标签组件</h3>
+  <CustomDetails title="点击 details 标签 ✋🏻!">这是 details 内容...</CustomDetails>
+  文档其他内容...
+</BrowserWindow>
+```
+
+## 导入 Markdown 组件 🐤
+
+- 无论是在 Markdown 文件中还是在 React 页面中，都可以将 Markdown 文件作为 **组件** 的形式，并将其导入到任何地方；
+- Docusaurus 规定，带有 `_` **文件名前缀** 的文件，是不会被当成文档页面的，所以可作为 **文档片段** 文件，将其导入到其他文件中，有效的避免了文档的冗余；
+
+```md title="_example.mdx 示例"
+<span>Hello {props.name}</span>
+
+这是来自 `_example.mdx` 文件的内容
+```
+
+```md title="doc.md 示例"
+import MarkdownExample from '../_example.mdx';
+
+### 引入 Markdown 文档片段
+
+<MarkdownExample name="勺子 😄" />
+```
+
+- 效果展示如下：
+
+```mdx-code-block
+import MarkdownExample from '../_example.mdx';
+
+<BrowserWindow>
+  <h3>引入 Markdown 文档片段</h3>
+  <MarkdownExample name="勺子 😄" />
+</BrowserWindow>
+```
+
+## 标签组 `<Tabs>` 🐤
+
+- Docusaurus 提供的内置组件；
+- 文档或页面内如果有多个 `<Tabs>` 标签组时， 需对每一个 `<Tabs>` 指定 `groupId` 属性，以免多个标签组相互干扰；
+
+```jsx title="doc.md 示例"
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="fruits-type">
+  <TabItem value="apple" label="Apple" default>
+    This is an apple 🍎
+  </TabItem>
+  <TabItem value="orange" label="Orange">
+    This is an orange 🍊
+  </TabItem>
+</Tabs>
+```
+
+- 效果展示如下：
+
+```mdx-code-block
+<BrowserWindow>
+  <Tabs>
+    <TabItem value="apple" label="Apple" default>
+      This is an apple 🍎
+    </TabItem>
+    <TabItem value="orange" label="Orange">
+      This is an orange 🍊
+    </TabItem>
+  </Tabs>
+</BrowserWindow>
+```
+
+## `npm` & `yarn` 的辅助插件  🐤
+
+- 在文档中，npm 和 yarn 同时显示 CLI 命令是一个很常见的需求，因此 Docusaurus 提供了一个辅助插件；
+- 该插件为 `@docusaurus/remark-plugin-npm2yarn`，无需重复书写 CLI 命令，仅需要写成代码块的形式，即可生成 npm 和 yarn 所对应的 CLI 命令；
+- 该插件会生成一个 `<Tabs>` 标签组，用于 npm 和 yarn 之间的相互切换；
+- 使用该插件时，还得需要在 `docusaurus.config.js` 文件中进行配置，对于需要用到此功能的文档，页面，博客等，在 `remarkPlugins` 选项中注册该插件，具体如下：
+
+```jsx title="docusaurus.config.js 配置项"
+module.export = {
+  ...
+  presets: [
+    '@docusaurus/preset-classic',
+    {
+      docs: {
+        ...
+        // highlight-start
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+        ],
+        // highlight-end
+      },
+      pages: {},
+      blog: {
+        ...
+        // highlight-start
+        remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
+        // highlight-end
+      }
+    }
+  ]
+}
+```
+
+- 配置完成之后，在文档中使用 `npm2yarn` 写成代码块的形式即可，如下；
+
+
+    ```bash npm2yarn
+    npm install @docusaurus/remark-plugin-npm2yarn
+    ```
+
+```bash npm2yarn
+npm install @docusaurus/remark-plugin-npm2yarn
+```
+
+## 代码块 🐤
+
+- Docusaurus 对代码块赋予了很多功能，比如 **定义标题**，**多行代码高亮** 等；
+
+### 定义标题
+
+- 通过指定 `title` 来定义代码块的标题；
+
+
+    ```jsx title="代码块标题"
+    const HelloCodeTitle = (props) => {
+      return <h1>Hello, {props.name}</h1>;
+    };
+    ```
+
+```jsx title="代码块标题"
+const HelloCodeTitle = (props) => {
+  return <h1>Hello, {props.name}</h1>;
+};
+```
+
+### 代码高亮
+
+- 通过 `{n}` 来高亮指定的 **单行代码**；
+
+
+    ```jsx {2} title="单行代码高亮"
+    if (highlight) {
+      alert('高亮的文本内容...');
+    }
+    ```
+
+```jsx {2} title="单行代码高亮"
+if (highlight) {
+  alert('高亮的文本内容...');
+}
+```
+
+- 通过 `{n-m}` 来高亮指定的 **代码范围**；
+
+
+    ```jsx {2-4} title="代码范围高亮"
+    const HighlightSomeText = (highlight) => {
+        if (highlight) {
+          return '高亮的文本内容...';
+        }
+    };
+    ```
+
+```jsx {2-4} title="代码范围高亮"
+const HighlightSomeText = (highlight) => {
+  if (highlight) {
+    return '高亮的文本内容...';
+  }
+};
+```
+
+- 通过 `代码注释` 来高亮指定的代码；
+
+
+    ```jsx title="多行代码高亮"
+    const HighlightSomeText = (highlight) => {
+        if (highlight) {
+          // highlight-next-line（单行代码高亮）
+          return '高亮的文本内容...';
+        }
+
+        // highlight-start
+        return '没有高亮的文本的内容...';
+        // highlight-end
+    };
+    ```
+
+```jsx title="多行代码高亮"
+const HighlightSomeText = (highlight) => {
+  if (highlight) {
+    // highlight-next-line
+    return '高亮的文本内容...';
+  }
+
+  // highlight-start
+  return '没有高亮的文本的内容...';
+  // highlight-end
+};
+```
+
+## 交互式代码编辑器 🐤
+
+- Docusaurus 支持在文档中使用 **交互式代码编辑器**，也就是可以在编辑器中修改代码，并且能实时展示结果；
+- 使用该编辑器时，需要安装 `@docusaurus/theme-live-codeblock` 插件；
+
+```bash npm2yarn
+npm install --save @docusaurus/theme-live-codeblock
+```
+
+- 安装完插件之后，需要在 `docusaurus.config.js` 文件的 `themes` 属性中注册该插件；注册成功之后需要 **重新启动项目**
+
+```jsx {3} title="docusaurus.config.js 配置项"
+module.export = {
+  ...
+  themes: ['@docusaurus/theme-live-codeblock'],
+}
+```
+
+- 使用该插件时，只需在代码块上定义一个 `live` 即可，**该插件仅支持 React 语法**，具体示例如下；
+
+
+    ```jsx live
+    逻辑代码...
+    ```
+
+```jsx live
+function Clock(props) {
+  const [date, setDate] = useState(new Date());
+  useEffect(() => {
+    const timerID = setInterval(() => tick(), 1000);
+
+    return () => {
+      clearInterval(timerID);
+    };
+  });
+
+  function tick() {
+    setDate(new Date());
+  }
+
+  return (
+    <div>
+      <h3 style={{ color: '#ec4899' }}>It is {date.toLocaleTimeString()}</h3>
+    </div>
+  );
+}
+```
+
+## 告示框 🐤
+
+- Docusaurus 提供了一个告示框的组件，它包含五种状态，分别是 `note`，`tip`，`info`，`caution`，`danger`；
+- 告示框只需用 3 个冒号表示即可，例如：
+
+```md title="doc.md 示例"
+:::note 标题
+文本内容（也可以是 React 组件或 HTML 标签）...
+:::
+```
+
+- 多种状态的效果展示如下：
+
+:::note note - 摘抄语句
+我们每个人好像一直在跑，却总觉得自己把心和最后一点安全感落在了千里之遥的家乡 - 暖小团
+:::
+
+:::tip tip - 摘抄语句
+<div className="flex flex-col heading-relaxed">
+  <span>曾经沧海难为水，除却巫山不是云。</span>
+  <span>取次花丛懒回顾，半缘修道半缘君。</span>
+  <span className="self-end">---《离思五首·其四》[唐] 元稹</span>
+</div>
+:::
+
+:::info info - 摘抄语句
+<div className="flex flex-col heading-relaxed">
+  <span>阅尽天涯离别苦，不道归来，零落花如许。花底相看无一语，绿窗春与天俱莫。</span>
+  <span>待把相思灯下诉，一缕新欢，旧恨千千缕。最是人间留不住，朱颜辞镜花辞树。</span>
+  <span className="self-end">---《蝶恋花·阅尽天涯离别苦》[清] 王国维</span>
+</div>
+:::
+
+:::caution caution - 摘抄语句
+<div className="flex flex-col heading-relaxed">
+  <span>世事一场大梦，人生几度秋凉。夜来风叶已鸣廊。看取眉头鬓上。</span>
+  <span>酒贱常愁客少，月明多被云妨。中秋谁与共孤光。把盏凄然北望。</span>
+  <span className="self-end">---《西江月·世事一场大梦》[宋] 苏轼</span>
+</div>
+:::
+
+:::danger danger - 摘抄语句
+<div className="flex flex-col heading-relaxed">
+  <span>西风吹老洞庭波，一夜湘君白发多。</span>
+  <span>醉后不知天在水，满船清梦压星河。</span>
+  <span className="self-end">---《题龙阳县青草湖》[元] 唐珙</span>
+</div>
+:::
+
+## 锚点链接 & 内联目录 🐤
+
+- 定义锚点链接时，需要指定一个 `id`，Docusaurus 会让文档中的 **标题** 都自动生成一个与之对应的 `id`，便于链接跳转，比如 `### Hello` 的 id 为 `Hello`；
+- 当需要自定义 **标题** 的 `id` 时，在标题后添加 `{#[id]}` 即可，例如：
+
+```md title="doc.md 示例"
+[Link - 链接](#custom-id)
+
+#### Hello {#custom-id}
+
+🚁 🚁 🚁 ...
+```
+
+- 每个文档都默认存在一个 `toc` 的变量，该变量包含了当前文档中所有的标题；
+- 当需要在文档中显示 **内联目录** 时，只需引入 `@theme/TOCInline` 组件（无需安装），将 `toc` 变量配置在该组件中即可，例如：
+
+
+    ```mdx-code-block
+    import TOCInline from '@theme/TOCInline';
+
+    <TOCInline toc={toc} />
+    ```
+
+## 引用静态资源 🐤
+
+- Docusaurus 中静态资源的目录默认为 `/static`；
+- 在文档中引用静态资源时，`/` 就表示 `/static`，Docusaurus 提供了多种引用方式，例如：
+- **原生的 Markdown 语法** 引用：
+
+```md title="doc.md 示例"
+![Example Image](/img/...)
+```
+
+- **JSX 的** `require` **语法** 引用，需使用 `<img>` 标签：
+
+```jsx title="doc.md 示例"
+<img src={require('/img/...').default} alt='Example Image' />
+```
+
+- **ES 的** `import` **语法** 引用，需使用 `<img>` 标签：
+
+```jsx title="doc.md 示例"
+import imageUrl from '/img/...';
+
+<img src={imageUrl} alt='Example Image' />
+```
+
+- **Docusaurus 内置的** `useBaseUrl` **插件** 引用，需使用 `<img>` 标签：
+
+```jsx title="doc.md 示例"
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+<img src={useBaseUrl('/img/...')} alt='Example Image' />
+```
+
+- 效果展示如下：
+
+```mdx-code-block
+<BrowserWindow>
+  <img src={require('/img/wallhaven-x8d8gz.jpeg').default} alt="Example Image" />
+</BrowserWindow>
+```
+
+## 相关链接 🔗
+
+- [Markdown 基本使用 & 语法说明](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/markdown-basics)
+- [Docusaurus 官方文档 - 新增的 Markdown 功能](https://www.docusaurus.cn/docs/markdown-features)

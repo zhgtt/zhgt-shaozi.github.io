@@ -122,6 +122,10 @@ ol {
 strong {
   border-bottom-style: dashed;
   border-bottom-width: 1px;
+
+  > a {
+    border: inherit;
+  }
 }
 
 /* 🍋 原子化样式 🍋 */
