@@ -13,6 +13,7 @@
 
 import React from 'react';
 
+import Link from '@docusaurus/Link';
 import type { Props } from '@theme/BlogListPage';
 import Layout from '@theme/Layout';
 // import BlogSidebar from '@theme/BlogSidebar'; // blog 侧边栏组件
@@ -60,7 +61,12 @@ const BlogListPage = (props: Props): JSX.Element => {
       searchMetadatas={{ tag: 'blog_posts_list' }}
     >
       <main className='container text-center'>
-        <h1 className='mt-8'>全部文章</h1>
+        <div className='relative mt-8'>
+          <h1>全部文章</h1>
+          <Link to='/blog/archive' className='absolute top-1/2 left-0 -translate-y-1/2'>
+            博客档案
+          </Link>
+        </div>
         <div className={clsx('my-6', styles.switchBlogView)}>切换视图（TODO）</div>
 
         <div className='text-left'>

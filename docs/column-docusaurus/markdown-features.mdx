@@ -1,6 +1,6 @@
 ---
 title: 新增的 Markdown 功能
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 ```mdx-code-block
@@ -13,7 +13,7 @@ import BrowserWindow from '@site/src/components/BrowserWindow';
 
 
 
-## 渲染 React 组件 🐤
+## 渲染 React 组件 🐸
 
 - Docusaurus 支持标准的 Markdown 语法，并使用 `MDX` 作为解析引擎；`MDX` 不仅仅能够解析 Markdown，还提供了更多功能，还能在文档内渲染 React 组件；
 - 渲染 React 组件时，可以直接在 Markdown 中引入并使用；或者在 **代码块** 中引入，只需将该代码块定义为 `mdx-code-block` 的代码格式即可；
@@ -55,7 +55,7 @@ export const CustomDetails = ({ children, title }) => (
 </BrowserWindow>
 ```
 
-## 导入 Markdown 组件 🐤
+## 导入 Markdown 组件 🐸
 
 - 无论是在 Markdown 文件中还是在 React 页面中，都可以将 Markdown 文件作为 **组件** 的形式，并将其导入到任何地方；
 - Docusaurus 规定，带有 `_` **文件名前缀** 的文件，是不会被当成文档页面的，所以可作为 **文档片段** 文件，将其导入到其他文件中，有效的避免了文档的冗余；
@@ -85,7 +85,7 @@ import MarkdownExample from '../_example.mdx';
 </BrowserWindow>
 ```
 
-## 标签组 `<Tabs>` 🐤
+## 标签组 `<Tabs>` 🐸
 
 - Docusaurus 提供的内置组件；
 - 文档或页面内如果有多个 `<Tabs>` 标签组时， 需对每一个 `<Tabs>` 指定 `groupId` 属性，以免多个标签组相互干扰；
@@ -119,7 +119,7 @@ import TabItem from '@theme/TabItem';
 </BrowserWindow>
 ```
 
-## `npm` & `yarn` 的辅助插件  🐤
+## `npm` & `yarn` 的辅助插件  🐸
 
 - 在文档中，npm 和 yarn 同时显示 CLI 命令是一个很常见的需求，因此 Docusaurus 提供了一个辅助插件；
 - 该插件为 `@docusaurus/remark-plugin-npm2yarn`，无需重复书写 CLI 命令，仅需要写成代码块的形式，即可生成 npm 和 yarn 所对应的 CLI 命令；
@@ -163,7 +163,7 @@ module.export = {
 npm install @docusaurus/remark-plugin-npm2yarn
 ```
 
-## 代码块 🐤
+## 代码块 🐸
 
 - Docusaurus 对代码块赋予了很多功能，比如 **定义标题**，**多行代码高亮** 等；
 
@@ -249,7 +249,7 @@ const HighlightSomeText = (highlight) => {
 };
 ```
 
-## 交互式代码编辑器 🐤
+## 交互式代码编辑器 🐸
 
 - Docusaurus 支持在文档中使用 **交互式代码编辑器**，也就是可以在编辑器中修改代码，并且能实时展示结果；
 - 使用该编辑器时，需要安装 `@docusaurus/theme-live-codeblock` 插件；
@@ -297,7 +297,7 @@ function Clock(props) {
 }
 ```
 
-## 告示框 🐤
+## 告示框 🐸
 
 - Docusaurus 提供了一个告示框的组件，它包含五种状态，分别是 `note`，`tip`，`info`，`caution`，`danger`；
 - 告示框只需用 3 个冒号表示即可，例如：
@@ -346,7 +346,7 @@ function Clock(props) {
 </div>
 :::
 
-## 锚点链接 & 内联目录 🐤
+## 锚点链接 & 内联目录 🐸
 
 - 定义锚点链接时，需要指定一个 `id`，Docusaurus 会让文档中的 **标题** 都自动生成一个与之对应的 `id`，便于链接跳转，比如 `### Hello` 的 id 为 `Hello`；
 - 当需要自定义 **标题** 的 `id` 时，在标题后添加 `{#[id]}` 即可，例如：
@@ -369,10 +369,10 @@ function Clock(props) {
     <TOCInline toc={toc} />
     ```
 
-## 引用静态资源 🐤
+## 引用静态资源 🐸
 
 - Docusaurus 中静态资源的目录默认为 `/static`；
-- 在文档中引用静态资源时，`/` 就表示 `/static`，Docusaurus 提供了多种引用方式，例如：
+- 在文档中引用静态资源时，`/` 就表示 `/static` 目录，Docusaurus 提供了多种引用方式，例如：
 - **原生的 Markdown 语法** 引用：
 
 ```md title="doc.md 示例"
@@ -393,7 +393,7 @@ import imageUrl from '/img/...';
 <img src={imageUrl} alt='Example Image' />
 ```
 
-- **Docusaurus 内置的** `useBaseUrl` **插件** 引用，需使用 `<img>` 标签：
+- **Docusaurus 内置的** `useBaseUrl` **插件** 引用，它基于 `siteConfig.baseUrl` 路径，需使用 `<img>` 标签，并且尽可能在 `mdx` 文件中使用：
 
 ```jsx title="doc.md 示例"
 import useBaseUrl from '@docusaurus/useBaseUrl';
