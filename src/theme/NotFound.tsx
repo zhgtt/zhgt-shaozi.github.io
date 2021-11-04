@@ -24,7 +24,7 @@ function NotFound(): JSX.Element {
             />
           </Col>
           <Col lg={11} md={12} sm={20} xs={24}>
-            <p className='mt-4'>🌝 抱歉！你访问的页面可能迷路了，或者像你一样丢失了自我！</p>
+            <p className='mt-4'>🌝 抱歉！你访问的页面可能迷路了，也可能还在迷茫着！</p>
             <p>
               请返回 <Link to='/'>首页</Link> 重新找找吧！
             </p>

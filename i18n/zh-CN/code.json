@@ -1,26 +1,38 @@
 {
   "theme.CodeBlock.copied": {
     "message": "复制成功",
-    "description": "代码块-复制成功的按钮标签"
+    "description": "代码块 - 复制成功的按钮标签"
   },
   "theme.CodeBlock.copy": {
     "message": "复制",
-    "description": "代码块-复制的按钮标签"
+    "description": "代码块 - 复制的按钮标签"
   },
   "theme.tags.tagsPageLink": {
     "message": "查看所有标签",
-    "description": "标签页-查看所有标签按钮"
+    "description": "标签页 - 查看所有标签按钮"
   },
   "theme.tags.tagsPageTitle": {
     "message": "所有标签（分类）",
-    "description": "标签列表页-所有标签文字"
+    "description": "标签列表页 - 所有标签文字"
   },
   "theme.blog.post.paginator.newerPost": {
     "message": "上一篇",
-    "description": "博客文章页-上一篇按钮文字"
+    "description": "博客文章页 - 上一篇按钮文字"
   },
   "theme.blog.post.paginator.olderPost": {
     "message": "下一篇",
-    "description": "博客文章页-下一篇按钮文字"
+    "description": "博客文章页 - 下一篇按钮文字"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "上一篇",
+    "description": "文档页 - 上一篇按钮文字"
+  },
+  "theme.docs.paginator.next": {
+    "message": "下一篇",
+    "description": "文档页 - 下一篇按钮文字"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "本页目录",
+    "description": "目录 - 手机模式下显示的目录总标题"
   }
 }

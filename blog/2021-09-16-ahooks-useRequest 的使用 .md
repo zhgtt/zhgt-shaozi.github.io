@@ -1,10 +1,7 @@
 ---
 slug: ahooks-useRequest
 title: ahooks 中 useRequest 的使用
-author: 勺子
-author_title: 前端(●—●) @ 无业游民
-author_url: https://github.com/zhgt-shaozi/zhgt-shaozi.github.io
-author_image_url: /static/img/logo.svg
+authors: [shaozi]
 tags: [react, ahooks]
 ---
 

@@ -215,6 +215,12 @@ $space-list: (
 .mx-auto {
   margin: 0 auto;
 }
+.ml-auto {
+  margin-left: auto; // 元素右对齐
+}
+.mr-auto {
+  margin-right: auto; // 元素左对齐
+}
 
 /* TODO Color - 颜色 */
 .color-inherit {
@@ -360,6 +366,50 @@ $position-list: (static, fixed, absolute, relative, sticky);
 @each $key in $position-list {
   .#{$key} {
     position: $key;
+  }
+}
+
+/* Top/Right/Left/Bottom - 方向偏移 */
+// 分数做类名时，需要转换字符 \ 进行转换
+$inset-list: (0, auto, (full, 100%), (1\/2, 50%), (3\/4, 75%), (1\/4, 25%));
+@each $key, $value in $inset-list {
+  .inset-#{'' + $key} {
+    top: $value or $key;
+    right: $value or $key;
+    left: $value or $key;
+    bottom: $value or $key;
+  }
+  .top-#{'' + $key} {
+    top: $value or $key;
+  }
+  .left-#{'' + $key} {
+    left: $value or $key;
+  }
+  .right-#{'' + $key} {
+    right: $value or $key;
+  }
+  .bottom-#{'' + $key} {
+    bottom: $value or $key;
+  }
+}
+
+/* Translate - 转换 - 平移 */
+$translate-list: (0, (full, 100%), (1\/2, 50%), (3\/4, 75%), (1\/4, 25%));
+@each $key, $value in $translate-list {
+  .translate-#{'' + $key} {
+    transform: translate($value);
+  }
+  .translate-y-#{'' + $key} {
+    transform: translateY($value);
+  }
+  .-translate-y-#{'' + $key} {
+    transform: translateY(-#{$value});
+  }
+  .translate-x-#{'' + $key} {
+    transform: translateX($value);
+  }
+  .-translate-x-#{'' + $key} {
+    transform: translateX(-#{$value});
   }
 }
 
