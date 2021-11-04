@@ -1,11 +1,11 @@
 {
-  "theme.CodeBlock.copied": "Copied",
-  "theme.CodeBlock.copy": "Copy",
-  "theme.tags.tagsPageLink": "View All Tags",
-  "theme.tags.tagsPageTitle": "Tags",
-  "theme.blog.post.paginator.newerPost": "Newer Post",
-  "theme.blog.post.paginator.olderPost": "Older Post",
-  "theme.docs.paginator.previous": "Previous",
-  "theme.docs.paginator.next": "Next",
-  "theme.TOCCollapsible.toggleButtonLabel": "On this page"
+  "theme.CodeBlock.copied": { "message": "Copied" },
+  "theme.CodeBlock.copy": { "message": "Copy" },
+  "theme.tags.tagsPageLink": { "message": "View All Tags" },
+  "theme.tags.tagsPageTitle": { "message": "Tags" },
+  "theme.blog.post.paginator.newerPost": { "message": "Newer Post" },
+  "theme.blog.post.paginator.olderPost": { "message": "Older Post" },
+  "theme.docs.paginator.previous": { "message": "Previous" },
+  "theme.docs.paginator.next": { "message": "Next" },
+  "theme.TOCCollapsible.toggleButtonLabel": { "message": "On this page" }
 }
