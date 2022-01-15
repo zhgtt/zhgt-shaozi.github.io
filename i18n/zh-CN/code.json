@@ -33,6 +33,10 @@
   },
   "theme.TOCCollapsible.toggleButtonLabel": {
     "message": "本页目录",
-    "description": "目录 - 手机模式下显示的目录总标题"
+    "description": "目录 - 目录总标题（仅手机模式下显示）"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← 回到主菜单",
+    "description": "目录 - 回到主菜单的按钮（仅手机模式下显示）"
   }
 }

@@ -1,11 +1,32 @@
 {
-  "theme.CodeBlock.copied": { "message": "Copied" },
-  "theme.CodeBlock.copy": { "message": "Copy" },
-  "theme.tags.tagsPageLink": { "message": "View All Tags" },
-  "theme.tags.tagsPageTitle": { "message": "Tags" },
-  "theme.blog.post.paginator.newerPost": { "message": "Newer Post" },
-  "theme.blog.post.paginator.olderPost": { "message": "Older Post" },
-  "theme.docs.paginator.previous": { "message": "Previous" },
-  "theme.docs.paginator.next": { "message": "Next" },
-  "theme.TOCCollapsible.toggleButtonLabel": { "message": "On this page" }
+  "theme.CodeBlock.copied": {
+    "message": "Copied"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Copy"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "View All Tags"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "Tags"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "Newer Post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "Older Post"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "Previous"
+  },
+  "theme.docs.paginator.next": {
+    "message": "Next"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "On this page"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Back to main menu"
+  }
 }

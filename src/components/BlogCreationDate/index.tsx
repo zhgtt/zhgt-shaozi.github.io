@@ -7,11 +7,9 @@ import React, { useContext } from 'react';
 import ThemeContext from '@theme/ThemeContext'; // 主题（上下文）
 import { usePluralForm } from '@docusaurus/theme-common';
 import Translate, { translate } from '@docusaurus/Translate'; // 翻译组件
-
 import dayjs from 'dayjs';
 import clsx from 'clsx';
-import { createFromIconfontCN } from '@ant-design/icons';
-
+import IconFont from '@site/src/components/IconFont';
 import styles from './styles.module.scss';
 
 export interface BlogCreationDateProps {
@@ -21,11 +19,6 @@ export interface BlogCreationDateProps {
   className?: string;
   style?: React.CSSProperties;
 }
-
-// 取自 iconfont 官网的图标：https://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=2788953&keyword=&project_type=&page=
-const IconFont = createFromIconfontCN({
-  scriptUrl: ['//at.alicdn.com/t/font_2788953_29qq7h55nke.js'],
-});
 
 // 创建时间组件
 // const useReadingTimePlural = () => {
@@ -60,7 +53,7 @@ const BlogCreationDate: React.FC<BlogCreationDateProps> = (props) => {
   return (
     <time
       {...restProps}
-      className={clsx('flex items-center text-sm', className)}
+      className={clsx('flex items-center text-sm', className, styles.dateText)}
       dateTime={date}
       itemProp='datePublished（出版日期）'
     >

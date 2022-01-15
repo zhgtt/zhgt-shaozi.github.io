@@ -3,10 +3,12 @@ title: 博客功能记录
 sidebar_position: 4
 ---
 
+> 本章节学习 Docusaurus 中博客的创建编写 & 配置
+
 ## 创建文章 🐸
 
-- 创建博客文章时，需要在 `./blog` 目录中创建一个文件，文件名的格式为 `YYYY-MM-DD-my-blog-post-title.md`；
-- 如果没有在文章的 **元数据** 中配置 `date` 属性，则该文章的创建日期默认会从文件名中提取；
+- 创建博客文章时，需要在 **./blog** 目录中创建一个文件，文件名的格式为 `YYYY-MM-DD-my-blog-post-title.md`;
+- 如果没有在文章的 **元数据** 中配置 `date` 属性，则该文章的创建日期默认会从文件名中提取;
 
 ```yml title="文章 markdown 示例"
 ---
@@ -26,7 +28,7 @@ tags: [Docusaurus, Markdown]
 
 ### 配置文章元数据
 
-- Docusaurus 支持在博客文章中配置该文章的 **元数据信息**，包括 **标题**，**路由**，**日期** 等配置项；
+- Docusaurus 支持在博客文章中配置该文章的 **元数据信息**，包括 **标题**，**路由**，**日期** 等配置项;
 
 ```yml title="博客文章元数据介绍"
 # ☘️ 自定义文章的路由 url
@@ -35,7 +37,7 @@ slug: /
 # ☘️ 文章标题（会自动在侧边栏显示）
 title: 标题
 
-# 是否隐藏文章右侧的目录列表，boolean 类型，默认为 false
+# ☘️ 是否隐藏文章右侧的目录列表，boolean 类型，默认为 false
 hide_table_of_contents: false
 
 # 显示文章列表时所使用的封面或缩略图地址
@@ -57,7 +59,7 @@ draft: false
 # 用于设置文章的创建时间，若不设置，默认为文件名中的时间
 date: 2021-10-26
 
-# ☘️ 作者信息列表，当需要指定多个作者时，可使用该属性，是一个 any[] 类型，每个作者下都配有 name，title 等信息；
+# ☘️ 作者信息列表，当需要指定多个作者时，可使用该属性，是一个 any[] 类型，每个作者下都配有 name，title 等信息;
 # 一般结合 /blog/authors.yml 或 /blog/authors.json 文件使用
 authors:
   - 作者壹 id
@@ -65,7 +67,7 @@ authors:
   - name: 作者叁 姓名
     title: 作者描述信息
     url: 作者个人地址（一般为 github 地址）
-    image_url: 作者头像图片地址（网络或本地地址）
+    image_url: 作者头像图片地址（网络或本地地址)  # 默认基于 static 目录
     ...   # 还可配置额外的自定义信息
 # 或
 authors: [作者壹 id, 作者贰 id, { name: '作者叁の姓名', title: '作者叁の信息', url: '', image_url: '', ... }]
@@ -98,13 +100,13 @@ toc_max_heading_level: 3
 
 ### 截取摘要
 
-- 可在文章 markdown 中使用 `<!--truncate-->` 来标记该文章的摘要，在 `<!--truncate-->` 标记上方的内容都将成为摘要；否则默认会将整篇文章作为摘要；
-- 摘要内容会显示在 blog 文章列表中；
+- 可在文章 markdown 中使用 `<!--truncate-->` 来标记该文章的摘要，在 `<!--truncate-->` 标记上方的内容都将成为摘要;否则默认会将整篇文章作为摘要;
+- 摘要内容会显示在 blog 文章列表中;
 
 ### 配置多个作者信息
 
-- 当需要在博客文章中配置多个作者时，需要在文章的元数据中配置 `authors` 属性；
-- 还需在 `/blog` 根目录下创建 `authors.yml` 或 `authors.json` 文件，在该文件中配置作者列表信息，并且每个作者都有其对应的唯一 `id`，如下：
+- 当需要在博客文章中配置多个作者时，需要在文章的元数据中配置 `authors` 属性;
+- 还需在 **/blog** 根目录下创建 **authors.yml** 或 **authors.json** 文件，在该文件中配置作者列表信息，并且每个作者都有其对应的唯一 `id`，如下:
 
 ```yml title="authors.yml"
 shaozi: # 作者对应的唯一 id
@@ -131,7 +133,7 @@ tags: [example]
 
 ## blog 的全局配置项 🐸
 
-- 通过 `docusaurus.config.js` 文件中的 `presets（预设）` 对 `blog` 进行定制化的配置；
+- 通过 **docusaurus.config.js** 文件中的 `presets（预设）` 对 `blog` 进行定制化的配置;
 
 ```jsx title="blog 的部分配置项"
 module.exports = {
@@ -195,10 +197,10 @@ module.exports = {
            */
           editLocalizedFiles: false,
 
-          // 自定义 tags 标签列表页的路由，默认为 'tags'，完整路由为：https://xxx/blog/tags
+          // 自定义 tags 标签列表页的路由，默认为 'tags'，完整路由为: https://xxx/blog/tags
           tagsBasePath: 'tags',
 
-          // 自定义 博客档案(能看到所有博客，以及博客的时间线) 页面的路由，默认为 'archive'，完整路由为：https://xxx/blog/archive
+          // 自定义 博客档案(能看到所有博客，以及博客的时间线) 页面的路由，默认为 'archive'，完整路由为: https://xxx/blog/archive
           archiveBasePath: 'archive'
 
           // 指定哪些 文件 能被匹配到（以下是默认值）
@@ -224,7 +226,7 @@ module.exports = {
             language: undefined, // 语言
           },
 
-          // ☘ remark 是 Markdown 的处理器，可提供一些插件来支持 Markdown，丰富 Markdown 的功能
+          // ☘️ remark 是 Markdown 的处理器，可提供一些插件来支持 Markdown，丰富 Markdown 的功能
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
           ],
@@ -232,7 +234,7 @@ module.exports = {
           // rehype 是将 Markdown 转换成 HTML 的处理器，可提供一些插件，更方便的进行转换
           rehypePlugins: [],
 
-          // ☘ 指定 string / RegExp（正则） 来匹配对应的 摘要内容（以下是默认值）
+          // ☘️ 指定 string / RegExp（正则） 来匹配对应的 摘要内容（以下是默认值）
           truncateMarker: /<!--\s*(truncate)\s*-->/,
 
           // ☘️ 是否在文章中显示阅读时长，默认为 true
@@ -249,8 +251,7 @@ module.exports = {
            * ☘️ 自定义 作者信息列表 目录的文件名，它默认存在于 /blog 根目录下（若没有该文件时，可自行创建）
            * 该文件可以为 '.yml' 或 '.json' 格式（以下是默认值）
            */
-          authorsMapPath: 'authors.yml'
-
+          authorsMapPath: 'authors.yml',
           ...
         },
       },
@@ -261,9 +262,9 @@ module.exports = {
 
 ## 自定义 blog 主题组件 🐸
 
-- 当需要自定义或修改 blog 主题组件（页面）时，可在 `./src/theme` 目录中创建和 `@theme/...` 同名的主题组件，此时 **Docusaurus** 会优先识别并使用 `./src/theme` 下的主题组件；
-- 主题组件的创建可参考 `@theme/...` 的源码，[点击此链接前往查看](https://gitee.com/zhgt__xu/docusaurus-code/tree/master/theme-classic/src/theme)；
-- 与 blog 有关的主题组件如下：
+- 当需要自定义或修改 blog 主题组件（页面）时，可在 **./src/theme** 目录中创建和 `@theme/...` 同名的主题组件，此时 **Docusaurus** 会优先识别并使用 **./src/theme** 下的主题组件;
+- 主题组件的创建可参考 `@theme/...` 的源码，_[点击此 🔗 前往查看](https://gitee.com/zhgt__xu/docusaurus-code/tree/master/@docusaurus/theme-classic/src/theme)_;
+- 与 blog 有关的主题组件如下:
 
 ```jsx
 '@theme/BlogLayout' // 博客页面布局 组件

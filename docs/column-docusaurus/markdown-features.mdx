@@ -11,7 +11,7 @@ import dayjs from 'dayjs'
 import BrowserWindow from '@site/src/components/BrowserWindow';
 ```
 
-
+> 本章节学习 Docusaurus 中新增的 Markdown 语法 & 功能
 
 ## 渲染 React 组件 🐸
 
@@ -36,7 +36,7 @@ export const CustomDetails = ({ children, title }) => (
 文档其他内容...
 ```
 
-- 效果展示如下：
+效果展示如下：
 
 ```mdx-code-block
 export const CustomDetails = ({ children, title }) => (
@@ -124,7 +124,7 @@ import TabItem from '@theme/TabItem';
 - 在文档中，npm 和 yarn 同时显示 CLI 命令是一个很常见的需求，因此 Docusaurus 提供了一个辅助插件；
 - 该插件为 `@docusaurus/remark-plugin-npm2yarn`，无需重复书写 CLI 命令，仅需要写成代码块的形式，即可生成 npm 和 yarn 所对应的 CLI 命令；
 - 该插件会生成一个 `<Tabs>` 标签组，用于 npm 和 yarn 之间的相互切换；
-- 使用该插件时，还得需要在 `docusaurus.config.js` 文件中进行配置，对于需要用到此功能的文档，页面，博客等，在 `remarkPlugins` 选项中注册该插件，具体如下：
+- 使用该插件时，还得需要在 **docusaurus.config.js** 文件中进行配置，对于需要用到此功能的文档，页面，博客等，在 `remarkPlugins` 选项中注册该插件，具体如下：
 
 ```jsx title="docusaurus.config.js 配置项"
 module.export = {
@@ -165,7 +165,7 @@ npm install @docusaurus/remark-plugin-npm2yarn
 
 ## 代码块 🐸
 
-- Docusaurus 对代码块赋予了很多功能，比如 **定义标题**，**多行代码高亮** 等；
+> Docusaurus 对代码块赋予了很多功能，比如 **定义标题**，**多行代码高亮** 等；
 
 ### 定义标题
 
@@ -249,7 +249,34 @@ const HighlightSomeText = (highlight) => {
 };
 ```
 
-## 交互式代码编辑器 🐸
+### 在组件中使用代码块
+
+- 当需要在组件或页面中使用 Docusaurus 提供的代码块时，只需引入其对应的插件 `@theme/CodeBlock` 即可，如下；
+
+```jsx title="src/pages/index.tsx"
+import React from 'react';
+// highlight-next-line
+import CodeBlock from '@theme/CodeBlock';
+
+const textContent = {
+  codeExample: `
+import React from 'react'; 
+  
+const WelcomeScreen = () => (
+  <div>
+    <h1>Welcome to Dino's world. 👾</h1>
+  </div>
+);
+  `
+}
+
+const Homepage = () => {
+  // highlight-next-line
+  return <CodeBlock>{textContent.codeExample}</CodeBlock>;
+};
+```
+
+### 交互式代码编辑器
 
 - Docusaurus 支持在文档中使用 **交互式代码编辑器**，也就是可以在编辑器中修改代码，并且能实时展示结果；
 - 使用该编辑器时，需要安装 `@docusaurus/theme-live-codeblock` 插件；
@@ -291,7 +318,7 @@ function Clock(props) {
 
   return (
     <div>
-      <h3 style={{ color: '#ec4899' }}>It is {date.toLocaleTimeString()}</h3>
+      <h3 style={{ color: '#C3272B' }}>It is {date.toLocaleTimeString()}</h3>
     </div>
   );
 }
@@ -395,18 +422,51 @@ import imageUrl from '/img/...';
 
 - **Docusaurus 内置的** `useBaseUrl` **插件** 引用，它基于 `siteConfig.baseUrl` 路径，需使用 `<img>` 标签，并且尽可能在 `mdx` 文件中使用：
 
-```jsx title="doc.md 示例"
+```jsx title="doc.md 示例" {1}
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 <img src={useBaseUrl('/img/...')} alt='Example Image' />
 ```
 
-- 效果展示如下：
+效果展示如下：
 
 ```mdx-code-block
 <BrowserWindow>
   <img src={require('/img/wallhaven-x8d8gz.jpeg').default} alt="Example Image" />
 </BrowserWindow>
+```
+
+### Docusaurus 的拓展资源
+
+- Ducusaurus 支持直接导入 `svg` 图像，并且将其自动转换为 React 组件:
+
+```jsx title="doc.md 示例"
+import GodOfWealthSVG from '@site/static/img/caishenye.svg';
+
+<GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />
+```
+
+```mdx-code-block
+import GodOfWealthSVG from '@site/static/img/caishenye.svg';
+
+<BrowserWindow>
+  <GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />
+</BrowserWindow>
+```
+
+- Ducusaurus 支持 `主题` 图像，其内置了一个 `ThemedImage` 组件，根据当前主题切换对应的图像:
+
+```jsx title="doc.md 示例" {1}
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+<ThemedImage
+  alt="Docusaurus 主题图像"
+  sources={{
+    light: useBaseUrl('/img/**.svg'), // 亮色主题下对应的图像
+    dark: useBaseUrl('/img/**.svg'),  // 暗色主题下对应的图像
+  }}
+/>
 ```
 
 ## 相关链接 🔗

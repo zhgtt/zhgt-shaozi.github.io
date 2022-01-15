@@ -49,8 +49,8 @@
 
 $btn-type-list: (
   primary: (
-    color: $--dino-paper-primary-text,
-    border: $--dino-paper-primary-border,
+    // color: $--dino-paper-primary-text,
+    // border: $--dino-paper-primary-border,
     bg: $--dino-paper-primary-bg,
     bg-active: $--dino-paper-primary-bg-active,
   ),
@@ -105,7 +105,7 @@ $btn-type-list: (
   // 空心，背景为白色
   .paper-btn-#{$type}-outline {
     border-color: map-get($map, 'bg-active');
-    background-color: $--dino-color-white;
+    // background-color: $--dino-color-white;
 
     &:hover {
       background-color: map-get($map, 'bg');

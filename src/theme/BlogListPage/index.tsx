@@ -61,13 +61,13 @@ const BlogListPage = (props: Props): JSX.Element => {
       searchMetadatas={{ tag: 'blog_posts_list' }}
     >
       <main className='container text-center'>
-        <div className='relative mt-8'>
+        <div className='relative mt-8 mb-6'>
           <h1>全部文章</h1>
           <Link to='/blog/archive' className='absolute top-1/2 left-0 -translate-y-1/2'>
-            博客档案
+            博客时光馆
           </Link>
         </div>
-        <div className={clsx('my-6', styles.switchBlogView)}>切换视图（TODO）</div>
+        {/* <div className={clsx('mt-6', styles.switchBlogView)}>切换视图（TODO）</div> */}
 
         <div className='text-left'>
           {items.map(({ content: BlogPostContent }, index) => (
