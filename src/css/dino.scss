@@ -1,6 +1,6 @@
 /* 原子化样式 - 参考 tailwindcss 文档，https://docs.tailwindchina.com/docs/customizing-colors，部分样式与 infima 源码重叠，仅供学习使用
  * 
- * 变量一般为 可控或改动较平凡的值
+ * 变量一般为 可控或改动较频繁的值
  * 0.0625rem 为 1px
  * 1rem 为 16px
 */
@@ -15,160 +15,22 @@ $--dino-xl: 1320px;
 // $--dino-xl: 1280px;
 $--dino-2xl: 1536px;
 
-/* Color */
-$--dino-color-white: #ffffff;
-$--dino-color-black: #000000;
+/* Heading */
+$--dino-h1-font-size: 2.5rem; // 42px
+$--dino-h2-font-size: 1.875rem; // 30px
+$--dino-h3-font-size: 1.5rem;
+$--dino-h4-font-size: 1.125rem;
+$--dino-h5-font-size: 1rem;
+$--dino-h6-font-size: 0.875rem;
 
-$--dino-color-gray-50: #f9fafb;
-$--dino-color-gray-100: #f3f4f6;
-$--dino-color-gray-200: #e5e7eb;
-$--dino-color-gray-300: #d1d5db;
-$--dino-color-gray-400: #9ca3af;
-$--dino-color-gray-500: #6b7280;
-$--dino-color-gray-600: #4b5563;
-$--dino-color-gray-700: #374151;
-$--dino-color-gray-800: #1f2937;
-$--dino-color-gray-900: #111827;
-
-$--dino-color-blueGray-50: #f8fafc;
-$--dino-color-blueGray-100: #f1f5f9;
-$--dino-color-blueGray-200: #e2e8f0;
-$--dino-color-blueGray-300: #cbd5e1;
-$--dino-color-blueGray-400: #94a3b8;
-$--dino-color-blueGray-500: #64748b;
-$--dino-color-blueGray-600: #475569;
-$--dino-color-blueGray-700: #334155;
-$--dino-color-blueGray-800: #1e293b;
-$--dino-color-blueGray-900: #0f172a;
-
-$--dino-color-coolGray-50: #fafafa;
-$--dino-color-coolGray-100: #f4f4f5;
-$--dino-color-coolGray-200: #ebedf0;
-$--dino-color-coolGray-300: #d4d4d8;
-$--dino-color-coolGray-400: #a1a1aa;
-$--dino-color-coolGray-500: #71717a;
-$--dino-color-coolGray-600: #52525b;
-$--dino-color-coolGray-700: #3f3f46;
-$--dino-color-coolGray-800: #27272a;
-$--dino-color-coolGray-900: #18181b;
-
-$--dino-color-warmGray-50: #fafaf9;
-$--dino-color-warmGray-100: #f5f5f4;
-$--dino-color-warmGray-200: #e7e5e4;
-$--dino-color-warmGray-300: #d6d3d1;
-$--dino-color-warmGray-400: #a8a29e;
-$--dino-color-warmGray-500: #78716c;
-$--dino-color-warmGray-600: #57534e;
-$--dino-color-warmGray-700: #44403c;
-$--dino-color-warmGray-800: #292524;
-$--dino-color-warmGray-900: #1c1917;
-
-$--dino-color-red-50: #fef2f2;
-$--dino-color-red-100: #fee2e2;
-$--dino-color-red-200: #fecaca;
-$--dino-color-red-300: #fca5a5;
-$--dino-color-red-400: #f87171;
-$--dino-color-red-500: #ef4444;
-$--dino-color-red-600: #dc2626;
-$--dino-color-red-700: #b91c1c;
-$--dino-color-red-800: #991b1b;
-$--dino-color-red-900: #7f1d1d;
-
-$--dino-color-yellow-50: #fffbeb;
-$--dino-color-yellow-100: #fef3c7;
-$--dino-color-yellow-200: #fde68a;
-$--dino-color-yellow-300: #fcd34d;
-$--dino-color-yellow-400: #fbbf24;
-$--dino-color-yellow-500: #f59e0b;
-$--dino-color-yellow-600: #d97706;
-$--dino-color-yellow-700: #b45309;
-$--dino-color-yellow-800: #92400e;
-$--dino-color-yellow-900: #78350f;
-
-$--dino-color-emeraldGreen-50: #ecfdf5;
-$--dino-color-emeraldGreen-100: #d1fae5;
-$--dino-color-emeraldGreen-200: #a7f3d0;
-$--dino-color-emeraldGreen-300: #6ee7b7;
-$--dino-color-emeraldGreen-400: #34d399;
-$--dino-color-emeraldGreen-500: #10b981;
-$--dino-color-emeraldGreen-600: #059669;
-$--dino-color-emeraldGreen-700: #047857;
-$--dino-color-emeraldGreen-800: #065f46;
-$--dino-color-emeraldGreen-900: #064e3b;
-
-$--dino-color-limeGreen-50: #f7fee7;
-$--dino-color-limeGreen-100: #ecfccb;
-$--dino-color-limeGreen-200: #d9f99d;
-$--dino-color-limeGreen-300: #bef264;
-$--dino-color-limeGreen-400: #a3e635;
-$--dino-color-limeGreen-500: #86a361;
-$--dino-color-limeGreen-600: #65a30d;
-$--dino-color-limeGreen-700: #4d7c0f;
-$--dino-color-limeGreen-800: #3f6212;
-$--dino-color-limeGreen-900: #365314;
-
-$--dino-color-green-50: #f0fdf4;
-$--dino-color-green-100: #dcfce7;
-$--dino-color-green-200: #bbf7d0;
-$--dino-color-green-300: #86efac;
-$--dino-color-green-400: #4ade80;
-$--dino-color-green-500: #22c55e;
-$--dino-color-green-600: #16a34a;
-$--dino-color-green-700: #15803d;
-$--dino-color-green-800: #166534;
-$--dino-color-green-900: #14532d;
-
-$--dino-color-teal-50: #f0fdfa;
-$--dino-color-teal-100: #ccfbf1;
-$--dino-color-teal-200: #99f6e4;
-$--dino-color-teal-300: #5eead4;
-$--dino-color-teal-400: #2dd4bf;
-$--dino-color-teal-500: #14b8a6;
-$--dino-color-teal-600: #0d9488;
-$--dino-color-teal-700: #0f766e;
-$--dino-color-teal-800: #115e59;
-$--dino-color-teal-900: #134e4a;
-
-$--dino-color-blue-50: #eff6ff;
-$--dino-color-blue-100: #dbeafe;
-$--dino-color-blue-200: #bfdbfe;
-$--dino-color-blue-300: #93c5fd;
-$--dino-color-blue-400: #60a5fa;
-$--dino-color-blue-500: #3b82f6;
-$--dino-color-blue-600: #2563eb;
-$--dino-color-blue-700: #1d4ed8;
-$--dino-color-blue-800: #1e40af;
-$--dino-color-blue-900: #1e3a8a;
-
-$--dino-color-purple-50: #f5f3ff;
-$--dino-color-purple-100: #ede9fe;
-$--dino-color-purple-200: #ddd6fe;
-$--dino-color-purple-300: #c4b5fd;
-$--dino-color-purple-400: #a78bfa;
-$--dino-color-purple-500: #8b5cf6;
-$--dino-color-purple-600: #7c3aed;
-$--dino-color-purple-700: #6d28d9;
-$--dino-color-purple-800: #5b21b6;
-$--dino-color-purple-900: #4c1d95;
-
-$--dino-color-pink-50: #fdf2f8;
-$--dino-color-pink-100: #fce7f3;
-$--dino-color-pink-200: #fbcfe8;
-$--dino-color-pink-300: #f9a8d4;
-$--dino-color-pink-400: #f472b6;
-$--dino-color-pink-500: #ec4899;
-$--dino-color-pink-600: #db2777;
-$--dino-color-pink-700: #be185d;
-$--dino-color-pink-800: #9d174d;
-$--dino-color-pink-900: #831843;
-
-/* Font（size 以 0.125rem 递增） */
+/* Font（size 以 0.125rem / 2px 递增） */
 $--dino-font-weight-thin: 100;
 $--dino-font-weight-light: 300;
 $--dino-font-weight-normal: 400;
 $--dino-font-weight-medium: 500;
 $--dino-font-weight-bold: 600;
 
+$--dino-font-size-xxs: 0.625rem; // 10px
 $--dino-font-size-xs: 0.75rem; // 12px
 $--dino-font-size-sm: 0.875rem; // 14px
 $--dino-font-size-base: 1rem; // 16px
@@ -179,18 +41,16 @@ $--dino-font-size-3xl: 1.875rem; // 30px
 $--dino-font-size-4xl: 2.25rem; // 36px
 $--dino-font-size-5xl: 3rem; // 48px
 $--dino-font-size-6xl: 3.75rem; // 60px
-$--dino-font-size-7xl: 4.5rem;
-$--dino-font-size-8xl: 6rem;
-$--dino-font-size-9xl: 8rem;
 
 $--dino-font-family-base: 'FZZJ-QNTJW', sans-serif;
-$--dino-font-family-secondary: 'Raleway', 'PingFang SC', 'Microsoft Yahei', sans-serif;
+$--dino-font-family-secondary: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue,
+  PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 
-/* Space - 见局（以 0.25rem 递增） */
+/* Space - 见局（以 0.25rem / 4px 递增） */
 $--dino-space-0: 0;
 $--dino-space-1: 0.25rem;
 $--dino-space-2: 0.5rem;
-$--dino-space-3: 0.75rem;
+$--dino-space-3: 0.75rem; // 12px
 $--dino-space-4: 1rem;
 $--dino-space-5: 1.25rem;
 $--dino-space-6: 1.5rem;
@@ -303,23 +163,3 @@ $--dino-timing-function-ease-linear: linear;
 $--dino-timing-function-ease-in: cubic-bezier(0.4, 0, 1, 1);
 $--dino-timing-function-ease-out: cubic-bezier(0, 0, 0.2, 1);
 $--dino-timing-function-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-
-/* 🍋 样式变量 🍋 */
-/* Body */
-$--dino-body-font-family: $--dino-font-family-secondary;
-
-/* Heading */
-$--dino-h1-font-size: $--dino-font-size-4xl;
-$--dino-h2-font-size: $--dino-font-size-3xl;
-$--dino-h3-font-size: $--dino-font-size-2xl;
-$--dino-h4-font-size: $--dino-font-size-xl;
-$--dino-h5-font-size: $--dino-font-size-lg;
-$--dino-h6-font-size: $--dino-font-size-base;
-
-$--dino-heading-font-family: $--dino-font-family-secondary;
-
-/* Theme */
-$--dino-color-primary: $--dino-color-teal-500;
-
-/* Link */
-$--dino-link-color: $--dino-color-primary;

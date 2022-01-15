@@ -62,63 +62,49 @@ module.exports = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       hideableSidebar: true, // 是否显示侧边栏收起功能
-      colorMode: {
-        respectPrefersColorScheme: true,
-      },
+      colorMode: { respectPrefersColorScheme: true },
       // 公告条
-      announcementBar: {
-        id: 'support_us',
-        content: '号外！号外！📢 📢 📢',
-        isCloseable: false,
-      },
+      // announcementBar: {
+      //   id: 'support_us',
+      //   content: '号外！号外！📢 📢 📢',
+      //   isCloseable: false,
+      // },
       // 导航栏
       navbar: {
         hideOnScroll: true, // 是否文档向下滚动时收起导航栏
-        title: '勺子', // 导航栏 title 和 logo
-        logo: {
-          alt: '勺子', // 图片的 alt
-          src: 'img/logo.svg',
-        },
-        // 导航栏菜单内容
+        title: '勺子',
+        logo: { alt: '勺子', src: 'img/logo.svg' },
         items: [
           {
             label: '前端 Madao',
             position: 'right',
-            // 子菜单
             items: [
               { label: '学习 😒', type: 'doc', docId: 'introduction' },
               // { label: '面试 📋', to: 'docs/interview' },
             ],
           },
-          {
-            label: '专栏',
-            to: 'docs/column-docusaurus',
-            position: 'right',
-          },
+          { label: '专栏', to: 'docs/column-docusaurus', position: 'right' },
+          // {
+          //   label: '导航网站',
+          //   to: 'docs/column-docusaurus',
+          //   position: 'right',
+          // },
           { label: '博客', position: 'right', to: '/blog' },
           {
-            href: 'https://github.com/zhgt-shaozi/zhgt-shaozi.github.io', // 外链，自带分享图标
+            href: 'https://github.com/zhgt-shaozi/zhgt-shaozi.github.io',
             label: 'GitHub',
             position: 'right',
-            // 在 custom.css 中自定义类名，可以去掉 label，改成图标，或者自定义样式
-            // className: 'header-github-link',
-          },
-          {
-            position: 'right',
-            type: 'search',
+            className: 'header-github-link',
           },
         ],
       },
       // 底部内容
       footer: {
-        logo: {
-          alt: '勺子', // 图片的 alt
-          src: 'img/logo.svg',
-        },
+        logo: { alt: '勺子', src: 'img/logo.svg' },
         style: 'dark',
         links: [
           {
-            title: 'Community', // 主标题
+            title: 'Community',
             items: [
               {
                 label: 'GitHub',
@@ -133,10 +119,16 @@ module.exports = {
         // 版权说明内容
         copyright: `Copyright © ${new Date().getFullYear()} 个人网站.`,
       },
+      // 代码块主题配置
       prism: {
         theme: require('prism-react-renderer/themes/github'),
         darkTheme: require('prism-react-renderer/themes/dracula'),
         defaultLanguage: 'javascript',
       },
+      // algolia: {
+      //   apiKey: '3ea6977f376e28eff0193fb54e110f95',
+      //   indexName: 'ZXUQIANCN',
+      //   appId: 'VJOWHW5GGG',
+      // },
     }),
 };

@@ -3,13 +3,10 @@
  */
 
 import React from 'react';
-
 import Link from '@docusaurus/Link';
-
 import clsx from 'clsx';
-import { Tag } from 'antd';
-import { TagsTwoTone } from '@ant-design/icons';
-
+import { Tag } from '@arco-design/web-react';
+import IconFont from '@site/src/components/IconFont';
 import styles from './styles.module.scss';
 
 interface BlogTagsListProps {
@@ -22,14 +19,13 @@ const BlogTagsList: React.FC<BlogTagsListProps> = (props) => {
   if (!tags.length) return null;
 
   return (
-    <div className='flex items-center my-6'>
-      <TagsTwoTone className='mr-2' twoToneColor='#8d949e' />
+    <div className='flex my-6'>
       {tags.map(({ label, permalink: tagPermalink }) => (
-        <Tag
-          key={tagPermalink}
-          className={clsx('border-transparent paper-border-5', styles.antdTag)}
-        >
-          <Link to={tagPermalink}>{label}</Link>
+        <Tag key={tagPermalink} className={clsx('mr-2 paper-border-5', styles.dinoTag)}>
+          <Link to={tagPermalink}>
+            <IconFont type='icon-dino-biaoqian' className='mr-1' />
+            {label}
+          </Link>
         </Tag>
       ))}
     </div>

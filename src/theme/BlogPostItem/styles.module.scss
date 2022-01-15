@@ -1,0 +1,23 @@
+.dinoCard {
+  background-color: var(--dino-color-body-bg) !important;
+}
+
+.dinoDivider {
+  &::after,
+  &::before {
+    border-bottom-style: dashed !important;
+  }
+}
+
+.btnLink {
+  &:hover {
+    opacity: 1;
+    text-decoration: none;
+  }
+}
+
+.titleLink {
+  &:hover {
+    text-decoration: none;
+  }
+}

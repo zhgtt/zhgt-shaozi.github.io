@@ -59,15 +59,17 @@ import MDXComponents from '@theme/MDXComponents'; // markdown 摘要内容
 import { MDXProvider } from '@mdx-js/react'; // markdown 组件
 
 import clsx from 'clsx';
-import Lottie from 'react-lottie'; // react 版 lottie - 加载 json 格式的动画
-import { Row, Col, Divider, Button } from 'antd';
+import Lottie from 'react-lottie';
+import { Grid, Card, Button, Divider } from '@arco-design/web-react';
 
 import { randomLottieFun } from '@site/src/utils/lotties';
-import PaperCard from '@site/src/components/PaperCard';
-import PaperButton from '@site/src/components/PaperButton';
 import BlogTagsList from '@site/src/components/BlogTagsList';
 import BlogCreationDate from '@site/src/components/BlogCreationDate';
+import IconFont from '@site/src/components/IconFont';
 import styles from './styles.module.scss';
+
+const Row = Grid.Row;
+const Col = Grid.Col;
 
 interface ExtraBlogPostItemProps {
   lottieDirection?: 'left' | 'right';
@@ -86,8 +88,9 @@ const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
   const { date, permalink, tags, title } = metadata;
 
   return (
-    <PaperCard className='mb-16' bodyClassName='p-8'>
+    <Card className={clsx('mb-16', styles.dinoCard)} bodyStyle={{ padding: '1.5rem' }} hoverable>
       <Row justify='space-between' gutter={16}>
+        {/* lottie 动图 */}
         <Col {...LeftLayout} order={lottieDirection === 'left' ? 1 : 2}>
           <div>
             <Lottie
@@ -105,16 +108,18 @@ const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
             />
           </div>
         </Col>
+        {/* 内容 */}
         <Col {...RightLayout} order={lottieDirection === 'left' ? 2 : 1}>
           <article
             className='flex flex-col justify-between h-full'
             itemProp='blogPost（博客内容）'
             itemScope
             itemType='http://schema.org/BlogPosting'
+            style={{ minHeight: 256 }}
           >
             <main>
               <h2 itemProp='headline（大字标题）'>
-                <Link to={permalink} className='color-inherit'>
+                <Link to={permalink} className={clsx('color-inherit', styles.titleLink)}>
                   {title}
                 </Link>
               </h2>
@@ -129,24 +134,25 @@ const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
 
             <footer className='mt-16'>
               <div className={lottieDirection === 'left' ? 'text-right' : 'text-left'}>
-                <PaperButton
-                  isLink
-                  to={permalink}
-                  type='muted'
-                  outline
-                  aria-label={`继续阅读更多 ${title} 的内容`}
-                >
-                  <Translate description='read more'>继续阅读</Translate>
-                </PaperButton>
+                <Button type='primary' aria-label={`继续阅读更多 ${title} 的内容`}>
+                  <Link to={permalink} className={clsx('full', styles.btnLink)}>
+                    继续阅读 <IconFont type='icon-dino-yuedu' className='ml-1' />
+                  </Link>
+                </Button>
               </div>
-              <Divider dashed orientation={lottieDirection} style={{ marginBottom: 0 }}>
+              {/* 分割线 */}
+              <Divider
+                className={styles.dinoDivider}
+                orientation={lottieDirection}
+                style={{ marginBottom: 0 }}
+              >
                 <BlogCreationDate date={date} className='text-base' />
               </Divider>
             </footer>
           </article>
         </Col>
       </Row>
-    </PaperCard>
+    </Card>
   );
 };
 

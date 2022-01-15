@@ -1,57 +1,32 @@
-/* TODO 全局主题变量 */
-:root {
-  --dino-body-text-color: #{$--dino-color-gray-800};
-  --dino-body-bg-color: #{$--dino-color-white};
-  --dino-heading-color: #{$--dino-color-gray-900};
-  --dino-navbar-bg-color: #{$--dino-color-white};
-
-  --dino-paper-card-shadow-color: #{$--dino-box-shadow-md};
-  --dino-paper-btn-border-color: #{$--dino-color-gray-800};
-  --dino-paper-btn-bg-color: #{$--dino-color-white};
-
-  --ifm-color-primary: #{$--dino-color-primary};
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #46cbae;
-  --ifm-color-primary-lighter: #66d4bd;
-  --ifm-color-primary-lightest: #92e0d0;
-}
-
-html[data-theme='dark'] {
-  --dino-body-text-color: #{$--dino-color-gray-300};
-  --dino-body-bg-color: #{$--dino-color-gray-900};
-  --dino-heading-color: #{$--dino-color-gray-200};
-  --dino-navbar-bg-color: #{$--dino-color-gray-800};
-
-  --dino-paper-card-shadow-color: #{$--dino-box-shadow-inner};
-  --dino-paper-btn-border-color: #{$--dino-color-gray-300};
-  --dino-paper-btn-bg-color: #{$--dino-color-blueGray-800};
-}
-
-/* [x] 主题函数（废弃，统一通过 CSS 全局变量控制） */
+/* [x] scss 主题函数（暂时废弃，统一通过 CSS 全局变量控制） */
 $theme-map: null; // 声明该变量才可使用 !global
+
+// $themes 变量用来定义各主题下的 key 及对应的颜色，由 map-get 函数传来的 key 去对应的查找
 $themes: (
   light: (
-    #{'key'}: #{'value'},
+    // #{'key'}: #{'value'},
+    // 🌰
+    background_color1: #fff,
   ),
   dark: (
-    #{'key'}: #{'value'},
+    // #{'key'}: #{'value'},
+    background_color1: #333,
   ),
 );
 
 @mixin themeify {
   @each $name, $map in $themes {
     // !global 把局部变量强升为全局变量
-    $theme-map: $map !global;
-    // & 父容器标识
+    $theme-map: $map !global; // 将各主题下的 key 及对应的值提升为全局，便于 map-get 函数使用
+    // & 父容器标识（类名）
     // @content 是混合器插槽，像 vue 的 slot
     [data-theme='#{$name}'] & {
       @content;
     }
   }
 }
-// map-get 函数，从 map 对象中根据 key 获取对应的 value
+
+// map-get(map, key) 函数，从 map 对象中根据 key 获取其对应的 value
 @function themed($key) {
   @return map-get($theme-map, $key);
 }
@@ -59,7 +34,7 @@ $themes: (
 // 背景颜色
 @mixin theme_bg_color($key) {
   @include themeify {
-    background-color: themed($key);
+    background-color: themed($key); // 对应 @content
   }
 }
 // 字体颜色
@@ -79,4 +54,10 @@ $themes: (
   @include themeify {
     box-shadow: themed($key);
   }
+}
+
+// 🌰 使用方式，直接在类中使用，只需定义各主题下所需要的 key 即可
+.example {
+  @include theme_bg_color('background_color1');
+  // ...
 }

@@ -3,20 +3,147 @@
  *
  * @import url() 是 css 的方法，在 scss 中不生效，需使用 @import '../路径'
  */
-@import '~antd/dist/antd.css';
+// @import '~antd/dist/antd.css';
+@import '@arco-design/web-react/dist/css/arco.css';
 @import './dino.scss';
 @import './dino-styles.scss';
 @import './paper.scss';
-@import './theme.scss';
+
+$svgBase: 'data:image/svg+xml;charset=UTF-8,';
 
 :root {
-  --ifm-navbar-height: 3.75rem;
+  --color-white: #fff;
+  --color-black: #000;
+
+  --color-gray-1: rgb(247, 248, 250);
+  --color-gray-2: rgb(242, 243, 245);
+  --color-gray-3: rgb(229, 230, 235);
+  --color-gray-4: rgb(201, 205, 212);
+  --color-gray-5: rgb(134, 144, 156);
+  --color-gray-6: rgb(78, 89, 105);
+  --color-gray-7: rgb(51, 65, 85);
+  --color-gray-8: rgb(31, 41, 55);
+  --color-gray-9: rgb(17, 24, 39);
+
+  --color-emphasis-1: rgb(235, 237, 240);
+
+  --color-cyan-6: rgb(20, 201, 201);
+
+  --color-blue-1: rgb(232, 243, 255);
+  --color-blue-2: rgb(30, 128, 255);
+  --color-blue-3: rgb(60, 126, 255);
+  --color-blue-6: rgb(22, 93, 255);
+  --color-blue-rgb-3: 60, 126, 255;
+  --color-blue-rgb-6: 22, 93, 255;
+
+  // --dino-paper-card-shadow-color: #{$--dino-box-shadow-md};
+  // --dino-paper-btn-border-color: #{$--dino-color-gray-800};
+  // --dino-paper-btn-bg-color: #{$--dino-color-white};
+
+  --ifm-color-primary: var(--dino-primary-1); // docusaurus 主题色
+  // --ifm-color-primary-dark: #21af90;
+  // --ifm-color-primary-darker: #1fa588;
+  // --ifm-color-primary-darkest: #1a8870;
+  // --ifm-color-primary-light: #46cbae;
+  // --ifm-color-primary-lighter: #66d4bd;
+  // --ifm-color-primary-lightest: #92e0d0;
+
+  --ifm-navbar-padding-horizontal: 1rem; // navbar 水平方向的 padding
+  --ifm-navbar-height: 3.75rem; // navbar 高度
+  --ifm-menu-link-padding-horizontal: 0.875rem; // menu link 水平方向的 padding
+  --doc-sidebar-width: 272px; // 展开的 menu 宽度
+  --doc-sidebar-hidden-width: 16px; // 收起的 menu 宽度
+
+  // 🍋 以下变量需适配暗夜模式主题
+  --dino-primary-1: var(--color-blue-6);
+  --dino-primary-2: var(--color-blue-1);
+  --dino-color-text-1: var(--color-gray-9);
+  --dino-color-text-2: var(--color-gray-7);
+  // --dino-color-text-3: var(--color-gray-5);
+  // --dino-color-text-4: var(--color-gray-4);
+  --dino-color-fill-1: var(--color-gray-1);
+  --dino-color-fill-2: var(--color-gray-2);
+  // --dino-color-fill-3: var(--color-gray-3);
+  --dino-color-fill-4: var(--color-gray-4);
+  --dino-color-border-1: var(--color-gray-3);
+  --dino-color-navbar-bg: var(--color-white);
+  --dino-color-heading: var(--color-gray-9);
+  --dino-color-body: var(--color-gray-8);
+  --dino-color-body-bg: var(--color-white);
+  --dino-color-bg-1: var(--color-white);
+  --dino-color-code: var(--color-blue-6);
+  --dino-color-code-bg: rgba(var(--color-blue-rgb-6), 0.08);
+  --dino-color-browser-bg: var(--color-emphasis-1);
+  --dino-color-tag-text: var(--color-blue-3); // tag 随主题变化
+}
+
+html[data-theme='dark'] {
+  // --dino-paper-card-shadow-color: #{$--dino-box-shadow-inner};
+  // --dino-paper-btn-border-color: #{$--dino-color-gray-300};
+  // --dino-paper-btn-bg-color: #{$--dino-color-blueGray-800};
+
+  --dino-primary-1: var(--color-blue-3);
+  --dino-color-text-1: rgba(255, 255, 255, 0.9);
+  --dino-color-text-2: rgba(255, 255, 255, 0.7);
+  // --dino-color-text-3: rgba(255, 255, 255, 0.5);
+  // --dino-color-text-4: rgba(255, 255, 255, 0.3);
+  --dino-color-fill-1: rgba(255, 255, 255, 0.04);
+  --dino-color-fill-2: rgba(255, 255, 255, 0.08);
+  // --dino-color-fill-3: rgba(255, 255, 255, 0.12);
+  --dino-color-fill-4: rgba(255, 255, 255, 0.3);
+  --dino-color-border-1: rgb(51, 51, 53);
+  --dino-color-navbar-bg: var(--color-gray-8);
+  --dino-color-heading: var(--color-gray-3);
+  --dino-color-body: var(--color-gray-3);
+  --dino-color-body-bg: var(--color-gray-9);
+  --dino-color-bg-1: var(--color-gray-8);
+  --dino-color-code: var(--color-blue-3);
+  --dino-color-code-bg: rgba(var(--color-blue-rgb-3), 0.08);
+  --dino-color-browser-bg: rgb(68, 73, 80);
+}
+
+// code 样式
+@mixin code-style {
+  word-break: break-word;
+  border-radius: 3px;
+  overflow-x: auto;
+  background-color: var(--dino-color-code-bg);
+  color: var(--dino-color-code);
+  padding: 0 5px;
+  border: none;
+  // font-weight: 600;
+  font-size: $--dino-font-size-sm;
+  margin-top: -3px;
+  display: inline-block;
+  line-height: 17px;
+}
+
+/* 滚动条样式 */
+@media (pointer: fine) {
+  .thin-scrollbar {
+    // 整体
+    &::-webkit-scrollbar {
+      width: 12px;
+      height: 4px;
+    }
+    // 滑块
+    &::-webkit-scrollbar-thumb,
+    &::-webkit-scrollbar-thumb:hover {
+      border: 4px solid transparent;
+      background-clip: padding-box;
+      border-radius: 7px;
+      background-color: var(--dino-color-fill-4);
+    }
+    // 外层轨道
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 0;
+    }
+  }
 }
 
 /* Container - 容器 */
 .container {
-  padding: 0 $--dino-space-4;
-
   @media (min-width: $--dino-2xl) {
     max-width: $--dino-2xl;
   }
@@ -24,123 +151,125 @@
 
 /* TODO NavBar - 顶部导航栏 */
 .navbar {
-  background-color: var(--dino-navbar-bg-color);
+  background-color: var(--dino-color-navbar-bg);
 }
 
 /* Markdown */
 .markdown {
-  @mixin heading-styles {
-    margin-top: $--dino-space-8;
-    margin-bottom: $--dino-space-5;
-    > code {
-      font-size: $--dino-font-size-xl !important;
-    }
-  }
-  @mixin heading-styles-small {
-    margin-top: $--dino-space-6;
-    margin-bottom: $--dino-space-3;
-  }
-  > h1 {
-    @include heading-styles;
-    font-size: $--dino-h1-font-size;
-  }
-  > h2 {
-    @include heading-styles;
-    font-size: $--dino-h2-font-size;
+  font-size: $--dino-font-size-sm;
 
-    &:nth-of-type(n + 2) {
-      margin-top: $--dino-space-16;
-    }
-  }
-  > h3 {
-    @include heading-styles;
-    font-size: $--dino-h3-font-size;
-  }
-  > h4 {
-    @include heading-styles-small;
-    font-size: $--dino-h4-font-size;
-  }
-  > h5 {
-    @include heading-styles-small;
-    font-size: $--dino-h5-font-size;
-  }
-  > h6 {
-    @include heading-styles-small;
-    font-size: $--dino-h6-font-size;
-  }
-  li {
-    line-height: $--dino-leading-7;
-    + li {
-      margin-top: $--dino-space-1;
-    }
-  }
-  > ul,
-  > p,
-  > img {
-    margin-bottom: $--dino-space-5;
-  }
+  // a {
+  //   color: var(--color-cyan-6);
+  // }
+  // table,
   ul,
-  ol {
-    list-style: revert;
+  p {
+    code {
+      @include code-style;
+    }
   }
+  h2,
+  h3,
+  h4 {
+    code {
+      @include code-style;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+  }
+  h5 {
+    code {
+      @include code-style;
+      margin-top: -2px;
+    }
+  }
+  // > header > h1 {}
+  // h2 标题
+  h2[class*='anchor'] {
+    > code {
+      font-size: $--dino-font-size-base !important;
+    }
+  }
+  .alert {
+    code {
+      background-color: var(--ifm-code-background);
+      border: 0.1rem solid rgba(0, 0, 0, 0.1);
+      font-size: var(--ifm-code-font-size); // 90%
+      padding: 0 5px;
+      vertical-align: middle;
+      color: initial;
+    }
+  }
+  ul li,
+  p {
+    letter-spacing: 2px;
+    line-height: 1.75;
+  }
+  // tabs
   > ul + .tabs-container {
-    margin-top: -#{$--dino-space-5};
+    margin-top: -1.25rem;
   }
-  code,
   table {
-    font-size: $--dino-font-size-sm !important;
-  }
-  > table {
     code {
       font-size: $--dino-font-size-xs !important;
     }
     td {
-      line-height: $--dino-leading-relaxed;
+      line-height: 1.625;
     }
+  }
+  > img {
+    display: block;
+    margin: 0 auto;
+    max-height: 480px;
+  }
+}
+
+/* tabs */
+.tabs-container {
+  ul li {
+    letter-spacing: initial;
+    line-height: 1;
   }
 }
 
 /* 告示框 组件 */
-.admonition {
-  ul {
-    list-style: revert;
-  }
-  .admonition-content {
-    line-height: $--dino-leading-relaxed;
-  }
-}
+// .admonition {
+// }
 
 /* 交互式代码编辑器 */
 // .playgroundContainer {
-//   .playgroundEditor {
-//     padding: 9px !important;
-//     > textarea {
-//       padding: 18px !important;
-//     }
-//     > pre {
-//       padding: 8px !important;
-//       border: 1px dashed $--dino-color-pink-200 !important;
-//       border-radius: initial;
-//     }
-//   }
 // }
 
-/* doc 页面 */
-.docs-doc-page {
-  .markdown {
-    h1 {
-      font-size: 3rem;
+/* doc / blog 右侧目录 */
+.table-of-contents {
+  > li > a {
+    color: var(--dino-color-text-1);
+  }
+  > li > .table-of-contents__link--active {
+    color: var(--ifm-color-primary);
+  }
+}
+.table-of-contents li {
+  .table-of-contents__link {
+    > code {
+      @include code-style;
+      font-size: $--dino-font-size-xxs;
+      margin-top: -2px;
+      line-height: 15px;
     }
   }
 }
 
-/* doc / blog 右侧目录 */
-.table-of-contents,
-.table-of-contents ul {
-  .table-of-contents__link {
-    > code {
-      font-size: $--dino-font-size-xs;
-    }
+// 索引页面 - card
+article > a[class*='cardContainer_'] {
+  justify-content: space-between;
+}
+
+/* 代码块 */
+div[class^='codeBlockContainer_'] {
+  > div[class^='codeBlockTitle_'] {
+    font-size: $--dino-font-size-sm;
+    font-weight: 600;
   }
 }
 
@@ -151,8 +280,13 @@
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
+html[data-theme='dark'] {
+  .docusaurus-highlight-code-line {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
 
-// TODO 计划更改 公告条 样式
+/* TODO 顶部公告条 */
 // 通过 class^= 的方式去找 announcementBar_ 开头的类名
 // 通过 class*= 的方式去找包含 announcementBar_ 的类名
 div[class^='announcementBar_'] {
@@ -183,32 +317,4 @@ div[class^='announcementBar_'] {
 //   /* background: url("./../../static/img/github.svg") no-repeat; */
 // }
 
-/* TODO Dark Theme */
-html[data-theme='dark'] {
-  .docusaurus-highlight-code-line {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-}
-
-/* Antd Styles */
-.ant-divider-dashed {
-  border-color: $--dino-color-blueGray-200;
-}
-.ant-divider-horizontal.ant-divider-with-text.ant-divider-dashed {
-  border-color: $--dino-color-blueGray-400;
-}
-.ant-divider-horizontal.ant-divider-with-text .ant-divider-inner-text {
-  color: var(--dino-body-text-color);
-}
-
-.ant-tag {
-  font-weight: $--dino-font-weight-medium;
-}
-.ant-tag > a:first-child:last-child {
-  margin: 0;
-  padding: 0;
-}
-.ant-tag a,
-.ant-tag a:hover {
-  color: $--dino-color-white !important;
-}
+/* 修改 arco-design 的部分默认样式 */

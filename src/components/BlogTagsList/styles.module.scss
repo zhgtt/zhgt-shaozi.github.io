@@ -1,5 +1,9 @@
-@import '../../css/dino.scss';
-
-.antdTag {
-  background-color: $--dino-color-primary;
+.dinoTag {
+  background-color: var(--dino-primary-2);
+  > a {
+    color: var(--dino-color-tag-text);
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }

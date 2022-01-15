@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, Avatar, Link, Typography } from '@arco-design/web-react';
 import clsx from 'clsx';
 
 import styles from './styles.module.scss';
@@ -20,9 +21,7 @@ const BrowserWindow: React.FC<BrowserWindowProps> = (props) => {
           <span className={styles.dot} style={{ background: '#fbbe3c' }} />
           <span className={styles.dot} style={{ background: '#58cb42' }} />
         </div>
-        <div className={clsx('select-none text-xs ml-2 mr-4', styles.browserWindowAddressBar)}>
-          {url}
-        </div>
+        <div className={clsx('text-xs ml-2 mr-4', styles.browserWindowAddressBar)}>{url}</div>
         <div className={styles.browserWindowMenuIcon}>
           <div>
             <span className={styles.bar} />
