@@ -32,7 +32,8 @@
       overflow-y: auto;
     }
 
-    $level-list: (1, 2, 3, 4, 5, 6, 7, 8, 9); // 仅支持嵌套9层
+    $level-list: (1, 2, 3, 4, 5); // 仅支持嵌套5层
+    $menu-link-padding-horizontal: 0.875rem;
     @each $level in $level-list {
       .theme-doc-sidebar-item-category-level-#{$level}.menu__list-item,
       .theme-doc-sidebar-item-link-level-#{$level}.menu__list-item {
@@ -45,7 +46,7 @@
             color: var(--dino-color-text-1);
             font-weight: normal;
           }
-          padding-left: calc(var(--ifm-menu-link-padding-horizontal) * $level);
+          padding-left: $menu-link-padding-horizontal * $level;
         }
       }
     }

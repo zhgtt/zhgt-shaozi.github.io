@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
-import clsx from 'clsx';
+import { translate } from '@docusaurus/Translate';
 import { ThemeClassNames, useScrollPosition, useLocationChange } from '@docusaurus/theme-common';
-
-import PaperButton from '@site/src/components/PaperButton';
+import clsx from 'clsx';
 import styles from './styles.module.scss';
 
 const threshold = 300;
@@ -98,20 +97,29 @@ const BackToTopButton = (): JSX.Element => {
   });
 
   return (
-    <PaperButton
-      shape='circle'
-      className={clsx('fixed z-200 opacity-0', styles.backToTopButton, {
-        [styles.backToTopButtonShow]: show,
+    <button
+      aria-label={translate({
+        id: 'theme.BackToTopButton.buttonAriaLabel',
+        message: 'Scroll back to top(滚动回到顶部)',
+        description: 'The ARIA label for the back to top button',
       })}
+      className={clsx(
+        'fixed z-200 opacity-0 paper-border-circle transition-all cursor-pointer',
+        styles.backToTopButton,
+        {
+          [styles.backToTopButtonShow]: show,
+        }
+      )}
+      type='button'
       onClick={() => smoothScrollTop()}
     >
       <span className='text-xl text-bold' style={{ lineHeight: 1 }}>
         ^
       </span>
       {/* <svg viewBox='0 0 24 24' width='20'>
-        <path d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z' fill='currentColor' />
-      </svg> */}
-    </PaperButton>
+          <path d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z' fill='currentColor' />
+        </svg> */}
+    </button>
   );
 };
 

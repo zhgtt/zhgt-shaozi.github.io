@@ -1,12 +1,21 @@
-@import '../../css/dino.scss';
-
 .backToTopButton {
-  right: $--dino-space-6;
-  bottom: $--dino-space-10;
+  right: 1.5rem;
+  bottom: 2.5rem;
+  background-color: var(--dino-color-body-bg);
+  border: 2px solid;
+  border-color: var(--dino-color-text-1);
   transform: scale(0); // 缩放
+  // box-shadow: var(--ifm-global-shadow-lw); // 0 1px 2px 0 rgba(0, 0, 0, 0.1)
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  padding: 0.7rem 1rem;
+
+  &:hover {
+    transform: translate3d(0, 2px, 0);
+    box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .backToTopButtonShow {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) !important;
 }
