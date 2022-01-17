@@ -62,10 +62,10 @@ import clsx from 'clsx';
 import Lottie from 'react-lottie';
 import { Grid, Card, Button, Divider } from '@arco-design/web-react';
 
-import { randomLottieFun } from '@site/src/utils/lotties';
 import BlogTagsList from '@site/src/components/BlogTagsList';
 import BlogCreationDate from '@site/src/components/BlogCreationDate';
 import IconFont from '@site/src/components/IconFont';
+import { randomLottieFun } from '@site/src/utils/lotties';
 import styles from './styles.module.scss';
 
 const Row = Grid.Row;

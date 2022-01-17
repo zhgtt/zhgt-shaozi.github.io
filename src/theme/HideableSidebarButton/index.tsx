@@ -3,8 +3,7 @@ import clsx from 'clsx';
 // import IconArrow from '@theme/IconArrow';
 // import { translate } from '@docusaurus/Translate';
 import { IconRight, IconLeft } from '@arco-design/web-react/icon';
-
-import './styles.scss';
+import styles from './styles.module.scss';
 
 interface IProps {
   onClick?: React.MouseEventHandler;
@@ -20,14 +19,14 @@ const HideableSidebarButton: React.FC<IProps> = (props) => {
     <div
       title={title}
       aria-label={title}
-      className='collapseSidebarButton'
+      className={styles.collapseSidebarButton}
       onClick={onClick}
       onKeyDown={onKeyDown}
       role='button'
       tabIndex={0}
     >
-      {direction === 'left' && <IconLeft className='collapseSidebarButtonIcon' />}
-      {direction === 'right' && <IconRight className='collapseSidebarButtonIcon' />}
+      {direction === 'left' && <IconLeft className={styles.collapseSidebarButtonIcon} />}
+      {direction === 'right' && <IconRight className={styles.collapseSidebarButtonIcon} />}
     </div>
   );
 };

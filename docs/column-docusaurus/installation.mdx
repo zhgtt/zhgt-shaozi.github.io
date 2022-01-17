@@ -553,28 +553,6 @@ const config = {
 module.exports = config;
 ```
 
-## 在组件中访问配置信息 🐸
-
-- **docusaurus.config.js** 中有一些配置项被很多地方用到，比如 标题，副标题 等，因此 Docusaurus 提供了一个 **React Hooks 函数**，用来获取全局的配置项内容，如下：
-
-```jsx title="src/pages/index.tsx"
-import React from 'react';
-// highlight-next-line
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-
-const Homepage = () => {
-  // highlight-next-line
-  const { siteConfig } = useDocusaurusContext(); // 获取全局配置项
-  const { title, tagline } = siteConfig;
-
-  return <h2>{`${title} · ${tagline}`}</h2>;
-};
-```
-
-<!-- ## Docusaurus 部署 🐸
-
-// TODO -->
-
 ## 相关链接 🔗
 
 - [Docusaurus 官方文档 - docusaurus.config.js 配置项](https://www.docusaurus.cn/docs/api/docusaurus-config)

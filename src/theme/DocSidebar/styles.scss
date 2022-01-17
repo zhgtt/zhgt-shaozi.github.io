@@ -48,6 +48,23 @@
           }
           padding-left: $menu-link-padding-horizontal * $level;
         }
+        .menu__link--active {
+          @if $level != 1 {
+            &::after {
+              content: '';
+              position: absolute;
+              right: 0.625rem;
+              top: 50%;
+              transform: translateY(-50%);
+              display: block;
+              width: 20px;
+              height: 20px;
+              background-image: url(//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a2171d9978bfc9ec2374c127d0465273.png~tplv-uwbnlip3yd-png.png);
+              background-size: 100%;
+              background-repeat: no-repeat;
+            }
+          }
+        }
       }
     }
 
@@ -64,6 +81,7 @@
       .menu__link--active {
         color: var(--ifm-color-primary) !important;
         font-weight: 500 !important;
+        position: relative;
       }
       .menu__link--active,
       .menu__link:hover,

@@ -201,38 +201,48 @@ if (highlight) {
 }
 ```
 
-- 通过 `{n-m}` 来高亮指定的 **代码范围**；
+- 通过 `{n-m}` 来高亮指定的 **代码范围**;
 
 
-    ```jsx {2-4} title="代码范围高亮"
+    ```jsx {2-4,6} title="代码范围高亮"
     const HighlightSomeText = (highlight) => {
         if (highlight) {
           return '高亮的文本内容...';
         }
+
+        return '🚗🚗🚗';
     };
     ```
 
-```jsx {2-4} title="代码范围高亮"
+```jsx {2-4,6} title="代码范围高亮"
 const HighlightSomeText = (highlight) => {
   if (highlight) {
     return '高亮的文本内容...';
   }
+
+  return '🚗🚗🚗';
 };
 ```
 
-- 通过 `代码注释` 来高亮指定的代码；
+:::info 离谱小贴士
+📢 指定多个高亮的行数时，之间不允许出现 **空格**;
+:::
+
+- 通过 `代码注释` 来高亮指定的代码或代码区域；
 
 
     ```jsx title="多行代码高亮"
     const HighlightSomeText = (highlight) => {
         if (highlight) {
-          // highlight-next-line（单行代码高亮）
+          {*/ highlight-next-line */}   // 在实际代码中，要改成 // highlight-next-line 的形式，这里只是说明一下
           return '高亮的文本内容...';
         }
 
-        // highlight-start
-        return '没有高亮的文本的内容...';
-        // highlight-end
+        {*/ highlight-start */}
+        return {
+          content: '这片区域的代码被高亮了...'
+        };
+        {*/ highlight-end */}
     };
     ```
 
@@ -244,7 +254,9 @@ const HighlightSomeText = (highlight) => {
   }
 
   // highlight-start
-  return '没有高亮的文本的内容...';
+  return {
+    content: '这片区域的代码被高亮了...'
+  };
   // highlight-end
 };
 ```
