@@ -63,7 +63,7 @@ mkdir my-website    # 创建文件夹
 rm -r [文件夹]      # 删除文件夹目录
 ```
 
-## 部署前端资源 🐸
+## 服务器手动部署 🐸
 
 ### 安装 & 启动 nginx
 
@@ -91,17 +91,13 @@ nginx -s reopen
 
 # 重新加载 nginx 配置文件，并且以优雅的方式重启 nginx
 nginx -s reload
-
-# TODO ☘️ 修改 nginx 配置文件
-cd /
-cd etc/nginx
 ```
 
 访问服务器 IP，出现以下页面时，表示可以正常运行;
 
 <img src={require('/img/docs/deploy/2022-01-17-nginx.jpg').default} alt="Example Image" />
 
-### 准备网站资源
+### 准备前端打包后的资源
 
 #### 使用 git 下载线上资源
 
@@ -175,12 +171,13 @@ node -v
 :::
 
 - 最新版本的 nodejs 安装完成之后，将上传到 GitHub / Gitee 中的网站项目 `clone` 到 **home** 目录中;
-- 打开 `clone` 好的项目，通过 `npm` 对项目进行 **依赖安装** 或 **运行**;
+- 进入到 `clone` 好的项目，通过 `npm` 对项目进行 **依赖安装** 和 **打包**;
 
 ```bash title="iTerm / cmder 工具"
-# 将项目克隆到 home 目录中
+# ☘️ 将项目克隆到 home 目录中
 cd /home
 git clone https://gitee.com/zhgt__xu/zhgt-shaozi.github.io.git
+git pull origin main    # 强制拉取线上最新代码
 
 # 更改文件目录名称(个人操作)
 mv zhgt-shaozi.github.io [新文件目录名称(github-project)]
@@ -188,14 +185,62 @@ mv zhgt-shaozi.github.io [新文件目录名称(github-project)]
 # cd 到项目目录下，进行安装运行
 cd github-project
 cnpm install    # 安装项目依赖
-npm run start   # 项目运行
+npm run build   # 项目打包
 ```
 
-- 或打包，将打包好的文件目录(默认为 **/build**)配置在 nginx 中，即可完成部署;
+:::caution 离谱小贴士
+
+- 有时候项目在 **打包** 时，会因为 **nodejs 内存溢出** 而导致项目打包失败，如图:
+
+<img src={require('/img/docs/deploy/2022-01-18-ITerm.jpg').default} alt="Example Image" />
+
+- 尝试通过 `node --max-old-space-size=[容量(MB)]` 命令来 **扩大 nodejs 内存** 以解决此问题，容量的可选值为 `[4096, 6096, 8192, ...]`， 可在项目的 `package.json` 文件的脚本命令中修改以下代码:
+
+```diff title="项目/package.json"
+{
+    "scripts": {
+        ...,
+        "start": "docusaurus start",
+-       "build": "docusaurus build",
++       "build": "node --max-old-space-size=8192 node_modules/@docusaurus/core/bin/docusaurus build",
+        ...
+    }
+}
+```
+
+:::
+
+- 打完包之后(默认是 **/build** 目录)，将资源目录复制到之前创建好的 **/home/my-website** 目录下，再手动 _[配置 nginx](#nginx-config)_，放置资源，即可完成部署;
+
+```bash title="iTerm / cmder 工具"
+# ☘️ 复制 build 目录
+cd /home
+cp -a github-project/build my-website
+```
 
 #### 使用 FTP 上传本地资源
 
-### 配置 nginx
+### 配置 nginx {#nginx-config}
+
+- 找到 nginx 的配置文件，使用 `vim` 对其进行编辑，将已放置好的 **前端资源** 部署到服务器中，操作如下:
+
+```bash title="iTerm / cmder 工具"
+# ☘️ 进入 nginx 的配置文件
+vim /etc/nginx/nginx.conf
+i      # 输入 i 进入编辑模式
+```
+
+- 需要修改的配置项如下:
+
+```bash title="nginx.conf 配置文件"
+server {
+    listen       80 default_server;     # 监听的端口号，默认为 80
+    listen       [::]:80 default_server;
+    server_name  _;     # 网站域名
+    root         /home/my-website/build;    # 存放前端资源的目录
+    index        index.html;
+}
+```
 
 ## 前端自动化部署 🐸
 
