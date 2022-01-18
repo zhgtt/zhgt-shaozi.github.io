@@ -192,7 +192,7 @@ npm run build   # 项目打包
 
 - 有时候项目在 **打包** 时，会因为 **nodejs 内存溢出** 而导致项目打包失败，如图:
 
-<img src={require('/img/docs/deploy/2022-01-18-ITerm.jpg').default} alt="Example Image" />
+<img src={require('/img/docs/deploy/2022-01-18-iTerm.jpg').default} alt="Example Image" />
 
 - 尝试通过 `node --max-old-space-size=[容量(MB)]` 命令来 **扩大 nodejs 内存** 以解决此问题，容量的可选值为 `[4096, 6096, 8192, ...]`， 可在项目的 `package.json` 文件的脚本命令中修改以下代码:
 
