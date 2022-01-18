@@ -55,7 +55,7 @@ module.exports = {
   // 国际化
   i18n: {
     defaultLocale: 'zh-CN', // 默认语言
-    locales: ['zh-CN', 'en'], // 本地语言包
+    locales: ['zh-CN'], // 本地语言包
   },
   // 网站主题 / 导航栏设置
   themeConfig:

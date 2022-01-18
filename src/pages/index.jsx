@@ -6,6 +6,7 @@ import clsx from 'clsx'; // 合并 className 的插件
 import Lottie from 'react-lottie'; // react 版 lottie - 加载 json 格式的动画
 import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
+import Admonition from '@theme/Admonition';
 import { Button, Menu } from '@arco-design/web-react';
 
 import { Lottie_Girl } from '@site/src/utils/lotties';
@@ -57,6 +58,12 @@ const Homepage = () => {
         <CodeBlock language='jsx' style={{ textAlign: 'left' }}>
           {textContent.codeExample}
         </CodeBlock>
+        <Admonition type='tip' icon='💡' title='Did you know...'>
+          <p>
+            Use plugins to introduce shorter syntax for the most commonly used JSX elements in your
+            project.
+          </p>
+        </Admonition>
       </main>
     </Layout>
   );

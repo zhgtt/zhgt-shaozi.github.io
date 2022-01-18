@@ -104,11 +104,9 @@ p {
 
 a {
   @extend .transition-all;
-  text-decoration: none;
 
   &:hover {
     opacity: $--dino-opacity-85;
-    // text-decoration: none;
   }
   // 没有 href 属性的 a 标签
   :not([href]) {
@@ -633,3 +631,13 @@ $user-select-list: (text, all, auto, none);
     user-select: $key;
   }
 }
+
+/* 单行省略 */
+.single-line-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* TODO 多行省略 */

@@ -10,12 +10,12 @@
   padding: 0.7rem 1rem;
 
   &:hover {
-    transform: translate3d(0, 2px, 0);
+    transform: translate3d(0, 2px, 0) !important;
     box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
   }
 }
 
 .backToTopButtonShow {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) !important;
 }
