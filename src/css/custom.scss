@@ -119,6 +119,25 @@ html[data-theme='dark'] {
   line-height: 17px;
 }
 
+/* 引用图标 */
+@mixin heading-before-icon($size) {
+  &::before {
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: $size;
+    height: $size;
+    background-size: $size $size;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url('../../static/img/dino-drawing.svg');
+    // background-image: url('../../static/img/dino-think.svg');
+    // background-image: url('../../static/img/dino-sick.svg');
+  }
+}
+
 /* 滚动条样式 */
 @media (pointer: fine) {
   .thin-scrollbar {
@@ -187,9 +206,19 @@ html[data-theme='dark'] {
   // > header > h1 {}
   // h2 标题
   h2[class*='anchor'] {
+    @include heading-before-icon(24px);
+    padding-left: 26px;
     > code {
       font-size: $--dino-font-size-base !important;
     }
+  }
+  h3[class*='anchor'] {
+    @include heading-before-icon(20px);
+    padding-left: 24px;
+  }
+  h4[class*='anchor'] {
+    @include heading-before-icon(16px);
+    padding-left: 18px;
   }
   .alert {
     a {
@@ -332,3 +361,10 @@ div[class^='announcementBar_'] {
 // }
 
 /* 修改 arco-design 的部分默认样式 */
+@media (min-width: 992px) {
+  .arco-col-lg-6 {
+    width: 25%;
+    flex: 0 0 25%;
+    display: block;
+  }
+}

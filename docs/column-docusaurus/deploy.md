@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 
 > 本章节学习如何在服务器中部署 Docusaurus & nginx 代理
 
-## 腾讯云服务器 & 登录 🐸
+## 腾讯云服务器 & 登录
 
 ### 服务器面板
 
@@ -17,8 +17,8 @@ toc_max_heading_level: 4
 <img src={require('/img/docs/deploy/2022-01-17.jpg').default} alt="Example Image" />
 
 - 重置密码时，Linux 系统默认用户名为 `root`；Windows 系统默认用户名为 `administrator`；当然都可以自定义用户名;
-- 服务器中的 **系统镜像** 默认是 **TencentOS Server**，它是 Linux 操作系统，当然也可以选择重装系统镜像，每次重装之后都需 **重置密码**;
-- 服务器中的 **应用镜像** 默认是 **宝塔 Linux 面板**，当然也可以选择重装应用镜像，每次重装之后都需 **重置密码**;
+- 服务器中的 **系统镜像** 是一个纯净版的操作系统，可以选择重装系统镜像（Linux 或 Windows），每次重装之后都需 **重置密码**;
+- 服务器中的 **应用镜像** 是在原操作系统的基础上另外安装了 **Node.js**，**Docker** 等镜像，我的服务器默认是 **宝塔 Linux 面板**，当然也可以选择重装应用镜像，每次重装之后都需 **重置密码**;
 
 ### Linux 系统目录结构
 
@@ -34,7 +34,7 @@ toc_max_heading_level: 4
 │   └── 📁 bin     # 存放二进制可执行文件，常用的命令一般都在这里
 ```
 
-### ssh 远程登录
+### `ssh` 远程登录
 
 - **Mac** 电脑上使用 **iTerm** 命令行工具进行登录;
 - **Windows** 电脑上建议下载 _[cmder](https://cmder.net/)_ 工具进行登录;
@@ -58,12 +58,12 @@ pwd         # 查看该目录的路径
 ll          # 查看该文件夹下的所有目录（包含详情信息）
 ls          # 查看该文件夹下的所有目录（只有文件名）
 
-mkdir my-website    # 创建文件夹
+mkdir [文件目录]    # 创建文件目录，我创建的是 my-website
 
-rm -r [文件夹]      # 删除文件夹目录
+rm -r [文件目录]      # 删除文件目录
 ```
 
-## 服务器手动部署 🐸
+## 服务器 nginx 部署
 
 ### 安装 & 启动 nginx
 
@@ -97,7 +97,7 @@ nginx -s reload
 
 <img src={require('/img/docs/deploy/2022-01-17-nginx.jpg').default} alt="Example Image" />
 
-### 准备前端打包后的资源
+### 准备前端资源
 
 #### 使用 git 下载线上资源
 
@@ -141,7 +141,7 @@ wget https://npmmirror.com/mirrors/node/v16.13.2/node-v16.13.2-linux-x64.tar.xz
 
 # ☘️ 解压 nodejs 资源包
 xz -d node-v16.13.2-linux-x64.tar.xz     # 解压 xz 文件，解压之后会删除压缩包
-tar -xvf node-v16.13.2-linux-x64.tar     # 解压 tar 文件，-xf: 解压文件的核心指令; -v: 解压时显示压缩包里的文件和详细信息
+tar -xvf node-v16.13.2-linux-x64.tar     # 解压 tar 文件，-x: 解压; -f: 解压的文件; -v: 解压时显示压缩包里的文件和详细信息
 ```
 
 - 解压之后的 nodejs 资源是一个独立程序包，放到任意位置都能执行，但为了全局使用，还是需要配置一下 **环境变量**;
@@ -218,7 +218,36 @@ cd /home
 cp -a github-project/build my-website
 ```
 
-#### 使用 FTP 上传本地资源
+:::danger 缺点
+每次项目代码更新后，都得需要在服务器中 **拉取最新代码**，然后重新进行 **打包**，最后再 **迁移 build 目录(个人操作，可省略)**；步骤稍显繁琐;
+:::
+
+#### 使用 SCP 上传本地资源
+
+- `scp` 命令是 Linux 系统中基于 `ssh` 登录进行安全的(加密的)远程文件 **传输或下载**，操作如下:
+
+```bash title="iTerm / cmder 工具"
+# ☘️ 对本地项目已经 build 好的文件目录进行打包 & 压缩(以减少文件传输时的带宽)，生成一个 .tar.gz 后缀的文件
+cd [本地项目目录]
+tar -cvf build.tar build/        # -c: 创建一个打包文件
+gzip build.tar      # 默认压缩之后会删除 源文件，会生成一个后缀为 .gz 的文件
+# 或
+tar -cvzf build.tar.gz build/       # -z: 表示 gzip 的压缩包
+
+# ☘️ 将压缩好的文件传输到服务器的指定目录中(输入密码即可)
+scp build.tar.gz root@SERVER_IP:/home/my-website/build.tar.gz
+
+# 传输完成之后在登录到服务器中，查看是否传输成功
+ssh root@SERVER_IP
+cd /home/my-website
+ls
+
+# ☘️ 解压并删除 .tar.gz 文件
+tar -xvzf build.tar.gz
+rm -r build.tar.gz
+```
+
+- 完成上述操作之后，再手动 _[配置 nginx](#nginx-config)_，即可完成部署;
 
 ### 配置 nginx {#nginx-config}
 
@@ -242,10 +271,113 @@ server {
 }
 ```
 
-## 前端自动化部署 🐸
+- 配置完成之后重启 nginx，在网址中输入 **服务器 IP** 即可访问;
 
-## 相关链接 🔗
+## 服务器使用宝塔 Linux 面板
+
+> **宝塔面板** 是一个可视化界面，专门用来管理云服务器(Linux / Windows 系统)，节省操作服务器的时间和成本，还可以安装和搭建网站，或者安装各种开发环境;
+
+### 安装宝塔面板
+
+#### 独立安装宝塔
+
+- 如果云服务器重装了一个 **系统镜像**，比如 `TencentOS Server`，那么宝塔面板也需要单独安装，并且要保证该操作系统是一个 **纯净的操作系统**，也就是没有安装过 `nginx/mysql/java` 等应用服务器（当然也可以强制安装），操作如下:
+
+```bash title="iTerm / cmder 工具"
+# 查看服务器内核（我的服务器内核是 8.4）
+cat /etc/redhat-release
+
+# ☘️ 安装宝塔面板
+wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh
+
+# 验证是否安装成功(通过此命令可以查看宝塔的 默认信息，服务等)
+bt
+```
+
+- 安装成功之后，会回显宝塔的 **登录地址** 和 **用户名 & 密码**，这需要自己将这些信息记录好，如图:
+
+<img src={require('/img/docs/deploy/2022-01-21.jpg').default} alt="Example Image" />
+
+- 按照图片中的地址访问宝塔面板时，默认的 `8888` 的端口号需要在云服务器的 **防火墙** 中添加 **安全组端口规则** 之后（各服务器的添加规则可能不一样），才能正常访问，如图:
+
+<img src={require('/img/docs/deploy/2022-01-21-anquanzu.jpg').default} alt="Example Image" />
+
+#### 宝塔腾讯云专享版
+
+- 腾讯云服务器内置了 **宝塔应用镜像系统**，只需要在重装系统中选择该应用镜像即可;
+
+<img src={require('/img/docs/deploy/2022-01-21-system.jpg').default} alt="Example Image" />
+
+- 安装完成之后，再远程登录服务器，输入以下命令查看宝塔的 **默认信息** & **账号密码**;
+
+```bash title="iTerm / cmder 工具"
+# ☘️ 查看宝塔的 默认信息
+sudo /etc/init.d/bt default
+# 或
+bt
+```
+
+- 登录上宝塔之后，还需要 **关联腾讯云 API 密钥**，按照提示先进行 _[API 密钥创建](https://console.cloud.tencent.com/cam/capi)_，然后再进行关联和使用;
+
+:::caution 离谱小贴士
+
+- 有时系统重装完之后，再进行 `ssh` 远程登录，会出现以下错误:
+
+<img src={require('/img/docs/deploy/2022-01-21-ssh-error.jpg').default} alt="Example Image" />
+
+- 出现该错误的原因: 由于服务器的 **公钥(public key)** 发生了改变（比如重装了系统），而电脑客户端存储的信息并没有发生变化，导致 `ssh` 登录时，信息匹配不正确，从而产生错误警告;
+
+- 解决方法如下: 找到本地电脑 `ssh` 存储信息的文件目录（**.ssh/known_hsots**），手动将其删除，再重新进行远程登录:
+
+```bash title="iTerm / cmder 工具"
+# ☘️ 找到 known_hsots 文件目录并将其删除
+cd ~/.ssh
+ls      # 查看 known_hsots 目录是否存在
+rm -r known_hsots
+
+# 再重新登录 服务器
+ssh root@SERVER_IP
+```
+
+:::
+
+### 访问宝塔面板
+
+- 初次访问宝塔面板时，需要 **绑定宝塔账号**，可以按照界面提示进行 _[宝塔账号注册](https://www.bt.cn/register.html)_ 再登录;
+
+- 登录成功之后，就可以在服务器进行快捷的 **应用安装** 或 **网站部署**;
+
+- 为了提高安全性，可以修改进入宝塔的 **安全入口**，**默认端口号**，**默认的账号密码** 等信息;
+
+<img src={require('/img/docs/deploy/2022-01-22.jpg').default} alt="Example Image" />
+
+### 前端静态网站部署
+
+- 宝塔可以直接通过界面操作来部署前端资源，操作简单快捷，首先下载 **nginx** 应用，可以通过初次进入面板时给予的提示自动安装，或者通过 **软件商店** 搜索安装，然后根据实际情况修改其配置文件;
+
+<img src={require('/img/docs/deploy/2022-01-21-bt.jpg').default} alt="Example Image" />
+
+- 部署静态资源时，只需 **添加网站站点**，输入网站的 **域名**，指定前端资源的 **网站目录** 等，就能完成一个静态网站的简单部署;
+
+<img src={require('/img/docs/deploy/2022-01-22-web-create.jpg').default} alt="Example Image" />
+
+- 将本地准备好的前端资源 **上传** 到服务器中（最好提前在本地将资源目录 **打包压缩** 再上传），然后在宝塔的 **文件面板** 中上传并解压到之前指定好的 **网站目录** 操作即可;
+
+```bash title="iTerm / cmder 工具"
+# 打包并压缩本地资源目录
+cd [本地项目目录]
+tar -czvf build.tar.gz build/
+```
+
+<img src={require('/img/docs/deploy/2022-01-22-file-panel.jpg').default} alt="Example Image" />
+
+## 前端自动化部署
+
+> 待学习并完善，需要学习 webhooks，node 及 gitee，Jekins 等自动化部署相关技术知识
+
+## 相关链接
 
 - [Linux 常用命令学习 - 菜鸟教程](https://www.runoob.com/w3cnote/linux-common-command-2.html)
 - [Linux vim 编辑的使用 - 菜鸟教程](https://www.runoob.com/linux/linux-vim.html)
 - [Linux yum 命令学习 - 菜鸟教程](https://www.runoob.com/linux/linux-yum.html)
+- [通过 SSH 连接 Linux 服务器提示 `WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED`!](https://cloud.tencent.com/developer/article/1645212)

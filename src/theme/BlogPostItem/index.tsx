@@ -77,8 +77,8 @@ interface ExtraBlogPostItemProps {
 
 type BlogPostItemProps = Props & ExtraBlogPostItemProps;
 
-const LeftLayout = { xxl: 8, xl: 7, lg: 6, md: 0, xs: 0 };
-const RightLayout = { xxl: 16, xl: 17, lg: 18, md: 24, xs: 24 };
+const LeftLayout = { xxl: 8, xl: 7, lg: 6, md: 0, sm: 0, xs: 0 };
+const RightLayout = { xxl: 16, xl: 17, lg: 18, md: 24, sm: 24, xs: 24 };
 
 const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
   // console.log('BlogPostItem -- Props: ', props);

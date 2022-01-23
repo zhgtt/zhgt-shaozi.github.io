@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 
 > 本章节学习 Docusaurus 常用的全局 API & 搜索功能
 
-## Docusaurus 常用的全局 API 🐸
+## Docusaurus 常用的全局 API
 
 ### 全局组件
 
@@ -326,7 +326,7 @@ const Homepage = () => {
 };
 ```
 
-## 使用 Algolia DocSearch 🐸
+## 使用 Algolia DocSearch
 
 ### 申请 DocSearch 程序
 
@@ -340,7 +340,7 @@ const Homepage = () => {
 
 - 由于没有服务器，后期再进行维护。。。
 
-## 相关链接 🔗
+## 相关链接
 
 - [Docusaurus 官方文档 - 搜索功能](https://docusaurus.io/zh-CN/docs/search#using-algolia-docsearch)
 <!-- - [Docusaurus 官方文档 - themeConfig 主题配置项](https://www.docusaurus.cn/docs/api/themes/configuration) -->
