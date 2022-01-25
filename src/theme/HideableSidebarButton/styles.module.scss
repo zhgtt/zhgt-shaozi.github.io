@@ -3,8 +3,8 @@
   top: 240px;
   right: -13px;
   z-index: 2;
-  background: var(--dino-color-bg-1);
-  border: 1px solid var(--dino-color-border-1);
+  background: var(--dino-color-navbar-bg);
+  border: 1px solid var(--color-fill-3);
   box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
   transition: all 0.15s;
   border-radius: 100%;
@@ -18,38 +18,9 @@
   &:hover {
     transform: scale(1.1);
   }
-
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    height: 52px;
-    width: 100%;
-    background-image: linear-gradient(90deg, transparent 48%, #e5e6eb 50%, transparent 51%),
-      url(//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/950563f6e5f1d61743fc4371b664fd6d.png~tplv-uwbnlip3yd-png.png);
-    background-position: 1px center, bottom center;
-    background-size: 100% 52px, 20px;
-    background-repeat: no-repeat;
-    top: 16px;
-    left: 0;
-    transform-origin: top center;
-    animation: snow-shaking 3s ease-in-out 0s infinite;
-  }
 }
 
 .collapseSidebarButtonIcon {
   font-size: 0.875rem;
-  color: var(--dino-color-text-2);
-}
-
-@keyframes snow-shaking {
-  from {
-    transform: rotate(30deg);
-  }
-  50% {
-    transform: rotate(-30deg);
-  }
-  to {
-    transform: rotate(30deg);
-  }
+  color: var(--color-text-2);
 }

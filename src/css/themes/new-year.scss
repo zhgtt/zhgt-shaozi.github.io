@@ -1,0 +1,88 @@
+body {
+  --primary-1: 255, 235, 232;
+  --primary-2: 243, 192, 187;
+  --primary-3: 231, 150, 145;
+  --primary-4: 219, 110, 106;
+  --primary-5: 207, 71, 71;
+  --primary-6: 195, 39, 43;
+  --primary-7: 165, 25, 34;
+
+  // --gray-10: 80, 97, 109;
+
+  // --green-1: 232, 255, 234;
+  // --red-1: 255, 236, 232;
+  // --orange-1: 255, 247, 232;
+
+  // --success-1: var(--green-1);
+  // --danger-1: var(--red-1);
+  // --warning-1: var(--orange-1);
+}
+
+// Button
+.arco-btn {
+  &-secondary:not(&-disabled) {
+    background: url(http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/e56d126a3812ab97a2f0c94bf9824e8e.png~tplv-uwbnlip3yd-png.png);
+    background-repeat: repeat, repeat-x;
+    background-position: 0px 0px, 0px -40px;
+    background-size: auto, auto 1.5rem;
+  }
+  &-primary {
+    background-image: radial-gradient(tan 0.6px, transparent 1px),
+      radial-gradient(tan 0.6px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: 20px 15px, -4px 0;
+    outline: rgba(255, 255, 255, 0.7) solid 1px;
+    outline-offset: -4px;
+  }
+}
+
+// Sidebar
+.dino-collapse-sidebar-btn {
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 52px;
+    width: 100%;
+    background-image: linear-gradient(90deg, transparent 48%, #e5e6eb 50%, transparent 51%),
+      url('@site/static/img/bianpao.svg');
+    background-position: top center, bottom center; // 距左 距上
+    background-size: 100% 52px, 28px;
+    background-repeat: no-repeat;
+    top: 16px;
+    left: -2px; // 图标的width - 按钮的 width
+    transform-origin: top center;
+    animation: snow-shaking 3s ease-in-out 0s infinite;
+    min-width: 30px;
+  }
+
+  @keyframes snow-shaking {
+    from {
+      transform: rotate(30deg);
+    }
+    50% {
+      transform: rotate(-30deg);
+    }
+    to {
+      transform: rotate(30deg);
+    }
+  }
+}
+
+.dino-menu-nav {
+  .menu__link--active:not(.menu__link--sublist):not(a[class*='hasHref_']) {
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0.625rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      width: 22px;
+      height: 23px;
+      background-image: url(@site/static/img/wushi.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+}

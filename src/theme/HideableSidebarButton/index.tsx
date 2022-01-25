@@ -19,7 +19,7 @@ const HideableSidebarButton: React.FC<IProps> = (props) => {
     <div
       title={title}
       aria-label={title}
-      className={styles.collapseSidebarButton}
+      className={clsx(styles.collapseSidebarButton, 'dino-collapse-sidebar-btn')}
       onClick={onClick}
       onKeyDown={onKeyDown}
       role='button'

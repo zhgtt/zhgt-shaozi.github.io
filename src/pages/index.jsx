@@ -9,25 +9,8 @@ import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 import { Button, Menu } from '@arco-design/web-react';
 
-import { Lottie_Girl } from '@site/src/utils/lotties';
+import { Lottie_Dashboard_2 } from '@site/src/utils/lotties';
 import styles from './index.module.scss';
-
-const img = require('../../static/img/docusaurus.png');
-const textContent = {
-  codeExample: `
-import React from 'react'; 
-import {Header} from './Header';
-  
-const WelcomeScreen = () => (
-    <View>
-      <Header title='Welcome to React Native' />
-      <Text style={heading}>Step One</Text>
-      <Text>Edit App.js to change this screen and turn it into your app.</Text>
-      <Text style={heading}>See Your Changes</Text>
-    </View>
-);
-  `,
-};
 
 const Homepage = () => {
   const { siteConfig } = useDocusaurusContext();
@@ -45,7 +28,7 @@ const Homepage = () => {
               loop: true, // 是否循环
               autoplay: true, // 是否自动播放
               renderer: 'svg', // 渲染动画的方式
-              animationData: Lottie_Girl, // 数据源
+              animationData: Lottie_Dashboard_2, // 数据源
             }}
             // width={700}
             height={365}
@@ -54,16 +37,6 @@ const Homepage = () => {
             isStopped={false} //是否停止动画（动画回到起点）
           />
         </div>
-        <h1 className='my-3'>Dino</h1>
-        <CodeBlock language='jsx' style={{ textAlign: 'left' }}>
-          {textContent.codeExample}
-        </CodeBlock>
-        <Admonition type='tip' icon='💡' title='Did you know...'>
-          <p>
-            Use plugins to introduce shorter syntax for the most commonly used JSX elements in your
-            project.
-          </p>
-        </Admonition>
       </main>
     </Layout>
   );

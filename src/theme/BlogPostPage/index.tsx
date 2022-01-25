@@ -24,7 +24,7 @@ import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
 import TOC from '@theme/TOC'; // 右侧目录
 
 import clsx from 'clsx';
-import { Divider } from 'antd';
+// import { Divider } from 'antd';
 
 import BlogCreationDate from '@site/src/components/BlogCreationDate';
 import BlogTagsList from '@site/src/components/BlogTagsList';
@@ -113,8 +113,8 @@ const BlogPostPage = (props: Props): JSX.Element => {
 
         <footer className='mt-18'>
           <BlogTagsList tags={tags} />
-          <Divider dashed />
-          <Divider dashed />
+          {/* <Divider dashed />
+          <Divider dashed /> */}
         </footer>
       </article>
 

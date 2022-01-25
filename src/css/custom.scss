@@ -3,8 +3,10 @@
  *
  * @import url() 是 css 的方法，在 scss 中不生效，需使用 @import '../路径'
  */
-// @import '~antd/dist/antd.css';
 @import '@arco-design/web-react/dist/css/arco.css';
+@import './themes/new-year.scss'; // 春节主题
+// @import './themes/christmas.scss'; // 圣诞主题
+
 @import './dino.scss';
 @import './dino-styles.scss';
 @import './paper.scss';
@@ -12,35 +14,49 @@
 $svgBase: 'data:image/svg+xml;charset=UTF-8,';
 
 :root {
-  --color-white: #fff;
-  --color-black: #000;
+  --ifm-navbar-padding-horizontal: 1rem; // navbar 水平方向的 padding
+  --ifm-navbar-height: 3.75rem; // navbar 高度
+  --ifm-menu-link-padding-horizontal: 0.875rem; // menu link 水平方向的 padding
+  --doc-sidebar-width: 272px; // 展开的 menu 宽度
+  --doc-sidebar-hidden-width: 16px; // 收起的 menu 宽度
+}
 
-  --color-gray-1: rgb(247, 248, 250);
-  --color-gray-2: rgb(242, 243, 245);
-  --color-gray-3: rgb(229, 230, 235);
-  --color-gray-4: rgb(201, 205, 212);
-  --color-gray-5: rgb(134, 144, 156);
-  --color-gray-6: rgb(78, 89, 105);
-  --color-gray-7: rgb(51, 65, 85);
-  --color-gray-8: rgb(31, 41, 55);
-  --color-gray-9: rgb(17, 24, 39);
+body {
+  // arco-design 中的主题变量（部分）
+  // 中性色
+  // --color-neutral-1: rgb(var(--gray-1));
+  // --color-neutral-2: rgb(var(--gray-2));
+  // --color-neutral-3: rgb(var(--gray-3));
+  // --color-neutral-4: rgb(var(--gray-4));
+  // --color-neutral-5: rgb(var(--gray-5));
+  // --color-neutral-6: rgb(var(--gray-6));
+  // --color-neutral-7: rgb(var(--gray-7));
+  // --color-neutral-8: rgb(var(--gray-8));
+  // --color-neutral-9: rgb(var(--gray-9));
+  // --color-neutral-10: rgb(var(--gray-10));
 
-  --color-emphasis-1: rgb(235, 237, 240);
+  // --color-white: #fff;
+  // --color-black: #000;
 
-  --color-cyan-6: rgb(20, 201, 201);
+  // --color-border-1: var(--color-neutral-2);
+  // --color-border-2: var(--color-neutral-3);
+  // --color-border-3: var(--color-neutral-4);
+  // --color-border-4: var(--color-neutral-6);
 
-  --color-blue-1: rgb(232, 243, 255);
-  --color-blue-2: rgb(30, 128, 255);
-  --color-blue-3: rgb(60, 126, 255);
-  --color-blue-6: rgb(22, 93, 255);
-  --color-blue-rgb-3: 60, 126, 255;
-  --color-blue-rgb-6: 22, 93, 255;
+  --darkgrey-1: 235, 237, 240;
+  --darkgrey-5: 68, 73, 80;
+  --darkgrey-8: 31, 41, 55;
+  --darkgrey-9: 17, 24, 39;
 
-  // --dino-paper-card-shadow-color: #{$--dino-box-shadow-md};
-  // --dino-paper-btn-border-color: #{$--dino-color-gray-800};
-  // --dino-paper-btn-bg-color: #{$--dino-color-white};
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-hover-color: var(--ifm-color-primary);
+  --ifm-pagination-nav-color-hover: var(--ifm-color-primary);
+  --ifm-navbar-link-hover-color: var(--ifm-color-primary);
+  --ifm-tabs-color-active-border: var(--ifm-color-primary);
+  --ifm-tabs-color-active: var(--ifm-color-primary);
 
-  --ifm-color-primary: var(--dino-primary-1); // docusaurus 主题色
+  // 🍋 以下变量需适配暗夜模式主题
+  --ifm-color-primary: rgb(var(--primary-6)); // docusaurus 主题色
   // --ifm-color-primary-dark: #21af90;
   // --ifm-color-primary-darker: #1fa588;
   // --ifm-color-primary-darkest: #1a8870;
@@ -48,59 +64,47 @@ $svgBase: 'data:image/svg+xml;charset=UTF-8,';
   // --ifm-color-primary-lighter: #66d4bd;
   // --ifm-color-primary-lightest: #92e0d0;
 
-  --ifm-navbar-padding-horizontal: 1rem; // navbar 水平方向的 padding
-  --ifm-navbar-height: 3.75rem; // navbar 高度
-  --ifm-menu-link-padding-horizontal: 0.875rem; // menu link 水平方向的 padding
-  --doc-sidebar-width: 272px; // 展开的 menu 宽度
-  --doc-sidebar-hidden-width: 16px; // 收起的 menu 宽度
+  --color-text-1: var(--color-neutral-10);
+  --color-text-2: var(--color-neutral-8);
+  --color-text-3: var(--color-neutral-6);
+  --color-text-4: var(--color-neutral-4);
 
-  // 🍋 以下变量需适配暗夜模式主题
-  --dino-primary-1: var(--color-blue-6);
-  --dino-primary-2: var(--color-blue-1);
-  --dino-color-text-1: var(--color-gray-9);
-  --dino-color-text-2: var(--color-gray-7);
-  // --dino-color-text-3: var(--color-gray-5);
-  // --dino-color-text-4: var(--color-gray-4);
-  --dino-color-fill-1: var(--color-gray-1);
-  --dino-color-fill-2: var(--color-gray-2);
-  // --dino-color-fill-3: var(--color-gray-3);
-  --dino-color-fill-4: var(--color-gray-4);
-  --dino-color-border-1: var(--color-gray-3);
+  --color-fill-1: var(--color-neutral-1);
+  --color-fill-2: var(--color-neutral-2);
+  --color-fill-3: var(--color-neutral-3);
+  --color-fill-4: var(--color-neutral-4);
+
   --dino-color-navbar-bg: var(--color-white);
-  --dino-color-heading: var(--color-gray-9);
-  --dino-color-body: var(--color-gray-8);
+  --dino-color-heading: rgb(var(--darkgrey-9));
+  --dino-color-body: rgb(var(--darkgrey-8));
   --dino-color-body-bg: var(--color-white);
-  --dino-color-bg-1: var(--color-white);
-  --dino-color-code: var(--color-blue-6);
-  --dino-color-code-bg: rgba(var(--color-blue-rgb-6), 0.08);
-  --dino-color-browser-bg: var(--color-emphasis-1);
-  --dino-color-tag-text: var(--color-blue-3); // tag 随主题变化
+  --dino-color-code: rgb(var(--primary-6));
+  --dino-color-code-bg: rgba(var(--primary-6), 0.08);
+  --dino-color-browser-bg: rgb(var(--darkgrey-1));
 }
 
 html[data-theme='dark'] {
-  // --dino-paper-card-shadow-color: #{$--dino-box-shadow-inner};
-  // --dino-paper-btn-border-color: #{$--dino-color-gray-300};
-  // --dino-paper-btn-bg-color: #{$--dino-color-blueGray-800};
+  body {
+    --ifm-color-primary: rgb(var(--primary-4)); // docusaurus 主题色
 
-  --dino-primary-1: var(--color-blue-3);
-  --dino-primary-2: var(--color-blue-1);
-  --dino-color-text-1: rgba(255, 255, 255, 0.9);
-  --dino-color-text-2: rgba(255, 255, 255, 0.7);
-  // --dino-color-text-3: rgba(255, 255, 255, 0.5);
-  // --dino-color-text-4: rgba(255, 255, 255, 0.3);
-  --dino-color-fill-1: rgba(255, 255, 255, 0.04);
-  --dino-color-fill-2: rgba(255, 255, 255, 0.08);
-  // --dino-color-fill-3: rgba(255, 255, 255, 0.12);
-  --dino-color-fill-4: rgba(255, 255, 255, 0.3);
-  --dino-color-border-1: rgb(51, 51, 53);
-  --dino-color-navbar-bg: var(--color-gray-8);
-  --dino-color-heading: var(--color-gray-3);
-  --dino-color-body: var(--color-gray-3);
-  --dino-color-body-bg: var(--color-gray-9);
-  --dino-color-bg-1: var(--color-gray-8);
-  --dino-color-code: var(--color-blue-3);
-  --dino-color-code-bg: rgba(var(--color-blue-rgb-3), 0.08);
-  --dino-color-browser-bg: rgb(68, 73, 80);
+    --color-text-1: rgba(255, 255, 255, 0.9);
+    --color-text-2: rgba(255, 255, 255, 0.7);
+    --color-text-3: rgba(255, 255, 255, 0.5);
+    --color-text-4: rgba(255, 255, 255, 0.3);
+
+    --color-fill-1: rgba(255, 255, 255, 0.04);
+    --color-fill-2: rgba(255, 255, 255, 0.08);
+    --color-fill-3: rgba(255, 255, 255, 0.12);
+    --color-fill-4: rgba(255, 255, 255, 0.16);
+
+    --dino-color-navbar-bg: rgb(var(--darkgrey-8));
+    --dino-color-heading: rgb(var(--gray-3));
+    --dino-color-body: rgb(var(--gray-3));
+    --dino-color-body-bg: rgb(var(--darkgrey-9));
+    --dino-color-code: rgb(var(--primary-5));
+    --dino-color-code-bg: rgba(var(--primary-5), 0.08);
+    --dino-color-browser-bg: rgb(var(--darkgrey-5));
+  }
 }
 
 // code 样式
@@ -132,8 +136,8 @@ html[data-theme='dark'] {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    background-image: url('../../static/img/dino-drawing.svg');
-    // background-image: url('../../static/img/dino-think.svg');
+    // background-image: url('../../static/img/dino-drawing.svg');
+    background-image: url('../../static/img/dino-think.svg');
     // background-image: url('../../static/img/dino-sick.svg');
   }
 }
@@ -152,7 +156,7 @@ html[data-theme='dark'] {
       border: 4px solid transparent;
       background-clip: padding-box;
       border-radius: 7px;
-      background-color: var(--dino-color-fill-4);
+      background-color: var(--color-fill-4);
     }
     // 外层轨道
     &::-webkit-scrollbar-track {
@@ -178,9 +182,6 @@ html[data-theme='dark'] {
 .markdown {
   font-size: $--dino-font-size-sm;
 
-  // a {
-  //   color: var(--color-cyan-6);
-  // }
   // table,
   ul,
   p {
@@ -286,7 +287,7 @@ html[data-theme='dark'] {
 /* doc / blog 右侧目录 */
 .table-of-contents {
   > li > a {
-    color: var(--dino-color-text-1);
+    color: var(--color-text-1);
   }
   > li > .table-of-contents__link--active {
     color: var(--ifm-color-primary);
@@ -367,4 +368,18 @@ div[class^='announcementBar_'] {
     flex: 0 0 25%;
     display: block;
   }
+}
+.arco-divider-horizontal.arco-divider-with-text {
+  margin: 0.625rem 0;
+}
+.arco-divider-text {
+  position: relative;
+  top: 0;
+  transform: none;
+}
+.arco-divider-text-left {
+  left: 0;
+}
+.arco-divider-text-right {
+  right: 0;
 }

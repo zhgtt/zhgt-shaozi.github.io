@@ -1,7 +1,7 @@
 .dinoTag {
-  background-color: var(--dino-primary-2);
+  background-color: rgb(var(--primary-1));
   > a {
-    color: var(--dino-color-tag-text);
+    color: rgb(var(--primary-5));
     &:hover {
       text-decoration: none;
     }

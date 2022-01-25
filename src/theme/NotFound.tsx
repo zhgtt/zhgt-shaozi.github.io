@@ -4,8 +4,11 @@ import Link from '@docusaurus/Link';
 import Translate, { translate } from '@docusaurus/Translate';
 
 import Lottie from 'react-lottie';
-import { Row, Col } from 'antd';
+import { Grid } from '@arco-design/web-react';
 import { random404ErrorFun } from '@site/src/utils/lotties';
+
+const Row = Grid.Row;
+const Col = Grid.Col;
 
 function NotFound(): JSX.Element {
   return (
