@@ -4,8 +4,7 @@
 
 import React, { useContext } from 'react';
 
-import ThemeContext from '@theme/ThemeContext'; // 主题（上下文）
-import { usePluralForm } from '@docusaurus/theme-common';
+import { usePluralForm, useColorMode } from '@docusaurus/theme-common';
 import Translate, { translate } from '@docusaurus/Translate'; // 翻译组件
 import dayjs from 'dayjs';
 import clsx from 'clsx';
@@ -45,8 +44,7 @@ const BlogCreationDate: React.FC<BlogCreationDateProps> = (props) => {
   const { date, formattedDate = 'YYYY·MM·DD', readingTime, className, ...restProps } = props;
 
   // 是否为 暗黑主题
-  const theme = useContext(ThemeContext);
-  const { isDarkTheme } = theme;
+  const { isDarkTheme } = useColorMode();
 
   // const readingTimePlural = useReadingTimePlural();
 

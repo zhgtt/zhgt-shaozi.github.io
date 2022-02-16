@@ -1,3 +1,39 @@
+// Sidebar
+.dino-collapse-sidebar-btn {
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 52px;
+    width: 100%;
+    background-image: linear-gradient(90deg, transparent 48%, #e5e6eb 50%, transparent 51%),
+      url(@site/static/img/themes/meiguoduizhang.svg);
+    // url(@site/static/img/themes/gangtiexia.svg);
+    // url(@site/static/img/themes/lvdengxia.svg);
+    // url(@site/static/img/themes/sishi.svg);
+    background-position: top center, bottom center; // 距左 距上
+    background-size: 100% 52px, 26px;
+    background-repeat: no-repeat;
+    top: 16px;
+    left: -0;
+    transform-origin: top center;
+    animation: snow-shaking 3s ease-in-out 0s infinite;
+    // min-width: 34px;
+  }
+
+  @keyframes snow-shaking {
+    from {
+      transform: rotate(30deg);
+    }
+    50% {
+      transform: rotate(-30deg);
+    }
+    to {
+      transform: rotate(30deg);
+    }
+  }
+}
+
 /* [x] scss 主题函数（暂时废弃，统一通过 CSS 全局变量控制） */
 $theme-map: null; // 声明该变量才可使用 !global
 

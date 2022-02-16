@@ -2,58 +2,60 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import {
   useThemeConfig,
-  // useAnnouncementBar,
+  useAnnouncementBar,
   MobileSecondaryMenuFiller,
-  MobileSecondaryMenuComponent,
+  type MobileSecondaryMenuComponent,
   ThemeClassNames,
-  // useScrollPosition,
+  useScrollPosition,
+  useWindowSize,
 } from '@docusaurus/theme-common';
-import useWindowSize from '@theme/hooks/useWindowSize';
 import Logo from '@theme/Logo';
-// import IconArrow from '@theme/IconArrow';
-// import { translate } from '@docusaurus/Translate';
-import { DocSidebarItems } from '@theme/DocSidebarItem';
+import DocSidebarItems from '@theme/DocSidebarItems';
 import type { Props } from '@theme/DocSidebar';
+
+import styles from './styles.module.scss';
 
 import HideableSidebarButton from '../HideableSidebarButton';
 
-import './styles.scss';
+function useShowAnnouncementBar() {
+  const { isActive } = useAnnouncementBar();
+  const [showAnnouncementBar, setShowAnnouncementBar] = useState(isActive);
 
-// function useShowAnnouncementBar() {
-//   const { isActive } = useAnnouncementBar();
-//   const [showAnnouncementBar, setShowAnnouncementBar] = useState(isActive);
-
-//   useScrollPosition(
-//     ({ scrollY }) => {
-//       if (isActive) {
-//         setShowAnnouncementBar(scrollY === 0);
-//       }
-//     },
-//     [isActive]
-//   );
-//   return isActive && showAnnouncementBar;
-// }
+  useScrollPosition(
+    ({ scrollY }) => {
+      if (isActive) {
+        setShowAnnouncementBar(scrollY === 0);
+      }
+    },
+    [isActive]
+  );
+  return isActive && showAnnouncementBar;
+}
 
 function DocSidebarDesktop({ path, sidebar, onCollapse, isHidden }: Props) {
-  // const showAnnouncementBar = useShowAnnouncementBar();  // 收起按钮在底部时，对 nav 的样式进行调整
+  const showAnnouncementBar = useShowAnnouncementBar();
   const {
-    navbar: { hideOnScroll }, // 页面滚动时是否收起顶部导航条
-    hideableSidebar, // 是否显示收起菜单按钮
+    navbar: { hideOnScroll },
+    hideableSidebar,
   } = useThemeConfig();
 
   return (
     <div
-      className={clsx('dino-menu-sidebar', {
-        ['sidebarWithHideableNavbar']: hideOnScroll,
-        ['sidebarHidden']: isHidden,
+      className={clsx(styles.sidebar, {
+        [styles.sidebarWithHideableNavbar]: hideOnScroll,
+        [styles.sidebarHidden]: isHidden,
       })}
     >
       {hideOnScroll && (
-        <div className='sidebarLogo-box'>
-          <Logo tabIndex={-1} className='sidebarLogo' />
+        <div className={styles.sidebarLogoBox}>
+          <Logo tabIndex={-1} className={styles.sidebarLogo} />
         </div>
       )}
-      <nav className={clsx('thin-scrollbar dino-menu-nav')}>
+      <nav
+        className={clsx('menu thin-scrollbar dino-menu-nav', styles.menu, {
+          // [styles.menuWithAnnouncementBar]: showAnnouncementBar,
+        })}
+      >
         <ul className={clsx(ThemeClassNames.docs.docSidebarMenu, 'menu__list')}>
           <DocSidebarItems items={sidebar} activePath={path} level={1} />
         </ul>

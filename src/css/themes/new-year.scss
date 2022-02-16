@@ -45,15 +45,15 @@ body {
     height: 52px;
     width: 100%;
     background-image: linear-gradient(90deg, transparent 48%, #e5e6eb 50%, transparent 51%),
-      url('@site/static/img/bianpao.svg');
+      url(@site/static/img/themes/bianpao.svg);
     background-position: top center, bottom center; // 距左 距上
-    background-size: 100% 52px, 28px;
+    background-size: 100% 52px, 32px;
     background-repeat: no-repeat;
     top: 16px;
-    left: -2px; // 图标的width - 按钮的 width
+    left: -4px; // 图标的width - 按钮的 width
     transform-origin: top center;
     animation: snow-shaking 3s ease-in-out 0s infinite;
-    min-width: 30px;
+    min-width: 34px;
   }
 
   @keyframes snow-shaking {
@@ -80,7 +80,7 @@ body {
       display: block;
       width: 22px;
       height: 23px;
-      background-image: url(@site/static/img/wushi.svg);
+      background-image: url(@site/static/img/themes/wushi.svg);
       background-size: 100%;
       background-repeat: no-repeat;
     }

@@ -1,5 +1,6 @@
 ---
 title: 安装 & 配置
+id: installaction
 slug: /column-docusaurus
 sidebar_position: 1
 toc_max_heading_level: 4
@@ -335,6 +336,7 @@ module.exports = config;
 | 配置项                            | 类型         | 默认值  | 是否常用 | 描述                                                                                                                                                                                  |
 | --------------------------------- | ------------ | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `hideableSidebar`                 | `boolean`    | `false` | ✅       | 是否显示文档侧边栏底部的 **展开 / 收起** 按钮                                                                                                                                         |
+| `autoCollapseSidebarCategories`   | `boolean`    | `false` | ✅       | 是否只聚焦当前层级菜单，将其他菜单收起，类似于手风琴模式的折叠面板（目前还有 bug，尚不可用）                                                                                        |
 | `colorMode`                       | `Object`     |         | ✅       | 自定义 **主题色（日间模式 / 夜间模式）** 切换的设置项，具体内容可查看下方 _[主题色](#themeConfig-colorMode)_ 配置项                                                                   |
 | `announcementBar`                 | `Object`     |         | ✅       | **公告条**，当需要在网站中宣布一些内容时，可配置该参数，**公告条** 会出现在顶部导航栏的上方，并且可以自由关闭，具体内容可查看下方 _[顶部公告条](#themeConfig-announcementBar)_ 配置项 |
 | `navbar`                          | `Object`     |         | ✅       | 自定义 **顶部导航栏** 的配置项 ，具体内容可查看下方 _[顶部导航栏](#themeConfig-navbar)_ 配置项                                                                                        |

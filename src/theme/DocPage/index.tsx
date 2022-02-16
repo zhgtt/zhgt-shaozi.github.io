@@ -5,6 +5,7 @@ import type { PropVersionMetadata } from '@docusaurus/plugin-content-docs';
 import Layout from '@theme/Layout';
 import DocSidebar from '@theme/DocSidebar';
 import MDXComponents from '@theme/MDXComponents';
+import Footer from '@theme/Footer';
 import NotFound from '@theme/NotFound';
 import type { DocumentRoute } from '@theme/DocItem';
 import type { Props } from '@theme/DocPage';
@@ -59,10 +60,12 @@ function DocPageContent({
         version,
         tag: docVersionSearchTag(pluginId, version),
       }}
+      noFooter // 不显示底部内容
     >
       <div className={styles.docPage}>
         <BackToTopButton />
 
+        {/* 侧边栏 */}
         {sidebar && (
           <aside
             className={clsx(styles.docSidebarContainer, {
@@ -102,12 +105,13 @@ function DocPageContent({
             )}
           </aside>
         )}
+
+        {/* 主体内容 */}
         <main
           className={clsx(styles.docMainContainer, {
             [styles.docMainContainerEnhanced]: hiddenSidebarContainer || !sidebar,
           })}
         >
-          {/* container 内容 */}
           <div
             className={clsx('container', styles.docItemWrapper, {
               [styles.docItemWrapperEnhanced]: hiddenSidebarContainer,
@@ -115,6 +119,7 @@ function DocPageContent({
           >
             <MDXProvider components={MDXComponents}>{children}</MDXProvider>
           </div>
+          <Footer />
         </main>
       </div>
     </Layout>

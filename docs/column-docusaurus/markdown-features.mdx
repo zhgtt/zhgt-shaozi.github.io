@@ -1,5 +1,6 @@
 ---
 title: 新增的 Markdown 功能
+id: markdown-features
 sidebar_position: 2
 ---
 
@@ -7,7 +8,6 @@ sidebar_position: 2
 import Tabs from '@theme/Tabs';     // 标签组
 import TabItem from '@theme/TabItem';   // 标签组 item
 import TOCInline from '@theme/TOCInline';   // 引入文档目录
-import dayjs from 'dayjs'
 import BrowserWindow from '@site/src/components/BrowserWindow';
 ```
 
@@ -453,13 +453,13 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - Ducusaurus 支持直接导入 `svg` 图像，并且将其自动转换为 React 组件:
 
 ```jsx title="doc.md 示例"
-import GodOfWealthSVG from '@site/static/img/caishenye.svg';
+import ExampleSVG from '@site/static/img/example.svg';
 
-<GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />
+<ExampleSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />
 ```
 
 ```mdx-code-block
-import GodOfWealthSVG from '@site/static/img/caishenye.svg';
+import GodOfWealthSVG from '@site/static/img/docs/markdown-features/caishenye.svg';
 
 <BrowserWindow>
   <GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />

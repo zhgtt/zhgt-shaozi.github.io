@@ -1,8 +1,13 @@
 ---
 title: Docusaurus 杂谈
+id: gossip
 sidebar_position: 6
 toc_max_heading_level: 4
 ---
+
+```mdx-code-block
+import BrowserWindow from '@site/src/components/BrowserWindow';
+```
 
 > 本章节学习 Docusaurus 常用的全局 API & 搜索功能
 
@@ -291,7 +296,7 @@ const Homepage = () => {
 ```jsx title="src/pages/index.tsx"
 import React from 'react';
 // highlight-next-line
-import useWindowSize from '@theme/hooks/useWindowSize';
+import useWindowSize from '@docusaurus/theme-common';
 
 const Homepage = () => {
   // highlight-start
@@ -309,21 +314,55 @@ const Homepage = () => {
 };
 ```
 
-#### `ThemeContext` 上下文
+#### `useColorMode` 函数
 
-- **主题** 上下文对象，用来获取和 Docusaurus 主题相关的信息，需结合 `React.useContext` 函数使用:
+- 该函数是一个 **React Hooks 函数**，用来获取或设置当前 **主题的状态**;
 
 ```jsx title="src/pages/index.tsx"
 import React from 'react';
 // highlight-next-line
-import ThemeContext from '@theme/ThemeContext';
+import { useColorMode } from '@docusaurus/theme-common';
 
 const Homepage = () => {
-  // highlight-next-line
-  const { isDarkTheme } = React.useContext(ThemeContext); // 获取主题相关信息
+  // highlight-start
+  const {
+    isDarkTheme, // 当前主题是否为夜间主题
+    setLightTheme, // 设置当前主题为日间主题，它是一个函数
+    setDarkTheme, // 设置当前主题为夜间主题，它是一个函数
+  } = useColorMode();
+  // highlight-end
 
-  return <h2>{isDarkTheme ? '暗黑(夜间)主题' : '日间主题'}</h2>;
+  return (
+    <>
+      <h2>{isDarkTheme ? '暗黑(夜间)主题' : '日间主题'}</h2>
+      <button onClick={() => setDarkTheme()}>切换至夜间主题</button>
+    </>
+  );
 };
+```
+
+示例:
+
+```mdx-code-block
+import { useColorMode } from '@docusaurus/theme-common';
+import { Button, Space } from '@arco-design/web-react';
+
+export const ExampleComponent = () => {
+  const { setLightTheme, setDarkTheme} = useColorMode();
+  return (
+    <>
+      <h4 style={{ marginBottom: 8 }}>主题切换</h4>
+      <Space size='large'>
+        <Button type='primary' onClick={() => setLightTheme()}>日间 🌞</Button>
+        <Button type='dashed' onClick={() => setDarkTheme()}>夜间 🌜</Button>
+      </Space>
+    </>
+  )
+}
+
+<BrowserWindow>
+  <ExampleComponent />
+</BrowserWindow>
 ```
 
 ## 使用 Algolia DocSearch

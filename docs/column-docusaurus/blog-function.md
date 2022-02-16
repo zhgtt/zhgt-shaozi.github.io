@@ -1,5 +1,6 @@
 ---
 title: 博客功能记录
+id: blog-function
 sidebar_position: 4
 ---
 

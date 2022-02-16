@@ -3,7 +3,7 @@ const path = require('path');
 
 /** @type {import('@docusaurus/types').Config} */
 module.exports = {
-  title: '勺子',
+  title: 'Dino 的时空',
   tagline: '勇敢牛牛 不怕困难',
   // url: 'https://zhgt-shaozi.github.io', // 个人网站地址
   url: 'https://shaozi.vercel.app',
@@ -62,7 +62,8 @@ module.exports = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       hideableSidebar: true, // 是否显示侧边栏收起功能
-      colorMode: { respectPrefersColorScheme: true },
+      // autoCollapseSidebarCategories: true,
+      colorMode: { disableSwitch: true },
       // 公告条
       // announcementBar: {
       //   id: 'support_us',
@@ -72,15 +73,15 @@ module.exports = {
       // 导航栏
       navbar: {
         hideOnScroll: true, // 是否文档向下滚动时收起导航栏
-        title: '勺子',
-        logo: { alt: '勺子', src: 'img/logo.svg' },
+        title: 'Dino',
+        logo: { alt: 'Dino', src: 'img/logo.svg' },
         items: [
           {
             label: '前端 Madao',
             position: 'right',
             items: [
               { label: '学习 😒', type: 'doc', docId: 'introduction' },
-              // { label: '面试 📋', to: 'docs/interview' },
+              // { label: '面试 📋', to: 'docs/column-docusaurus/deploy' },
             ],
           },
           { label: '专栏', to: 'docs/column-docusaurus', position: 'right' },
@@ -92,7 +93,7 @@ module.exports = {
           { label: '博客', position: 'right', to: '/blog' },
           {
             href: 'https://github.com/zhgt-shaozi/zhgt-shaozi.github.io',
-            label: 'GitHub',
+            // label: 'GitHub',
             position: 'right',
             className: 'header-github-link',
           },
@@ -100,24 +101,24 @@ module.exports = {
       },
       // 底部内容
       footer: {
-        logo: { alt: '勺子', src: 'img/logo.svg' },
-        style: 'dark',
+        logo: { alt: 'Dino', src: 'img/logo.svg' },
+        // style: 'dark',
         links: [
           {
-            title: 'Community',
+            title: '常用链接',
             items: [
               {
                 label: 'GitHub',
                 href: 'https://github.com/zhgt-shaozi/zhgt-shaozi.github.io',
               },
-              {
-                html: `<a href="https://www.bilibili.com/" target="_blank">bilibili 动画</a>`,
-              },
+              // {
+              //   html: `<a href="https://www.bilibili.com/" target="_blank">bilibili 动画</a>`,
+              // },
             ],
           },
         ],
         // 版权说明内容
-        copyright: `Copyright © ${new Date().getFullYear()} 个人网站.`,
+        copyright: `个人静态网站 ⓒ Copyright ${new Date().getFullYear()}`,
       },
       // 代码块主题配置
       prism: {

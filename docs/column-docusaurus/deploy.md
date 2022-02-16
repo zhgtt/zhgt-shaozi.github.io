@@ -1,5 +1,6 @@
 ---
 title: Docusaurus 部署
+id: deploy
 sidebar_position: 5
 toc_max_heading_level: 4
 ---
@@ -374,6 +375,10 @@ tar -czvf build.tar.gz build/
 ## 前端自动化部署
 
 > 待学习并完善，需要学习 webhooks，node 及 gitee，Jekins 等自动化部署相关技术知识
+
+## 通过域名访问网站
+
+### 购买并注册域名
 
 ## 相关链接
 
