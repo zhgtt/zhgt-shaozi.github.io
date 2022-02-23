@@ -6,7 +6,13 @@ sidebar_position: 1
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
+import { Image } from '@arco-design/web-react';
+```
+
 > 本章节学习 Docusaurus 项目的创建 & 配置
+
+![Example Image](/img/docs/installaction/Docusaurus2.jpg)
 
 ## 创建本地项目
 
@@ -327,7 +333,7 @@ module.exports = config;
   - 网站的基础路径会随之改变，例如 **首页** 变为 `http://localhost:3000/metro`；
   - 由于项目编译后，会将本地的 **static** 目录下的文件暴露在线上项目的 **根目录** 下，所以网站的静态资源路径会随之改变，例如 `favicon` 属性由原来的 **img/favicon.ico** 需改为 **../img/favicon.ico**；
 
-![Example Image](/img/docs/installaction/2021-11-03.jpeg)
+<Image src={require('/img/docs/installaction/2021-11-03.jpeg').default} />
 
 :::
 
@@ -336,7 +342,7 @@ module.exports = config;
 | 配置项                            | 类型         | 默认值  | 是否常用 | 描述                                                                                                                                                                                  |
 | --------------------------------- | ------------ | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `hideableSidebar`                 | `boolean`    | `false` | ✅       | 是否显示文档侧边栏底部的 **展开 / 收起** 按钮                                                                                                                                         |
-| `autoCollapseSidebarCategories`   | `boolean`    | `false` | ✅       | 是否只聚焦当前层级菜单，将其他菜单收起，类似于手风琴模式的折叠面板（目前还有 bug，尚不可用）                                                                                        |
+| `autoCollapseSidebarCategories`   | `boolean`    | `false` | ✅       | 是否只聚焦当前层级菜单，将其他菜单收起，类似于手风琴模式的折叠面板 <br /> 🥱 目前还有 bug, 当层级菜单的顺序位于第一并点击它时, 其他菜单的展开收起会失效                               |
 | `colorMode`                       | `Object`     |         | ✅       | 自定义 **主题色（日间模式 / 夜间模式）** 切换的设置项，具体内容可查看下方 _[主题色](#themeConfig-colorMode)_ 配置项                                                                   |
 | `announcementBar`                 | `Object`     |         | ✅       | **公告条**，当需要在网站中宣布一些内容时，可配置该参数，**公告条** 会出现在顶部导航栏的上方，并且可以自由关闭，具体内容可查看下方 _[顶部公告条](#themeConfig-announcementBar)_ 配置项 |
 | `navbar`                          | `Object`     |         | ✅       | 自定义 **顶部导航栏** 的配置项 ，具体内容可查看下方 _[顶部导航栏](#themeConfig-navbar)_ 配置项                                                                                        |
@@ -401,27 +407,29 @@ module.exports = config;
 
 ##### `navbar.items` 配置项（部分） {#themeConfig-navbar-items}
 
-| 配置项                 | 类型                                                                                         | 默认值   | 常用 | 描述                                                                                                                                                   |
-| ---------------------- | -------------------------------------------------------------------------------------------- | -------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `label`                | `string`                                                                                     |          | ✅   | 菜单的名称                                                                                                                                             |
-| `position`             | <code>'left' \| 'right'</code>                                                               | `'left'` | ✅   | 菜单在导航栏的位置，显示在左侧 或 右侧                                                                                                                 |
-| `to`                   | `string`                                                                                     |          | ✅   | 菜单跳转的路由地址，基于 `baseUrl` 路径，也就是 `baseUrl` 的值会自动放置到该参数前                                                                     |
-| `href`                 | `string`                                                                                     |          | ✅   | 菜单跳转的 **外链地址**，会自动添加 `target='_blank'` 属性，并且和 `to` 参数 **只能选其一**                                                            |
-| `prependBaseUrlToHref` | `boolean`                                                                                    | `false`  |      | 是否将 `baseUrl` 的值放置到 `href` 参数前（暂时不知道它有什么用。。）                                                                                  |
-| `className`            | `string`                                                                                     |          | ✅   | 自定义菜单的 `class` 类名                                                                                                                              |
-| `items`                | `NavbarItem[]`                                                                               | `[]`     | ✅   | 定义 **子菜单** 的集合，会生成一个带有下拉框选项的菜单，配置项内容同 `navbar.items`                                                                    |
-| `type`                 | <code>'doc' \| 'search' \| 'localeDropdown' \| 'docsVersion' \| 'docsVersionDropdown'</code> |          | ✅   | 定义菜单的类型，除了普通的菜单类型外，Docusaurus 还提供了其他几种不同的类型，具体内容可查看下方 _[NavbarItem.type 类型介绍](#themeConfig-navbar-type)_ |
-| `docId`                | `string`                                                                                     |          | ✅   | 当菜单的类型为 `doc` 时使用，表示文档的唯一标识 `id`，                                                                                                 |
-| `dropdownItemsBefore`  | `{ to?: string, href?: string, label?: string }[]`                                           |          |      | 当菜单的类型为 <code>'docsVersionDropdown' \| 'localeDropdown'</code> 时使用，表示该下拉框菜单中 **默认版本 / 语言** 之前的内容集合                    |
-| `dropdownItemsAfter`   | `{ to?: string, href?: string, label?: string }[]`                                           |          |      | 当菜单的类型为 <code>'docsVersionDropdown' \| 'localeDropdown'</code> 时使用，表示该下拉框菜单中 **默认版本 / 语言** 之后的内容集合                    |
+| 配置项                 | 类型                                                                                                         | 默认值   | 常用 | 描述                                                                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `label`                | `string`                                                                                                     |          | ✅   | 菜单的名称                                                                                                                                             |
+| `position`             | <code>'left' \| 'right'</code>                                                                               | `'left'` | ✅   | 菜单在导航栏的位置，显示在左侧 或 右侧                                                                                                                 |
+| `to`                   | `string`                                                                                                     |          | ✅   | 菜单跳转的路由地址，基于 `baseUrl` 路径，也就是 `baseUrl` 的值会自动放置到该参数前                                                                     |
+| `href`                 | `string`                                                                                                     |          | ✅   | 菜单跳转的 **外链地址**，会自动添加 `target='_blank'` 属性，并且和 `to` 参数 **只能选其一**                                                            |
+| `prependBaseUrlToHref` | `boolean`                                                                                                    | `false`  |      | 是否将 `baseUrl` 的值放置到 `href` 参数前（暂时不知道它有什么用。。）                                                                                  |
+| `className`            | `string`                                                                                                     |          | ✅   | 自定义菜单的 `class` 类名                                                                                                                              |
+| `items`                | `NavbarItem[]`                                                                                               | `[]`     | ✅   | 定义 **子菜单** 的集合，会生成一个带有下拉框选项的菜单，配置项内容同 `navbar.items`                                                                    |
+| `type`                 | <code>'doc' \| 'search' \| 'localeDropdown' \| 'docsVersion' \| 'docsVersionDropdown' \| 'docSidebar'</code> |          | ✅   | 定义菜单的类型，除了普通的菜单类型外，Docusaurus 还提供了其他几种不同的类型，具体内容可查看下方 _[NavbarItem.type 类型介绍](#themeConfig-navbar-type)_ |
+| `docId`                | `string`                                                                                                     |          | ✅   | 当菜单的类型为 `doc` 时使用，表示文档的唯一标识 `id`;                                                                                                  |
+| `sidebarId`            | `string`                                                                                                     |          | ✅   | 指定该菜单属于哪个菜单组（`sidebars.js` 文件中的 `key` 值）                                                                                            |
+| `dropdownItemsBefore`  | `{ to?: string, href?: string, label?: string }[]`                                                           |          |      | 当菜单的类型为 <code>'docsVersionDropdown' \| 'localeDropdown'</code> 时使用，表示该下拉框菜单中 **默认版本 / 语言** 之前的内容集合                    |
+| `dropdownItemsAfter`   | `{ to?: string, href?: string, label?: string }[]`                                                           |          |      | 当菜单的类型为 <code>'docsVersionDropdown' \| 'localeDropdown'</code> 时使用，表示该下拉框菜单中 **默认版本 / 语言** 之后的内容集合                    |
 
 ##### `NavbarItem.type` 类型介绍 {#themeConfig-navbar-type}
 
-- `doc`: 文档类型，表示该菜单跳转的是一个文档，必须和 `docId` 搭配使用；
-- `docsVersionDropdown`: 下拉框菜单，定义文档默认 **版本号** 和其他版本号的页面链接；
-- `localeDropdown`: 下拉框菜单，定义网站默认 **语言** 和其他语言的页面链接；
-- `docsVersion`: 定义网站最新版本的菜单（可能是，具体情况不明。。）；
-- `search`: 如果在网站中使用了 **algolia** 搜索功能，可定义该参数，并且可改变其在导航栏的位置；
+- `doc`: 文档类型，表示该菜单跳转的是一个文档，必须和 `docId` 搭配使用;
+- `docsVersionDropdown`: 下拉框菜单，定义文档默认 **版本号** 和其他版本号的页面链接;
+- `localeDropdown`: 下拉框菜单，定义网站默认 **语言** 和其他语言的页面链接;
+- `docsVersion`: 定义网站最新版本的菜单（可能是，具体情况不明。。）;
+- `search`: 如果在网站中使用了 **algolia** 搜索功能，可定义该参数，并且可改变其在导航栏的位置;
+- `docSidebar`: 文档菜单组，须和 `sidebarId` 搭配使用（指定该类型后，`to` 属性就失效，默认跳转为菜单组中的第一个菜单）;
 
 :::tip 离谱小贴士
 

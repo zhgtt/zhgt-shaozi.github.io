@@ -5,6 +5,10 @@ sidebar_position: 5
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
+import { Image } from '@arco-design/web-react';
+```
+
 > 本章节学习如何在服务器中部署 Docusaurus & nginx 代理
 
 ## 腾讯云服务器 & 登录
@@ -15,7 +19,7 @@ toc_max_heading_level: 4
 - 服务器对应的 `IP地址`: `81.70.239.170`(公网);
 - **重置系统密码**，用于远程登录 Linux 系统或 Windows 系统;
 
-<img src={require('/img/docs/deploy/2022-01-17.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-17.jpg').default} height={360} />
 
 - 重置密码时，Linux 系统默认用户名为 `root`；Windows 系统默认用户名为 `administrator`；当然都可以自定义用户名;
 - 服务器中的 **系统镜像** 是一个纯净版的操作系统，可以选择重装系统镜像（Linux 或 Windows），每次重装之后都需 **重置密码**;
@@ -96,7 +100,7 @@ nginx -s reload
 
 访问服务器 IP，出现以下页面时，表示可以正常运行;
 
-<img src={require('/img/docs/deploy/2022-01-17-nginx.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-17-nginx.jpg').default} />
 
 ### 准备前端资源
 
@@ -124,7 +128,7 @@ cnpm -v
 - 由于 **yum** 安装的 nodejs 版本太低，所以需要手动重新安装 nodejs;
 - 打开 _[nodejs 官网](http://nodejs.cn/download/)_，下载官方编译好的 Linux 二进制文件，如图;
 
-<img src={require('/img/docs/deploy/2022-01-18.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-18.jpg').default} />
 
 - 点击右键 **复制链接地址**，然后使用 `wget` 和 `tar` 命令下载并解压该文件;
 
@@ -193,7 +197,7 @@ npm run build   # 项目打包
 
 - 有时候项目在 **打包** 时，会因为 **nodejs 内存溢出** 而导致项目打包失败，如图:
 
-<img src={require('/img/docs/deploy/2022-01-18-iTerm.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-18-iTerm.jpg').default} height={360} />
 
 - 尝试通过 `node --max-old-space-size=[容量(MB)]` 命令来 **扩大 nodejs 内存** 以解决此问题，容量的可选值为 `[4096, 6096, 8192, ...]`， 可在项目的 `package.json` 文件的脚本命令中修改以下代码:
 
@@ -297,17 +301,17 @@ bt
 
 - 安装成功之后，会回显宝塔的 **登录地址** 和 **用户名 & 密码**，这需要自己将这些信息记录好，如图:
 
-<img src={require('/img/docs/deploy/2022-01-21.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-21.jpg').default} height={360} />
 
 - 按照图片中的地址访问宝塔面板时，默认的 `8888` 的端口号需要在云服务器的 **防火墙** 中添加 **安全组端口规则** 之后（各服务器的添加规则可能不一样），才能正常访问，如图:
 
-<img src={require('/img/docs/deploy/2022-01-21-anquanzu.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-21-anquanzu.jpg').default} />
 
 #### 宝塔腾讯云专享版
 
 - 腾讯云服务器内置了 **宝塔应用镜像系统**，只需要在重装系统中选择该应用镜像即可;
 
-<img src={require('/img/docs/deploy/2022-01-21-system.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-21-system.jpg').default} height={360} />
 
 - 安装完成之后，再远程登录服务器，输入以下命令查看宝塔的 **默认信息** & **账号密码**;
 
@@ -324,7 +328,7 @@ bt
 
 - 有时系统重装完之后，再进行 `ssh` 远程登录，会出现以下错误:
 
-<img src={require('/img/docs/deploy/2022-01-21-ssh-error.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-21-ssh-error.jpg').default} />
 
 - 出现该错误的原因: 由于服务器的 **公钥(public key)** 发生了改变（比如重装了系统），而电脑客户端存储的信息并没有发生变化，导致 `ssh` 登录时，信息匹配不正确，从而产生错误警告;
 
@@ -350,17 +354,17 @@ ssh root@SERVER_IP
 
 - 为了提高安全性，可以修改进入宝塔的 **安全入口**，**默认端口号**，**默认的账号密码** 等信息;
 
-<img src={require('/img/docs/deploy/2022-01-22.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-22.jpg').default} height={360} />
 
 ### 前端静态网站部署
 
 - 宝塔可以直接通过界面操作来部署前端资源，操作简单快捷，首先下载 **nginx** 应用，可以通过初次进入面板时给予的提示自动安装，或者通过 **软件商店** 搜索安装，然后根据实际情况修改其配置文件;
 
-<img src={require('/img/docs/deploy/2022-01-21-bt.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-21-bt.jpg').default} height={360} />
 
 - 部署静态资源时，只需 **添加网站站点**，输入网站的 **域名**，指定前端资源的 **网站目录** 等，就能完成一个静态网站的简单部署;
 
-<img src={require('/img/docs/deploy/2022-01-22-web-create.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-22-web-create.jpg').default} height={360} />
 
 - 将本地准备好的前端资源 **上传** 到服务器中（最好提前在本地将资源目录 **打包压缩** 再上传），然后在宝塔的 **文件面板** 中上传并解压到之前指定好的 **网站目录** 操作即可;
 
@@ -370,7 +374,7 @@ cd [本地项目目录]
 tar -czvf build.tar.gz build/
 ```
 
-<img src={require('/img/docs/deploy/2022-01-22-file-panel.jpg').default} alt="Example Image" />
+<Image src={require('/img/docs/deploy/2022-01-22-file-panel.jpg').default} />
 
 ## 前端自动化部署
 

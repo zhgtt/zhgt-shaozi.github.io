@@ -1,5 +1,5 @@
 /**
- * button 组件 - 部分代码取自 antd 源码
+ * [废弃] button 组件 - 部分代码取自 antd 源码
  */
 import React from 'react';
 import clsx from 'clsx';

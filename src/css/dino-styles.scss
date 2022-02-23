@@ -1,6 +1,7 @@
-// @import './dino.scss';
-
-/* TODO
+/* 原子化样式 - 参考 tailwindcss 文档，https://docs.tailwindchina.com/docs/customizing-colors，部分样式与 infima 源码重叠，仅供学习使用 
+ * 0.0625rem 为 1px
+ * 1rem 为 16px
+ *
  * .w-{} - 宽度
  * .h-{} - 高度
  * .m-{} - 外边距
@@ -27,101 +28,21 @@
  * .overflow-{} - 控制元素超出容器的行为
  */
 
-/* 方正莎儿硬笔简体 */
-@font-face {
-  font: {
-    family: 'FZSEYBJW';
-    weight: normal;
-    style: normal;
-  }
-  src: url(../../static/fonts/FZSEYBJW.ttf);
-}
-
-/* 方正字迹-青柠体 简 */
-@font-face {
-  font: {
-    family: 'FZZJ-QNTJW';
-    weight: normal;
-    style: normal;
-  }
-  src: url(../../static/fonts/FZZJ-QNTJW.ttf);
-}
-
-/* 用于改变的变量 */
-:root {
-  --dino-bg-opacity: 1;
-  --dino-border-opacity: 1;
-}
-
-/* Base Styles - 基础样式 */
-/* html 和 body 如果都设置背景色，则 body 之外的背景色依然是 html 的背景色，不会撑满整个网页，所以二者只能选一个设置背景色 */
-* {
-  box-sizing: border-box;
-}
-
-html {
-  background-color: initial;
-  color: initial;
-  line-height: initial;
-  -webkit-font-smoothing: antialiased; // 抗锯齿，使字体看起来更清晰
-  text-rendering: optimizelegibility; // 文本渲染方式
-}
-
-body {
-  color: var(--dino-color-body);
-  background-color: var(--dino-color-body-bg);
-  font-size: 16px;
-  font-family: $--dino-font-family-secondary;
-  margin: 0;
-  line-height: initial;
-  box-sizing: border-box;
-  word-wrap: break-word; // 允许长单词换行
-}
-
-$heading-list: (
-  (1, $--dino-h1-font-size),
-  (2, $--dino-h2-font-size),
-  (3, $--dino-h3-font-size),
-  (4, $--dino-h4-font-size),
-  (5, $--dino-h5-font-size),
-  (6, $--dino-h6-font-size)
-);
-@each $key, $size in $heading-list {
-  h#{$key} {
-    font-size: $size;
-    font-weight: $--dino-font-weight-bold;
-    font-family: $--dino-font-family-secondary;
-    color: var(--dino-color-heading);
-    margin: 0;
-    position: relative;
-  }
-}
-
-p {
-  margin: 0;
-  font-size: $--dino-font-size-sm;
-  letter-spacing: 2px;
-}
-
-a {
-  @extend .transition-all;
-
-  &:hover {
-    opacity: $--dino-opacity-85;
-  }
-  // 没有 href 属性的 a 标签
-  :not([href]) {
-    text-decoration: none;
-  }
-}
-
-strong {
-  border-bottom-style: dashed;
-  border-bottom-width: 1px;
-
-  > a {
-    border: inherit;
-  }
+/* 🍋 公共方法 🍋 */
+/* Code - 代码块 */
+@mixin code-style {
+  word-break: break-word;
+  border-radius: 3px;
+  overflow-x: auto;
+  background-color: var(--dino-color-code-bg);
+  color: var(--dino-color-code);
+  padding: 0 5px;
+  border: none;
+  // font-weight: 600;
+  font-size: var(--dino-font-size-sm);
+  margin-top: -3px;
+  display: inline-block;
+  line-height: 17px;
 }
 
 /* 🍋 原子化样式 🍋 */
@@ -153,6 +74,24 @@ $height-list: ((full, 100%), auto);
 }
 
 /* Margin / Padding - 外/内边距 */
+/* Space - 见局（以 0.25rem / 4px 递增） */
+$--dino-space-0: 0;
+$--dino-space-1: 0.25rem;
+$--dino-space-2: 0.5rem;
+$--dino-space-3: 0.75rem; // 12px
+$--dino-space-4: 1rem;
+$--dino-space-5: 1.25rem;
+$--dino-space-6: 1.5rem;
+$--dino-space-7: 1.75rem;
+$--dino-space-8: 2rem;
+$--dino-space-10: 2.5rem;
+$--dino-space-12: 3rem;
+$--dino-space-14: 3.5rem;
+$--dino-space-16: 4rem;
+$--dino-space-18: 4.5rem;
+$--dino-space-20: 5rem;
+$--dino-space-24: 6rem;
+
 $space-list: (
   (0, $--dino-space-0),
   (1, $--dino-space-1),
@@ -246,17 +185,31 @@ $text-align-list: (center, left, right, justify);
 }
 
 /* Font-Size - 字体大小 */
+$--dino-leading-none: 1;
+$--dino-leading-tight: 1.25;
+$--dino-leading-snug: 1.375;
+$--dino-leading-normal: 1.5;
+$--dino-leading-relaxed: 1.625;
+$--dino-leading-loose: 2;
+$--dino-leading-3: 0.75rem;
+$--dino-leading-4: 1rem;
+$--dino-leading-5: 1.25rem;
+$--dino-leading-6: 1.5rem;
+$--dino-leading-7: 1.75rem;
+$--dino-leading-8: 2rem;
+$--dino-leading-9: 2.25rem;
+$--dino-leading-10: 2.5rem;
+
 $font-size-list: (
-  (xs, $--dino-font-size-xs, $--dino-leading-4),
-  (sm, $--dino-font-size-sm, $--dino-leading-5),
-  (base, $--dino-font-size-base, $--dino-leading-6),
-  (lg, $--dino-font-size-lg, $--dino-leading-7),
-  (xl, $--dino-font-size-xl, $--dino-leading-7),
-  (2xl, $--dino-font-size-2xl, $--dino-leading-8),
-  (3xl, $--dino-font-size-3xl, $--dino-leading-9),
-  (4xl, $--dino-font-size-4xl, $--dino-leading-10),
-  (5xl, $--dino-font-size-5xl, $--dino-leading-none),
-  (6xl, $--dino-font-size-6xl, $--dino-leading-none)
+  (xs, var(--dino-font-size-xs), $--dino-leading-4),
+  (sm, var(--dino-font-size-sm), $--dino-leading-5),
+  (base, var(--dino-font-size-base), $--dino-leading-6),
+  (lg, var(--dino-font-size-lg), $--dino-leading-7),
+  (xl, var(--dino-font-size-xl), $--dino-leading-7),
+  (2xl, var(--dino-font-size-2xl), $--dino-leading-8),
+  (3xl, var(--dino-font-size-3xl), $--dino-leading-9),
+  (4xl, var(--dino-font-size-4xl), $--dino-leading-10),
+  (5xl, var(--dino-font-size-5xl), $--dino-leading-none)
 );
 @each $key, $size, $line in $font-size-list {
   .text-#{$key} {
@@ -267,11 +220,11 @@ $font-size-list: (
 
 /* Font-Weight - 字体粗细 */
 $font-weight-list: (
-  (thin, $--dino-font-weight-thin),
-  (light, $--dino-font-weight-light),
-  (normal, $--dino-font-weight-normal),
-  (medium, $--dino-font-weight-medium),
-  (bold, $--dino-font-weight-bold)
+  (thin, var(--dino-font-weight-thin)),
+  (light, var(--dino-font-weight-light)),
+  (normal, var(--dino-font-weight-normal)),
+  (medium, var(--dino-font-weight-medium)),
+  (bold, var(--dino-font-weight-bold))
 );
 @each $key, $value in $font-weight-list {
   .text-#{$key} {
@@ -460,6 +413,12 @@ $border-style-list: (solid, dashed, dotted, double, none);
 }
 
 /* Border-Width - 边框宽度 */
+$--dino-border-width-0: 0;
+$--dino-border-width-1: 1px;
+$--dino-border-width-2: 2px;
+$--dino-border-width-4: 4px;
+$--dino-border-width-8: 8px;
+
 $border-width-list: (
   (0, $--dino-border-width-0),
   (1, $--dino-border-width-1),
@@ -486,6 +445,16 @@ $border-width-list: (
 }
 
 /* Border-Radius - 边框圆角 */
+$--dino-border-radius-none: 0;
+$--dino-border-radius-sm: 0.125rem;
+$--dino-border-radius-base: 0.25rem;
+$--dino-border-radius-md: 0.375rem;
+$--dino-border-radius-lg: 0.5rem;
+$--dino-border-radius-xl: 0.75rem;
+$--dino-border-radius-2xl: 1rem;
+$--dino-border-radius-3xl: 1.5rem;
+$--dino-border-radius-full: 100%;
+
 $border-radius-list: (
   (none, $--dino-border-radius-none),
   (sm, $--dino-border-radius-sm),
@@ -532,6 +501,20 @@ $border-radius-list: (
 }
 
 /* Transition - 过渡 */
+$--dino-duration-75: 75ms;
+$--dino-duration-150: 150ms;
+$--dino-duration-200: 200ms;
+$--dino-duration-300: 300ms;
+$--dino-duration-400: 400ms;
+$--dino-duration-500: 500ms;
+$--dino-duration-700: 700ms;
+$--dino-duration-1000: 1000ms;
+
+$--dino-timing-function-ease-linear: linear;
+$--dino-timing-function-ease-in: cubic-bezier(0.4, 0, 1, 1);
+$--dino-timing-function-ease-out: cubic-bezier(0, 0, 0.2, 1);
+$--dino-timing-function-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
 $transition-list: (
   none,
   (all, $--dino-duration-300),
@@ -563,58 +546,10 @@ $duration-list: (
 }
 
 /* Opacity - 透明度 */
-$opacity-list: (
-  (0, $--dino-opacity-0),
-  (5, $--dino-opacity-5),
-  (10, $--dino-opacity-10),
-  (15, $--dino-opacity-15),
-  (20, $--dino-opacity-20),
-  (25, $--dino-opacity-25),
-  (30, $--dino-opacity-30),
-  (35, $--dino-opacity-35),
-  (40, $--dino-opacity-40),
-  (45, $--dino-opacity-45),
-  (50, $--dino-opacity-50),
-  (55, $--dino-opacity-55),
-  (60, $--dino-opacity-60),
-  (65, $--dino-opacity-65),
-  (70, $--dino-opacity-70),
-  (75, $--dino-opacity-75),
-  (80, $--dino-opacity-80),
-  (85, $--dino-opacity-85),
-  (90, $--dino-opacity-90),
-  (95, $--dino-opacity-95),
-  (100, $--dino-opacity-100)
-);
-@each $key, $value in $opacity-list {
-  .opacity-#{'' + $key} {
-    opacity: $value;
-  }
-  .bg-opacity-#{'' + $key} {
-    --dino-bg-opacity: #{$value};
-  }
-  .border-opacity-#{'' + $key} {
-    --dino-border-opacity: #{$value};
-  }
-}
-
-/* Box-Shadow - 盒阴影 */
-$shadow-list: (
-  (sm, $--dino-box-shadow-sm),
-  (md, $--dino-box-shadow-md),
-  (lg, $--dino-box-shadow-lg),
-  (xl, $--dino-box-shadow-xl),
-  (2xl, $--dino-box-shadow-2xl),
-  (3xl, $--dino-box-shadow-3xl),
-  (4xl, $--dino-box-shadow-4xl),
-  (inner, $--dino-box-shadow-inner),
-  (3d, $--dino-box-shadow-3d),
-  (none)
-);
-@each $key, $value, $type in $shadow-list {
-  .shadow-#{$key} {
-    box-shadow: $value or $key;
-  }
+.opacity-0,
+.bg-opacity-0,
+.border-opacity-0 {
+  opacity: 0;
 }
 
 /* Cursor - 手势 */

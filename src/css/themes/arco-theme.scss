@@ -1,0 +1,251 @@
+@import '@arco-design/web-react/dist/css/arco.css';
+
+// body {
+//   --color-white: #ffffff;
+//   --color-black: #000000;
+//   --color-border: rgb(var(--gray-3));
+//   --color-bg-popup: var(--color-bg-5);
+//   --color-bg-1: #fff;
+//   --color-bg-2: #fff;
+//   --color-bg-3: #fff;
+//   --color-bg-4: #fff;
+//   --color-bg-5: #fff;
+//   --color-bg-white: #fff;
+//   // 中性色
+//   --color-neutral-1: rgb(var(--gray-1));
+//   --color-neutral-2: rgb(var(--gray-2));
+//   --color-neutral-3: rgb(var(--gray-3));
+//   --color-neutral-4: rgb(var(--gray-4));
+//   --color-neutral-5: rgb(var(--gray-5));
+//   --color-neutral-6: rgb(var(--gray-6));
+//   --color-neutral-7: rgb(var(--gray-7));
+//   --color-neutral-8: rgb(var(--gray-8));
+//   --color-neutral-9: rgb(var(--gray-9));
+//   --color-neutral-10: rgb(var(--gray-10));
+//   --color-text-1: var(--color-neutral-10);
+//   --color-text-2: var(--color-neutral-8);
+//   --color-text-3: var(--color-neutral-6);
+//   --color-text-4: var(--color-neutral-4);
+//   --color-border-1: var(--color-neutral-2);
+//   --color-border-2: var(--color-neutral-3);
+//   --color-border-3: var(--color-neutral-4);
+//   --color-border-4: var(--color-neutral-6);
+//   --color-fill-1: var(--color-neutral-1);
+//   --color-fill-2: var(--color-neutral-2);
+//   --color-fill-3: var(--color-neutral-3);
+//   --color-fill-4: var(--color-neutral-4);
+//   --color-primary-light-1: rgb(var(--primary-1));
+//   --color-primary-light-2: rgb(var(--primary-2));
+//   --color-primary-light-3: rgb(var(--primary-3));
+//   --color-primary-light-4: rgb(var(--primary-4));
+//   --color-secondary: var(--color-neutral-2);
+//   --color-secondary-hover: var(--color-neutral-3);
+//   --color-secondary-active: var(--color-neutral-4);
+//   --color-secondary-disabled: var(--color-neutral-1);
+//   --color-danger-light-1: rgb(var(--danger-1));
+//   --color-danger-light-2: rgb(var(--danger-2));
+//   --color-danger-light-3: rgb(var(--danger-3));
+//   --color-danger-light-4: rgb(var(--danger-4));
+//   --color-success-light-1: rgb(var(--success-1));
+//   --color-success-light-2: rgb(var(--success-2));
+//   --color-success-light-3: rgb(var(--success-3));
+//   --color-success-light-4: rgb(var(--success-4));
+//   --color-warning-light-1: rgb(var(--warning-1));
+//   --color-warning-light-2: rgb(var(--warning-2));
+//   --color-warning-light-3: rgb(var(--warning-3));
+//   --color-warning-light-4: rgb(var(--warning-4));
+//   --color-link-light-1: rgb(var(--link-1));
+//   --color-link-light-2: rgb(var(--link-2));
+//   --color-link-light-3: rgb(var(--link-3));
+//   --color-link-light-4: rgb(var(--link-4));
+//   --border-radius-none: 0;
+//   --border-radius-small: 2px;
+//   --border-radius-medium: 4px;
+//   --border-radius-large: 8px;
+//   --border-radius-circle: 50%;
+//   --color-tooltip-bg: rgb(var(--gray-10));
+//   --color-spin-layer-bg: rgba(255, 255, 255, 0.6);
+//   --color-menu-dark-bg: #232324;
+//   --color-menu-light-bg: #ffffff;
+//   --color-menu-dark-hover: rgba(255, 255, 255, 0.04);
+//   --color-mask-bg: rgba(29, 33, 41, 0.6);
+// }
+html[data-theme='dark'] body {
+  --color-white: rgba(255, 255, 255, 0.9);
+  --color-black: #000000;
+  --color-border: #333335;
+  --color-bg-1: #17171a;
+  --color-bg-2: #232324;
+  --color-bg-3: #2a2a2b;
+  --color-bg-4: #313132;
+  --color-bg-5: #373739;
+  --color-bg-white: #f6f6f6;
+  --color-text-1: rgba(255, 255, 255, 0.9);
+  --color-text-2: rgba(255, 255, 255, 0.7);
+  --color-text-3: rgba(255, 255, 255, 0.5);
+  --color-text-4: rgba(255, 255, 255, 0.3);
+  --color-fill-1: rgba(255, 255, 255, 0.04);
+  --color-fill-2: rgba(255, 255, 255, 0.08);
+  --color-fill-3: rgba(255, 255, 255, 0.12);
+  --color-fill-4: rgba(255, 255, 255, 0.16);
+  --color-primary-light-1: rgba(var(--primary-6), 0.2);
+  --color-primary-light-2: rgba(var(--primary-6), 0.35);
+  --color-primary-light-3: rgba(var(--primary-6), 0.5);
+  --color-primary-light-4: rgba(var(--primary-6), 0.65);
+  --color-secondary: rgba(var(--gray-9), 0.08);
+  --color-secondary-hover: rgba(var(--gray-8), 0.16);
+  --color-secondary-active: rgba(var(--gray-7), 0.24);
+  --color-secondary-disabled: rgba(var(--gray-9), 0.08);
+  --color-danger-light-1: rgba(var(--danger-6), 0.2);
+  --color-danger-light-2: rgba(var(--danger-6), 0.35);
+  --color-danger-light-3: rgba(var(--danger-6), 0.5);
+  --color-danger-light-4: rgba(var(--danger-6), 0.65);
+  --color-success-light-1: rgba(var(--success-6), 0.2);
+  --color-success-light-2: rgba(var(--success-6), 0.35);
+  --color-success-light-3: rgba(var(--success-6), 0.5);
+  --color-success-light-4: rgba(var(--success-6), 0.65);
+  --color-warning-light-1: rgba(var(--warning-6), 0.2);
+  --color-warning-light-2: rgba(var(--warning-6), 0.35);
+  --color-warning-light-3: rgba(var(--warning-6), 0.5);
+  --color-warning-light-4: rgba(var(--warning-6), 0.65);
+  --color-link-light-1: rgba(var(--link-6), 0.2);
+  --color-link-light-2: rgba(var(--link-6), 0.35);
+  --color-link-light-3: rgba(var(--link-6), 0.5);
+  --color-link-light-4: rgba(var(--link-6), 0.65);
+  --color-tooltip-bg: #373739;
+  --color-spin-layer-bg: rgba(51, 51, 51, 0.6);
+  --color-menu-dark-bg: #232324;
+  --color-menu-light-bg: #232324;
+  --color-menu-dark-hover: var(--color-fill-2);
+  --color-mask-bg: rgba(23, 23, 26, 0.6);
+}
+
+/* 修改 arco-design 的部分默认样式 */
+@media (min-width: 992px) {
+  .arco-col-lg-6 {
+    width: 25%;
+    flex: 0 0 25%;
+    display: block;
+  }
+}
+// 分割线
+.arco-divider-horizontal.arco-divider-with-text {
+  margin: 0.625rem 0;
+}
+.arco-divider-text {
+  position: relative;
+  top: 0;
+  transform: none;
+  &-left {
+    left: 0;
+  }
+  &-right {
+    right: 0;
+  }
+}
+// 图片预览
+.arco-image-preview {
+  &-toolbar {
+    box-shadow: 0 4px 8px rgb(3 27 78 / 12%);
+  }
+}
+
+// Sidebar
+.dino-collapse-sidebar-btn {
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 52px;
+    width: 100%;
+    background-image: linear-gradient(90deg, transparent 48%, #e5e6eb 50%, transparent 51%),
+      url(@site/static/img/themes/meiguoduizhang.svg);
+    // url(@site/static/img/themes/gangtiexia.svg);
+    // url(@site/static/img/themes/lvdengxia.svg);
+    // url(@site/static/img/themes/sishi.svg);
+    background-position: top center, bottom center; // 距左 距上
+    background-size: 100% 52px, 26px;
+    background-repeat: no-repeat;
+    top: 16px;
+    left: -0;
+    transform-origin: top center;
+    animation: snow-shaking 3s ease-in-out 0s infinite;
+    // min-width: 34px;
+  }
+
+  @keyframes snow-shaking {
+    from {
+      transform: rotate(30deg);
+    }
+    50% {
+      transform: rotate(-30deg);
+    }
+    to {
+      transform: rotate(30deg);
+    }
+  }
+}
+
+/* [x] 废弃, scss 主题函数（暂时废弃，统一通过 CSS 全局变量控制） */
+$theme-map: null; // 声明该变量才可使用 !global
+
+// $themes 变量用来定义各主题下的 key 及对应的颜色，由 map-get 函数传来的 key 去对应的查找
+$themes: (
+  light: (
+    // #{'key'}: #{'value'},
+    // 🌰
+    background_color1: #fff,
+  ),
+  dark: (
+    // #{'key'}: #{'value'},
+    background_color1: #333,
+  ),
+);
+
+@mixin themeify {
+  @each $name, $map in $themes {
+    // !global 把局部变量强升为全局变量
+    $theme-map: $map !global; // 将各主题下的 key 及对应的值提升为全局，便于 map-get 函数使用
+    // & 父容器标识（类名）
+    // @content 是混合器插槽，像 vue 的 slot
+    [data-theme='#{$name}'] & {
+      @content;
+    }
+  }
+}
+
+// map-get(map, key) 函数，从 map 对象中根据 key 获取其对应的 value
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+// 背景颜色
+@mixin theme_bg_color($key) {
+  @include themeify {
+    background-color: themed($key); // 对应 @content
+  }
+}
+// 字体颜色
+@mixin theme_font_color($key) {
+  @include themeify {
+    color: themed($key);
+  }
+}
+// 边框颜色
+@mixin theme_border_color($key) {
+  @include themeify {
+    border-color: themed($key);
+  }
+}
+// 盒阴影
+@mixin theme_shadow_color($key) {
+  @include themeify {
+    box-shadow: themed($key);
+  }
+}
+
+// 🌰 使用方式，直接在类中使用，只需定义各主题下所需要的 key 即可
+.example {
+  @include theme_bg_color('background_color1');
+  // ...
+}

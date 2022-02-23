@@ -1,0 +1,19 @@
+/* doc / blog 右侧目录 */
+.table-of-contents {
+  > li > a {
+    color: var(--color-text-1);
+  }
+  > li > .table-of-contents__link--active {
+    color: var(--ifm-color-primary);
+  }
+}
+.table-of-contents li {
+  .table-of-contents__link {
+    > code {
+      @include code-style;
+      font-size: var(--dino-font-size-xxs);
+      margin-top: -2px;
+      line-height: 15px;
+    }
+  }
+}

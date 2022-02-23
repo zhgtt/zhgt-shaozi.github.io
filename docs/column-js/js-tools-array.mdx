@@ -1,0 +1,309 @@
+---
+title: JS 工具函数集合 - Array 篇
+id: js-tools-array
+sidebar_position: 1
+toc_max_heading_level: 4
+---
+
+```mdx-code-block
+import BrowserWindow from '@site/src/components/BrowserWindow';
+import { Button, Image } from '@arco-design/web-react';
+```
+
+> 本章节记录 JavaScript Array 相关的一些工具函数，包括对 树结构的转换, 普通数组的处理等
+
+<img src={require('/img/docs/js-tools/wallhaven.png').default} style={{ maxHeight: 360 }} />
+
+## 取值 & 统计
+
+### 获取随机一项元素
+
+获取普通数组中的随机一项元素:
+
+```tsx title="代码实现"
+const _randomArr = (arr: (string | number | boolean)[]) => {
+  const len = arr.length;
+  return arr[Math.floor(Math.random() * len)];
+};
+```
+
+### 统计元素出现的次数
+
+统计一个元素在普通数组中出现的次数，返回一个对象集合:
+
+```tsx title="代码实现"
+const _totalObj = (arr: (string | number)[]) => {
+  return arr.reduce((pre, next) => {
+    if (pre[next]) {
+      pre[next]++;
+    } else {
+      pre[next] = 1;
+    }
+    return pre;
+  }, {});
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = ['普却信 🤖', '普却信 🤖', 'sunny 🌞', '普却信 🤖', 'sunny 🌞', 'dino 🦖'];
+
+  const [value, setValue] = useState({});
+
+  const handleClick = () => {
+    const result = _totalObj(array);
+    // setValue(JSON.stringify(result, null, '\t')); // 格式化 json，缩进一个 tab
+    // setValue(JSON.stringify(result, null, 4)); // 缩进 4 个空格（实际只有一个空格）
+    setValue(result);
+  };
+
+  return (
+    <Space direction='vertical'>
+      <Button type='primary' onClick={handleClick}>
+        点击显示结果
+      </Button>
+      {/* react-json-view 组件，格式化渲染 json 对象 */}
+      <ReactJsonView src={value} />
+    </Space>
+  );
+}
+```
+
+## 树结构转换 & 查找
+
+### 数组转换为树结构
+
+有时候会遇到含有层级结构的数组，这时需要通过深度优先遍历的方式将其转换为树结构（需要每一条数据含有自身及父级的唯一值，如 `id` 和 `parentId`）:
+
+```ts title="数据相关的类型(自定义)"
+interface TreeDataTypes {
+  pid?: number; // 父节点 id
+  area_code: number; // 自身 id
+  children?: TreeDataTypes[]; // 子节点 list
+  [key: string]: any;
+}
+```
+
+```jsx title="代码实现 - 壹"
+const _dataToTree = (arr: TreeDataTypes[]) => {
+  // 先将数组转换成以 area_code 为 key 值的对象格式
+  const node = arr.reduce((prev, cur) => {
+    prev[cur['area_code']] = cur;
+    return prev;
+  }, {});
+
+  return arr.reduce((prev, cur) => {
+    const parentId = cur?.pid;
+    // 对象的浅拷贝，引用关系存在，在后面处理 parent 的时候也会导致 cur 的改变，达到递归的效果
+    const parentObj = node?.[parentId];
+    // 如果父对象存在，就将 cur 放到父对象的 children 中
+    if (parentObj) {
+      parentObj.children ? parentObj.children.push(cur) : (parentObj.children = [cur]);
+    }
+    // 没有父对象，则此 cur 为树的根节点
+    !parentId && prev.push(cur);
+    return prev;
+  }, []);
+};
+```
+
+```jsx title="代码实现 - 贰"
+const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
+  // 与 代码实现-壹 相似，通过转换成对象取值映射的形式，从而降低时间复杂度
+  const node = arr.reduce((prev, cur) => {
+    prev[cur['area_code']] = cur;
+    cur.children = [];
+    return prev;
+  }, {});
+
+  return arr.filter((item) => {
+    node[item?.pid] && node[item?.pid].children.push(item);
+    return !item?.pid;
+  });
+};
+```
+
+```jsx title="代码实现 - 叁"
+const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
+  // 针对一级数组没有 pid 的情况，将其 pid 设置为 0
+  if (!id) {
+    arr.forEach((item) => {
+      if (!item?.pid) item.pid = 0;
+    });
+  }
+
+  return arr
+    .filter((item) => item?.pid === id)
+    .map((item) => ({ ...item, children: _dataToTree(arr, item.area_code) }));
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [
+    { area_name: '浙江省', area_code: 330000, levle: 0 },
+    { area_name: '杭州市', area_code: 330100, levle: 1, pid: 330000 },
+    { area_name: '余杭区', area_code: 330110, levle: 2, pid: 330100 },
+    { area_name: '内蒙古自治区', area_code: 150000, levle: 0 },
+    { area_name: '呼和浩特市', area_code: 150100, levle: 1, pid: 150000 },
+    { area_name: '包头市', area_code: 150200, levle: 1, pid: 150000 },
+    { area_name: '青山区', area_code: 150204, levle: 2, pid: 150200 },
+    { area_name: '土默特右旗', area_code: 150221, levle: 2, pid: 150200 },
+  ];
+
+  const [value, setValue] = useState({});
+
+  return (
+    <Space direction='vertical'>
+      <Button type='primary' onClick={() => setValue(_dataToTree(array))}>
+        点击显示结果
+      </Button>
+      <ReactJsonView src={value} collapsed={2} enableClipboard />
+    </Space>
+  );
+}
+```
+
+### 更改树结构的属性名
+
+有时在使用 UI 框架中的组件时，可能会碰到组件要的数据格式和拿到的数据格式不一致，这时就需要将拿到的数据进行转换，更改或添加组件所需的格式;
+
+```ts title="数据相关的类型(自定义)"
+interface TreeDataTypes {
+  code: number;
+  name: string;
+  childList?: TreeDataTypes[];
+  [key: string]: any;
+}
+```
+
+```js title="代码实现 - 壹"
+// 递归添加属性
+const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
+  return arr.map((item) => {
+    const isHasChild = Array.isArray(item?.childList);
+    return {
+      ...item,
+      key: item.code,
+      label: item.name,
+      ...(isHasChild && { children: _updateTreeKey(item?.childList) }),
+    };
+  });
+};
+
+// 递归替换属性
+const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
+  return arr.map((item) => {
+    const isHasChild = Array.isArray(item?.childList);
+    const newItem = {
+      ...item,
+      key: item.code,
+      label: item.name,
+      ...(isHasChild && { children: _updateTreeKey(item?.childList) }),
+    };
+    delete newItem.name;
+    delete newItem.code;
+    delete newItem?.childList;
+    return newItem;
+  });
+};
+```
+
+```jsx title="代码实现 - 贰"
+// 替换属性，转换成字符串后再进行替换，简单粗暴
+const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
+  const str = JSON.stringify(arr)
+    .replace(/"code"/g, '"key"') // 替换的内容一定要加引号
+    .replace(/"name"/g, '"label"')
+    .replace(/"childList"/g, '"children"');
+
+  return JSON.parse(str);
+};
+```
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [
+    {
+      name: '组件',
+      code: 'component',
+      type: 'menu',
+      childList: [
+        {
+          name: '通用组件',
+          code: 'common_component',
+          type: 'group-menu',
+          childList: [
+            { name: '按钮 Button', code: 'button', type: 'child-menu' },
+            { name: '图标 Icon', code: 'icon', type: 'child-menu' },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const [value, setValue] = useState({});
+
+  return (
+    <Space direction='vertical'>
+      <Button type='primary' onClick={() => setValue(_updateTreeKey(array))}>
+        点击显示结果
+      </Button>
+      <ReactJsonView src={value} collapsed={2} enableClipboard />
+    </Space>
+  );
+}
+```
+
+### 查找树结构的节点
+
+- 根据任意节点的 **唯一值**，递归查找树结构中的该节点，返回该节点的完整数据;
+
+```jsx title="代码实现"
+const _findTreeNode = (arr: any[]) => {};
+```
+
+- 根据任意节点的 **唯一值**，递归查找树结构中该节点下的 **最后一级节点**;
+
+- 递归查找树结构中 **第一个子节点** 下的 **最后一级节点**;
+
+- 递归查找树结构中 **第一个子节点** 下的 **最后一级节点**;
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [
+    {
+      name: '📂 /',
+      code: 'root',
+      key: '1',
+      childList: [
+        {
+          name: '📂 src',
+          code: 'src',
+          key: '1-1',
+          children: [
+            { name: '📂 components', code: 'components', key: '1-1-1' },
+            { name: '📃 typings.d.ts', code: 'typings-ts', key: '1-1-2' },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const [value, setValue] = useState({});
+
+  return (
+    <Space direction='vertical'>
+      <Input placeholder='输入任意 code 进行查找' />
+      <Button type='primary' onClick={() => setValue(_updateTreeKey(array))}>
+        点击显示结果
+      </Button>
+      <ReactJsonView src={value} collapsed={2} enableClipboard />
+    </Space>
+  );
+}
+```

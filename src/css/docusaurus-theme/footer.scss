@@ -1,0 +1,23 @@
+/* Footer - 底部内容 */
+.footer {
+  margin-top: 4rem;
+  padding: 3rem 0 1rem;
+  .container {
+    padding: 0 2rem;
+  }
+  &__links {
+    margin-bottom: 1.5rem;
+  }
+  &__title {
+    font-size: var(--dino-font-size-base);
+    color: var(--color-text-1);
+  }
+  &__item {
+    font-size: var(--dino-font-size-sm);
+    color: var(--color-text-2);
+  }
+  &__copyright {
+    font-size: var(--dino-font-size-xs);
+    color: var(--color-text-3);
+  }
+}

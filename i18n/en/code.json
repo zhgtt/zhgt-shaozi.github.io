@@ -28,5 +28,11 @@
   },
   "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
     "message": "← Back to main menu"
+  },
+  "theme.Playground.liveEditor": {
+    "message": "Live Editor"
+  },
+  "theme.Playground.result": {
+    "message": "Result"
   }
 }

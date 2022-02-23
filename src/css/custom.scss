@@ -3,14 +3,22 @@
  *
  * @import url() 是 css 的方法，在 scss 中不生效，需使用 @import '../路径'
  */
-@import '@arco-design/web-react/dist/css/arco.css';
-@import './themes/theme.scss'; // 默认主题
-// @import './themes/new-year.scss'; // 春节主题
-// @import './themes/christmas.scss'; // 圣诞主题
+@import './themes/arco-theme.scss'; // 默认主题
+// @import './themes/arco-new-year-theme.scss'; // 春节主题
+// @import './themes/arco-christmas-theme.scss'; // 圣诞主题
+@import './themes/paper-theme.scss';
 
-@import './dino.scss';
 @import './dino-styles.scss';
-@import './paper.scss';
+
+@import './docusaurus-theme/navbar.scss'; // 顶部导航条
+@import './docusaurus-theme/footer.scss'; // 底部内容
+@import './docusaurus-theme/markdown.scss'; // markdown 内容
+@import './docusaurus-theme/doc-sidebar.scss'; // doc 侧边栏
+@import './docusaurus-theme/codeblock.scss'; // 代码块
+@import './docusaurus-theme/announcement-bar.scss'; // 顶部公告条
+@import './docusaurus-theme/tabs.scss'; // Tabs 切换
+@import './docusaurus-theme/table-of-contents.scss'; // 右侧目录
+@import './docusaurus-theme/admonition.scss'; // 告示框
 
 $svgBase: 'data:image/svg+xml;charset=UTF-8,';
 
@@ -20,36 +28,46 @@ $svgBase: 'data:image/svg+xml;charset=UTF-8,';
   --ifm-menu-link-padding-horizontal: 0.875rem; // menu link 水平方向的 padding
   --doc-sidebar-width: 272px; // 展开的 menu 宽度
   --doc-sidebar-hidden-width: 16px; // 收起的 menu 宽度
+
+  /* 响应式 */
+  --dino-sm: 640px;
+  --dino-md: 768px;
+  --dino-lg: 1140px;
+  --dino-xl: 1320px;
+  // --dino-lg: 1024px;
+  // --dino-xl: 1280px;
+  --dino-2xl: 1536px;
+
+  /* Font */
+  --dino-font-weight-thin: 100;
+  --dino-font-weight-light: 300;
+  --dino-font-weight-normal: 400;
+  --dino-font-weight-medium: 500;
+  --dino-font-weight-bold: 600;
+
+  --dino-font-size-xxs: 0.625rem; // 10px
+  --dino-font-size-xs: 0.75rem; // 12px
+  --dino-font-size-sm: 0.875rem; // 14px
+  --dino-font-size-base: 1rem; // 16px
+  --dino-font-size-lg: 1.125rem; // 18px
+  --dino-font-size-xl: 1.25rem; // 20px
+  --dino-font-size-2xl: 1.5rem; // 24px
+  --dino-font-size-3xl: 1.875rem; // 30px
+  --dino-font-size-4xl: 2.25rem; // 36px
+  --dino-font-size-5xl: 3rem; // 48px
+
+  --dino-font-family-base: 'FZZJ-QNTJW', sans-serif;
+  --dino-font-family-secondary: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue,
+    PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
 body {
-  // arco-design 中的主题变量（部分）
-  // 中性色
-  // --color-neutral-1: rgb(var(--gray-1));
-  // --color-neutral-2: rgb(var(--gray-2));
-  // --color-neutral-3: rgb(var(--gray-3));
-  // --color-neutral-4: rgb(var(--gray-4));
-  // --color-neutral-5: rgb(var(--gray-5));
-  // --color-neutral-6: rgb(var(--gray-6));
-  // --color-neutral-7: rgb(var(--gray-7));
-  // --color-neutral-8: rgb(var(--gray-8));
-  // --color-neutral-9: rgb(var(--gray-9));
-  // --color-neutral-10: rgb(var(--gray-10));
-  // --color-text-1: #1d2129;
-
-  // --color-white: #fff;
-  // --color-black: #000;
-
-  // --color-border-1: var(--color-neutral-2);
-  // --color-border-2: var(--color-neutral-3);
-  // --color-border-3: var(--color-neutral-4);
-  // --color-border-4: var(--color-neutral-6);
-
-  --darkgrey-1: 235, 237, 240;
-  --darkgrey-2: 247, 248, 250;
-  --darkgrey-5: 68, 73, 80;
-  --darkgrey-8: 31, 41, 55;
-  --darkgrey-9: 17, 24, 39;
+  --darkgray-1: 235, 237, 240;
+  --darkgray-2: 247, 248, 250;
+  --darkgray-3: 229, 230, 235;
+  --darkgray-5: 68, 73, 80;
+  --darkgray-8: 31, 41, 55;
+  --darkgray-9: 17, 24, 39;
 
   --ifm-navbar-link-color: var(--color-text-1);
   --ifm-link-color: var(--ifm-color-primary);
@@ -63,7 +81,7 @@ body {
   // 🍋 以下变量需适配暗夜模式主题
   --ifm-color-primary: rgb(var(--primary-6)); // docusaurus 主题色
   --ifm-navbar-background-color: var(--color-white);
-  --ifm-footer-background-color: rgb(var(--darkgrey-2));
+  --ifm-footer-background-color: rgb(var(--darkgray-2));
   --ifm-dropdown-background-color: var(--color-white);
   --ifm-card-background-color: var(--color-white);
   // --ifm-color-primary-dark: #21af90;
@@ -73,83 +91,147 @@ body {
   // --ifm-color-primary-lighter: #66d4bd;
   // --ifm-color-primary-lightest: #92e0d0;
 
-  --color-text-1: var(--color-neutral-10);
-  --color-text-2: var(--color-neutral-8);
-  --color-text-3: var(--color-neutral-6);
-  --color-text-4: var(--color-neutral-4);
-
-  --color-fill-1: var(--color-neutral-1);
-  --color-fill-2: var(--color-neutral-2);
-  --color-fill-3: var(--color-neutral-3);
-  --color-fill-4: var(--color-neutral-4);
-
-  --dino-color-heading: rgb(var(--darkgrey-9));
-  --dino-color-body: rgb(var(--darkgrey-8));
+  --dino-color-heading: rgb(var(--darkgray-9));
+  --dino-color-body: rgb(var(--darkgray-8));
   --dino-color-body-bg: var(--color-white);
   --dino-color-code: rgb(var(--primary-6));
   --dino-color-code-bg: rgba(var(--primary-6), 0.08);
-  --dino-color-browser-bg: rgb(var(--darkgrey-1));
+  --dino-color-browser-bg: rgb(var(--darkgray-1));
 }
 
 html[data-theme='dark'] {
   body {
     --ifm-color-primary: rgb(var(--primary-4)); // docusaurus 主题色
-    --ifm-navbar-background-color: rgb(var(--darkgrey-8));
-    --ifm-footer-background-color: rgb(var(--darkgrey-8));
-    --ifm-dropdown-background-color: rgb(var(--darkgrey-8));
-    --ifm-card-background-color: rgb(var(--darkgrey-8));
+    --ifm-navbar-background-color: rgb(var(--darkgray-8));
+    --ifm-footer-background-color: rgb(var(--darkgray-8));
+    --ifm-dropdown-background-color: rgb(var(--darkgray-8));
+    --ifm-card-background-color: rgb(var(--darkgray-8));
 
-    --color-text-1: rgba(255, 255, 255, 0.9);
-    --color-text-2: rgba(255, 255, 255, 0.7);
-    --color-text-3: rgba(255, 255, 255, 0.5);
-    --color-text-4: rgba(255, 255, 255, 0.3);
-
-    --color-fill-1: rgba(255, 255, 255, 0.04);
-    --color-fill-2: rgba(255, 255, 255, 0.08);
-    --color-fill-3: rgba(255, 255, 255, 0.12);
-    --color-fill-4: rgba(255, 255, 255, 0.16);
-
-    --dino-color-heading: rgb(var(--gray-3));
-    --dino-color-body: rgb(var(--gray-3));
-    --dino-color-body-bg: rgb(var(--darkgrey-9));
+    --dino-color-heading: rgb(var(--darkgray-3));
+    --dino-color-body: rgb(var(--darkgray-3));
+    --dino-color-body-bg: rgb(var(--darkgray-9));
     --dino-color-code: rgb(var(--primary-5));
     --dino-color-code-bg: rgba(var(--primary-5), 0.08);
-    --dino-color-browser-bg: rgb(var(--darkgrey-5));
+    --dino-color-browser-bg: rgb(var(--darkgray-5));
   }
 }
 
-// code 样式
-@mixin code-style {
-  word-break: break-word;
-  border-radius: 3px;
-  overflow-x: auto;
-  background-color: var(--dino-color-code-bg);
-  color: var(--dino-color-code);
-  padding: 0 5px;
-  border: none;
-  // font-weight: 600;
-  font-size: $--dino-font-size-sm;
-  margin-top: -3px;
-  display: inline-block;
-  line-height: 17px;
+/* 方正莎儿硬笔简体 */
+@font-face {
+  font: {
+    family: 'FZSEYBJW';
+    weight: normal;
+    style: normal;
+  }
+  src: url(@site/static/fonts/FZSEYBJW.ttf);
 }
 
-/* 引用图标 */
-@mixin heading-before-icon($size) {
-  &::before {
-    content: '';
-    display: inline-block;
-    background-repeat: no-repeat;
-    width: $size;
-    height: $size;
-    background-size: $size $size;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    // background-image: url(@site/static/img/dino/dino-drawing.svg);
-    background-image: url(@site/static/img/dino/dino-think.svg);
+/* 方正字迹-青柠体 简 */
+@font-face {
+  font: {
+    family: 'FZZJ-QNTJW';
+    weight: normal;
+    style: normal;
   }
+  src: url(@site/static/fonts/FZZJ-QNTJW.ttf);
+}
+
+/* Base Styles - 基础样式 */
+/* html 和 body 如果都设置背景色，则 body 之外的背景色依然是 html 的背景色，不会撑满整个网页，所以二者只能选一个设置背景色 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: initial;
+  color: initial;
+  line-height: initial;
+  -webkit-font-smoothing: antialiased; // 抗锯齿，使字体看起来更清晰
+  text-rendering: optimizelegibility; // 文本渲染方式
+}
+
+body {
+  color: var(--dino-color-body);
+  background-color: var(--dino-color-body-bg);
+  font-size: 16px;
+  font-family: var(--dino-font-family-secondary);
+  margin: 0;
+  line-height: initial;
+  box-sizing: border-box;
+  word-wrap: break-word; // 允许长单词换行
+}
+
+/* Heading */
+$--dino-h1-font-size: 2.5rem; // 42px
+$--dino-h2-font-size: 1.875rem; // 30px
+$--dino-h3-font-size: 1.5rem;
+$--dino-h4-font-size: 1.125rem;
+$--dino-h5-font-size: 1rem;
+$--dino-h6-font-size: 0.875rem;
+
+$heading-list: (
+  (1, $--dino-h1-font-size),
+  (2, $--dino-h2-font-size),
+  (3, $--dino-h3-font-size),
+  (4, $--dino-h4-font-size),
+  (5, $--dino-h5-font-size),
+  (6, $--dino-h6-font-size)
+);
+@each $key, $size in $heading-list {
+  h#{$key} {
+    font-size: $size;
+    font-weight: var(--dino-font-weight-bold);
+    font-family: var(--dino-font-family-secondary);
+    color: var(--dino-color-heading);
+    margin: 0;
+    position: relative;
+  }
+}
+
+p {
+  margin: 0;
+  font-size: var(--dino-font-size-sm);
+  letter-spacing: 2px;
+}
+
+a {
+  @extend .transition-all;
+
+  &:hover {
+    opacity: 0.85;
+  }
+  // 没有 href 属性的 a 标签
+  :not([href]) {
+    text-decoration: none;
+  }
+}
+
+strong {
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+
+  > a {
+    border: inherit;
+  }
+}
+
+/* TODO Container - 容器 */
+.container {
+  @media (min-width: var(--dino-2xl)) {
+    max-width: var(--dino-2xl);
+  }
+}
+
+/* Card 卡片 */
+.card {
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+/* 索引页面 - card */
+article > a[class*='cardContainer_'] {
+  justify-content: space-between;
 }
 
 /* 滚动条样式 */
@@ -176,346 +258,6 @@ html[data-theme='dark'] {
   }
 }
 
-/* Container - 容器 */
-.container {
-  @media (min-width: $--dino-2xl) {
-    max-width: $--dino-2xl;
-  }
-}
-
-/* Sidebar 侧边栏 */
-.dino-menu-nav {
-  overflow-x: hidden;
-  overflow-y: hidden;
-  font-weight: 500;
-  &:hover {
-    overflow-y: auto;
-  }
-
-  $level-list: (1, 2, 3, 4, 5); // 仅支持嵌套5层
-  $menu-link-padding-horizontal: 0.875rem;
-  @each $level in $level-list {
-    .theme-doc-sidebar-item-category-level-#{$level}.menu__list-item,
-    .theme-doc-sidebar-item-link-level-#{$level}.menu__list-item {
-      .menu__link {
-        @if $level == 1 {
-          font-size: $--dino-font-size-base; // 16px
-          color: var(--color-text-2);
-        } @else {
-          font-size: $--dino-font-size-sm; // 14px
-          color: var(--color-text-1);
-          font-weight: normal;
-        }
-        padding-left: $menu-link-padding-horizontal * $level;
-      }
-    }
-  }
-
-  > .menu__list {
-    padding-bottom: 1.5rem;
-  }
-  .menu__list {
-    width: calc(var(--doc-sidebar-width) - 0.875rem * 2);
-    padding-left: 0;
-    .menu__link {
-      line-height: 2.5rem;
-      padding: 0 var(--ifm-menu-link-padding-horizontal);
-    }
-    .menu__link--active {
-      color: var(--ifm-color-primary) !important;
-      font-weight: 500 !important;
-      position: relative;
-    }
-    .menu__link--active,
-    .menu__link:hover,
-    .menu__list-item-collapsible:hover {
-      background-color: var(--color-fill-2);
-    }
-    // 层级菜单
-    .menu__list-item-collapsible > button::before,
-    .menu__link--sublist::after {
-      background: var(--ifm-menu-link-sublist-icon) 50% / 1.25rem 1.25rem; // 展开箭头图标
-      margin: auto 0;
-    }
-  }
-}
-
-/* NavBar - 顶部导航栏 */
-.navbar {
-  &__item {
-    margin: 0 0.375rem;
-    font-size: $--dino-font-size-sm;
-    padding: 0 0.5rem;
-    border-radius: 2px;
-    height: 1.5rem;
-    line-height: 1.5rem;
-    &:hover {
-      background-color: var(--color-fill-2);
-    }
-  }
-  &__items--right > :last-child {
-    padding-right: 0.5rem;
-  }
-  &__link--active {
-    background-color: var(--color-fill-2);
-  }
-  .dropdown {
-    &:hover {
-      background-color: transparent;
-      .navbar__link {
-        color: var(--color-text-1);
-        &::after {
-          transform: rotate(180deg);
-        }
-      }
-    }
-    .navbar__link {
-      &::after {
-        border: none;
-        transform: none;
-        width: 10px;
-        height: 10px;
-        transition: transform 0.3s;
-        top: 1px;
-        background-repeat: no-repeat;
-        background-size: 10px;
-        // TIP 文本颜色需要更换时，图标也需重新下载并更换
-        background-image: url(@site/static/img/arrow-down.svg);
-      }
-    }
-    &__menu {
-      min-width: 8rem;
-      // padding: 0.375rem 0.25rem;
-      padding: 0.25rem 0;
-      border-radius: 4px;
-      border: 1px solid var(--color-fill-3);
-      box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
-      top: 100%;
-      > li:not(:first-child) {
-        margin-top: 0.2rem;
-      }
-    }
-    &__link {
-      margin: 0;
-      border-radius: 0;
-      &:hover {
-        background-color: var(--color-fill-2);
-      }
-    }
-  }
-}
-html[data-theme='dark'] {
-  .navbar .dropdown > .navbar__link::after {
-    background-image: url(@site/static/img/arrow-down-dark.svg);
-  }
-}
-
-/* 主题切换按钮 toggle */
-div[class^='toggle_'] {
-  margin-left: 0.875rem;
-}
-
-/* Footer - 底部内容 */
-.footer {
-  margin-top: 4rem;
-  padding: 3rem 0 1rem;
-  .container {
-    padding: 0 2rem;
-  }
-  &__links {
-    margin-bottom: 1.5rem;
-  }
-  &__title {
-    font-size: $--dino-font-size-base;
-    color: var(--color-text-1);
-  }
-  &__item {
-    font-size: $--dino-font-size-sm;
-    color: var(--color-text-2);
-  }
-  &__copyright {
-    font-size: $--dino-font-size-xs;
-    color: var(--color-text-3);
-  }
-}
-
-.card {
-  &:hover {
-    background-color: transparent;
-  }
-}
-
-/* Markdown */
-.markdown {
-  font-size: $--dino-font-size-sm;
-
-  // table,
-  ul,
-  p {
-    code {
-      @include code-style;
-    }
-  }
-  h2,
-  h3,
-  h4 {
-    code {
-      @include code-style;
-      padding-top: 2px;
-      padding-bottom: 2px;
-    }
-  }
-  h5 {
-    code {
-      @include code-style;
-      margin-top: -2px;
-    }
-  }
-  // > header > h1 {}
-  // h2 标题
-  h2[class*='anchor'] {
-    @include heading-before-icon(24px);
-    padding-left: 26px;
-    > code {
-      font-size: $--dino-font-size-base !important;
-    }
-  }
-  h3[class*='anchor'] {
-    @include heading-before-icon(20px);
-    padding-left: 24px;
-  }
-  h4[class*='anchor'] {
-    @include heading-before-icon(16px);
-    padding-left: 18px;
-  }
-  .alert {
-    a {
-      font-weight: 600;
-      color: var(--ifm-alert-border-color);
-    }
-    code:not(code[class^='codeBlockLines_']) {
-      background-color: var(--ifm-code-background);
-      border: 0.1rem solid rgba(0, 0, 0, 0.1);
-      font-size: var(--ifm-code-font-size); // 90%
-      padding: 0 5px;
-      vertical-align: middle;
-      color: initial;
-    }
-    // div[class^='codeBlockContainer_'] {
-    //   > div[class^='codeBlockTitle_'],
-    //   > div[class^='codeBlockContent_'] > pre {
-    //     background-color: var(--dino-color-bg-1) !important;
-    //   }
-    // }
-  }
-  ul li,
-  p {
-    letter-spacing: 2px;
-    line-height: 1.75;
-  }
-  // tabs
-  > ul + .tabs-container {
-    margin-top: -1.25rem;
-  }
-  table {
-    code {
-      font-size: $--dino-font-size-xs !important;
-    }
-    td {
-      line-height: 1.625;
-    }
-  }
-  img {
-    display: block;
-    margin: 0 auto var(--ifm-leading); // 1.25rem
-    max-height: 460px;
-    box-shadow: 0 4px 8px rgb(3 27 78 / 12%);
-    border-radius: 3px;
-    cursor: zoom-in;
-  }
-}
-
-/* tabs */
-.tabs-container {
-  ul li {
-    letter-spacing: initial;
-    line-height: 1;
-  }
-}
-
-/* 告示框 组件 */
-// .admonition {
-// }
-
-/* 交互式代码编辑器 */
-// .playgroundContainer {
-// }
-
-/* doc / blog 右侧目录 */
-.table-of-contents {
-  > li > a {
-    color: var(--color-text-1);
-  }
-  > li > .table-of-contents__link--active {
-    color: var(--ifm-color-primary);
-  }
-}
-.table-of-contents li {
-  .table-of-contents__link {
-    > code {
-      @include code-style;
-      font-size: $--dino-font-size-xxs;
-      margin-top: -2px;
-      line-height: 15px;
-    }
-  }
-}
-
-// 索引页面 - card
-article > a[class*='cardContainer_'] {
-  justify-content: space-between;
-}
-
-/* 代码块 */
-div[class^='codeBlockContainer_'] {
-  > div[class^='codeBlockTitle_'] {
-    font-size: $--dino-font-size-sm;
-    font-weight: 600;
-  }
-}
-
-/* 高亮代码块样式 */
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.1); // 高亮区域背景色
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
-}
-html[data-theme='dark'] {
-  .docusaurus-highlight-code-line {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-}
-
-/* TODO 顶部公告条 */
-// 通过 class^= 的方式去找 announcementBar_ 开头的类名
-// 通过 class*= 的方式去找包含 announcementBar_ 的类名
-div[class^='announcementBar_'] {
-  --site-primary-hue-saturation: 167, 68%;
-  --site-primary-hue-saturation-light: 167, 56%;
-  --site-announcement-bar-stripe-color1: hsl(var(--site-primary-hue-saturation), 85%);
-  --site-announcement-bar-stripe-color2: hsl(var(--site-primary-hue-saturation), 95%);
-
-  background: repeating-linear-gradient(
-    35deg,
-    var(--site-announcement-bar-stripe-color1),
-    var(--site-announcement-bar-stripe-color1) 20px,
-    var(--site-announcement-bar-stripe-color2) 10px,
-    var(--site-announcement-bar-stripe-color2) 40px
-  );
-  font-weight: bold;
-}
-
 /* github 图标样式 */
 .header-github-link:before {
   content: '';
@@ -531,28 +273,5 @@ div[class^='announcementBar_'] {
 html[data-theme='dark'] {
   .header-github-link:before {
     background-image: url(@site/static/img/github-dark.svg);
-  }
-}
-
-/* 修改 arco-design 的部分默认样式 */
-@media (min-width: 992px) {
-  .arco-col-lg-6 {
-    width: 25%;
-    flex: 0 0 25%;
-    display: block;
-  }
-}
-.arco-divider-horizontal.arco-divider-with-text {
-  margin: 0.625rem 0;
-}
-.arco-divider-text {
-  position: relative;
-  top: 0;
-  transform: none;
-  &-left {
-    left: 0;
-  }
-  &-right {
-    right: 0;
   }
 }

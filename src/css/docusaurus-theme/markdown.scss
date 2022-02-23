@@ -1,0 +1,115 @@
+// heading 引用图标
+@mixin heading-before-icon($size) {
+  &::before {
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: $size;
+    height: $size;
+    background-size: $size $size;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    // background-image: url(@site/static/img/dino/dino-drawing.svg);
+    background-image: url(@site/static/img/dino/dino-think.svg);
+  }
+}
+
+// img 样式
+@mixin img-style {
+  box-shadow: 0 4px 8px rgb(3 27 78 / 12%);
+  border-radius: 3px;
+  width: 100%;
+}
+
+/* Markdown */
+.markdown {
+  font-size: var(--dino-font-size-sm);
+
+  // table,
+  ul,
+  p {
+    code {
+      @include code-style;
+    }
+  }
+  h2,
+  h3,
+  h4 {
+    code {
+      @include code-style;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+  }
+  h5 {
+    code {
+      @include code-style;
+      margin-top: -2px;
+    }
+  }
+  // > header > h1 {}
+  // h2 标题
+  h2[class*='anchor'] {
+    @include heading-before-icon(24px);
+    padding-left: 26px;
+    > code {
+      font-size: var(--dino-font-size-base) !important;
+    }
+  }
+  h3[class*='anchor'] {
+    @include heading-before-icon(20px);
+    padding-left: 24px;
+  }
+  h4[class*='anchor'] {
+    @include heading-before-icon(16px);
+    padding-left: 18px;
+  }
+  .alert {
+    a {
+      font-weight: 600;
+      color: var(--ifm-alert-border-color);
+    }
+    code:not(code[class^='codeBlockLines_']) {
+      background-color: var(--ifm-code-background);
+      border: 0.1rem solid rgba(0, 0, 0, 0.1);
+      font-size: var(--ifm-code-font-size); // 90%
+      padding: 0 5px;
+      vertical-align: middle;
+      color: initial;
+    }
+  }
+  ul li,
+  p {
+    letter-spacing: 2px;
+    line-height: 1.75;
+  }
+  // tabs
+  > ul + .tabs-container {
+    margin-top: -1.25rem;
+  }
+  table {
+    code {
+      font-size: var(--dino-font-size-xs) !important;
+    }
+    td {
+      line-height: 1.625;
+    }
+  }
+  > img {
+    display: block;
+    max-height: 420px;
+    margin: 0 auto var(--ifm-leading); // 1.25rem
+    @include img-style;
+  }
+  .arco-image {
+    display: block;
+    margin: 0 auto var(--ifm-leading); // 1.25rem
+    > img {
+      height: inherit;
+      cursor: zoom-in;
+      @include img-style;
+    }
+  }
+}

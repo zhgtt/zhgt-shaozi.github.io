@@ -62,7 +62,7 @@ module.exports = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       hideableSidebar: true, // 是否显示侧边栏收起功能
-      // autoCollapseSidebarCategories: true,
+      autoCollapseSidebarCategories: true,
       colorMode: { disableSwitch: true },
       // 公告条
       // announcementBar: {
@@ -80,11 +80,16 @@ module.exports = {
             label: '前端 Madao',
             position: 'right',
             items: [
-              { label: '学习 😒', type: 'doc', docId: 'introduction' },
+              { label: '学习 😒', type: 'doc', docId: 'study/html-css/css3' },
               // { label: '面试 📋', to: 'docs/column-docusaurus/deploy' },
             ],
           },
-          { label: '专栏', to: 'docs/column-docusaurus', position: 'right' },
+          {
+            type: 'docSidebar',
+            label: '前端专栏',
+            position: 'right',
+            sidebarId: 'columns',
+          },
           // {
           //   label: '导航网站',
           //   to: 'docs/column-docusaurus',

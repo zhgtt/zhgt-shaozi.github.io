@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'; // 获取 .docusaurus.config 配置上下文内容
+import { useColorMode } from '@docusaurus/theme-common';
 import clsx from 'clsx'; // 合并 className 的插件
 import Lottie from 'react-lottie'; // react 版 lottie - 加载 json 格式的动画
 import Layout from '@theme/Layout';
@@ -15,6 +16,7 @@ import styles from './index.module.scss';
 const Homepage = () => {
   const { siteConfig } = useDocusaurusContext();
   console.log('siteConfig: ', siteConfig);
+  console.log('useColorMode: ', useColorMode);
 
   return (
     <Layout
