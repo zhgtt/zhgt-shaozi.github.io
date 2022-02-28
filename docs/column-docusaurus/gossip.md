@@ -373,8 +373,6 @@ export const ExampleComponent = () => {
 - 由于 [Algolia DocSearch](https://docsearch.algolia.com/docs/who-can-apply) 并不完全是免费的，所以在使用时要先 [申请 DocSearch 程序](https://docsearch.algolia.com/apply/)，并且需满足一些必要的条件，获得专属的 `apiKey`，才能继续使用；
 - 申请时要填写该网站的 **部署地址** 和 **个人 📮**，以便 Algolia 抓取网站上的内容并进行分析，对文档中的各级标题，段落内容等信息建立 **索引**，这样在搜索关键字时，就可以请求 DocSearch 的接口并显示搜索结果，如下：
 
-<!-- <img src={require('/img/docs/algolia-search/2021-11-05-apply.jpg').default} alt="Example Image" /> -->
-
 - 创建 Algolia 账号，获取唯一的应用程序 id
 
 - 由于没有服务器，后期再进行维护。。。

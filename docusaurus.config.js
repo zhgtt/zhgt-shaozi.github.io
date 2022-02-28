@@ -76,14 +76,14 @@ module.exports = {
         title: 'Dino',
         logo: { alt: 'Dino', src: 'img/logo.svg' },
         items: [
-          {
-            label: '前端 Madao',
-            position: 'right',
-            items: [
-              { label: '学习 😒', type: 'doc', docId: 'study/html-css/css3' },
-              // { label: '面试 📋', to: 'docs/column-docusaurus/deploy' },
-            ],
-          },
+          // {
+          //   label: '前端 Madao',
+          //   position: 'right',
+          //   items: [
+          //     { label: '学习 😒', type: 'doc', docId: 'study/html-css/css3' },
+          //     // { label: '面试 📋', to: 'docs/column-docusaurus/deploy' },
+          //   ],
+          // },
           {
             type: 'docSidebar',
             label: '前端专栏',

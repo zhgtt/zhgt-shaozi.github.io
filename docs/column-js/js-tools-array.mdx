@@ -6,13 +6,13 @@ toc_max_heading_level: 4
 ---
 
 ```mdx-code-block
+import { Image} from '@arco-design/web-react';
 import BrowserWindow from '@site/src/components/BrowserWindow';
-import { Button, Image } from '@arco-design/web-react';
 ```
 
 > 本章节记录 JavaScript Array 相关的一些工具函数，包括对 树结构的转换, 普通数组的处理等
 
-<img src={require('/img/docs/js-tools/wallhaven.png').default} style={{ maxHeight: 360 }} />
+<img src={require('./img/js-tools-array/wallhaven.png').default} style={{ maxHeight: 360 }} />
 
 ## 取值 & 统计
 
@@ -21,7 +21,7 @@ import { Button, Image } from '@arco-design/web-react';
 获取普通数组中的随机一项元素:
 
 ```tsx title="代码实现"
-const _randomArr = (arr: (string | number | boolean)[]) => {
+export const _randomArr = (arr: (string | number | boolean)[]) => {
   const len = arr.length;
   return arr[Math.floor(Math.random() * len)];
 };
@@ -32,7 +32,7 @@ const _randomArr = (arr: (string | number | boolean)[]) => {
 统计一个元素在普通数组中出现的次数，返回一个对象集合:
 
 ```tsx title="代码实现"
-const _totalObj = (arr: (string | number)[]) => {
+export const _totalObj = (arr: (string | number)[]) => {
   return arr.reduce((pre, next) => {
     if (pre[next]) {
       pre[next]++;
@@ -52,28 +52,13 @@ function ExampleComponent(props) {
 
   const [value, setValue] = useState({});
 
-  const handleClick = () => {
-    const result = _totalObj(array);
-    // setValue(JSON.stringify(result, null, '\t')); // 格式化 json，缩进一个 tab
-    // setValue(JSON.stringify(result, null, 4)); // 缩进 4 个空格（实际只有一个空格）
-    setValue(result);
-  };
-
-  return (
-    <Space direction='vertical'>
-      <Button type='primary' onClick={handleClick}>
-        点击显示结果
-      </Button>
-      {/* react-json-view 组件，格式化渲染 json 对象 */}
-      <ReactJsonView src={value} />
-    </Space>
-  );
+  return <ResultButton results={value} onClick={() => setValue(_totalObj(array))} />;
 }
 ```
 
 ## 树结构转换 & 查找
 
-### 数组转换为树结构
+### 数组 → 树结构
 
 有时候会遇到含有层级结构的数组，这时需要通过深度优先遍历的方式将其转换为树结构（需要每一条数据含有自身及父级的唯一值，如 `id` 和 `parentId`）:
 
@@ -87,7 +72,7 @@ interface TreeDataTypes {
 ```
 
 ```jsx title="代码实现 - 壹"
-const _dataToTree = (arr: TreeDataTypes[]) => {
+export const _dataToTree = (arr: TreeDataTypes[]) => {
   // 先将数组转换成以 area_code 为 key 值的对象格式
   const node = arr.reduce((prev, cur) => {
     prev[cur['area_code']] = cur;
@@ -110,7 +95,7 @@ const _dataToTree = (arr: TreeDataTypes[]) => {
 ```
 
 ```jsx title="代码实现 - 贰"
-const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
+export const _dataToTree = (arr: TreeDataTypes[]) => {
   // 与 代码实现-壹 相似，通过转换成对象取值映射的形式，从而降低时间复杂度
   const node = arr.reduce((prev, cur) => {
     prev[cur['area_code']] = cur;
@@ -126,7 +111,7 @@ const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
 ```
 
 ```jsx title="代码实现 - 叁"
-const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
+export const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
   // 针对一级数组没有 pid 的情况，将其 pid 设置为 0
   if (!id) {
     arr.forEach((item) => {
@@ -157,18 +142,11 @@ function ExampleComponent(props) {
 
   const [value, setValue] = useState({});
 
-  return (
-    <Space direction='vertical'>
-      <Button type='primary' onClick={() => setValue(_dataToTree(array))}>
-        点击显示结果
-      </Button>
-      <ReactJsonView src={value} collapsed={2} enableClipboard />
-    </Space>
-  );
+  return <ResultButton results={value} onClick={() => setValue(_dataToTree(array))} />;
 }
 ```
 
-### 更改树结构的属性名
+### 更改树结构的 key 值
 
 有时在使用 UI 框架中的组件时，可能会碰到组件要的数据格式和拿到的数据格式不一致，这时就需要将拿到的数据进行转换，更改或添加组件所需的格式;
 
@@ -183,8 +161,8 @@ interface TreeDataTypes {
 
 ```js title="代码实现 - 壹"
 // 递归添加属性
-const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
-  return arr.map((item) => {
+export const _updateTreeKey = (tree: TreeDataTypes[]) => {
+  return tree.map((item) => {
     const isHasChild = Array.isArray(item?.childList);
     return {
       ...item,
@@ -196,8 +174,8 @@ const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
 };
 
 // 递归替换属性
-const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
-  return arr.map((item) => {
+export const _updateTreeKey = (tree: TreeDataTypes[]) => {
+  return tree.map((item) => {
     const isHasChild = Array.isArray(item?.childList);
     const newItem = {
       ...item,
@@ -215,8 +193,8 @@ const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
 
 ```jsx title="代码实现 - 贰"
 // 替换属性，转换成字符串后再进行替换，简单粗暴
-const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
-  const str = JSON.stringify(arr)
+export const _updateTreeKey = (tree: TreeDataTypes[]) => {
+  const str = JSON.stringify(tree)
     .replace(/"code"/g, '"key"') // 替换的内容一定要加引号
     .replace(/"name"/g, '"label"')
     .replace(/"childList"/g, '"children"');
@@ -224,6 +202,8 @@ const _updateTreeKey = (arr: UpdateTreeDataTypes[]) => {
   return JSON.parse(str);
 };
 ```
+
+示例:
 
 ```jsx live
 function ExampleComponent(props) {
@@ -248,30 +228,138 @@ function ExampleComponent(props) {
 
   const [value, setValue] = useState({});
 
-  return (
-    <Space direction='vertical'>
-      <Button type='primary' onClick={() => setValue(_updateTreeKey(array))}>
-        点击显示结果
-      </Button>
-      <ReactJsonView src={value} collapsed={2} enableClipboard />
-    </Space>
-  );
+  return <ResultButton results={value} onClick={() => setValue(_updateTreeKey(array))} />;
 }
 ```
 
 ### 查找树结构的节点
 
-- 根据任意节点的 **唯一值**，递归查找树结构中的该节点，返回该节点的完整数据;
-
-```jsx title="代码实现"
-const _findTreeNode = (arr: any[]) => {};
+```ts title="数据相关的类型(自定义)"
+interface TreeListTypes {
+  code: string;
+  name: string;
+  children?: TreeListTypes[];
+  [key: string]: any;
+}
 ```
 
-- 根据任意节点的 **唯一值**，递归查找树结构中该节点下的 **最后一级节点**;
+#### 过滤节点
 
-- 递归查找树结构中 **第一个子节点** 下的 **最后一级节点**;
+根据任意节点的 **唯一值**，递归过滤树结构，只保留该节点及其父节点，**过滤** 掉所有不符合条件的节点，返回一个数组:
 
-- 递归查找树结构中 **第一个子节点** 下的 **最后一级节点**;
+```jsx title="代码实现"
+// 传入一个函数作为参数，函数内写入判断条件
+export const _filterTreeNode = (tree: TreeListTypes[], func: (item: TreeListTypes) => boolean) => {
+  return tree
+    .map((item) => ({ ...item })) // 使用 map 复制一下节点，避免修改到原树
+    .filter((node) => {
+      node.children = node.children ? _filterTreeNode(node.children, func) : [];
+      return func(node) || (node.children && node.children.length);
+    });
+};
+
+/* 调用 */
+_filterTreeNode(array, (item) => item.code === value);
+```
+
+#### 查找节点
+
+根据任意节点的 **唯一值**，递归查找树结构中的该节点，返回该节点的完整数据:
+
+```diff title="代码实现"
+/* 传入的 func 可以为一个函数 或 指定的code，用来判断节点是否符合条件（写法均一致，以下采用传入 func 的方式） */
+
+- export const _findTreeNode = (tree: TreeListTypes[], code: string) => {
++ export const _findTreeNode = (tree: TreeListTypes[], func: (item: TreeListTypes) => boolean) => {
+  for (const item of tree) {
+-   if (item.code === code) return item;
++   if (func(item)) return item;
+    if (item.children) {
+-     const res = _findTreeNode(item.children, code);
++     const res = _findTreeNode(item.children, func);
+      if (res) return res;
+    }
+  }
+  return null;
+};
+
+/* 调用 */
+_findTreeNode(array, (item) => item.code === value);
+```
+
+#### 查找节点路径
+
+根据任意节点的 **唯一值**，递归查找树结构中该节点下及其父节点的路径，返回一个由这些路径组成的数组:
+
+```jsx title="代码实现"
+// 回溯法: 使用递归的先序遍历，维护一个队列，存储路径上每个节点的 code
+export const _findTreeNodePath = (
+  tree: TreeListTypes[],
+  func: (item: TreeListTypes) => boolean,
+  path: string[] = []
+) => {
+  if (!tree) return [];
+  for (const item of tree) {
+    path.push(item.key);
+    if (func(item)) return path;
+    if (item.children) {
+      const res = _findTreeNodePath(item.children, func, path);
+      if (res.length) return res;
+    }
+    path.pop(); // 避免数组存在之前的缓存数据
+  }
+  return [];
+};
+
+/* 调用 */
+_findTreeNodePath(array, (item) => item.code === value);
+```
+
+#### 查找多条节点路径
+
+根据任意节点的 **唯一值**，递归查找树结构中该节点下及其父节点的路径，将这些路径拼接成一个字符串，最后再返回一个包含这些字符串的数组:
+
+```jsx title="代码实现"
+// 与查询单条路径的写法相似
+export const _findTreeManyNodePath = (
+  tree: TreeListTypes[],
+  func: (item: TreeListTypes) => boolean,
+  path: string[] = [],
+  result: string[] = []
+) => {
+  for (const item of tree) {
+    path.push(item.key);
+    func(item) && result.push([...path].join(','));
+    item.children && _findTreeManyNodePath(item.children, func, path, result);
+    path.pop();
+  }
+  return result;
+};
+
+/* 调用 */
+_findTreeManyNodePath(array, (item) => value.includes(item.code));
+```
+
+#### 获取第一节点的最后一级
+
+有时会有一个动态的树结构数据，需要获取其第一个节点下的最后一级数据，返回该数据:
+
+```jsx title="代码实现"
+export const _findTreeNodeToLast = (tree: TreeListTypes[]) => {
+  const group: TreeListTypes[] = [];
+  const loop = (org) => {
+    if (!org?.children || !org?.children?.length) {
+      group.push(org);
+    } else {
+      loop(org.children?.[0]);
+    }
+  };
+  loop(tree?.[0]);
+  return group;
+};
+```
+
+#### 🌰 综合示例
 
 ```jsx live
 function ExampleComponent(props) {
@@ -280,7 +368,7 @@ function ExampleComponent(props) {
       name: '📂 /',
       code: 'root',
       key: '1',
-      childList: [
+      children: [
         {
           name: '📂 src',
           code: 'src',
@@ -290,20 +378,246 @@ function ExampleComponent(props) {
             { name: '📃 typings.d.ts', code: 'typings-ts', key: '1-1-2' },
           ],
         },
+        { name: '📂 static', code: 'static', key: '1-2' },
       ],
     },
+  ];
+
+  return <Demo.DocJSToolsByTree dataSource={array} />;
+}
+```
+
+### 树结构 → 数组
+
+将树结构数据进行平铺展示，转换为一个普通数组，并且包含层级信息
+
+```jsx title="代码实现"
+export const _treeToData = (tree: any[], result: any[] = [], level = 0) => {
+  tree.forEach((item) => {
+    result.push(item);
+    item.level = level + 1;
+    item.children && _treeToData(item.children, result, level + 1);
+  });
+  return result;
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [
+    {
+      name: '前端知识',
+      key: '1',
+      children: [
+        {
+          name: 'React',
+          key: '1-1',
+          children: [
+            { name: 'Umi 框架', key: '1-1-1' },
+            { name: 'Ant Design 组件', key: '1-1-2' },
+          ],
+        },
+        { name: 'Vue', key: '1-2' },
+      ],
+    },
+    { name: '服务端知识', key: '2', children: [{ name: 'Nginx', key: '2-1' }] },
   ];
 
   const [value, setValue] = useState({});
 
   return (
-    <Space direction='vertical'>
-      <Input placeholder='输入任意 code 进行查找' />
-      <Button type='primary' onClick={() => setValue(_updateTreeKey(array))}>
-        点击显示结果
-      </Button>
-      <ReactJsonView src={value} collapsed={2} enableClipboard />
-    </Space>
+    <ResultButton
+      results={value}
+      onClick={() => setValue(_treeToData(array))}
+      jsonViewProps={{ collapsed: 1 }}
+    />
   );
 }
 ```
+
+### 计算树结构层级数
+
+递归树结构数据，计算一共有多少层级;
+
+```jsx title="代码实现"
+export const _getMaxLevel = (tree: any[]) => {
+  let maxLevel = 0;
+  const loop = (data, level) => {
+    data.forEach((item) => {
+      item.level = level;
+      if (level > maxLevel) maxLevel = level;
+      if (item?.children && item?.children?.length) {
+        loop(item.children, level + 1);
+      }
+    });
+  };
+  loop(tree, 1);
+  return maxLevel;
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [
+    {
+      name: 'DTC(企业直接面向客户)背景',
+      level: 1,
+      children: [
+        {
+          name: '营销方式',
+          level: 2,
+          children: [
+            {
+              name: '内容营销',
+              level: 3,
+              children: [{ name: '平台种草, 推广', level: 4 }],
+            },
+            { name: '社群营销', level: 3 },
+            { name: '互动营销', level: 3 },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const [value, setValue] = useState();
+
+  return (
+    <ResultButton
+      results={value}
+      onClick={() => setValue(_getMaxLevel(array))}
+      openJsonView={false}
+    />
+  );
+}
+```
+
+## 去重 & 过滤
+
+### 数组根据指定值进行过滤
+
+对象数组根据另一个数组中的值进行匹配并过滤，只保留没有匹配到的数据;
+
+```jsx title="代码实现"
+export const _dataFilter = (arr: any[], codeList: string[]) => {
+  return arr.filter((item) => !codeList.includes(item?.code));
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [
+    { name: '微信', code: 'whect' },
+    { name: 'BOSS直聘', code: 'boss' },
+    { name: '钉钉', code: 'dingtalk' },
+    { name: '京东金融', code: 'jingdong' },
+  ];
+  const codeList = [
+    { name: 'BOSS直聘', code: 'boss' },
+    { name: '京东金融', code: 'jingdong' },
+  ];
+
+  const [value, setValue] = useState();
+  const codeMap = codeList.map((item) => item.code);
+
+  return <ResultButton results={value} onClick={() => setValue(_dataFilter(array, codeMap))} />;
+}
+```
+
+### 普通数组的去重
+
+```jsx title="代码实现 - 壹"
+// 使用 new Set() + 解构 的方式进行去重
+export const _unique = (arr: any[]) => {
+  return [...new Set(arr)];
+  // or
+  return Array.from(new Set(arr));
+};
+```
+
+```jsx title="代码实现 - 贰"
+// 使用 new Map() + Array.filter 的方法，利用 Map() 的键值对具有唯一性的特点进行去重
+export const _unique = (arr: any[]) => {
+  const map = new Map();
+  return arr.filter((item) => !map.has(item) && map.set(item, true));
+};
+```
+
+```jsx title="代码实现 - 叁"
+// 使用 Array.includes 或 Array.indexof 的方式进行去重
+export const _unique = (arr: any[]) => {
+  const newArray = [];
+  arr.forEach((item) => {
+    if (!newArray.includes(item)) newArray.push(item);
+    // or
+    if (newArray.indexOf(item) === -1) newArray.push(item); // 📢 该方法对去重 NaN 无效，因为 [NaN].indexOf(NaN) === -1
+  });
+  return newArray;
+};
+```
+
+```jsx title="代码实现 - 肆"
+// 使用 Array.filter + Array.indexOf 的方式进行去重，原理为 indexOf 返回的结果是该元素(第一个)在数组中的索引
+export const _unique = (arr: any[]) => {
+  return arr.filter((item, index) => arr.indexOf(item) === index); // 📢 该方法会将所有的 NaN 都过滤掉
+};
+```
+
+```jsx title="代码实现 - 伍"
+// 使用 Array.filter + Object.hasOwnProperty 的方式进行去重，原理为对象的键值对不可重复
+export const _unique = (arr: any[]) => {
+  // 📢 Object.hasOwnProperty() 方法返回一个 boolean，用来查找该对象中是否存在某指定属性
+  const map = {};
+  return arr.filter((item) =>
+    map.hasOwnProperty(typeof item + item) ? false : (map[typeof item + item] = true)
+  );
+};
+```
+
+```jsx title="代码实现 - 陆"
+// 使用 Array.reduce + Array.includes 的方式进行去重
+export const _unique = (arr: any[]) => {
+  return arr.reduce((prev, cur) => {
+    return prev.includes(cur) ? prev : prev.concat(cur); // concat 拼接
+    // or
+    return prev.includes(cur) ? prev : [...prev, cur]; // 解构 拼接
+  }, []);
+};
+```
+
+```jsx title="代码实现 - 柒"
+// 使用 Array.sort 排序的方法，原理是将数组中重复的元素排列在一起，再进行去重
+export const _unique = (arr: any[]) => {
+  const newArray = [];
+  arr.sort().forEach((item) => {
+    if (item !== newArray[newArray.length - 1]) newArray.push(item); // 📢 该方法对去重 NaN 无效，因为 NaN !== NaN
+  });
+  return newArray;
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [25, '😄', 25, '😄', null, NaN, null, NaN, '2022-02-25', '2022-02-25', 'China 🇨🇳'];
+
+  const [value, setValue] = useState();
+
+  return <ResultButton results={value} onClick={() => setValue(_unique(array))} />;
+}
+```
+
+### 对象数组的去重
+
+## 分组 & 拷贝 & 比对
+
+## 排序
+
+### 冒泡排序

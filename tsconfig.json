@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@site/*": ["*"] // 路径映射
-    }
+    },
+    "downlevelIteration": true // 允许拓展运算符支持迭代器，如 Set，Map 等
   }
 }

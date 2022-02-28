@@ -11,7 +11,7 @@ import Admonition from '@theme/Admonition';
 import { Button, Menu } from '@arco-design/web-react';
 
 import { Lottie_Dashboard_2 } from '@site/src/utils/lotties';
-import styles from './index.module.scss';
+import styles from './styles.module.scss';
 
 const Homepage = () => {
   const { siteConfig } = useDocusaurusContext();

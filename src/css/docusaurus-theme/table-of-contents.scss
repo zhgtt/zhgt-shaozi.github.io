@@ -1,4 +1,10 @@
 /* doc / blog 右侧目录 */
+div[class^='tableOfContents_'] {
+  overflow-y: hidden;
+  &:hover {
+    overflow-y: auto;
+  }
+}
 .table-of-contents {
   > li > a {
     color: var(--color-text-1);

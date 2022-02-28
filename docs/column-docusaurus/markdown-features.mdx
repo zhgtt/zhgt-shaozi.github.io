@@ -338,23 +338,27 @@ function Clock(props) {
 
 :::caution 离谱小贴士
 - 由于 react-live 交互式代码编辑器不支持 **直接引入组件或方法**，因此可以在 **theme** 目录中创建 **ReactLiveScope** 文件(react-live 的作用域)，用来预先定义可用(导出)的组件或方法;
-- 创建该文件之后，需要 **重启该项目**（仅需重启一次即可）;
-- 导出的组件或方法可以在 react-live 编辑器中直接使用;
+- 创建该文件之后，需要 **重启该项目**（仅需重启一次即可）;   
+- 由于预定义的组件无法在 **服务端** 运行，所以需要使用 Docusaurus 内置的组件 `<BrowserOnly />` 进行包裹，让其只能在客户端(浏览器)中运行，不在服务端运行，如下:
 
 ```jsx title="src/theme/ReactLiveScope/index.tsx"
 import React from 'react';
-import { Button, Input } from '@arco-design/web-react';   // 引入组件
+import BrowserOnly from '@docusaurus/BrowserOnly';  // 仅在客户端运行，不在服务端运行
 import utils from './utils';    // 引入自定义的方法
 
 // 自定义组件
-const ButtonExample = (props) => <Button type='primary'>😄</Button>;
+const ButtonExample = (props) => {
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => <Button type='primary'>😄</Button>}
+    </BrowserOnly>
+  );
+};
 
 // 添加需要导出的组件或方法
 const ReactLiveScope = {
   React,
   ...React,
-  Button,
-  Input,
   ButtonExample,
   // 以下是方法
   ...utils,
@@ -472,7 +476,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ```mdx-code-block
 <BrowserWindow>
-  <img src={require('/img/docs/markdown-features/wallhaven-x8d8gz.jpeg').default} alt="Example Image" />
+  <img src={require('./img/markdown-features/wallhaven-x8d8gz.jpeg').default} alt="Example Image" />
 </BrowserWindow>
 ```
 
@@ -487,7 +491,7 @@ import ExampleSVG from '@site/static/img/example.svg';
 ```
 
 ```mdx-code-block
-import GodOfWealthSVG from '@site/static/img/docs/markdown-features/caishenye.svg';
+import GodOfWealthSVG from './img/markdown-features/caishenye.svg';
 
 <BrowserWindow>
   <GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />

@@ -11,7 +11,47 @@
           margin-left: 0 !important;
         }
       }
-      .variable-value {
+    }
+  }
+}
+
+html[data-theme='dark'] {
+  .react-json-view {
+    .object-content {
+      // 层级开始
+      .object-key-val {
+        > span:not(span[class='brace-row']) {
+          > span:first-child {
+            > span:nth-child(2) {
+              // 层级开始冒号
+              > span:not(span[class='array-key']) {
+                color: var(--color-white) !important;
+              }
+            }
+            // 层级开始括号
+            > span:last-child {
+              color: var(--color-white) !important;
+            }
+          }
+        }
+      }
+      // key 值
+      .object-key {
+        color: var(--color-white) !important;
+      }
+      // key 值冒号
+      .variable-row {
+        > span:first-child {
+          > span:nth-child(2) {
+            color: var(--color-white) !important;
+          }
+        }
+      }
+      // 层级结束括号
+      .brace-row {
+        > span {
+          color: var(--color-white) !important;
+        }
       }
     }
   }

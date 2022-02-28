@@ -29,15 +29,6 @@ $svgBase: 'data:image/svg+xml;charset=UTF-8,';
   --doc-sidebar-width: 272px; // 展开的 menu 宽度
   --doc-sidebar-hidden-width: 16px; // 收起的 menu 宽度
 
-  /* 响应式 */
-  --dino-sm: 640px;
-  --dino-md: 768px;
-  --dino-lg: 1140px;
-  --dino-xl: 1320px;
-  // --dino-lg: 1024px;
-  // --dino-xl: 1280px;
-  --dino-2xl: 1536px;
-
   /* Font */
   --dino-font-weight-thin: 100;
   --dino-font-weight-light: 300;
@@ -215,13 +206,6 @@ strong {
   }
 }
 
-/* TODO Container - 容器 */
-.container {
-  @media (min-width: var(--dino-2xl)) {
-    max-width: var(--dino-2xl);
-  }
-}
-
 /* Card 卡片 */
 .card {
   &:hover {
@@ -232,6 +216,18 @@ strong {
 /* 索引页面 - card */
 article > a[class*='cardContainer_'] {
   justify-content: space-between;
+}
+
+/* 响应式 */
+$--dino-sm: 640px;
+$--dino-md: 768px;
+$--dino-lg: 1140px;
+$--dino-xl: 1320px;
+$--dino-2xl: 1536px;
+@media (min-width: $--dino-2xl) {
+  .container {
+    max-width: $--dino-2xl;
+  }
 }
 
 /* 滚动条样式 */

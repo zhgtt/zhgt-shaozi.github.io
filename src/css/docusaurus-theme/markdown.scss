@@ -112,4 +112,9 @@
       @include img-style;
     }
   }
+  div[class^='codeBlockContainer_'] {
+    div[class^='codeBlockContent_'] {
+      font-size: 13px;
+    }
+  }
 }
