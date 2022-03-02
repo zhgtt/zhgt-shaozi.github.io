@@ -7,26 +7,38 @@ import ReactJsonView from '@site/src/components/ReactJsonView';
 interface IProps {
   results?: any;
   openJsonView?: boolean;
-  text?: string;
   jsonViewProps?: ReactJsonViewProps;
+  text?: string;
+  buttonGroup?: { text?: string; [key: string]: any }[];
 }
 
 const DocButton: React.FC<IProps & ButtonProps> = ({
   text,
   results,
   openJsonView = true,
-  type = 'primary',
   jsonViewProps,
-  ...btnProps
+  buttonGroup,
+  ...buttonProps
 }) => {
   // JSON.stringify(result, null, '\t'); // 格式化 json，缩进一个 tab
   // JSON.stringify(result, null, 4); // 缩进 4 个空格（实际只有一个空格）
 
   return (
     <Space direction='vertical'>
-      <Button type={type} {...btnProps}>
-        {text || '点击显示结果'}
-      </Button>
+      {buttonGroup && buttonGroup.length > 0 ? (
+        <Space>
+          {buttonGroup.map(({ text, ...btnProps }, index) => (
+            <Button key={index} type='primary' {...btnProps}>
+              {text}
+            </Button>
+          ))}
+        </Space>
+      ) : (
+        <Button type='primary' {...buttonProps}>
+          {text || '点击显示结果'}
+        </Button>
+      )}
+
       {openJsonView ? (
         <ReactJsonView src={results} collapsed={2} {...jsonViewProps} />
       ) : (

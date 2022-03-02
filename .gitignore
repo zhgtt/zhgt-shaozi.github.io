@@ -22,3 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /yarn.lock
+
+/blog/2022-03-01-welfare-blog/*

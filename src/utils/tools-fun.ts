@@ -172,3 +172,31 @@ export const _unique = (arr: any[]) => {
 };
 
 // 🍋 对象数组的去重
+export const _uniqueObj = (arr: any[], prop: string) => {
+  const obj = {};
+  return arr.reduce((prev, cur) => {
+    obj[cur[prop]] ? '' : (obj[cur[prop]] = true && prev.push(cur));
+    return prev;
+  }, []);
+};
+
+// 🍋 对象数组的分组（一对多）
+export const _groupByObj = (arr: any[], prop: string) => {
+  return arr.reduce((prev, cur) => {
+    (prev[cur[prop]] = prev[cur[prop]] || []).push(cur);
+    return prev;
+  }, {});
+};
+export const _groupByArray = (arr: any[]) => {
+  const dest = [];
+  const groups = {};
+  arr.forEach((item) => {
+    const { groupName, groupCode } = item;
+    if (!groups[groupCode]) {
+      groups[groupCode] = { groupName, groupCode, children: [] };
+      dest.push(groups[groupCode]);
+    }
+    groups[groupCode].children.push(item);
+  });
+  return dest;
+};
