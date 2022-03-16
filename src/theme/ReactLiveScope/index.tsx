@@ -1,16 +1,14 @@
 import React from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import { useColorMode } from '@docusaurus/theme-common';
-import { isEmpty } from 'lodash';
-import ReactJsonView from '@site/src/components/ReactJsonView';
+// import { useColorMode } from '@docusaurus/theme-common';
+// import { isEmpty } from 'lodash';
+// import ReactJsonView from '@site/src/components/ReactJsonView';
 import * as toolsFun from '@site/src/utils/tools-fun';
 
 // 自定义组件，需使用 <BrowserOnly /> 进行包裹，使用该组件进行包裹时，只能使用 require 导入其他组件，使组件不在服务端运行
 // interface FTypes {}
-function addBrowserOnlyByComponent(
-  componentName: string,
-  type: 'arco' | 'custom' | 'demo' = 'custom'
-) {
+type IType = 'arco' | 'custom' | 'demo';
+function addBrowserOnlyByComponent(componentName: string, type: IType = 'custom') {
   return function IComponent(props) {
     return (
       <BrowserOnly fallback={<div>Loading...</div>}>

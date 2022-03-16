@@ -1,5 +1,5 @@
 ---
-title: Docusaurus 杂谈
+title: Docusaurus 拓展
 id: gossip
 sidebar_position: 6
 toc_max_heading_level: 4
@@ -120,7 +120,7 @@ const WelcomeScreen = () => (
 
 const Homepage = () => {
   return (
-    <CodeBlock language='jsx' style={{ textAlign: 'left' }}>
+    <CodeBlock language='jsx' style={{ textAlign: 'left' }} title='标题'>
       {codeExample}
     </CodeBlock>
   );

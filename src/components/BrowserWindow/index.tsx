@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, Avatar, Link, Typography } from '@arco-design/web-react';
 import clsx from 'clsx';
 
 import styles from './styles.module.scss';

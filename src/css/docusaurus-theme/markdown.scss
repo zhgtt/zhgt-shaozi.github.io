@@ -27,6 +27,11 @@
 .markdown {
   font-size: var(--dino-font-size-sm);
 
+  > blockquote > p {
+    color: var(--dino-color-blockquote);
+    font-size: 13px;
+  }
+
   // table,
   ul,
   p {
@@ -89,7 +94,7 @@
   > ul + .tabs-container {
     margin-top: -1.25rem;
   }
-  table {
+  > table {
     code {
       font-size: var(--dino-font-size-xs) !important;
     }
@@ -103,18 +108,28 @@
     margin: 0 auto var(--ifm-leading); // 1.25rem
     @include img-style;
   }
+  div[class^='codeBlockContainer_'] {
+    div[class^='codeBlockContent_'] {
+      font-size: 13px;
+    }
+  }
+
+  // 对 arco-design 的样式做一些兼容
   .arco-image {
     display: block;
     margin: 0 auto var(--ifm-leading); // 1.25rem
+    max-height: 420px;
     > img {
       height: inherit;
+      max-height: inherit;
       cursor: zoom-in;
       @include img-style;
     }
   }
-  div[class^='codeBlockContainer_'] {
-    div[class^='codeBlockContent_'] {
-      font-size: 13px;
+  .arco-pagination {
+    li {
+      letter-spacing: 0;
+      line-height: 32px;
     }
   }
 }

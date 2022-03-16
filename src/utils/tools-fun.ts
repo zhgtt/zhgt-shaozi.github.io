@@ -1,3 +1,5 @@
+import { cloneDeep, isEqual } from 'lodash';
+
 // 🍋 获取数组中随机一项
 export const _randomArr = (arr: (string | number | boolean)[]) => {
   const len = arr.length;
@@ -199,4 +201,106 @@ export const _groupByArray = (arr: any[]) => {
     groups[groupCode].children.push(item);
   });
   return dest;
+};
+
+// 🍋 对象数组的分组（多对多）
+export const _groupByManyObj = (arr: any[], prop: string) => {
+  return arr.reduce((prev, item) => {
+    item['groupList'].forEach((each) => {
+      (prev[each[prop]] = prev[each[prop]] || []).push(item);
+    });
+    return prev;
+  }, {});
+};
+export const _groupByManyArray = (arr: any[]) => {
+  const dest = [];
+  const groups = {};
+  arr.forEach((item) => {
+    item['groupList'].forEach(({ groupName, groupCode }) => {
+      if (!groups[groupCode]) {
+        groups[groupCode] = { groupName, groupCode, children: [] };
+        dest.push(groups[groupCode]);
+      }
+      groups[groupCode].children.push(item);
+    });
+  });
+  return dest;
+};
+
+// 🍋 对象的浅拷贝
+export const _cloneByObj = (obj: { [key: string]: any }) => {
+  return { ...obj };
+};
+
+// 🍋 数组的浅拷贝
+export const _cloneByArray = (arr: any[]) => {
+  return [...arr];
+};
+
+// 🍋 深拷贝
+const isObject = (target) => {
+  const type = typeof target;
+  return target !== null && (type === 'object' || type === 'function');
+};
+const getType = (target): string => {
+  return Object.prototype.toString.call(target);
+};
+const getInit = (target) => {
+  return new target.constructor();
+};
+const forEach = (array: any[], iteratee: (v: any, i: number) => void) => {
+  let index = -1;
+  const length = array.length;
+  while (++index < length) {
+    iteratee(array[index], index);
+  }
+  return array;
+};
+export const _deepClone = (target: any, map = new WeakMap()) => {
+  if (target === null) return null;
+  if (!isObject(target)) return target;
+  if (getType(target) === '[object Date]') return new Date(target);
+  if (getType(target) === '[object Regexp]') return new RegExp(target);
+
+  // 初始化被克隆的对象
+  const cloneTarget = getInit(target);
+
+  // 处理循环引用
+  if (map.get(target)) return map.get(target);
+  map.set(target, cloneTarget);
+
+  const keys = getType(target) === '[object Object]' ? Object.keys(target) : undefined;
+  forEach(keys || target, (value, key) => {
+    if (keys) key = value;
+    cloneTarget[key] = _deepClone(target[key], map);
+  });
+  // for (const key in target) {
+  //   if (Object.prototype.hasOwnProperty.call(target, key)) {
+  //     cloneTarget[key] = _deepClone(target[key], map);
+  //   }
+  // }
+
+  return cloneTarget;
+};
+
+// 🍋 深度比较
+export const _isEqual = (origin, target, originStack = [], targetStack = []): boolean => {
+  if (origin === target) return true;
+  if (origin !== origin) return target !== target;
+
+  if (getType(origin) !== getType(target)) return false;
+  switch (getType(origin)) {
+    case '[object Date]':
+      return +origin === +target;
+    case '[object RegExp]':
+      return '' + origin === '' + target;
+  }
+
+  if (!origin || !target || (typeof origin !== 'object' && typeof target !== 'object')) {
+    return origin === target;
+  }
+
+  const keys = Object.keys(origin);
+  if (keys.length !== Object.keys(target).length) return false;
+  return keys.every((k) => _isEqual(origin[k], target[k]));
 };

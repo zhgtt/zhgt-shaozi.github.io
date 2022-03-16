@@ -1,0 +1,16 @@
+.topRow {
+  > td {
+    background-color: var(--color-fill-1) !important;
+  }
+}
+
+.editableCell {
+  display: inline-block;
+  border: 1px solid transparent;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: border-color 0.18s;
+  &:hover {
+    border-color: var(--color-border-3);
+  }
+}

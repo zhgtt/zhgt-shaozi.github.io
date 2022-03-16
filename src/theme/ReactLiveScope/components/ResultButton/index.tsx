@@ -26,7 +26,7 @@ const DocButton: React.FC<IProps & ButtonProps> = ({
   return (
     <Space direction='vertical'>
       {buttonGroup && buttonGroup.length > 0 ? (
-        <Space>
+        <Space wrap>
           {buttonGroup.map(({ text, ...btnProps }, index) => (
             <Button key={index} type='primary' {...btnProps}>
               {text}

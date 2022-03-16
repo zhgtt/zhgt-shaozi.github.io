@@ -120,7 +120,7 @@ html[data-theme='dark'] body {
   --color-mask-bg: rgba(23, 23, 26, 0.6);
 }
 
-/* 修改 arco-design 的部分默认样式 */
+/* 修改 arco-design 的部分默认样式 & 对 Docusaurus 的样式做一些兼容 */
 @media (min-width: 992px) {
   .arco-col-lg-6 {
     width: 25%;
@@ -143,12 +143,38 @@ html[data-theme='dark'] body {
     right: 0;
   }
 }
+.arco-divider-dashed {
+  border-bottom-style: dashed;
+}
 // 图片预览
 .arco-image-preview {
   &-toolbar {
     box-shadow: 0 4px 8px rgb(3 27 78 / 12%);
   }
 }
+// Card
+html[data-theme='dark'] {
+  .arco-card {
+    background-color: rgb(var(--darkgray-9));
+    border: 1px solid var(--color-border-4);
+  }
+}
+// Table
+.arco-table-container {
+  table {
+    display: table;
+    overflow: initial;
+  }
+  table th,
+  table td {
+    border: none;
+  }
+  table th {
+    padding: 0;
+  }
+}
+// Pagination
+
 
 // Sidebar
 .dino-collapse-sidebar-btn {

@@ -88,6 +88,7 @@ body {
   --dino-color-code: rgb(var(--primary-6));
   --dino-color-code-bg: rgba(var(--primary-6), 0.08);
   --dino-color-browser-bg: rgb(var(--darkgray-1));
+  --dino-color-blockquote: rgb(var(--gray-6));
 }
 
 html[data-theme='dark'] {
@@ -104,6 +105,7 @@ html[data-theme='dark'] {
     --dino-color-code: rgb(var(--primary-5));
     --dino-color-code-bg: rgba(var(--primary-5), 0.08);
     --dino-color-browser-bg: rgb(var(--darkgray-5));
+    --dino-color-blockquote: rgb(var(--darkgray-3));
   }
 }
 

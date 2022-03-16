@@ -9,9 +9,9 @@ toc_max_heading_level: 4
 import { Image } from '@arco-design/web-react';
 ```
 
-> 本章节记录 JavaScript Array 相关的一些工具函数，包括数组的去重，分组，过滤等方法
+> 本章节记录 JavaScript `Array` 相关的一些工具函数，包括数组的去重，分组，过滤等方法
 
-<img src={require('./img/js-tools-array/wallhaven.png').default} style={{ maxHeight: 360 }} />
+<img src={require('./img/js-tools-array/wallhaven.jpeg').default} style={{ maxHeight: 360 }} />
 
 ## 取值 & 统计
 
@@ -234,9 +234,9 @@ function ExampleComponent(props) {
 
 ### 数据的分组(一对多)
 
-- 根据数据中的某字段，对数据进行分组，多条数据只对应一个分组，返回一个 **对象**，同 **lodash** 工具库中的 `_groupBy` 方法;
+根据数据中的某字段，对数据进行分组，**多条数据只对应一个分组**，返回一个 **对象 / 对象数组**，同 **lodash** 工具库中的 `_groupBy` 方法;
 
-```jsx title="代码实现 - 壹"
+```jsx title="代码实现 - 壹: 返回一个对象"
 // 根据指定字段，使用 普通循环 的方式分组，返回一个对象
 export const _groupByObj = (arr: any[], prop: string) => {
   const groups = {};
@@ -249,7 +249,7 @@ export const _groupByObj = (arr: any[], prop: string) => {
 };
 ```
 
-```jsx title="代码实现 - 贰 🍏"
+```jsx title="代码实现 - 贰: 返回一个对象 🍏"
 // 根据指定字段，使用 Array.reduce 的方式分组，返回一个对象
 export const _groupByObj = (arr: any[], prop: string) => {
   return arr.reduce((prev, cur) => {
@@ -259,10 +259,7 @@ export const _groupByObj = (arr: any[], prop: string) => {
 };
 ```
 
-- 根据数据中的某字段，对数据进行分组，多条数据只对应一个分组，返回一个 **对象数组**;
-
-```jsx title="代码实现"
-// 根据指定字段，使用 普通循环 的方式分组，返回一个对象数组
+```jsx title="代码实现 - 叁: 返回一个对象数组"
 export const _groupByArray = (arr: any[]) => {
   const dest = [];
   const groups = {};
@@ -283,11 +280,11 @@ export const _groupByArray = (arr: any[]) => {
 ```jsx live
 function ExampleComponent(props) {
   const array = [
-    { code: 'whect', name: '微信', groupName: '聊天软件', groupCode: 'chat' },
-    { code: 'dingding', name: '钉钉', groupName: '聊天软件', groupCode: 'chat' },
+    { code: 'WeChat', name: '微信', groupName: '社交', groupCode: 'chat' },
+    { code: 'dingding', name: '钉钉', groupName: '社交', groupCode: 'chat' },
     { code: 'majiang', name: '欢乐麻将', groupName: '游戏', groupCode: 'game' },
     { code: 'lolm', name: '英雄联盟手游', groupName: '游戏', groupCode: 'game' },
-    { code: 'qq', name: 'QQ 🐧', groupName: '聊天软件', groupCode: 'chat' },
+    { code: 'qq', name: 'QQ 🐧', groupName: '社交', groupCode: 'chat' },
     { code: 'taobao', name: '淘宝', groupName: '购物', groupCode: 'shop' },
     { code: 'jingdong', name: '京东', groupName: '购物', groupCode: 'shop' },
   ];
@@ -308,10 +305,363 @@ function ExampleComponent(props) {
 
 ### 数据的分组(多对多)
 
+根据数据中的某字段，对数据进行分组，**一条数据可对应多个不同的分组**，返回一个 **对象 / 对象数组**，实质上就是在 一对多分组 的方法中再多循环一层;
+
+```jsx title="代码实现 - 壹: 返回一个对象"
+export const _groupByManyObj = (arr: any[]) => {
+  return arr.reduce((prev, item) => {
+    item['groupList'].forEach((each) => {
+      (prev[each[prop]] = prev[each[prop]] || []).push(item);
+    });
+    return prev;
+  }, {});
+};
+```
+
+```jsx title="代码实现 - 贰: 返回一个对象数组"
+export const _groupByManyArray = (arr: any[]) => {
+  const dest = [];
+  const groups = {};
+  arr.forEach((item) => {
+    item['groupList'].forEach(({ groupName, groupCode }) => {
+      if (!groups[groupCode]) {
+        groups[groupCode] = { groupName, groupCode, children: [] };
+        dest.push(groups[groupCode]);
+      }
+      groups[groupCode].children.push(item);
+    });
+  });
+  return dest;
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [
+    {
+      code: 'WeChat',
+      name: '微信',
+      groupList: [
+        { groupName: '社交', groupCode: 'chat' },
+        { groupName: '热门软件', groupCode: 'hot' },
+        { groupName: '精选软件', groupCode: 'selected' },
+      ],
+    },
+    {
+      code: 'dingding',
+      name: '钉钉',
+      groupList: [
+        { groupName: '社交', groupCode: 'chat' },
+        { groupName: '热门软件', groupCode: 'hot' },
+      ],
+    },
+    {
+      code: 'taobao',
+      name: '淘宝',
+      groupList: [
+        { groupName: '购物', groupCode: 'shop' },
+        { groupName: '热门软件', groupCode: 'hot' },
+      ],
+    },
+    {
+      code: 'jingdong',
+      name: '京东',
+      groupList: [
+        { groupName: '购物', groupCode: 'shop' },
+        { groupName: '热门软件', groupCode: 'hot' },
+        { groupName: '精选软件', groupCode: 'selected' },
+      ],
+    },
+  ];
+
+  const [value, setValue] = useState();
+
+  return (
+    <ResultButton
+      results={value}
+      buttonGroup={[
+        { text: '显示结果(对象)', onClick: () => setValue(_groupByManyObj(array, 'groupName')) },
+        { text: '显示结果(对象数组)', onClick: () => setValue(_groupByManyArray(array)) },
+      ]}
+    />
+  );
+}
+```
+
 ## 拷贝
 
-## 比对
+:::tip 为什么要进行拷贝？
+
+- **原始(基础)数据类型** 存储在 `栈(系统自动分配)` 中，存储的是 `值`;
+- **引用(复杂)数据类型** 存储在 `堆(人为申请开辟)` 中，`栈` 中存储的是 **地址**，是指向 `堆` 的引用地址；`堆` 中存储的是 **该数据的属性或值**;
+- 由于 JavaScript **不允许直接访问** 存储在 `堆` 内存中的数据，所以在访问时，实际上访问的是 `栈` 中的引用地址，根据这个地址获取或修改 `堆` 中的值;
+- 综上所述，这样就会出现一个常见的问题: 当 **复制** 一个引用类型的数据时，只要进行修改，就会影响到原有的数据，因此会有 **浅拷贝** 和 **深拷贝** 的概念;
+
+:::
+
+### 普通数据的浅拷贝
+
+- 数据进行浅拷贝时，可以通过更改它的引用地址来实现，但是只能更改 **第一层** 数据(一维数据)，复杂的或者有层级嵌套的数据是无法拷贝到的;
+- 该拷贝通过 JavaScript 一些自带的方法即可实现;
+
+```jsx title="代码实现 - 对象的浅拷贝"
+export const _cloneByObj = (obj: { [key: string]: any }) => {
+  // 1️⃣ 通过 Object.assign() 实现
+  return Object.assign({}, obj);
+
+  // 2️⃣ 通过 拓展运算符 实现
+  return { ...obj };
+
+  // 3️⃣ 通过 for...in 循环实现
+  const newObj = {};
+  for (const key in obj) {
+    newObj[key] = obj[key];
+  }
+  return newObj;
+};
+```
+
+```jsx title="代码实现 - 数组的浅拷贝"
+export const _cloneByArray = (arr: any[]) => {
+  // 1️⃣ 通过 Array.slice() 实现
+  return arr.slice();
+
+  // 2️⃣ 通过 Array.concat() 实现
+  return arr.concat();
+
+  // 3️⃣ 通过 Array.from() 实现
+  return Array.from(arr);
+
+  // 4️⃣ 通过 拓展运算符 实现
+  return [...arr];
+};
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const arr = [25, { name: 'dino' }];
+  const newArr = _cloneByArray(arr); // 拷贝
+  newArr.push('😡');
+  newArr[1].name = '勺子 🐶'; // 会影响原数据
+
+  const obj = { name: 'dino', age: 25, hometown: { city: '包头' } };
+  const newObj = _cloneByObj(obj); // 拷贝
+  newObj.name = '勺子 🐶';
+  newObj.hometown.city = '杭州'; // 会影响原数据
+
+  const [value, setValue] = useState();
+
+  return (
+    <ResultButton
+      results={value}
+      buttonGroup={[
+        { text: '显示结果(数组的浅拷贝)', onClick: () => setValue({ arr, newArr }) },
+        { text: '显示结果(对象的浅拷贝)', onClick: () => setValue({ obj, newObj }) },
+      ]}
+    />
+  );
+}
+```
+
+### 复杂数据的深拷贝
+
+数据的深拷贝简单来说就是将一个 **引用类型** 的数据从内存中完整的拷贝一份出来，从 `堆` 内存中开辟一个新的区域存放该对象，且修改新数据不会影响到原数据;
+
+```jsx title="代码实现 - 壹"
+// 使用 JSON 自带的两个方法进行深拷贝;
+// 📢 缺点：虽然可以应对大部分的数据场景，但是对于拷贝函数，循环引用等不起作用
+export const _deepClone = (data: any) => {
+  return JSON.parse(JSON.stringify(data));
+};
+```
+
+```jsx title="代码实现 - 贰"
+// 使用 递归 的方式进行深拷贝，且需避免循环引用的问题
+// 🍋 判断数据是否为 原始数据类型
+const isObject = (target) => {
+  const type = typeof target;
+  return target !== null && (type === 'object' || type === 'function');
+};
+
+// 🍋 获取数据的类型，返回一个字符串，格式为 '[object Type]'
+const getType = (target): string => {
+  return Object.prototype.toString.call(target);
+};
+
+// 🍋 初始化被克隆的对象，保持继承链
+const getInit = (target) => {
+  return new target.constructor();
+};
+
+// 🍋 使用 while 封装一个 forEach 函数，优化循环的性能，其中 iteratee 是一个回调函数，接收每次遍历的 value 和 index 为参数（可使用 for...in 循环代替）
+const forEach = (array: any[], iteratee: (v: any, i: number) => void) => {
+  let index = -1;
+  const length = array.length;
+  while (++index < length) {
+    iteratee(array[index], index);
+  }
+  return array;
+};
+
+// 封装克隆函数
+export const _deepClone = (target: any, map = new WeakMap()) => {
+  // 处理 null，原始数据，Date，Regexp 类型
+  if (target === null) return null;
+  if (!isObject(target)) return target;
+  if (getType(target) === '[object Date]') return new Date(target);
+  if (getType(target) === '[object Regexp]') return new RegExp(target);
+
+  // 初始化被克隆的对象
+  const cloneTarget = getInit(target);
+
+  // 处理循环引用
+  if (map.get(target)) return map.get(target);
+  map.set(target, cloneTarget);
+
+  // 处理数组和对象的数据 - 使用 for...in 循环
+  for (const key in target) {
+    // target 为数组时，key 为数组的索引值
+    if (Object.prototype.hasOwnProperty.call(target, key)) {
+      cloneTarget[key] = _deepClone(target[key], map);
+    }
+  }
+  // 或：处理数组和对象的数据 - 使用 封装好的 forEach 函数
+  const keys = getType(target) === '[object Object]' ? Object.keys(target) : undefined;
+  forEach(keys || target, (value, key) => {
+    if (keys) key = value; // 如果是对象，将对象的 属性 赋给 索引值
+    cloneTarget[key] = _deepClone(target[key], map);
+  });
+
+  return cloneTarget;
+};
+```
+
+```jsx title="代码实现 - 叁"
+// 使用第三方库 lodash 的 cloneDeep() 函数;
+import { cloneDeep } from 'lodash';
+
+const cloneTarget = cloneDeep(target);
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const arr = ['基础数据类型', { name: 'dino' }];
+  const newArr = _deepClone(arr); // 深拷贝
+  newArr[1].name = '勺子 🐶';
+
+  const obj = { name: 'dino', havebeen: [{ city: '武汉' }, { city: '杭州' }], date: new Date() };
+  const newObj = _deepClone(obj); // 深拷贝
+  newObj.havebeen.push({ city: '黄冈' }); // 修改克隆后的数据，不会影响到原数据
+  newObj.date = '2022-03-09';
+
+  const [value, setValue] = useState();
+
+  return (
+    <ResultButton
+      results={value}
+      buttonGroup={[
+        { text: '显示结果(数组的深拷贝)', onClick: () => setValue({ arr, newArr }) },
+        { text: '显示结果(对象的深拷贝)', onClick: () => setValue({ obj, newObj }) },
+      ]}
+    />
+  );
+}
+```
+
+## 比较
+
+### 比较两组数据是否全等
+
+- 当两组相同的 **引用类型** 数据进行比较时，由于它们的数据存储在 `堆` 中，`栈` 中存储的是地址，即便数据内容相同，但是二者的地址都是独立的，所以二者相比较结果总是 **不等** 的;
+- 可以使用 **递归** 的方式对两个引用类型的数据进行比较;
+
+```jsx title="代码实现 - 壹"
+// 使用 JSON.stringify() 将数据转换成字符串进行比较，简单粗暴;
+// 📢 缺点：具有限制性，当比较两个 key 顺序不同，value 相同的对象时，就会无效
+export const _equals = (origin: any, target: any): boolean => {
+  return JSON.stringify(origin) === JSON.stringify(target);
+};
+```
+
+```jsx title="代码实现 - 贰"
+// 使用 递归 的方式进行深度比较
+// 🍋 获取数据的类型，返回一个字符串，格式为 '[object Type]'
+const getType = (target): string => {
+  return Object.prototype.toString.call(target);
+};
+
+// 封装函数
+export const _equals = (origin: any, target: any): boolean => {
+  // 处理原始数据类型，相同时直接返回 true
+  if (origin === target) return true;
+
+  // 处理 NaN 的情况，利用 NaN !== NaN 进行判断
+  if (origin !== origin) return target !== target;
+
+  // 处理 Date， RegExp 类型
+  if (getType(origin) !== getType(target)) return false;
+  switch (getType(origin)) {
+    case '[object Date]':
+      return +origin === +target;
+    case '[object RegExp]':
+      return '' + origin === '' + target;
+  }
+
+  // 当递归之后的 origin 和 target 不是 object 类型，且值不相同时，会走到该逻辑中；防止对象陷入死循环
+  if (!origin || !target || (typeof origin !== 'object' && typeof target !== 'object'))
+    return origin === target;
+
+  // 处理 数组 和 对象
+  const keys = Object.keys(origin);
+  if (keys.length !== Object.keys(target).length) return false;
+  return keys.every((item) => _equals(origin[item], target[item])); // 使用 Array.every 方法
+};
+```
+
+```jsx title="代码实现 - 叁"
+// 使用第三方库 lodash 的 isEqual() 函数;
+import { isEqual } from 'lodash';
+
+const flag = isEqual(target, target_1);
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const arr = ['😄😄', { name: 'dino 🦖' }];
+  const arr_1 = ['😄😄', { name: 'dino 🦖' }];
+
+  const obj = { name: 'dino', havebeen: [{ city: '武汉' }], date: new Date() };
+  const obj_1 = { name: 'dino', date: new Date(), havebeen: [{ city: '杭州' }] };
+
+  const [value, setValue] = useState();
+
+  return (
+    <ResultButton
+      results={value}
+      buttonGroup={[
+        { text: '显示结果(数组的深度比较)', onClick: () => setValue('' + _isEqual(arr, arr_1)) },
+        { text: '显示结果(对象的深度比较)', onClick: () => setValue('' + _isEqual(obj, obj_1)) },
+      ]}
+      openJsonView={false}
+    />
+  );
+}
+```
 
 ## 排序
 
+### 打乱一个数组的顺序
+
 ### 冒泡排序
+
+## 相关链接
+
+- [如何写出一个惊艳面试官的深拷贝? - 掘金](https://juejin.cn/post/6844903929705136141)

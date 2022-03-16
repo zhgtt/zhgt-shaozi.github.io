@@ -1,0 +1,50 @@
+---
+title: React 组件拓展
+id: react-component
+sidebar_position: 1
+---
+
+> 本章节基于 `React` + `arco-design` 实现一些基础的逻辑组件；以及推荐一些基于 React 开发的社区组件或插件
+
+<img src={require('./img/react-component/wallhaven.png').default} style={{ maxHeight: 360 }} />
+
+```mdx-code-block
+import BrowserWindow from '@site/src/components/BrowserWindow';
+import CodePreview from '@site/src/components/CodePreview';
+import Demo from '@site/src/components/Demo';
+import { todoListCode, todoListEditCode, todoListCssCode } from './codeString';
+```
+
+## TodoList 组件
+
+实现一个 TodoList 组件，要对数组的操作有 **上移**， **下移**，**置顶**，**删除**，**添加**，**编辑**;
+
+:::tip 组件开发中需要处理的逻辑
+
+- 列表中的每一条数据都应该有其对应的 **顺序**;
+- 若列表中不存在置顶数据的时候，不管怎么操作，都以 **索引** 为值;
+- 若列表中存在置顶数据的时候，每个操作对顺序的值的影响都有所不同:
+  - **_添加_**: 如果列表中的数据全都为置顶数据时，将置顶数据的顺序重置为 1 开始的正向顺序，新添加的数据依次向后排序（该逻辑待改善）;
+  - **_上移 / 下移_**: 一条数据进行位置互换后，需保证它的顺序还是原数据的顺序，也就是值改变，顺序不能变;
+  - **_取消置顶_**: 需要将置顶的数据进行还原，也就是将非置顶的数据按照原来的顺序进行 **排序**;
+
+:::
+
+组件示例:
+
+```mdx-code-block
+<CodePreview
+  codeBlock={[
+    { code: todoListCode, title: 'index.tsx' },
+    { code: todoListEditCode, title: 'Editable.tsx' },
+    { code: todoListCssCode, title: 'styles.module.scss', language: 'scss' },
+  ]}
+  codeSandBoxHref='https://codesandbox.io/s/todo-list-component-ukblvc'
+>
+  <Demo.TodoList />
+</CodePreview>
+```
+
+## 无限滚动列表 组件
+
+## 相关链接

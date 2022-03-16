@@ -1,8 +1,18 @@
 /* 代码块 */
 div[class^='codeBlockContainer_'] {
+  border-radius: 2px;
   > div[class^='codeBlockTitle_'] {
     font-size: var(--dino-font-size-sm);
     font-weight: var(--dino-font-weight-bold);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+  }
+  > div[class^='codeBlockContent_'] {
+    max-height: 1000px;
+    overflow-y: auto;
+    > pre {
+      border-radius: 2px;
+    }
   }
 }
 

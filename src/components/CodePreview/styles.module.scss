@@ -1,0 +1,62 @@
+.codePreview {
+  .optionsBtn {
+    margin-left: 0.5rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-fill-3);
+  }
+  .expanded {
+    background-color: rgb(var(--darkgray-8));
+    &:hover {
+      border-color: var(--color-fill-3) !important;
+      background-color: rgb(var(--darkgray-8)) !important;
+    }
+    > .icon {
+      color: #fff;
+    }
+  }
+}
+
+html[data-theme='dark'] {
+  .optionsBtn {
+    background-color: rgb(var(--darkgray-8));
+    &:hover {
+      border-color: var(--color-fill-3) !important;
+      background-color: rgb(var(--darkgray-8)) !important;
+    }
+  }
+  .expanded {
+    background-color: var(--color-white);
+    &:hover {
+      background-color: var(--color-white) !important;
+    }
+    > .icon {
+      color: rgb(var(--darkgray-8));
+    }
+  }
+}
+
+.codeBlockList {
+  border-radius: 2px;
+  box-shadow: var(--ifm-global-shadow-lw);
+  max-height: 1200px;
+  overflow-y: auto;
+  background-color: rgb(246, 248, 250);
+  > div[class^='codeBlockContainer_'] {
+    border-radius: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+    border-bottom: 1px solid var(--ifm-color-emphasis-300);
+    padding-bottom: 2rem;
+
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+  div[class^='codeBlockTitle_'] {
+  }
+  div[class^='codeBlockContent_'] {
+    max-height: initial !important;
+    overflow-y: initial !important;
+  }
+}

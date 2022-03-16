@@ -27,7 +27,7 @@ export const DocJSToolsByTree: React.FC<IProps> = ({ dataSource }) => {
         value={value}
         onChange={(v) => setValue(v)}
       />
-      <Space>
+      <Space wrap>
         <Button
           type='primary'
           onClick={() => {
