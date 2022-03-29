@@ -1,5 +1,5 @@
 /**
- * @BlogPostItem - 自定义 blog 列表页面中的每一个项 blog 组件
+ * @description - 博客内容
  *
  * 笔记：
  *  * @Typescript 笔记：
@@ -50,110 +50,180 @@
  * @...
  */
 
+// import { tuple } from '@site/src/utils/type';
+
+// 随机 lottie 的方向
+// enum DirectionTypes {
+//   left,
+//   right,
+// }
+// type DirectionType = keyof typeof DirectionTypes;
+// 或
+// const DirectionTypes = tuple('left', 'right');
+// type DirectionType = typeof DirectionTypes[number];
+
+// <Link to='/blog/archive' className='absolute top-1/2 left-0 -translate-y-1/2'>
+// 博客时光馆
+// </Link>
+
 import React from 'react';
 
-import type { Props } from '@theme/BlogPostItem';
-import Translate from '@docusaurus/Translate'; // 翻译组件
+import Translate, { translate } from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
-import MDXComponents from '@theme/MDXComponents'; // markdown 摘要内容
-import { MDXProvider } from '@mdx-js/react'; // markdown 组件
-
+import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
+import { usePluralForm } from '@docusaurus/theme-common';
+import { blogPostContainerID } from '@docusaurus/utils-common';
+import MDXContent from '@theme/MDXContent'; // markdown 摘要内容
+import EditThisPage from '@theme/EditThisPage'; // 编辑页面
+import type { Props } from '@theme/BlogPostItem';
+import TagsListInline from '@theme/TagsListInline'; // 标签组件
+import BlogPostAuthors from '@theme/BlogPostAuthors'; // 作者组件
+import BackToTopButton from '@theme/BackToTopButton'; // 平滑滚动到顶部组件
 import clsx from 'clsx';
-import Lottie from 'react-lottie';
-import { Grid, Card, Button, Divider } from '@arco-design/web-react';
 
+import { Button, Divider } from '@arco-design/web-react';
 import BlogTagsList from '@site/src/components/BlogTagsList';
 import BlogCreationDate from '@site/src/components/BlogCreationDate';
 import IconFont from '@site/src/components/IconFont';
-import { randomLottieFun } from '@site/src/utils/lotties';
+
 import styles from './styles.module.scss';
 
-const Row = Grid.Row;
-const Col = Grid.Col;
-
-interface ExtraBlogPostItemProps {
-  lottieDirection?: 'left' | 'right';
+// 阅读时长
+function useReadingTimePlural() {
+  const { selectMessage } = usePluralForm();
+  return (readingTimeFloat: number) => {
+    const readingTime = Math.ceil(readingTimeFloat);
+    return selectMessage(
+      readingTime,
+      translate(
+        {
+          id: 'theme.blog.post.readingTime.plurals',
+          description:
+            'Pluralized label for "{readingTime} min read". Use as much plural forms (separated by "|") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)',
+          message: 'One min read|{readingTime} min read',
+        },
+        { readingTime }
+      )
+    );
+  };
 }
 
-type BlogPostItemProps = Props & ExtraBlogPostItemProps;
+export default function BlogPostItem(props: Props): JSX.Element {
+  const readingTimePlural = useReadingTimePlural();
+  const { withBaseUrl } = useBaseUrlUtils();
+  const { children, frontMatter, assets, metadata, truncated, isBlogPostPage = false } = props;
+  const { date, formattedDate, permalink, tags, readingTime, title, editUrl, authors } = metadata;
 
-const LeftLayout = { xxl: 8, xl: 7, lg: 6, md: 0, sm: 0, xs: 0 };
-const RightLayout = { xxl: 16, xl: 17, lg: 18, md: 24, sm: 24, xs: 24 };
-
-const BlogPostItem = (props: BlogPostItemProps): JSX.Element => {
-  // console.log('BlogPostItem -- Props: ', props);
-
-  const { children, metadata, truncated, lottieDirection } = props;
-
-  const { date, permalink, tags, title } = metadata;
+  const image = assets.image ?? frontMatter.image;
+  const truncatedPost = !isBlogPostPage && truncated; // 判断是否显示 阅读更多 按钮
+  const tagsExists = tags.length > 0; // 判断是否有 标签
+  const TitleHeading = isBlogPostPage ? 'h1' : 'h2'; // 标题
 
   return (
-    <Card className={clsx('mb-16', styles.dinoCard)} bodyStyle={{ padding: '1.5rem' }} hoverable>
-      <Row justify='space-between' gutter={16}>
-        {/* lottie 动图 */}
-        <Col {...LeftLayout} order={lottieDirection === 'left' ? 1 : 2}>
-          <div>
-            <Lottie
-              options={{
-                loop: true, // 是否循环
-                autoplay: true, // 是否自动播放
-                renderer: 'svg', // 渲染动画的方式
-                animationData: randomLottieFun(), // 数据源
-              }}
-              // width={286}
-              height={256}
-              speed={1} // 动画播放的速度
-              isPaused={false} // 是否暂停动画
-              isStopped={false} //是否停止动画（动画回到起点）
-            />
-          </div>
-        </Col>
-        {/* 内容 */}
-        <Col {...RightLayout} order={lottieDirection === 'left' ? 2 : 1}>
-          <article
-            className='flex flex-col justify-between h-full'
-            itemProp='blogPost（博客内容）'
-            itemScope
-            itemType='http://schema.org/BlogPosting'
-            style={{ minHeight: 256 }}
-          >
-            <main>
-              <h2 itemProp='headline（大字标题）'>
-                <Link to={permalink} className={clsx('color-inherit', styles.titleLink)}>
-                  {title}
+    <article
+      className={!isBlogPostPage && 'mb-16'}
+      itemProp='blogPost'
+      itemScope
+      itemType='http://schema.org/BlogPosting'
+    >
+      {isBlogPostPage && <BackToTopButton />}
+
+      <header>
+        {/* 标题 */}
+        <TitleHeading className={styles.blogPostTitle} itemProp='headline'>
+          {isBlogPostPage ? (
+            title
+          ) : (
+            <Link itemProp='url' to={permalink}>
+              {title}
+            </Link>
+          )}
+        </TitleHeading>
+        {/* 创建日期 - 阅读时长 */}
+        <BlogCreationDate date={date} readingTime={readingTime} className='text-sm my-5' />
+        {/* <div className={clsx(styles.blogPostData, 'margin-vert--md')}>
+          <time dateTime={date} itemProp='datePublished'>
+            {formattedDate}
+          </time>
+          {typeof readingTime !== 'undefined' && (
+            <>
+              {' · '}
+              {readingTimePlural(readingTime)}
+            </>
+          )}
+        </div> */}
+        {/* 作者 */}
+        <div className='mb-4'>
+          <BlogPostAuthors authors={authors} assets={assets} />
+        </div>
+      </header>
+
+      {image && <meta itemProp='image' content={withBaseUrl(image, { absolute: true })} />}
+
+      <div
+        id={isBlogPostPage ? blogPostContainerID : undefined}
+        className='markdown'
+        itemProp='articleBody'
+      >
+        <MDXContent>{children}</MDXContent>
+      </div>
+
+      {(tagsExists || truncated) && (
+        <footer
+          className={clsx('row docusaurus-mt-lg', isBlogPostPage && styles.blogPostDetailsFull)}
+        >
+          {/* 标签 */}
+          {tagsExists && (
+            <div className={clsx('col', { 'col--9': truncatedPost })}>
+              {/* <BlogTagsList tags={tags} /> */}
+              <TagsListInline tags={tags} />
+            </div>
+          )}
+
+          {/* 编辑页面 */}
+          {isBlogPostPage && editUrl && (
+            <div className='col margin-top--sm'>
+              <EditThisPage editUrl={editUrl} />
+            </div>
+          )}
+
+          {truncatedPost && (
+            <div
+              className={clsx('col text-right', {
+                'col--3': tagsExists,
+              })}
+            >
+              {/* <Button type='primary' aria-label={`继续阅读更多 ${title} 的内容`}>
+                <Link to={metadata.permalink} className={clsx('full', styles.btnLink)}>
+                  阅读更多 <IconFont type='icon-dino-yuedu' className='ml-1' />
                 </Link>
-              </h2>
-              <BlogTagsList tags={tags} />
-              {/* markdown 摘要/部分内容 */}
-              {truncated && (
-                <div className='markdown mt-6' itemProp='articleBody（文章内容）'>
-                  <MDXProvider components={MDXComponents}>{children}</MDXProvider>
-                </div>
-              )}
-            </main>
-
-            <footer className='mt-16'>
-              <div className={lottieDirection === 'left' ? 'text-right' : 'text-left'}>
-                <Button type='primary' aria-label={`继续阅读更多 ${title} 的内容`}>
-                  <Link to={permalink} className={clsx('full', styles.btnLink)}>
-                    继续阅读 <IconFont type='icon-dino-yuedu' className='ml-1' />
-                  </Link>
-                </Button>
-              </div>
-              {/* 分割线 */}
-              <Divider
-                className={styles.dinoDivider}
-                orientation={lottieDirection}
-                style={{ marginBottom: 0 }}
+              </Button> */}
+              <Link
+                to={metadata.permalink}
+                aria-label={translate(
+                  {
+                    message: 'Read more about {title}',
+                    id: 'theme.blog.post.readMoreLabel',
+                    description: 'The ARIA label for the link to full blog posts from excerpts',
+                  },
+                  { title }
+                )}
               >
-                <BlogCreationDate date={date} className='text-base' />
-              </Divider>
-            </footer>
-          </article>
-        </Col>
-      </Row>
-    </Card>
-  );
-};
+                <b>
+                  <Translate
+                    id='theme.blog.post.readMore'
+                    description='The label used in blog post item excerpts to link to full blog posts'
+                  >
+                    阅读更多
+                  </Translate>
+                </b>
+              </Link>
+            </div>
+          )}
+        </footer>
+      )}
 
-export default BlogPostItem;
+      <Divider className='arco-divider-dashed' />
+    </article>
+  );
+}

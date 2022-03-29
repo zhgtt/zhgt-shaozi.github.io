@@ -1,3 +1,7 @@
+/**
+ * @description 平滑滚动到顶部
+ */
+
 import React, { useRef, useState } from 'react';
 import { translate } from '@docusaurus/Translate';
 import { ThemeClassNames, useScrollPosition, useLocationChange } from '@docusaurus/theme-common';
@@ -106,9 +110,7 @@ const BackToTopButton = (): JSX.Element => {
       className={clsx(
         'fixed z-200 opacity-0 paper-border-circle transition-all cursor-pointer',
         styles.backToTopButton,
-        {
-          [styles.backToTopButtonShow]: show,
-        }
+        show && styles.backToTopButtonShow
       )}
       type='button'
       onClick={() => smoothScrollTop()}

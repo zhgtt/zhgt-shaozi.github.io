@@ -1,15 +1,20 @@
+/**
+ * @description 博客空间档案
+ */
+
+// TODO 计划更改该页面的样式
+
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import type { ArchiveBlogPost, Props } from '@theme/BlogArchivePage';
 import { translate } from '@docusaurus/Translate';
+import { PageMetadata } from '@docusaurus/theme-common';
 
 type YearProp = {
   year: string;
   posts: ArchiveBlogPost[];
 };
-
-// TODO 计划重新设计该页面
 
 function Year({ year, posts }: YearProp) {
   return (
@@ -45,11 +50,11 @@ function YearsSection({ years }: { years: YearProp[] }) {
 }
 
 function listPostsByYears(blogPosts: readonly ArchiveBlogPost[]): YearProp[] {
-  const postsByYear: Map<string, ArchiveBlogPost[]> = blogPosts.reduceRight((posts, post) => {
-    const year = post.metadata.date.split('-')[0];
-    const yearPosts = posts.get(year) || [];
+  const postsByYear = blogPosts.reduceRight((posts, post) => {
+    const year = post.metadata.date.split('-')[0]!;
+    const yearPosts = posts.get(year) ?? [];
     return posts.set(year, [post, ...yearPosts]);
-  }, new Map());
+  }, new Map<string, ArchiveBlogPost[]>());
 
   return Array.from(postsByYear, ([year, posts]) => ({
     year,
@@ -70,14 +75,18 @@ export default function BlogArchive({ archive }: Props): JSX.Element {
   });
   const years = listPostsByYears(archive.blogPosts);
   return (
-    <Layout title={title} description={description}>
-      <header className='hero hero--primary'>
-        <div className='container'>
-          <h1 className='hero__title'>{title}</h1>
-          <p className='hero__subtitle'>{description}</p>
-        </div>
-      </header>
-      <main>{years.length > 0 && <YearsSection years={years} />}</main>
-    </Layout>
+    <>
+      {/* 添加额外的 meta 标签 */}
+      <PageMetadata title={title} description={description} />
+      <Layout>
+        <header className='hero hero--primary'>
+          <div className='container'>
+            <h1 className='hero__title'>{title}</h1>
+            <p className='hero__subtitle'>{description}</p>
+          </div>
+        </header>
+        <main>{years.length > 0 && <YearsSection years={years} />}</main>
+      </Layout>
+    </>
   );
 }

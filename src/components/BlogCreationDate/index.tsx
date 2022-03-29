@@ -2,10 +2,9 @@
  * @BlogCreationDate - 博客文章创建时间组件
  */
 
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { usePluralForm, useColorMode } from '@docusaurus/theme-common';
-import Translate, { translate } from '@docusaurus/Translate'; // 翻译组件
+import { useColorMode } from '@docusaurus/theme-common';
 import dayjs from 'dayjs';
 import clsx from 'clsx';
 import IconFont from '@site/src/components/IconFont';
@@ -19,34 +18,11 @@ export interface BlogCreationDateProps {
   style?: React.CSSProperties;
 }
 
-// 创建时间组件
-// const useReadingTimePlural = () => {
-//   const { selectMessage } = usePluralForm();
-//   console.log('selectMessage: ', selectMessage);
-//   return (readingTimeFloat) => {
-//     const readingTime = Math.ceil(readingTimeFloat);
-//     return selectMessage(
-//       readingTime,
-//       translate(
-//         {
-//           id: 'theme.blog.post.readingTime.plurals',
-//           description:
-//             'Pluralized label for "{readingTime} min read". Use as much plural forms (separated by "|") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)',
-//           message: 'One min read|{readingTime} min read',
-//         },
-//         { readingTime }
-//       )
-//     );
-//   };
-// };
-
 const BlogCreationDate: React.FC<BlogCreationDateProps> = (props) => {
-  const { date, formattedDate = 'YYYY·MM·DD', readingTime, className, ...restProps } = props;
+  const { date, formattedDate = 'YYYY-MM-DD', readingTime, className, ...restProps } = props;
 
   // 是否为 暗黑主题
-  const { isDarkTheme } = useColorMode();
-
-  // const readingTimePlural = useReadingTimePlural();
+  const { colorMode } = useColorMode();
 
   return (
     <time
@@ -55,7 +31,7 @@ const BlogCreationDate: React.FC<BlogCreationDateProps> = (props) => {
       dateTime={date}
       itemProp='datePublished（出版日期）'
     >
-      {isDarkTheme ? (
+      {colorMode === 'dark' ? (
         <IconFont type='icon-dino-shijian-copy' />
       ) : (
         <IconFont type='icon-dino-shijian' />

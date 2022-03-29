@@ -1,5 +1,5 @@
 /**
- * @BlogTagsList - 博客标签列表组件
+ * @description 博客标签列表组件
  */
 
 import React from 'react';

@@ -26,33 +26,24 @@
 /* Markdown */
 .markdown {
   font-size: var(--dino-font-size-sm);
-
-  > blockquote > p {
-    color: var(--dino-color-blockquote);
-    font-size: 13px;
+  code {
+    font-size: var(--dino-font-size-xs);
   }
-
-  // table,
-  ul,
-  p {
-    code {
-      @include code-style;
+  // 引言
+  > blockquote {
+    p {
+      font-size: 13px;
+      color: var(--dino-color-blockquote);
     }
   }
-  h2,
-  h3,
-  h4 {
-    code {
-      @include code-style;
-      padding-top: 2px;
-      padding-bottom: 2px;
-    }
+  h2 > code,
+  h3 > code,
+  h4 > code {
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
-  h5 {
-    code {
-      @include code-style;
-      margin-top: -2px;
-    }
+  h5 > code {
+    margin-top: -2px;
   }
   // > header > h1 {}
   // h2 标题
@@ -60,16 +51,22 @@
     @include heading-before-icon(24px);
     padding-left: 26px;
     > code {
-      font-size: var(--dino-font-size-base) !important;
+      font-size: var(--dino-font-size-base);
     }
   }
   h3[class*='anchor'] {
     @include heading-before-icon(20px);
     padding-left: 24px;
+    code {
+      font-size: 15px;
+    }
   }
   h4[class*='anchor'] {
     @include heading-before-icon(16px);
     padding-left: 18px;
+    code {
+      font-size: var(--dino-font-size-sm);
+    }
   }
   .alert {
     a {
@@ -78,29 +75,22 @@
     }
     code:not(code[class^='codeBlockLines_']) {
       background-color: var(--ifm-code-background);
-      border: 0.1rem solid rgba(0, 0, 0, 0.1);
-      font-size: var(--ifm-code-font-size); // 90%
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      // font-size: var(--ifm-code-font-size); // 90%
       padding: 0 5px;
       vertical-align: middle;
       color: initial;
+      line-height: 15px;
     }
   }
   ul li,
   p {
     letter-spacing: 2px;
-    line-height: 1.75;
+    line-height: 1.875;
   }
   // tabs
   > ul + .tabs-container {
     margin-top: -1.25rem;
-  }
-  > table {
-    code {
-      font-size: var(--dino-font-size-xs) !important;
-    }
-    td {
-      line-height: 1.625;
-    }
   }
   > img {
     display: block;

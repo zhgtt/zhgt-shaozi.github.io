@@ -16,7 +16,6 @@ div[class^='tableOfContents_'] {
 .table-of-contents li {
   .table-of-contents__link {
     > code {
-      @include code-style;
       font-size: var(--dino-font-size-xxs);
       margin-top: -2px;
       line-height: 15px;

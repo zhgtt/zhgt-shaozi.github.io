@@ -1,3 +1,7 @@
+/**
+ * @description 自定义 Hooks 钩子函数
+ */
+
 import React, { useRef, DependencyList } from 'react'; // DependencyList 表示依赖数据，它只是一个类型：只读的数组 ReadonlyArray<any>
 import { isEqual } from 'lodash';
 import { _isEqual } from '@site/src/utils/tools-fun';

@@ -1,21 +1,52 @@
 ---
 id: npm-plugin
-title: 社区精选插件(组件)
+title: 社区精选插件(库)
 ---
 
-> 本章节会介绍一些在项目中使用过的，或者比较有意思的 开源项目(npm 包)，其中包括组件，轮子插件，框架等等
+> 本章节会介绍一些在项目中使用过的，或者比较有意思的 开源项目(npm 包)，其中包括组件库，轮子插件，框架等等
 
-## 通用精选插件(组件)
+```mdx-code-block
+import { Tag } from '@arco-design/web-react';
+```
 
-通用的插件(组件)是不限于在 React, Vue 项目中使用的;
+export const Tags = ({ type }) => {
+  const tagList = {
+    components: { name: '组件', color: 'blue' },
+    tools: { name: '工具插件', color: 'red' },
+    hooks: { name: 'Hooks', color: 'purple' },
+    frame: { name: '框架', color: 'orangered' },
+  };
+  return <Tag color={tagList[type].color}>{tagList[type].name}</Tag>;
+};
 
-## React 精选插件(组件)
+## 通用插件(库)
 
-| 插件(组件)                                                                         | 描述                                                                  | 类型  | 相关文章                                                                       |
-| :--------------------------------------------------------------------------------- | :-------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------ |
-| _[react-copy-to-clipboard](https://github.com/nkbt/react-copy-to-clipboard)_       | 将内容复制到剪切板                                                    | 组件  |                                                                                |
-| _[use-deep-compare-effect](https://github.com/kentcdodds/use-deep-compare-effect)_ | `useEffect` 的拓展，对依赖项进行深比较，主要用于依赖项为 **引用类型** | hooks |                                                                                |
-| _[react-json-view](https://github.com/mac-s-g/react-json-view)_                    | 格式化 `JSON` 数据，展示在页面中                                      | 组件  | [JSON 数据展示神器 - 博客园](https://www.cnblogs.com/soyxiaobi/p/9713814.html) |
-| _[clsx](https://github.com/lukeed/clsx)_                                           | 用于合并类名 `className`                                              | 插件  |                                                                                |
+通用的插件(库)是不限于在 React, Vue 项目中使用的;
 
-## Vue 精选插件(组件)
+| 插件(库)                                                             | 描述                        | 类型                  | 相关文章 |
+| :------------------------------------------------------------------- | :-------------------------- | --------------------- | -------- |
+| _[lodash](https://www.lodashjs.com/)_                                | JavaScript 实用工具库       | <Tags type='tools' /> |          |
+| _[Dayjs](https://dayjs.gitee.io/docs/zh-CN/installation/typescript)_ | JavaScript 日期时间处理工具 | <Tags type='tools' /> |          |
+| _[momentjs](http://momentjs.cn/)_                                    | JavaScript 日期时间处理工具 | <Tags type='tools' /> |          |
+
+## React 相关插件(库)
+
+| 组件库(框架)                                                                 | 描述                                                           | 类型                       | 相关文章 |
+| :--------------------------------------------------------------------------- | :------------------------------------------------------------- | -------------------------- | -------- |
+| _[Ant Design of React](https://ant-design.gitee.io/docs/react/introduce-cn)_ | Web 端 React UI 组件库(阿里)                                   | <Tags type='components' /> |          |
+| _[Arco Design of React](https://arco.design/react/docs/start)_               | Web 端 React UI 组件库(字节跳动)                               | <Tags type='components' /> |          |
+| _[Ant Design Modile](https://mobile.ant.design/zh/guide/quick-start)_        | 移动端 React UI 组件库(阿里)                                   | <Tags type='components' /> |          |
+| _[UmiJS](https://umijs.org/zh-CN/docs/getting-started)_                      | 前端应用框架，集成了 Ant Design Pro 应用, Dva 状态管理等(阿里) | <Tags type='frame' />      |          |
+| _[DvaJS](https://dvajs.com/guide/)_                                          | React 状态管理工具                                             | <Tags type='frame' />      |          |
+
+| 插件(组件)                                                                         | 描述                                                                  | 类型                       | 相关文章                                                                       |
+| :--------------------------------------------------------------------------------- | :-------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------ |
+| _[Ant Design Charts](https://charts.ant.design/zh/docs/manual/getting-started)_    | React 图表组件库(阿里)                                                | <Tags type='components' /> |                                                                                |
+| _[ahooks](https://ahooks.gitee.io/zh-CN)_                                          | React Hooks 库(阿里)                                                  | <Tags type='hooks' />      |                                                                                |
+| _[use-deep-compare-effect](https://github.com/kentcdodds/use-deep-compare-effect)_ | `useEffect` 的拓展，对依赖项进行深比较，主要用于依赖项为 **引用类型** | <Tags type='hooks' />      |                                                                                |
+| _[react-copy-to-clipboard](https://github.com/nkbt/react-copy-to-clipboard)_       | 将内容复制到剪切板                                                    | <Tags type='components' /> |                                                                                |
+| _[react-json-view](https://github.com/mac-s-g/react-json-view)_                    | 格式化 `JSON` 数据，展示在页面中                                      | <Tags type='components' /> | [JSON 数据展示神器 - 博客园](https://www.cnblogs.com/soyxiaobi/p/9713814.html) |
+| _[react-lottie](https://github.com/mac-s-g/react-json-view)_                       | 基于 React 的 Lottie 动画库                                           | <Tags type='components' /> |                                                                                |
+| _[clsx](https://github.com/lukeed/clsx)_                                           | 用于合并类名 `className`                                              | <Tags type='tools' />      |                                                                                |
+
+## Vue 相关插件(库)

@@ -1,3 +1,7 @@
+/**
+ * @description 侧边栏展开收起 按钮
+ */
+
 import React from 'react';
 import clsx from 'clsx';
 // import IconArrow from '@theme/IconArrow';

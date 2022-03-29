@@ -32,7 +32,7 @@ module.exports = {
           showReadingTime: true,
           // blogTitle: '', // blog 标题
           // logDescription: '', // blog 描述
-          blogSidebarTitle: '随笔 🎯', // blog 侧边栏标题
+          blogSidebarTitle: 'All our posts', // blog 侧边栏标题
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
         },
         // 主题
@@ -63,7 +63,7 @@ module.exports = {
     ({
       hideableSidebar: true, // 是否显示侧边栏收起功能
       autoCollapseSidebarCategories: true,
-      colorMode: { disableSwitch: true },
+      colorMode: { disableSwitch: false },
       // 公告条
       // announcementBar: {
       //   id: 'support_us',
@@ -80,8 +80,8 @@ module.exports = {
           //   label: '前端 Madao',
           //   position: 'right',
           //   items: [
-          //     { label: '学习 😒', type: 'doc', docId: 'study/html-css/css3' },
-          //     // { label: '面试 📋', to: 'docs/column-docusaurus/deploy' },
+          //     { label: '随笔', type: 'doc', docId: 'study/html-css/css3' },
+          // { label: '面试', to: 'docs/column-docusaurus/deploy' },
           //   ],
           // },
           {

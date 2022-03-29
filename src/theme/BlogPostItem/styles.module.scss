@@ -1,23 +1,16 @@
-.dinoCard {
-  background-color: var(--dino-color-body-bg) !important;
+.blogPostTitle {
 }
 
-.dinoDivider {
-  &::after,
-  &::before {
-    border-bottom-style: dashed !important;
-  }
+.blogPostData {
 }
 
-.btnLink {
-  &:hover {
-    opacity: 1;
-    text-decoration: none;
-  }
+.blogPostDetailsFull {
+  flex-direction: column;
 }
 
-.titleLink {
-  &:hover {
-    text-decoration: none;
-  }
-}
+// .btnLink {
+//   &:hover {
+//     opacity: 1;
+//     text-decoration: none;
+//   }
+// }

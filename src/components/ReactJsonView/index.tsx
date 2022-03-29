@@ -1,5 +1,5 @@
 /**
- * @Component json 数据格式化渲染组件
+ * @description JSON 数据格式化渲染组件
  */
 
 import React from 'react';

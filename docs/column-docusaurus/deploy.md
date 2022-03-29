@@ -9,25 +9,25 @@ toc_max_heading_level: 4
 import { Image } from '@arco-design/web-react';
 ```
 
-> 本章节学习如何在服务器中部署 Docusaurus & nginx 代理
+> 本章节学习如何在服务器中部署 Docusaurus & nginx 代理（腾讯云服务器）
 
 ## 腾讯云服务器 & 登录
 
-### 服务器面板
+### 服务器面板介绍
 
-- 购买完服务器之后，进入到 _[腾讯云服务器 - 控制台中心](https://console.cloud.tencent.com/lighthouse/instance/detail?rid=8&id=lhins-664fbkyy)_;
+- 进入 _[腾讯云服务器 - 控制台中心](https://console.cloud.tencent.com/lighthouse/instance/detail?rid=8&id=lhins-664fbkyy)_ 页面;
 - 服务器对应的 `IP地址`: `81.70.239.170`(公网);
-- **重置系统密码**，用于远程登录 Linux 系统或 Windows 系统;
+- **重置系统密码**，用于远程登录服务器中的 Linux 系统或 Windows 系统;
 
 <Image src={require('./img/deploy/2022-01-17.jpg').default} height={360} />
 
 - 重置密码时，Linux 系统默认用户名为 `root`；Windows 系统默认用户名为 `administrator`；当然都可以自定义用户名;
 - 服务器中的 **系统镜像** 是一个纯净版的操作系统，可以选择重装系统镜像（Linux 或 Windows），每次重装之后都需 **重置密码**;
-- 服务器中的 **应用镜像** 是在原操作系统的基础上另外安装了 **Node.js**，**Docker** 等镜像，我的服务器默认是 **宝塔 Linux 面板**，当然也可以选择重装应用镜像，每次重装之后都需 **重置密码**;
+- 服务器中的 **应用镜像** 是在原操作系统的基础上另外安装了 **宝塔**，**Docker** 等其他应用，可以选择重装应用镜像，每次重装之后都需 **重置密码**;
 
 ### Linux 系统目录结构
 
-记录一下 Linux 系统中的常用到的目录结构(部分);
+记录一下 Linux 系统中的部分目录结构（了解）;
 
 ```bash title="my-website"
 ├── 📁 /root
@@ -39,11 +39,11 @@ import { Image } from '@arco-design/web-react';
 │   └── 📁 bin     # 存放二进制可执行文件，常用的命令一般都在这里
 ```
 
-### `ssh` 远程登录
+### `ssh` 远程登录服务器
 
 - **Mac** 电脑上使用 **iTerm** 命令行工具进行登录;
 - **Windows** 电脑上建议下载 _[cmder](https://cmder.net/)_ 工具进行登录;
-- 通过 `ssh [用户名]@[IP地址]` 命令进行远程登录（需输入密码）:
+- 输入 `ssh [用户名]@[IP地址]` 命令和密码，进行远程登录:
 
 ```bash title="iTerm / cmder 工具"
 # ☘️ 登录
@@ -51,11 +51,8 @@ ssh root@81.70.239.170
 
 # ☘️ 退出服务器
 exit
-```
 
-- 登录成功之后，切换到服务器的根目录下，找到 **/home** 文件夹，自定义创建一个文件夹，用来放置前端资源（个人操作）:
-
-```bash title="iTerm / cmder 工具"
+# 登录成功之后，就可以对服务器中的系统文件进行操作
 cd /
 cd home     # 切换到 /home 文件夹下
 pwd         # 查看该目录的路径
@@ -63,12 +60,29 @@ pwd         # 查看该目录的路径
 ll          # 查看该文件夹下的所有目录（包含详情信息）
 ls          # 查看该文件夹下的所有目录（只有文件名）
 
-mkdir [文件目录]    # 创建文件目录，我创建的是 my-website
+mkdir [文件目录]    # 创建文件目录
 
 rm -r [文件目录]      # 删除文件目录
 ```
 
-## 服务器 nginx 部署
+### 申请域名 & 备案
+
+- **域名购买 & 注册**:
+  - 进入 _[腾讯云服务器 - 域名管理](https://console.cloud.tencent.com/domain)_ 界面，进行 _[域名购买 & 注册](https://buy.cloud.tencent.com/domain?from=console)_;
+  - 注册域名时，需要添加实名审核过的 _[信息模板](https://console.cloud.tencent.com/domain/template)_;
+  - 域名注册成功后，需要提前在域名管理信息中下载 **域名证书**，以便备案时使用;
+- **网站备案**:
+  - 根据以下文档指引完成 _[备案](https://console.cloud.tencent.com/beian/manage/orders)_ 审核，以免影响网站的正常使用(备案结果可能需要等待几天);
+  - 👉 _[PC 端备案指引](https://cloud.tencent.com/document/product/243/18958)_
+  - 👉 _[小程序 备案指引](https://cloud.tencent.com/document/product/243/37402)_
+- **域名解析**:
+  - 将域名指向服务器的公网 IP 地址，也就是通过域名来访问服务器地址;
+  - 进入 _[域名解析列表](https://console.cloud.tencent.com/cns)_ 界面，对域名进行解析:
+- **安装 SSL 证书**:
+  - 开启 HTTPS 协议, 提供身份验证和数据加密传输等方案, 提高网站的安全性;
+  - 进入 _[腾讯云 SSL 证书管理](https://console.cloud.tencent.com/ssl)_ 界面，可申请免费证书(仅支持**单域名**);
+
+## Linux 系统部署网站(纯命令)
 
 ### 安装 & 启动 nginx
 
@@ -102,23 +116,15 @@ nginx -s reload
 
 <Image src={require('./img/deploy/2022-01-17-nginx.jpg').default} />
 
-### 准备前端资源
-
-#### 使用 git 下载线上资源
-
-- 在 Linux 系统中安装 git 和 nodejs;
+### 安装 nodejs
 
 ```bash title="iTerm / cmder 工具"
-# ☘️ 安装 git
-yum install git
-git --version
-
 # ☘️ 安装 nodejs
 yum install nodejs -y
 node -v
 npm -v
 
-# ☘️ 安装 npm 淘宝镜像 cnpm
+# ☘️ 安装 npm 淘宝镜像 cnpm（可忽略）
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 cnpm -v
 ```
@@ -175,8 +181,20 @@ node -v
 
 :::
 
-- 最新版本的 nodejs 安装完成之后，将上传到 GitHub / Gitee 中的网站项目 `clone` 到 **home** 目录中;
-- 进入到 `clone` 好的项目，通过 `npm` 对项目进行 **依赖安装** 和 **打包**;
+### 准备前端资源
+
+#### 使用 git 下载资源
+
+- 在 Linux 系统中安装 git;
+
+```bash title="iTerm / cmder 工具"
+# ☘️ 安装 git
+yum install git
+git --version
+```
+
+- 将 GitHub / Gitee 中的网站项目 `clone` 到 **home** 目录中;
+- 进入到 `clone` 好的项目，通过 `npm` 对项目进行 **依赖安装** 和 **打包**(需要安装 npm / cnpm);
 
 ```bash title="iTerm / cmder 工具"
 # ☘️ 将项目克隆到 home 目录中
@@ -193,28 +211,6 @@ cnpm install    # 安装项目依赖
 npm run build   # 项目打包
 ```
 
-:::caution 离谱小贴士
-
-- 有时候项目在 **打包** 时，会因为 **nodejs 内存溢出** 而导致项目打包失败，如图:
-
-<Image src={require('./img/deploy/2022-01-18-iTerm.jpg').default} height={360} />
-
-- 尝试通过 `node --max-old-space-size=[容量(MB)]` 命令来 **扩大 nodejs 内存** 以解决此问题，容量的可选值为 `[4096, 6096, 8192, ...]`， 可在项目的 `package.json` 文件的脚本命令中修改以下代码:
-
-```diff title="项目/package.json"
-{
-    "scripts": {
-        ...,
-        "start": "docusaurus start",
--       "build": "docusaurus build",
-+       "build": "node --max-old-space-size=8192 node_modules/@docusaurus/core/bin/docusaurus build",
-        ...
-    }
-}
-```
-
-:::
-
 - 打完包之后(默认是 **/build** 目录)，将资源目录复制到之前创建好的 **/home/my-website** 目录下，再手动 _[配置 nginx](#nginx-config)_，放置资源，即可完成部署;
 
 ```bash title="iTerm / cmder 工具"
@@ -227,7 +223,7 @@ cp -a github-project/build my-website
 每次项目代码更新后，都得需要在服务器中 **拉取最新代码**，然后重新进行 **打包**，最后再 **迁移 build 目录(个人操作，可省略)**；步骤稍显繁琐;
 :::
 
-#### 使用 SCP 上传本地资源
+#### 使用 SCP 上传资源(推荐)
 
 - `scp` 命令是 Linux 系统中基于 `ssh` 登录进行安全的(加密的)远程文件 **传输或下载**，操作如下:
 
@@ -254,39 +250,16 @@ rm -r build.tar.gz
 
 - 完成上述操作之后，再手动 _[配置 nginx](#nginx-config)_，即可完成部署;
 
-### 配置 nginx {#nginx-config}
+## 宝塔 Linux 面板部署网站(可视化)
 
-- 找到 nginx 的配置文件，使用 `vim` 对其进行编辑，将已放置好的 **前端资源** 部署到服务器中，操作如下:
+> **宝塔面板** 是一个具有可视化界面的 **应用**，专门用来管理云服务器(Linux / Windows 系统)，节省操作服务器的时间和成本，还可以安装和搭建网站，或者安装各种开发环境;
 
-```bash title="iTerm / cmder 工具"
-# ☘️ 进入 nginx 的配置文件
-vim /etc/nginx/nginx.conf
-i      # 输入 i 进入编辑模式
-```
+### 安装宝塔应用
 
-- 需要修改的配置项如下:
+#### 单独安装宝塔
 
-```bash title="nginx.conf 配置文件"
-server {
-    listen       80 default_server;     # 监听的端口号，默认为 80
-    listen       [::]:80 default_server;
-    server_name  _;     # 网站域名
-    root         /home/my-website/build;    # 存放前端资源的目录
-    index        index.html;
-}
-```
-
-- 配置完成之后重启 nginx，在网址中输入 **服务器 IP** 即可访问;
-
-## 服务器使用宝塔 Linux 面板
-
-> **宝塔面板** 是一个可视化界面，专门用来管理云服务器(Linux / Windows 系统)，节省操作服务器的时间和成本，还可以安装和搭建网站，或者安装各种开发环境;
-
-### 安装宝塔面板
-
-#### 独立安装宝塔
-
-- 如果云服务器重装了一个 **系统镜像**，比如 `TencentOS Server`，那么宝塔面板也需要单独安装，并且要保证该操作系统是一个 **纯净的操作系统**，也就是没有安装过 `nginx/mysql/java` 等应用服务器（当然也可以强制安装），操作如下:
+- 如果云服务器中只有一个纯净的 Linux 操作系统，或者是重装了一个 **系统镜像**，比如腾讯云的 `TencentOS Server`，那么就需要单独安装宝塔应用，并且要尽量保证没有安装过 `nginx/mysql/java` 等应用服务器（当然也可以强制安装），操作如下:
+- 👉 _[宝塔官方下载链接](https://www.bt.cn/new/download.html)_
 
 ```bash title="iTerm / cmder 工具"
 # 查看服务器内核（我的服务器内核是 8.4）
@@ -309,7 +282,7 @@ bt
 
 #### 宝塔腾讯云专享版
 
-- 腾讯云服务器内置了 **宝塔应用镜像系统**，只需要在重装系统中选择该应用镜像即可;
+- 腾讯云服务器中内置了 **宝塔应用镜像系统**，只需要在重装系统中选择该应用镜像即可;
 
 <Image src={require('./img/deploy/2022-01-21-system.jpg').default} height={360} />
 
@@ -346,27 +319,28 @@ ssh root@SERVER_IP
 
 :::
 
-### 访问宝塔面板
+### 访问宝塔应用
 
-- 初次访问宝塔面板时，需要 **绑定宝塔账号**，可以按照界面提示进行 _[宝塔账号注册](https://www.bt.cn/register.html)_ 再登录;
+- 初次访问宝塔时，需要 **绑定宝塔账号**，可以按照界面提示进行 _[宝塔账号注册](https://www.bt.cn/register.html)_ 再登录;
 
 - 登录成功之后，就可以在服务器进行快捷的 **应用安装** 或 **网站部署**;
 
-- 为了提高安全性，可以修改进入宝塔的 **安全入口**，**默认端口号**，**默认的账号密码** 等信息;
+- 为了提高安全性，建议修改进入宝塔的 **安全入口**，**默认端口号**，**默认的账号密码** 等信息;
 
 <Image src={require('./img/deploy/2022-01-22.jpg').default} height={360} />
 
-### 前端静态网站部署
+### 网站部署(推荐)
 
-- 宝塔可以直接通过界面操作来部署前端资源，操作简单快捷，首先下载 **nginx** 应用，可以通过初次进入面板时给予的提示自动安装，或者通过 **软件商店** 搜索安装，然后根据实际情况修改其配置文件;
+- 宝塔可直接通过界面操作来部署前端资源，操作简单快捷，首先下载 **nginx** 应用，可以通过初次进入面板时给予的提示自动安装，或者通过 **软件商店** 搜索安装，然后根据实际情况 _[修改其配置文件](#nginx-config)_;
 
-<Image src={require('./img/deploy/2022-01-21-bt.jpg').default} height={360} />
-
-- 部署静态资源时，只需 **添加网站站点**，输入网站的 **域名**，指定前端资源的 **网站目录** 等，就能完成一个静态网站的简单部署;
+- 部署静态资源时，只需以下几步，就能轻松就能完成一个静态网站的简单部署;
+  - 选择页面左侧 **网站** 面板，**添加新的站点**;
+  - 输入网站的 **域名**(无域名，输入 ip 地址即可);
+  - 指定存放前端资源的 **文件目录**;
 
 <Image src={require('./img/deploy/2022-01-22-web-create.jpg').default} height={360} />
 
-- 将本地准备好的前端资源 **上传** 到服务器中（最好提前在本地将资源目录 **打包压缩** 再上传），然后在宝塔的 **文件面板** 中上传并解压到之前指定好的 **网站目录** 操作即可;
+- 将本地准备好的前端资源 **上传** 到服务器中（在本地将资源进行 **打包压缩** 再上传），然后在宝塔的 **文件** 面板中上传并解压到指定的网站目录即可;
 
 ```bash title="iTerm / cmder 工具"
 # 打包并压缩本地资源目录
@@ -376,17 +350,58 @@ tar -czvf build.tar.gz build/
 
 <Image src={require('./img/deploy/2022-01-22-file-panel.jpg').default} />
 
-## 前端自动化部署
+:::caution 离谱小贴士
 
-> 待学习并完善，需要学习 webhooks，node 及 gitee，Jekins 等自动化部署相关技术知识
+- 有时候项目在 **打包** 时，会因为 **nodejs 内存溢出** 而导致项目打包失败，如图:
 
-## 通过域名访问网站
+<Image src={require('./img/deploy/2022-01-18-iTerm.jpg').default} height={360} />
 
-### 购买并注册域名
+- 尝试通过 `node --max-old-space-size=[容量(MB)]` 命令来 **扩大 nodejs 内存** 以解决此问题，容量的可选值为 `[4096, 6096, 8192, ...]`， 可在项目的 `package.json` 文件的脚本命令中修改以下代码:
+
+```diff title="项目/package.json"
+{
+    "scripts": {
+        ...,
+        "start": "docusaurus start",
+-       "build": "docusaurus build",
++       "build": "node --max-old-space-size=8192 node_modules/@docusaurus/core/bin/docusaurus build",
+        ...
+    }
+}
+```
+
+:::
+
+## nginx 配置 📦 {#nginx-config}
+
+- 找到 nginx 的配置文件，使用 `vim` 对其进行编辑，将已放置好的 **前端资源** 部署到服务器中，操作如下:
+
+```bash title="iTerm / cmder 工具"
+# ☘️ 进入 nginx 的配置文件
+vim /etc/nginx/nginx.conf
+i      # 输入 i 进入编辑模式
+```
+
+- 需要修改的配置项如下:
+
+```bash title="nginx.conf 配置文件"
+server {
+    listen       80 default_server;     # 监听的端口号，默认为 80
+    listen       [::]:80 default_server;
+    server_name  _;     # 网站域名
+    root         /home/my-website/build;    # 存放前端资源的目录
+    index        index.html;
+}
+```
+
+- 配置完成之后重启 nginx，在网址中输入 **服务器 IP** 即可访问;
+
+<!-- ## 前端自动化部署
+
+> 待学习并完善，需要学习 webhooks，node 及 gitee，Jekins 等自动化部署相关技术知识 -->
 
 ## 相关链接
 
 - [Linux 常用命令学习 - 菜鸟教程](https://www.runoob.com/w3cnote/linux-common-command-2.html)
 - [Linux vim 编辑的使用 - 菜鸟教程](https://www.runoob.com/linux/linux-vim.html)
 - [Linux yum 命令学习 - 菜鸟教程](https://www.runoob.com/linux/linux-yum.html)
-- [通过 SSH 连接 Linux 服务器提示 `WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED`!](https://cloud.tencent.com/developer/article/1645212)

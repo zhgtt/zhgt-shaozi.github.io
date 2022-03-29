@@ -1,5 +1,5 @@
 /**
- * @Component 图片放大的组件
+ * @description 图片放大的组件
  */
 
 import React from 'react';

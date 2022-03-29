@@ -1,3 +1,7 @@
+/**
+ * @description 代码展示功能
+ */
+
 import React, { useState } from 'react';
 import { Card, Button, Tooltip } from '@arco-design/web-react';
 import { IconCode, IconCodeSandbox } from '@arco-design/web-react/icon';

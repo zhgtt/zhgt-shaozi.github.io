@@ -1,3 +1,7 @@
+/**
+ * @description JavaScript 工具函数
+ */
+
 import { cloneDeep, isEqual } from 'lodash';
 
 // 🍋 获取数组中随机一项

@@ -326,7 +326,8 @@ import { useColorMode } from '@docusaurus/theme-common';
 const Homepage = () => {
   // highlight-start
   const {
-    isDarkTheme, // 当前主题是否为夜间主题
+    colorMode, // 当前主题，只有 'light' 和 'dark' 两值
+    isDarkTheme, // 当前主题是否为夜间主题（将要废弃）
     setLightTheme, // 设置当前主题为日间主题，它是一个函数
     setDarkTheme, // 设置当前主题为夜间主题，它是一个函数
   } = useColorMode();
@@ -334,7 +335,7 @@ const Homepage = () => {
 
   return (
     <>
-      <h2>{isDarkTheme ? '暗黑(夜间)主题' : '日间主题'}</h2>
+      <h2>{colorMode === 'dark' ? '暗黑(夜间)主题' : '日间主题'}</h2>
       <button onClick={() => setDarkTheme()}>切换至夜间主题</button>
     </>
   );

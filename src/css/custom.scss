@@ -71,41 +71,39 @@ body {
 
   // 🍋 以下变量需适配暗夜模式主题
   --ifm-color-primary: rgb(var(--primary-6)); // docusaurus 主题色
-  --ifm-navbar-background-color: var(--color-white);
-  --ifm-footer-background-color: rgb(var(--darkgray-2));
-  --ifm-dropdown-background-color: var(--color-white);
-  --ifm-card-background-color: var(--color-white);
-  // --ifm-color-primary-dark: #21af90;
-  // --ifm-color-primary-darker: #1fa588;
-  // --ifm-color-primary-darkest: #1a8870;
-  // --ifm-color-primary-light: #46cbae;
-  // --ifm-color-primary-lighter: #66d4bd;
-  // --ifm-color-primary-lightest: #92e0d0;
+  // --ifm-navbar-background-color: var(--color-white);
+  // --ifm-footer-background-color: rgb(var(--darkgray-2));
+  // --ifm-dropdown-background-color: var(--color-white);
+  // --ifm-card-background-color: var(--color-white);
 
-  --dino-color-heading: rgb(var(--darkgray-9));
+  --dino-color-heading: rgb(var(--darkgray-9)); // 标题
   --dino-color-body: rgb(var(--darkgray-8));
-  --dino-color-body-bg: var(--color-white);
-  --dino-color-code: rgb(var(--primary-6));
+  // --dino-color-body-bg: var(--color-white);
+  --dino-color-code: rgb(var(--primary-6)); // 代码块
   --dino-color-code-bg: rgba(var(--primary-6), 0.08);
-  --dino-color-browser-bg: rgb(var(--darkgray-1));
-  --dino-color-blockquote: rgb(var(--gray-6));
+  --dino-color-browser-bg: rgb(var(--darkgray-1)); // browser 组件
+  --dino-color-blockquote: rgb(var(--gray-6)); // 引言
+  --dino-color-table-border: var(--color-neutral-3); // table
+  --dino-color-table-th-bg: var(--color-neutral-2);
 }
 
 html[data-theme='dark'] {
   body {
     --ifm-color-primary: rgb(var(--primary-4)); // docusaurus 主题色
-    --ifm-navbar-background-color: rgb(var(--darkgray-8));
-    --ifm-footer-background-color: rgb(var(--darkgray-8));
-    --ifm-dropdown-background-color: rgb(var(--darkgray-8));
-    --ifm-card-background-color: rgb(var(--darkgray-8));
+    // --ifm-navbar-background-color: rgb(var(--darkgray-8));
+    // --ifm-footer-background-color: rgb(var(--darkgray-8));
+    // --ifm-dropdown-background-color: rgb(var(--darkgray-8));
+    // --ifm-card-background-color: rgb(var(--darkgray-8));
 
     --dino-color-heading: rgb(var(--darkgray-3));
     --dino-color-body: rgb(var(--darkgray-3));
-    --dino-color-body-bg: rgb(var(--darkgray-9));
+    // --dino-color-body-bg: rgb(var(--darkgray-9));
     --dino-color-code: rgb(var(--primary-5));
     --dino-color-code-bg: rgba(var(--primary-5), 0.08);
     --dino-color-browser-bg: rgb(var(--darkgray-5));
     --dino-color-blockquote: rgb(var(--darkgray-3));
+    --dino-color-table-border: var(--color-neutral-6);
+    --dino-color-table-th-bg: var(--ifm-table-stripe-background); // rgba(255, 255, 255, 0.07);
   }
 }
 
@@ -131,9 +129,9 @@ html[data-theme='dark'] {
 
 /* Base Styles - 基础样式 */
 /* html 和 body 如果都设置背景色，则 body 之外的背景色依然是 html 的背景色，不会撑满整个网页，所以二者只能选一个设置背景色 */
-* {
-  box-sizing: border-box;
-}
+// * {
+//   box-sizing: content-box;
+// }
 
 html {
   background-color: initial;
@@ -145,7 +143,7 @@ html {
 
 body {
   color: var(--dino-color-body);
-  background-color: var(--dino-color-body-bg);
+  // background-color: var(--dino-color-body-bg);
   font-size: 16px;
   font-family: var(--dino-font-family-secondary);
   margin: 0;
@@ -189,7 +187,6 @@ p {
 
 a {
   @extend .transition-all;
-
   &:hover {
     opacity: 0.85;
   }
@@ -197,6 +194,83 @@ a {
   :not([href]) {
     text-decoration: none;
   }
+}
+
+table {
+  width: 100%;
+  min-width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  display: revert; // 重置，还原
+  table-layout: fixed; // 让 table 宽度有效，但是 td 的宽度会等分，且设置 td 宽度无效
+  margin-bottom: 1.25rem;
+  th,
+  td {
+    border: none;
+  }
+  @mixin commonStyle {
+    box-sizing: border-box;
+    text-align: left;
+    line-height: 1.625;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--dino-color-table-border);
+    border-left: 1px solid var(--dino-color-table-border); // 全部显示边框
+    // &:first-child {
+    //   border-left: 1px solid var(--dino-color-table-border); // 只显示两边的边框
+    // }
+  }
+  > thead > tr {
+    > th {
+      @include commonStyle;
+      font-size: var(--dino-font-size-sm);
+      font-weight: 500;
+      background-color: var(--dino-color-table-th-bg);
+      border-top: 1px solid var(--dino-color-table-border);
+      &:first-child {
+        border-top-left-radius: 4px;
+      }
+      &:last-child {
+        border-top-right-radius: 4px;
+      }
+      &:last-child:not(th[class='arco-table-th']) {
+        border-right: 1px solid var(--dino-color-table-border);
+      }
+    }
+  }
+  > tbody > tr {
+    &:hover > td {
+      background-color: var(--color-fill-1);
+    }
+    &:nth-child(2n) > td {
+      background-color: var(--color-fill-1);
+    }
+    > td {
+      @include commonStyle;
+      background-color: var(--color-bg-2);
+      transition: background-color 0.2s;
+      font-size: 13px;
+      &:last-child:not(td[class='arco-table-td']) {
+        border-right: 1px solid var(--dino-color-table-border);
+      }
+      code {
+        font-size: var(--dino-font-size-xs);
+      }
+    }
+  }
+}
+
+code:not(code[class^='codeBlockLines_']) {
+  word-break: break-word;
+  border-radius: 2px;
+  overflow-x: auto;
+  background-color: var(--dino-color-code-bg);
+  color: var(--dino-color-code);
+  padding: 0 5px;
+  border: none;
+  margin-top: -3px;
+  line-height: 17px;
+  height: 17px;
+  vertical-align: middle;
 }
 
 strong {
@@ -208,16 +282,14 @@ strong {
   }
 }
 
-/* Card 卡片 */
-.card {
-  &:hover {
-    background-color: transparent;
-  }
-}
-
-/* 索引页面 - card */
+/* 文档索引页面的 Card 卡片 */
 article > a[class*='cardContainer_'] {
-  justify-content: space-between;
+  > h2 {
+    margin-bottom: 1rem;
+  }
+  // &:hover {
+  //   background-color: transparent;
+  // }
 }
 
 /* 响应式 */
@@ -253,23 +325,5 @@ $--dino-2xl: 1536px;
       background: transparent;
       border-radius: 0;
     }
-  }
-}
-
-/* github 图标样式 */
-.header-github-link:before {
-  content: '';
-  width: 20px;
-  height: 24px;
-  display: flex;
-  // https://fontawesome.com/license 图标库
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url(@site/static/img/github.svg);
-}
-html[data-theme='dark'] {
-  .header-github-link:before {
-    background-image: url(@site/static/img/github-dark.svg);
   }
 }

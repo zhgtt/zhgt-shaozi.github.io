@@ -1,5 +1,5 @@
 /**
- * @component 基于 iconfont.cn 的图标组件
+ * @description 基于 iconfont.cn 的图标组件
  */
 
 import React from 'react';

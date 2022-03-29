@@ -9,15 +9,21 @@ import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 import { Button, Menu } from '@arco-design/web-react';
+import axios from 'axios';
 
 import { Lottie_Dashboard_2 } from '@site/src/utils/lotties';
 import styles from './styles.module.scss';
-import './index.scss';
 
 const Homepage = () => {
   const { siteConfig } = useDocusaurusContext();
   console.log('siteConfig: ', siteConfig);
   console.log('useColorMode: ', useColorMode);
+
+  const handleClick = () => {
+    axios.get('https://getman.cn/mock/route/to/demo').then((response) => {
+      console.log(response);
+    });
+  };
 
   return (
     <Layout
@@ -49,31 +55,7 @@ const Homepage = () => {
           <div className={styles.content}>安静圣诞节爱神的箭as的哈</div>
         </div>
 
-        <div className='tab-pane fade dialog-record' id='dialogRecord'>
-          <div id='record'>
-            <div className='dialog'>
-              {/* <span className='time'>{$record.time}</span>
-              <span className='text'>{$record.asr}</span> */}
-              <div className='dialog-container'>
-                <div className='audio-animation'>
-                  <div id='one'></div>
-                  <div id='two'></div>
-                  <div id='three'></div>
-                  <div id='four'></div>
-                </div>
-              </div>
-              {/* <audio className='audio'>
-                <source src='{$record.audition_url}' />
-              </audio> */}
-              <audio
-                src={
-                  'https://image-standard-mtd1.zacz.cn/tn01/music/music/20220119/0c687c5c5513fd3f9340d30d195085ee.mp3'
-                }
-              />
-              <div className='focus'></div>
-            </div>
-          </div>
-        </div>
+        <Button onClick={handleClick}>按钮</Button>
       </main>
     </Layout>
   );

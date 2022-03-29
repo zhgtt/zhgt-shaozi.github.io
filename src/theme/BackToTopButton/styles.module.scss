@@ -1,7 +1,9 @@
 .backToTopButton {
   right: 1.5rem;
   bottom: 2.5rem;
-  background-color: var(--dino-color-body-bg);
+  // background-color: var(--dino-color-body-bg);
+  background-color: var(--ifm-navbar-background-color);
+  background-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
   border: 2px solid;
   border-color: var(--color-text-1);
   transform: scale(0); // 缩放
