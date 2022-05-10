@@ -9,10 +9,8 @@ sidebar_position: 1
 <img src={require('./img/react-component/wallhaven.png').default} style={{ maxHeight: 360 }} />
 
 ```mdx-code-block
-import BrowserWindow from '@site/src/components/BrowserWindow';
 import CodePreview from '@site/src/components/CodePreview';
 import Demo from '@site/src/components/Demo';
-import { todoListCode, todoListEditCode, todoListCssCode } from './codeString';
 ```
 
 ## TodoList 组件
@@ -31,6 +29,12 @@ import { todoListCode, todoListEditCode, todoListCssCode } from './codeString';
 :::
 
 组件示例:
+
+```mdx-code-block
+import todoListCode from '!!raw-loader!@site/src/components/Demo/TodoList';
+import todoListEditCode from '!!raw-loader!@site/src/components/Demo/TodoList/Editable';
+import todoListCssCode from '!!raw-loader!@site/src/components/Demo/TodoList/styles.module.scss';
+```
 
 <CodePreview
   codeBlock={[

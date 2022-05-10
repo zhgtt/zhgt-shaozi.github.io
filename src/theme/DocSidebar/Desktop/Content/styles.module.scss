@@ -1,10 +1,17 @@
+// ✅ 该文件无修改内容
 @media (min-width: 997px) {
   .menu {
-    padding: 0.5rem 0.875rem;
     flex-grow: 1;
+    padding: 0.5rem;
+  }
+  @supports (scrollbar-gutter: stable) {
+    .menu {
+      padding: 0.5rem 0 0.5rem 0.5rem;
+      scrollbar-gutter: stable;
+    }
   }
 
-  // .menuWithAnnouncementBar {
-  //   margin-bottom: var(--docusaurus-announcement-bar-height);
-  // }
+  .menuWithAnnouncementBar {
+    margin-bottom: var(--docusaurus-announcement-bar-height);
+  }
 }

@@ -3,6 +3,7 @@
   overflow-x: hidden;
   overflow-y: hidden;
   font-weight: 500;
+  padding: 0.5rem 0.875rem !important;
   &:hover {
     overflow-y: auto;
   }
@@ -35,6 +36,7 @@
     .menu__link {
       line-height: 2.5rem;
       padding: 0 var(--ifm-menu-link-padding-horizontal);
+      justify-content: space-between;
     }
     .menu__link--active {
       color: var(--ifm-color-primary) !important;
@@ -53,4 +55,34 @@
       margin: auto 0;
     }
   }
+}
+
+/* 展开 / 收起侧边栏的按钮 */
+.collapse-sidebar-btn,
+.expand-sidebar-btn {
+  position: absolute;
+  top: 240px;
+  right: -13px;
+  z-index: 2;
+  background: var(--ifm-navbar-background-color);
+  border: 1px solid var(--color-fill-3);
+  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
+  transition: all 0.15s;
+  border-radius: 100%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.collapse-sidebar-btn-icon,
+.expand-sidebar-btn-icon {
+  font-size: 0.875rem;
+  color: var(--color-text-2);
 }

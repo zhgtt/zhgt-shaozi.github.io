@@ -41,7 +41,7 @@ html[data-theme='dark'] {
   max-height: 1200px;
   overflow-y: auto;
   background-color: rgb(246, 248, 250);
-  > div[class^='codeBlockContainer_'] {
+  > div[class*='codeBlockContainer_'] {
     border-radius: 0;
     margin-bottom: 0;
     box-shadow: none;
@@ -53,9 +53,9 @@ html[data-theme='dark'] {
       padding-bottom: 0;
     }
   }
-  div[class^='codeBlockTitle_'] {
+  div[class*='codeBlockTitle_'] {
   }
-  div[class^='codeBlockContent_'] {
+  div[class*='codeBlockContent_'] {
     max-height: initial !important;
     overflow-y: initial !important;
   }

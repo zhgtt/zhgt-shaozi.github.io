@@ -57,11 +57,24 @@ function ExampleComponent(props) {
 
 ### 数组根据指定值进行过滤
 
-对象数组根据另一个数组中的值进行匹配并过滤，只保留没有匹配到的数据;
+对象数组根据另一个数组中的值进行匹配，保留没有匹配到的数据;
 
 ```jsx title="代码实现"
 export const _dataFilter = (arr: any[], codeList: string[]) => {
   return arr.filter((item) => !codeList.includes(item?.code));
+};
+```
+
+### 数组的多条件查询 & 筛选
+
+在一些查询表格的场景中，可能需要前端来处理查询逻辑，并且条件可能还不止一个;
+
+```jsx title="代码实现"
+export const _productFilter = (data: any[], params = {}) => {
+  // params 表示查询的条件参数，有一个对象组成
+  const Keys = Object.keys(params); // 将查询的条件参数转为数组
+
+  return data.filter((item) => Keys.every((key) => item[key] && item[key].includes(params[key]))); // 通过 every 来校验数据中是否有其对应的查询条件
 };
 ```
 
@@ -70,20 +83,19 @@ export const _dataFilter = (arr: any[], codeList: string[]) => {
 ```jsx live
 function ExampleComponent(props) {
   const array = [
-    { name: '微信', code: 'whect' },
-    { name: 'BOSS直聘', code: 'boss' },
-    { name: '钉钉', code: 'dingtalk' },
-    { name: '京东金融', code: 'jingdong' },
-  ];
-  const codeList = [
-    { name: 'BOSS直聘', code: 'boss' },
-    { name: '京东金融', code: 'jingdong' },
+    { name: 'Dino', city: '武汉' },
+    { name: 'Duo', city: '杭州' },
+    { name: 'Anna', city: '杭州' },
   ];
 
-  const [value, setValue] = useState();
-  const codeMap = codeList.map((item) => item.code);
+  const [value, setValue] = useState({});
 
-  return <ResultButton results={value} onClick={() => setValue(_dataFilter(array, codeMap))} />;
+  return (
+    <ResultButton
+      results={value}
+      onClick={() => setValue(_productFilter(array, { name: 'Duo', city: '杭州' }))}
+    />
+  );
 }
 ```
 
@@ -572,6 +584,12 @@ function ExampleComponent(props) {
 }
 ```
 
+:::tip 参考资料
+
+- [如何写出一个惊艳面试官的深拷贝? - 掘金](https://juejin.cn/post/6844903929705136141)
+
+:::
+
 ## 比较
 
 ### 比较两组数据是否全等
@@ -661,5 +679,3 @@ function ExampleComponent(props) {
 ### 冒泡排序
 
 ## 相关链接
-
-- [如何写出一个惊艳面试官的深拷贝? - 掘金](https://juejin.cn/post/6844903929705136141)

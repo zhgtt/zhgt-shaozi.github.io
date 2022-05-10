@@ -121,13 +121,6 @@ html[data-theme='dark'] body {
 }
 
 /* 修改 arco-design 的部分默认样式 & 对 Docusaurus 的样式做一些兼容 */
-@media (min-width: 992px) {
-  .arco-col-lg-6 {
-    width: 25%;
-    flex: 0 0 25%;
-    display: block;
-  }
-}
 // 分割线
 .arco-divider-horizontal.arco-divider-with-text {
   margin: 0.625rem 0;

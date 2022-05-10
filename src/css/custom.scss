@@ -20,15 +20,17 @@
 @import './docusaurus-theme/table-of-contents.scss'; // 右侧目录
 @import './docusaurus-theme/admonition.scss'; // 告示框
 
-$svgBase: 'data:image/svg+xml;charset=UTF-8,';
+/* 霞鹜文楷 - 开源字体 https://github.com/lxgw/LxgwWenKai */
+@font-face {
+  font: {
+    family: 'lxgw-wenkai';
+    weight: normal;
+    style: normal;
+  }
+  src: url(@site/static/fonts/LXGWWenKai-Regular.ttf);
+}
 
 :root {
-  --ifm-navbar-padding-horizontal: 1rem; // navbar 水平方向的 padding
-  --ifm-navbar-height: 3.75rem; // navbar 高度
-  --ifm-menu-link-padding-horizontal: 0.875rem; // menu link 水平方向的 padding
-  --doc-sidebar-width: 272px; // 展开的 menu 宽度
-  --doc-sidebar-hidden-width: 16px; // 收起的 menu 宽度
-
   /* Font */
   --dino-font-weight-thin: 100;
   --dino-font-weight-light: 300;
@@ -47,18 +49,22 @@ $svgBase: 'data:image/svg+xml;charset=UTF-8,';
   --dino-font-size-4xl: 2.25rem; // 36px
   --dino-font-size-5xl: 3rem; // 48px
 
-  --dino-font-family-base: 'FZZJ-QNTJW', sans-serif;
-  --dino-font-family-secondary: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue,
-    PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-}
-
-body {
   --darkgray-1: 235, 237, 240;
   --darkgray-2: 247, 248, 250;
   --darkgray-3: 229, 230, 235;
   --darkgray-5: 68, 73, 80;
   --darkgray-8: 31, 41, 55;
   --darkgray-9: 17, 24, 39;
+}
+
+body {
+  --dino-font-family-base: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
+    Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  // --dino-font-family-base: 'lxgw-wenkai';
+
+  --ifm-navbar-padding-horizontal: 1rem; // navbar 水平方向的 padding
+  --ifm-navbar-height: 3.75rem; // navbar 高度
+  --ifm-menu-link-padding-horizontal: 0.875rem; // menu link 水平方向的 padding
 
   --ifm-navbar-link-color: var(--color-text-1);
   --ifm-link-color: var(--ifm-color-primary);
@@ -75,6 +81,7 @@ body {
   // --ifm-footer-background-color: rgb(var(--darkgray-2));
   // --ifm-dropdown-background-color: var(--color-white);
   // --ifm-card-background-color: var(--color-white);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1); // 代码高亮区域背景色
 
   --dino-color-heading: rgb(var(--darkgray-9)); // 标题
   --dino-color-body: rgb(var(--darkgray-8));
@@ -94,6 +101,7 @@ html[data-theme='dark'] {
     // --ifm-footer-background-color: rgb(var(--darkgray-8));
     // --ifm-dropdown-background-color: rgb(var(--darkgray-8));
     // --ifm-card-background-color: rgb(var(--darkgray-8));
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3); // 代码高亮区域背景色
 
     --dino-color-heading: rgb(var(--darkgray-3));
     --dino-color-body: rgb(var(--darkgray-3));
@@ -105,26 +113,6 @@ html[data-theme='dark'] {
     --dino-color-table-border: var(--color-neutral-6);
     --dino-color-table-th-bg: var(--ifm-table-stripe-background); // rgba(255, 255, 255, 0.07);
   }
-}
-
-/* 方正莎儿硬笔简体 */
-@font-face {
-  font: {
-    family: 'FZSEYBJW';
-    weight: normal;
-    style: normal;
-  }
-  src: url(@site/static/fonts/FZSEYBJW.ttf);
-}
-
-/* 方正字迹-青柠体 简 */
-@font-face {
-  font: {
-    family: 'FZZJ-QNTJW';
-    weight: normal;
-    style: normal;
-  }
-  src: url(@site/static/fonts/FZZJ-QNTJW.ttf);
 }
 
 /* Base Styles - 基础样式 */
@@ -145,7 +133,7 @@ body {
   color: var(--dino-color-body);
   // background-color: var(--dino-color-body-bg);
   font-size: 16px;
-  font-family: var(--dino-font-family-secondary);
+  font-family: var(--dino-font-family-base);
   margin: 0;
   line-height: initial;
   box-sizing: border-box;
@@ -172,7 +160,7 @@ $heading-list: (
   h#{$key} {
     font-size: $size;
     font-weight: var(--dino-font-weight-bold);
-    font-family: var(--dino-font-family-secondary);
+    font-family: var(--dino-font-family-base);
     color: var(--dino-color-heading);
     margin: 0;
     position: relative;
@@ -265,15 +253,18 @@ code:not(code[class^='codeBlockLines_']) {
   overflow-x: auto;
   background-color: var(--dino-color-code-bg);
   color: var(--dino-color-code);
-  padding: 0 5px;
+  padding: 1px 5px;
   border: none;
   margin-top: -3px;
   line-height: 17px;
   height: 17px;
   vertical-align: middle;
+  font-family: var(--dino-font-family-base);
+  letter-spacing: 1px;
 }
 
-strong {
+strong,
+b {
   border-bottom-style: dashed;
   border-bottom-width: 1px;
 
@@ -290,6 +281,13 @@ article > a[class*='cardContainer_'] {
   // &:hover {
   //   background-color: transparent;
   // }
+}
+
+/* 面包屑导航 */
+.breadcrumbs,
+.breadcrumbs__item {
+  display: flex;
+  align-items: center;
 }
 
 /* 响应式 */

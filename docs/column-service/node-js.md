@@ -1,15 +1,14 @@
 ---
 title: Node.js 入门
-id: node-introduction
-sidebar_position: 1
+id: nodejs-introduction
 toc_max_heading_level: 4
 ---
 
 ```mdx-code-block
-import Text from '@site/src/components/Text';
+
 ```
 
-> 本章节会简单的介绍 NodeJs 中的部分核心模块，以及本地搭建一个简易的 Web 服务器，并尝试连接数据库和真实的服务器;
+> 本章节会简单的介绍 NodeJs 中的部分核心模块，以及本地搭建一个简易的 Web 服务器，并尝试连接数据库;
 
 ## NodeJs 简介
 
@@ -199,41 +198,65 @@ http.request(url?: string, options?: Object, callback: (response: http.IncomingM
 - 使用该方法时，必须要始终调用 `http.request().end()` 方法来表示请求的 **结束**;
 - 参数 `options` 中的常用属性如下，更多属性可查看 [_官方文档_](http://nodejs.cn/api/http.html#httprequesturl-options-callback)
 
-| 属性(方法)            | 类型     | 描述                                                |
-| --------------------- | -------- | --------------------------------------------------- |
-| <Text>host</Text>     | `string` | 发起请求的服务器的域名，IP 地址，默认为 `localhost` |
-| <Text>hostname</Text> | `string` | <Text>host</Text> 的别名，优先于 <Text>host</Text>  |
-| <Text>port</Text>     | `string` | 远程服务器的端口号，默认为 `80`                     |
-| <Text>path</Text>     | `string` | 发起请求的路径，默认为 `/`                          |
-| <Text>method</Text>   | `string` | 指定 HTTP 的请求方式，默认为 `GET`                  |
-| <Text>headers</Text>  | `object` | 设置请求头                                          |
+| 属性(方法) | 类型     | 描述                                                |
+| ---------- | -------- | --------------------------------------------------- |
+| `host`     | `string` | 发起请求的服务器的域名，IP 地址，默认为 `localhost` |
+| `hostname` | `string` | `host` 的别名，优先于 `host`                        |
+| `port`     | `string` | 远程服务器的端口号，默认为 `80`                     |
+| `path`     | `string` | 发起请求的路径，默认为 `/`                          |
+| `method`   | `string` | 指定 HTTP 的请求方式，默认为 `GET`                  |
+| `headers`  | `object` | 设置请求头                                          |
 
 - **用法示例**:
 
 ```js
+// 采用官方文档中的 示例
 const http = require('http');
+const server = http.createServer();
+
+// POST 请求所需的参数，需是 JSON 字符串
+const postData = JSON.stringify({
+  msg: 'Hello World! 😄',
+  date: '2022-03-29',
+});
 
 const options = {
-  hostname: '',
+  hostname: 'nodejs.cn',
+  port: 80,
+  path: '/upload',
   method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Length': Buffer.byteLength(postData),
+  },
 };
 
 const req = http
   .request(options, (res) => {
+    console.log(`状态码: ${res.statusCode}`);
+    console.log(`响应头: ${JSON.stringify(res.headers)}`);
+
     res.setEncoding('utf8');
+
+    let body = '';
     res.on('data', (chunk) => {
-      console.log(`响应主体: ${chunk}`);
+      console.log('chunk: ', chunk);
+      body += chunk;
     });
-    res.on('end', () => {});
+    res.on('end', () => {
+      console.log(`响应主体: ${body}`);
+    });
   })
   .on('error', (err) => {
     console.log('err: ', err.message);
   });
 
+// 写入数据到请求主体（相当于在 POST 请求中，将定义好的 postData 作为参数传递出去）
+req.write(postData);
+
 // 结束请求（必须调用）
 req.end();
 
-const server = http.createServer();
 server.listen(3333);
 ```
 

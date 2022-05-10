@@ -1,5 +1,7 @@
 /**
- * @description 侧边栏内容
+ * @description 桌面端侧边栏 - 菜单内容
+ *
+ * @代码修改内容 ✅ 新增 dino-menu-nav 类名，注释掉了 showAnnouncementBar 相关代码
  */
 
 import React, { useState } from 'react';

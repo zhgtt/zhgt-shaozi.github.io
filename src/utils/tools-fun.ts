@@ -308,3 +308,10 @@ export const _isEqual = (origin, target, originStack = [], targetStack = []): bo
   if (keys.length !== Object.keys(target).length) return false;
   return keys.every((k) => _isEqual(origin[k], target[k]));
 };
+
+// 多条件筛选数据
+export const _productFilter = (data: any[], params = {}) => {
+  const Keys = Object.keys(params);
+
+  return data.filter((item) => Keys.every((key) => item[key] && item[key].includes(params[key])));
+};

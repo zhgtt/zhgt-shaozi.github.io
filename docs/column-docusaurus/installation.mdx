@@ -12,8 +12,6 @@ import { Image } from '@arco-design/web-react';
 
 > 本章节学习 Docusaurus 项目的创建 & 配置
 
-![Example Image](./img/installaction/Docusaurus2.jpg)
-
 ## 创建本地项目
 
 - 通过 **docusaurus 脚手架** 创建本地项目，搭建 Docusaurus 网站，如下：
@@ -211,6 +209,9 @@ module.exports = {
   plugins: [
     // highlight-next-line
     'docusaurus-plugin-sass',    // 配置 sass 相关插件
+    // 或使用以下写法
+    // highlight-next-line
+    [require.resolve('docusaurus-plugin-sass'), { /* options... */ }]
   ],
 };
 ```
@@ -221,32 +222,173 @@ module.exports = {
 
 ### 常用配置项
 
-| 配置项               | 类型                              | 默认值            | 常用 | 描述                                                                                                                            |
-| :------------------- | :-------------------------------- | ----------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `title`              | `string`                          |                   | ✅   | 网站的标题，会显示在浏览器的标签页上                                                                                            |
-| `url`                | `string`                          |                   | ✅   | 网站的网址，部署之后的网址                                                                                                      |
-| `baseUrl`            | `string`                          | `'/'`             | ✅   | 基于 `url` 的基础路径，也就是 `url` 后的路径，如果没有额外路径时，配置为 `/` 即可，配置时字符串前后都需要加 `/`，例如 `/metro/` |
-| `favicon`            | `string`                          |                   | ✅   | 浏览器标签页上显示的图标 logo，可直接取 `/static` 下的文件                                                                      |
-| `i18n`               | `Object`                          |                   | ✅   | 网站的 **国际化** 配置，具体内容见下方 _[常用配置项示例](#config-example)_                                                      |
-| `noIndex`            | `boolean`                         | `false`           |      | 如果开启此参数，Docusaurus 将在页面中添加 `<meta name="robots" content="noindex, nofollow">`，以告知搜索引擎不要索引该网站      |
-| `tagline`            | `string`                          |                   | ✅   | 网站的标语 或 副标题                                                                                                            |
-| `organizationName`   | `string`                          |                   | ✅   | 拥有该项目源码仓库的 Github 用户或组织，**部署** 时会用到该参数                                                                 |
-| `projectName`        | `string`                          |                   | ✅   | 该项目源码仓库的 Github 名称，**部署** 时会用到该参数                                                                           |
-| `themeConfig`        | `Object`                          |                   | ✅   | 主题配置，可以用来自定义网站的 UI，比如 **顶部导航栏**，**底部内容** 等，具体内容见下方 _[themeConfig 配置项](#theme-config)_   |
-| `plugins`            | `any[]`                           |                   | ✅   | 插件配置，可添加一些和 Docusaurus 相关的依赖包及对应的参数                                                                      |
-| `themes`             | `any[]`                           |                   | ✅   | 可添加一些额外的主题插件依赖包，及对应的参数                                                                                    |
-| `presets`            | `any[]`                           |                   | ✅   | 预设配置，可为 预设 所包含的插件或主题配置其对应的参数                                                                          |
-| `customFields`       | `Object`                          |                   |      | Docusaurus 不允许在配置文件中添加 未知字段，如需添加 **自定义字段**，可在该参数中进行配置                                       |
-| `scripts`            | <code>(string \| Object)[]</code> |                   |      | 如需添加额外的 **js 脚本** 时，可使用该参数，会生成 `<script>` 标签，自动插入到 HTML `<head>` 标签中                            |
-| `stylesheets`        | <code>(string \| Object)[]</code> |                   |      | 如需添加额外的 **css 资源** 时，可使用该参数，会生成 `<link>` 标签，自动插入到 HTML `<head>` 标签中                             |
-| `titleDelimiter`     | `string`                          | <code>'\|'</code> | ✅   | 用来指定浏览器标签页标题中的 **分隔符**                                                                                         |
-| `baseUrlIssueBanner` | `boolean`                         | `true`            |      | 当网站无法加载 CSS 或 JavaScript 文件时，则会在页面上显示一段内容来通知此问题（此问题一般由 `baseUrl` 配置错误引起）            |
-| `clientModules`      | `any[]`                           |                   |      | 配置 **模块** 列表，用于网站全局加载                                                                                            |
+| 配置项               | 类型                              | 描述                                                                                                                            | 是否常用 |
+| :------------------- | :-------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `title`              |                                   | 网站的标题，会显示在浏览器的标签页上                                                                                            | ✅       |
+| `url`                |                                   | 网站的网址，部署之后的网址                                                                                                      | ✅       |
+| `baseUrl`            |                                   | 基于 `url` 的基础路径，也就是 `url` 后的路径，如果没有额外路径时，配置为 `/` 即可，配置时字符串前后都需要加 `/`，例如 `/metro/` | ✅       |
+| `favicon`            |                                   | 浏览器标签页上显示的图标 logo，可直接取 `/static` 下的文件                                                                      | ✅       |
+| `i18n`               | `Object`                          | 网站的 **国际化** 配置，具体内容见下方 _[代码示例](#config-example)_                                                            |          |
+| `noIndex`            | `Boolean`                         | 如果开启此参数，Docusaurus 将在页面中添加 `<meta name="robots" content="noindex, nofollow">`，以告知搜索引擎不要索引该网站      |          |
+| `tagline`            |                                   | 网站的标语 或 **副标题**                                                                                                        |          |
+| `organizationName`   |                                   | 拥有该项目源码仓库的 Github 用户或组织，**部署** 时会用到该参数                                                                 |          |
+| `projectName`        |                                   | 该项目源码仓库的 Github 名称，**部署** 时会用到该参数                                                                           |          |
+| `themeConfig`        | `Object`                          | 主题配置，可以用来自定义网站的 UI，比如 **顶部导航栏**，**底部内容** 等，具体内容见下方 _[themeConfig 配置项](#theme-config)_   | ✅       |
+| `plugins`            | `any[]`                           | 插件配置，可添加一些和 Docusaurus 相关的依赖包及对应的参数                                                                      | ✅       |
+| `themes`             | `any[]`                           | 可添加一些额外的主题插件依赖包，及对应的参数                                                                                    | ✅       |
+| `presets`            | `any[]`                           | 预设配置，可为 预设 所包含的插件或主题配置其对应的参数                                                                          | ✅       |
+| `customFields`       | `Object`                          | Docusaurus 不允许在配置文件中添加 未知字段，如需添加 **自定义字段**，可在该参数中进行配置                                       |          |
+| `scripts`            | <code>(string \| Object)[]</code> | 如需添加额外的 **js 脚本** 时，可使用该参数，会生成 `<script>` 标签，自动插入到 HTML `<head>` 标签中                            | ✅       |
+| `stylesheets`        | <code>(string \| Object)[]</code> | 如需添加额外的 **css 资源** 时，可使用该参数，会生成 `<link>` 标签，自动插入到 HTML `<head>` 标签中                             | ✅       |
+| `titleDelimiter`     |                                   | 用来指定浏览器标签页标题中的 **分隔符**                                                                                         |          |
+| `baseUrlIssueBanner` | `Boolean`                         | 当网站无法加载 CSS 或 JavaScript 文件时，则会在页面上显示一段内容来通知此问题（此问题一般由 `baseUrl` 配置错误引起）            |          |
+| `clientModules`      | `any[]`                           | 配置 **模块** 列表，用于网站全局加载                                                                                            |          |
 
-### 常用配置项示例 {#config-example}
+:::tip 举个栗子，如果把参数 `baseUrl` 配置为 `/metro/` 之后，会出现以下几种情况
 
-```jsx title="docusaurus.config.js"
-/** @type {import('@docusaurus/types').Config} */
+- 项目编译后，线上项目的根目录下会多一个 **metro** 目录，用来存放当前页面的 **源代码**；
+- 网站的基础路径会随之改变，例如 **首页** 变为 `http://localhost:3000/metro`；
+- 由于项目编译后，会将本地的 **static** 目录下的文件暴露在线上项目的 **根目录** 下，所以网站的静态资源路径会随之改变，例如 `favicon` 属性由原来的 **img/favicon.ico** 需改为 **../img/favicon.ico**；
+
+<Image src={require('./img/installaction/2021-11-03.jpeg').default} width='90%' />
+
+:::
+
+### `themeConfig` 配置项 {#theme-config}
+
+| 配置项            | 类型         | 描述                                                                                                                                    | 是否常用 |
+| ----------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `docs`            | `Object`     | **文档页面** 的配置项，比如侧边栏，版本号等，详情可查看下方 _[文档页面](#themeConfig-docs)_ 配置项                                      | ✅       |
+| `colorMode`       | `Object`     | **主题色(日间模式 / 夜间模式)** 的相关配置项，详情可查看下方 _[主题色](#themeConfig-colorMode)_ 配置项                                  | ✅       |
+| `announcementBar` | `Object`     | **顶部公告条** 的配置项，可在网站的最顶部显示一些内容，并且可以自由关闭，详情可查看下方 _[公告条](#themeConfig-announcementBar)_ 配置项 | ✅       |
+| `navbar`          | `Object`     | **导航栏** 的配置项 ，详情可查看下方 _[导航栏](#themeConfig-navbar)_ 配置项                                                             | ✅       |
+| `footer`          | `Object`     | **底部内容** 的配置项 ，详情可查看下方 _[底部内容](#themeConfig-footer)_ 配置项                                                         | ✅       |
+| `image`           |              | 自定义 `<meta>` 标签的默认图片地址                                                                                                      |          |
+| `metadatas`       | `Metadata[]` | 自定义 `<meta>` 标签中 **HTML 元数据**，并覆盖已有的元数据，比如 `name`，`id`，`content` 等属性                                         |          |
+| `prism`           | `Object`     | **代码块主题 & 语言** 的配置项，详情可查看下方 _[代码块](#themeConfig-prism)_ 配置项                                                    | ✅       |
+| `tableOfContents` | `Object`     | 文档右侧的 **TOC 目录** 的全局配置项，详情可查看下方 _[TOC 目录](#themeConfig-toc)_ 配置项                                              |          |
+
+:::tip 离离原上谱
+`themeConfig` 除了上述的配置项外，还可以额外配置 `themes` 中注册的主题插件或 Docusaurus 自带的主题插件，可查看下方 _[themeConfig 配置项示例](#themeConfig-example)_；
+:::
+
+#### 顶部导航栏 `navbar` {#themeConfig-navbar}
+
+| 配置项         | 类型                             | 描述                                                                                     | 是否常用 |
+| -------------- | -------------------------------- | ---------------------------------------------------------------------------------------- | -------- |
+| `hideOnScroll` | `boolean`                        | 页面滚动时是否 **收起导航栏**                                                            | ✅       |
+| `title`        |                                  | 导航栏左侧的标题                                                                         |          |
+| `logo`         | `Object`                         | **导航栏图标** 的配置项，详情可查看下方 _[navbar.logo 配置项](#themeConfig-navbar-logo)_ | ✅       |
+| `items`        | `NavbarItem[]`                   | 导航栏菜单的集合，详情可查看下方 _[navbar.items 配置项](#themeConfig-navbar-items)_      | ✅       |
+| `style`        | <code>'primary' \| 'dark'</code> | 设置导航栏主题色，会忽略 light / dark 模式的主题色                                       |          |
+
+##### `navbar.logo` 配置项 {#themeConfig-navbar-logo}
+
+| 配置项    | 类型                          | 描述                                                    | 是否常用 |
+| --------- | ----------------------------- | ------------------------------------------------------- | -------- |
+| `alt`     |                               | 同 `<image />` 的 `alt` 属性                            |          |
+| `src`     |                               | 同 `<image />` 的 `src` 属性，**图标路径地址**          | ✅       |
+| `srcDark` |                               | 同 `<image />` 的 `src` 属性，**夜间模式** 下的图标路径 |          |
+| `href`    |                               | 点击 logo 时需要跳转的链接                              |          |
+| `target`  |                               | 同 `<a />` 的 `target` 属性，跳转页面的方式             |          |
+| `width`   | <code>string \| number</code> | 指定 logo 的宽度，默认为 `32`                           |          |
+| `height`  | <code>string \| number</code> | 指定 logo 的高度，默认为 `32`                           |          |
+
+##### `navbar.items` 配置项(部分) {#themeConfig-navbar-items}
+
+| 配置项                 | 类型                           | 描述                                                                                                                                                        | 是否常用 |
+| ---------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `label`                |                                | 菜单的名称                                                                                                                                                  | ✅       |
+| `html`                 |                                | 同 `label` 属性，但它表现形式为 html                                                                                                                        |          |
+| `position`             | <code>'left' \| 'right'</code> | 菜单在导航栏的位置，显示在左侧 或 右侧，默认为 `left`                                                                                                       | ✅       |
+| `to`                   |                                | 菜单跳转的路由地址，基于 `baseUrl` 路径，也就是 `baseUrl` 的值会自动放置到该属性前                                                                          | ✅       |
+| `href`                 |                                | 菜单跳转的 **外链地址**，会自动添加 `target='_blank'` 属性，并且和 `to` 属性 **只能选其一**                                                                 | ✅       |
+| `prependBaseUrlToHref` | `boolean`                      | 是否将 `baseUrl` 的值放置到 `href` 属性前，默认为 `false`                                                                                                   |          |
+| `className`            |                                | 自定义菜单的 **类名**                                                                                                                                       |          |
+| `items`                | `NavbarItem[]`                 | 定义 **子菜单** 的集合，会生成一个带有下拉框选项的菜单，配置项同 `navbar.items`                                                                             | ✅       |
+| `type`                 |                                | 定义 **菜单的类型**，除了普通的菜单类型外，Docusaurus 还提供了其他几种不同的类型，具体内容可查看下方 _[NavbarItem.type 类型介绍](#themeConfig-navbar-type)_ | ✅       |
+| `docId`                |                                | 当菜单的类型为 `doc` 时使用，表示文档的唯一标识 `id`;                                                                                                       | ✅       |
+| `sidebarId`            |                                | 指定该菜单属于哪个菜单组（`sidebars.js` 文件中的 `key` 值）                                                                                                 | ✅       |
+| `dropdownItemsBefore`  | `NavbarItem[]`                 | 当菜单的类型为 `docsVersionDropdown` 或 `localeDropdown` 时使用，表示该下拉框菜单中 **默认值 之前** 的内容集合                                              |          |
+| `dropdownItemsAfter`   | `NavbarItem[]`                 | 当菜单的类型为 `docsVersionDropdown` 或 `localeDropdown` 时使用，表示该下拉框菜单中 **默认值 之后** 的内容集合                                              |          |
+| `value`                |                                | 当菜单的类型为 `html` 时使用，表示自定义 html 代码                                                                                                          |          |
+
+##### `NavbarItem.type` 可指定的值如下 {#themeConfig-navbar-type}
+
+| 值(菜单类型)          | 描述                                                                                                   | 是否常用 |
+| --------------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `doc`                 | 文档类型，表示该菜单跳转的是一个文档，必须和 `docId` 搭配使用                                          | ✅       |
+| `dropdown`            | 下拉框菜单                                                                                             | ✅       |
+| `docsVersionDropdown` | 下拉框菜单，定义文档默认 **版本号** 和其他版本号的页面链接                                             |          |
+| `localeDropdown`      | 下拉框菜单，定义网站默认 **语言** 和其他语言的页面链接                                                 |          |
+| `docsVersion`         | 网站最新版本的菜单                                                                                     |          |
+| `search`              | 如果在网站中使用了 **algolia** 搜索功能，可指定该值                                                    |          |
+| `docSidebar`          | 文档菜单组，须和 `sidebarId` 搭配使用（指定该类型后，`to` 属性就失效，默认跳转为菜单组中的第一个菜单） | ✅       |
+| `html`                | 自定义菜单，需和 `value` 属性搭配使用                                                                  |          |
+
+:::tip 离离原上谱
+
+`navbar.items` 的配置项除上述的属性外，还可配置应用于 HTML 标签上的其他任意属性，例如 `'aria-label'`，`target` 等属性；
+
+:::
+
+#### 文档页面 `docs` {#themeConfig-docs}
+
+| 配置项                           | 类型      | 描述                                                                                                                                              | 是否常用 |
+| -------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `sidebar.hideable`               | `boolean` | 是否显示文档侧边栏底部的 **展开 / 收起** 按钮，默认为 `false`                                                                                     | ✅       |
+| `sidebar.autoCollapseCategories` | `boolean` | 是否只聚焦当前层级菜单，将其他菜单收起，相当于手风琴模式的折叠面板，默认为 `false` <br /> 🥱 开启该配置时，尽量不要将层级菜单排列为侧边栏的第一项 | ✅       |
+
+#### 网站主题色 `colorMode` {#themeConfig-colorMode}
+
+| 配置项                      | 类型                           | 描述                                                                              | 是否常用 |
+| --------------------------- | ------------------------------ | --------------------------------------------------------------------------------- | -------- |
+| `defaultMode`               | <code>'light' \| 'dark'</code> | 自定义主题的默认模式，默认为 `light`<br/>`light` - 日间模式<br/>`dark` - 夜间模式 |          |
+| `disableSwitch`             | `boolean`                      | 是否隐藏主题切换的 switch 按钮，默认为 `false`                                    |          |
+| `respectPrefersColorScheme` | `boolean`                      | 是否让主题色跟随系统变化，优先级会高于 `defaultMode`，默认为 `false`              | ✅       |
+
+#### 代码块 `prism` {#themeConfig-prism}
+
+| 配置项            | 类型        | 描述                            | 是否常用 |
+| ----------------- | ----------- | ------------------------------- | -------- |
+| `theme`           | `require()` | 代码块的 **日间主题**           | ✅       |
+| `darkTheme`       | `require()` | 代码块的 **夜间主题**           | ✅       |
+| `defaultLanguage` |             | 代码块的 **默认编程语言**       |          |
+| `magicComments`   | `any[]`     | 自定义代码块高亮区域样式 & 注释 | ✅       |
+
+#### TOC 目录 `tableOfContents` {#themeConfig-toc}
+
+| 配置项            | 类型     | 描述                                                                                                  | 是否常用 |
+| ----------------- | -------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| `minHeadingLevel` | `number` | 可显示的 **最小标题级别**，只能介于 `2-6` 之间的整数，且小于或等于 `maxHeadingLevel` 的值，默认为 `2` |          |
+| `maxHeadingLevel` | `number` | 同上，可显示的 **最大标题级别**                                                                       |          |
+
+#### 公告条 `announcementBar` {#themeConfig-announcementBar}
+
+| 配置项            | 类型      | 描述                                                      | 是否常用 |
+| ----------------- | --------- | --------------------------------------------------------- | -------- |
+| `id`              |           | 公告条的唯一标识，可以为任意值，默认为 `announcement-bar` | ✅       |
+| `content`         |           | 公告条的文本内容                                          | ✅       |
+| `backgroundColor` |           | 公告条的背景色，默认为 `#fff`                             |          |
+| `textColor`       |           | 公告条的文本颜色，默认为 `#000`                           |          |
+| `isCloseable`     | `boolean` | 是否显示公告条的关闭按钮，默认为 `true`                   |          |
+
+:::tip 离离原上谱
+在网站中如果将 `announcementBar` 公告条关闭，那么接下来它就不会再出现到该网站中，除非更改它的唯一标识 `id`（因为在关闭时，会将该 `id` 存到浏览器缓存中）；
+:::
+
+#### 底部内容 `footer` {#themeConfig-footer}
+
+| 配置项      | 类型                           | 描述                                                          | 是否常用 |
+| ----------- | ------------------------------ | ------------------------------------------------------------- | -------- |
+| `logo`      | `Object`                       | 底部内容的图标 logo，是一个对象集合，具体配置同 `navbar.logo` |          |
+| `copyright` |                                | 显示在底部的 **版权信息内容**                                 | ✅       |
+| `style`     | <code>'light' \| 'dark'</code> | 底部的主题颜色，同导航栏的主题色，默认为 `light`              |          |
+| `links`     | `any[]`                        | 显示在底部的 **链接组集合**                                   | ✅       |
+
+### 总结 - 代码示例 📦 {#themeConfig-example}
+
+```js title="docusaurus.config.js"
 const config = {
   title: 'Docusaurus',
   tagline: '目瞪狗呆 😮',
@@ -256,7 +398,6 @@ const config = {
   organizationName: 'zhgt-shaozi',
   projectName: 'zhgt-shaozi.github.io',
   titleDelimiter: '🦖',
-  // ... 其他配置项可参阅 官方文档
 
   // ☘️ 国际化配置
   i18n: {
@@ -318,152 +459,21 @@ const config = {
 
   clientModules: [require.resolve('./mySiteGlobalJs.js'), require.resolve('./mySiteGlobalCss.css')],
 
-  themeConfig: {
-    /** 具体配置项可查看下方 themeConfig 配置项 **/
-  },
-};
-
-module.exports = config;
-```
-
-:::tip 离谱小贴士
-
-- 举个 🌰，如果把参数 `baseUrl` 配置为 `/metro/` 之后，会出现以下几种情况：
-  - 项目编译后，线上项目的根目录下会多一个 **metro** 目录，用来存放当前页面的 **源代码**；
-  - 网站的基础路径会随之改变，例如 **首页** 变为 `http://localhost:3000/metro`；
-  - 由于项目编译后，会将本地的 **static** 目录下的文件暴露在线上项目的 **根目录** 下，所以网站的静态资源路径会随之改变，例如 `favicon` 属性由原来的 **img/favicon.ico** 需改为 **../img/favicon.ico**；
-
-<Image src={require('./img/installaction/2021-11-03.jpeg').default} />
-
-:::
-
-### `themeConfig` 配置项 {#theme-config}
-
-| 配置项                            | 类型         | 默认值  | 常用 | 描述                                                                                                                                                                                  |
-| --------------------------------- | ------------ | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `hideableSidebar`                 | `boolean`    | `false` | ✅       | 是否显示文档侧边栏底部的 **展开 / 收起** 按钮                                                                                                                                         |
-| `autoCollapseSidebarCategories`   | `boolean`    | `false` | ✅       | 是否只聚焦当前层级菜单，将其他菜单收起，类似于手风琴模式的折叠面板 <br /> 🥱 目前还有 bug, 当层级菜单的顺序位于第一并点击它时, 其他菜单的展开收起会失效                               |
-| `colorMode`                       | `Object`     |         | ✅       | 自定义 **主题色（日间模式 / 夜间模式）** 切换的设置项，具体内容可查看下方 _[主题色](#themeConfig-colorMode)_ 配置项                                                                   |
-| `announcementBar`                 | `Object`     |         | ✅       | **公告条**，当需要在网站中宣布一些内容时，可配置该参数，**公告条** 会出现在顶部导航栏的上方，并且可以自由关闭，具体内容可查看下方 _[顶部公告条](#themeConfig-announcementBar)_ 配置项 |
-| `navbar`                          | `Object`     |         | ✅       | 自定义 **顶部导航栏** 的配置项 ，具体内容可查看下方 _[顶部导航栏](#themeConfig-navbar)_ 配置项                                                                                        |
-| `footer`                          | `Object`     |         | ✅       | 自定义 **底部内容** 的配置项 ，具体内容可查看下方 _[底部内容](#themeConfig-footer)_ 配置项                                                                                            |
-| `image`                           | `string`     |         |          | 自定义 `<meta>` 标签的默认图片                                                                                                                                                        |
-| `metadatas`                       | `Metadata[]` |         |          | 自定义 `<meta>` 标签中 **HTML 元数据**，并覆盖已有的元数据，比如 `name`，`id`，`content` 等属性                                                                                       |
-| `prism`                           | `Object`     |         |          | 定义 **代码块** 的主题配置项                                                                                                                                                          |
-| `prism.theme`                     | `require()`  |         | ✅       | 代码块的 **日间主题**                                                                                                                                                                 |
-| `prism.darkTheme`                 | `require()`  |         | ✅       | 代码块的 **夜间主题**                                                                                                                                                                 |
-| `prism.defaultLanguage`           | `string`     |         |          | 指定代码块的 **默认编程语言**，当 ``` 没有指定编程语言的类型时，会使用该参数                                                                                                          |
-| `tableOfContents`                 | `Object`     |         |          | 定义文档右侧的 **TOC 目录** 的配置项                                                                                                                                                  |
-| `tableOfContents.minHeadingLevel` | `number`     | `2`     |          | 可显示的 **最小标题级别**，只能介于 `2-6` 之间的整数，且小于或等于 `maxHeadingLevel` 的值                                                                                             |
-| `tableOfContents.maxHeadingLevel` | `number`     | `3`     |          | 可显示的 **最大标题级别**，只能介于 `2-6` 之间的整数                                                                                                                                  |
-
-:::tip 离谱小贴士
-`themeConfig` 配置项除了上述的参数外，还可以额外配置 `themes` 中注册的主题插件或者 Docusaurus 自带的主题插件，可查看下方 _[themeConfig 配置项示例](#themeConfig-example)_；
-:::
-
-#### 主题色 `colorMode` {#themeConfig-colorMode}
-
-| 配置项                      | 类型                           | 默认值    | 常用 | 描述                                                              |
-| --------------------------- | ------------------------------ | --------- | ---- | ----------------------------------------------------------------- |
-| `defaultMode`               | <code>'light' \| 'dark'</code> | `'light'` |      | 自定义主题的默认模式<br/>`light` - 日间模式<br/>`dark` - 夜间模式 |
-| `disableSwitch`             | `boolean`                      | `false`   | ✅   | 是否隐藏主题切换的 switch 按钮                                    |
-| `respectPrefersColorScheme` | `boolean`                      | `false`   | ✅   | 是否让主题色跟随系统变化，优先级会高于 `defaultMode`              |
-
-#### 公告条 `announcementBar` {#themeConfig-announcementBar}
-
-| 配置项            | 类型      | 默认值               | 常用 | 描述                                |
-| ----------------- | --------- | -------------------- | ---- | ----------------------------------- |
-| `id`              | `string`  | `'announcement-bar'` | ✅   | 公告条的唯一标识，可以为任意值      |
-| `content`         | `string`  |                      | ✅   | 公告条的文本内容                    |
-| `backgroundColor` | `string`  | `'#fff'`             |      | 公告条的背景色                      |
-| `textColor`       | `string`  | `'#000'`             |      | 公告条的文本颜色                    |
-| `isCloseable`     | `boolean` | `true`               | ✅   | 是否显示公告条的 **关闭（x）** 按钮 |
-
-:::tip 离谱小贴士
-在网站中如果将 `announcementBar` 公告条关闭，那么接下来它就不会再出现到该网站中，除非更改它的唯一标识 `id`（因为在关闭时，会将该 `id` 存到浏览器缓存中）；
-:::
-
-#### 顶部导航栏 `navbar` {#themeConfig-navbar}
-
-| 配置项         | 类型                             | 默认值               | 常用 | 描述                                                                                    |
-| -------------- | -------------------------------- | -------------------- | ---- | --------------------------------------------------------------------------------------- |
-| `hideOnScroll` | `boolean`                        | `false`              | ✅   | 是否在页面向下滚动时 收起导航栏                                                         |
-| `title`        | `string`                         |                      | ✅   | 导航栏左侧的标题                                                                        |
-| `logo`         | `Object`                         | `{}`                 |      | 导航栏左侧的图标 logo，是一个对象集合                                                   |
-| `logo.alt`     | `string`                         |                      |      | 同 `<image>` 标签的 `alt` 属性                                                          |
-| `logo.src`     | `string`                         |                      | ✅   | 同 `<image>` 标签的 `src` 属性，图标路径                                                |
-| `logo.srcDark` | `string`                         |                      |      | 同 `<image>` 标签的 `src` 属性，**夜间模式** 下的图标路径                               |
-| `logo.href`    | `string`                         | `siteConfig.baseUrl` |      | 点击 logo 时需要跳转的链接                                                              |
-| `logo.target`  | `string`                         |                      |      | 同 `<a>` 标签的 `target` 属性，跳转页面的方式                                           |
-| `logo.width`   | <code>string \| number</code>    | `32`                 |      | 指定 logo 的宽度                                                                        |
-| `logo.height`  | <code>string \| number</code>    | `32`                 |      | 指定 logo 的高度                                                                        |
-| `items`        | `NavbarItem[]`                   | `[]`                 | ✅   | 导航栏菜单的集合，具体内容可查看下方 _[navbar.items 配置项](#themeConfig-navbar-items)_ |
-| `style`        | <code>'primary' \| 'dark'</code> |                      |      | 设置导航栏样式，会忽略 light / dark 模式的主题                                          |
-
-##### `navbar.items` 配置项（部分） {#themeConfig-navbar-items}
-
-| 配置项                 | 类型                                                                                                         | 默认值   | 常用 | 描述                                                                                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `label`                | `string`                                                                                                     |          | ✅   | 菜单的名称                                                                                                                                             |
-| `position`             | <code>'left' \| 'right'</code>                                                                               | `'left'` | ✅   | 菜单在导航栏的位置，显示在左侧 或 右侧                                                                                                                 |
-| `to`                   | `string`                                                                                                     |          | ✅   | 菜单跳转的路由地址，基于 `baseUrl` 路径，也就是 `baseUrl` 的值会自动放置到该参数前                                                                     |
-| `href`                 | `string`                                                                                                     |          | ✅   | 菜单跳转的 **外链地址**，会自动添加 `target='_blank'` 属性，并且和 `to` 参数 **只能选其一**                                                            |
-| `prependBaseUrlToHref` | `boolean`                                                                                                    | `false`  |      | 是否将 `baseUrl` 的值放置到 `href` 参数前（暂时不知道它有什么用。。）                                                                                  |
-| `className`            | `string`                                                                                                     |          | ✅   | 自定义菜单的 `class` 类名                                                                                                                              |
-| `items`                | `NavbarItem[]`                                                                                               | `[]`     | ✅   | 定义 **子菜单** 的集合，会生成一个带有下拉框选项的菜单，配置项内容同 `navbar.items`                                                                    |
-| `type`                 | <code>'doc' \| 'search' \| 'localeDropdown' \| 'docsVersion' \| 'docsVersionDropdown' \| 'docSidebar'</code> |          | ✅   | 定义菜单的类型，除了普通的菜单类型外，Docusaurus 还提供了其他几种不同的类型，具体内容可查看下方 _[NavbarItem.type 类型介绍](#themeConfig-navbar-type)_ |
-| `docId`                | `string`                                                                                                     |          | ✅   | 当菜单的类型为 `doc` 时使用，表示文档的唯一标识 `id`;                                                                                                  |
-| `sidebarId`            | `string`                                                                                                     |          | ✅   | 指定该菜单属于哪个菜单组（`sidebars.js` 文件中的 `key` 值）                                                                                            |
-| `dropdownItemsBefore`  | `{ to?: string, href?: string, label?: string }[]`                                                           |          |      | 当菜单的类型为 <code>'docsVersionDropdown' \| 'localeDropdown'</code> 时使用，表示该下拉框菜单中 **默认版本 / 语言** 之前的内容集合                    |
-| `dropdownItemsAfter`   | `{ to?: string, href?: string, label?: string }[]`                                                           |          |      | 当菜单的类型为 <code>'docsVersionDropdown' \| 'localeDropdown'</code> 时使用，表示该下拉框菜单中 **默认版本 / 语言** 之后的内容集合                    |
-
-##### `NavbarItem.type` 类型介绍 {#themeConfig-navbar-type}
-
-- `doc`: 文档类型，表示该菜单跳转的是一个文档，必须和 `docId` 搭配使用;
-- `docsVersionDropdown`: 下拉框菜单，定义文档默认 **版本号** 和其他版本号的页面链接;
-- `localeDropdown`: 下拉框菜单，定义网站默认 **语言** 和其他语言的页面链接;
-- `docsVersion`: 定义网站最新版本的菜单（可能是，具体情况不明。。）;
-- `search`: 如果在网站中使用了 **algolia** 搜索功能，可定义该参数，并且可改变其在导航栏的位置;
-- `docSidebar`: 文档菜单组，须和 `sidebarId` 搭配使用（指定该类型后，`to` 属性就失效，默认跳转为菜单组中的第一个菜单）;
-
-:::tip 离谱小贴士
-
-`navbar.items` 的配置项除上述的属性外，还可配置应用于 HTML 标签上的其他任意属性，例如 `'aria-label'`，`target` 等属性；
-
-:::
-
-#### 底部内容 `footer` {#themeConfig-footer}
-
-| 配置项      | 类型                                                                                            | 默认值  | 常用 | 描述                                                          |
-| ----------- | ----------------------------------------------------------------------------------------------- | ------- | ---- | ------------------------------------------------------------- |
-| `logo`      | `Object`                                                                                        | `{}`    |      | 底部内容的图标 logo，是一个对象集合，具体配置同 `navbar.logo` |
-| `copyright` | `string`                                                                                        |         | ✅   | 显示在底部的 **版权信息内容**                                 |
-| `style`     | <code>'light' \| 'dark'</code>                                                                  | `light` | ✅   | 底部的主题颜色，同导航栏的主题色，也分为 日间模式 / 夜间模式  |
-| `links`     | `{ title?: string, items?: { label?: string, to?: string, href?: string, html?: string }[] }[]` | `[]`    | ✅   | 显示在底部的 **链接组集合**                                   |
-
-### `themeConfig` 配置项示例 {#themeConfig-example}
-
-```jsx title="docusaurus.config.js"
-const config = {
-  // ...
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      hideableSidebar: true,
       // 网站主题配置
       colorMode: {
-        respectPrefersColorScheme: true,
-        switchConfig: {
-          darkIcon: '🌙',
+        respectPrefersColorScheme: false,
+      },
+      // 文档配置
+      docs: {
+        sidebar: {
+          hideable: true,
+          autoCollapseCategories: true,
         },
       },
-      // 公告条配置
-      announcementBar: {
-        id: 'support_us(支持我们)',
-        content: '这是一条测试的公告。。。',
-        isCloseable: false,
-      },
-      // 顶部导航栏配置
+      // 导航栏配置
       navbar: {
         hideOnScroll: true,
         title: '勺子',
@@ -474,8 +484,7 @@ const config = {
         items: [
           {
             label: '菜单专栏',
-            // 配置 子菜单
-            items: [{ label: '学习专栏 😄', to: 'docs/...' }],
+            items: [{ label: '学习专栏 😄', to: 'docs/...' }], // 配置 子菜单
           },
           {
             label: '文档中心',
@@ -514,12 +523,6 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'More',
-            items: [
-              /** ... **/
-            ],
-          },
-          {
             title: 'Community',
             items: [
               {
@@ -538,6 +541,12 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} 个人网站.`,
       },
+      // 公告条配置
+      announcementBar: {
+        id: 'support_us(支持我们)',
+        content: '这是一条测试的公告。。。',
+        isCloseable: false,
+      },
       // 代码块 codeblock 主题配置
       prism: {
         theme: require('prism-react-renderer/themes/github'),
@@ -553,12 +562,14 @@ const config = {
       // ☘️ 配置 Docusaurus 自带的 algolia 搜索插件
       algolia: {},
     }),
+
+  // ... 更多配置项可参阅 官方文档
 };
 
 module.exports = config;
 ```
 
-## 相关链接
+## 参考链接
 
-- [Docusaurus 官方文档 - docusaurus.config.js 配置项](https://www.docusaurus.cn/docs/api/docusaurus-config)
-- [Docusaurus 官方文档 - themeConfig 主题配置项](https://www.docusaurus.cn/docs/api/themes/configuration)
+- 👉 [Docusaurus 官方文档 - docusaurus.config.js 配置项](https://docusaurus.io/zh-CN/docs/api/docusaurus-config)
+- 👉 [Docusaurus 官方文档 - themeConfig 主题配置项](https://docusaurus.io/zh-CN/docs/api/themes/configuration)

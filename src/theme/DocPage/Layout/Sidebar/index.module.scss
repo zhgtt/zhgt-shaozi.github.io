@@ -1,0 +1,48 @@
+:root {
+  --doc-sidebar-width: 300px;
+  --doc-sidebar-hidden-width: 30px;
+}
+
+.docSidebarContainer {
+  display: none;
+}
+
+@media (min-width: 997px) {
+  .docSidebarContainer {
+    display: block;
+    width: var(--doc-sidebar-width);
+    margin-top: calc(-1 * var(--ifm-navbar-height));
+    border-right: 1px solid var(--ifm-toc-border-color);
+    will-change: width;
+    transition: width var(--ifm-transition-fast) ease;
+    clip-path: inset(0);
+  }
+
+  .docSidebarContainerHidden {
+    width: var(--doc-sidebar-hidden-width);
+    cursor: pointer;
+  }
+}
+
+// ✅ 以下代码为 修改/新增 内容
+:root {
+  --doc-sidebar-width: 272px; // 展开的 menu 的宽度
+  --doc-sidebar-hidden-width: 16px; // 收起的 menu 宽度
+}
+
+@media (min-width: 997px) {
+  .docSidebarContainer {
+    clip-path: none; // 剪切
+  }
+
+  .ExpandSidebarBg {
+    position: sticky;
+    top: 0;
+    height: 100%;
+    max-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-fill-1);
+  }
+}

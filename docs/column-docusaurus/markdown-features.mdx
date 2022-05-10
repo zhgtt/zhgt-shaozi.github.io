@@ -7,22 +7,23 @@ sidebar_position: 2
 ```mdx-code-block
 import Tabs from '@theme/Tabs';     // 标签组
 import TabItem from '@theme/TabItem';   // 标签组 item
-import TOCInline from '@theme/TOCInline';   // 引入文档目录
 import BrowserWindow from '@site/src/components/BrowserWindow';
 ```
 
-> 本章节学习 Docusaurus 中新增的 Markdown 语法 & 功能
+> 本章节学习 Docusaurus 中新增的 Markdown 语法 & 部分功能
 
 ## 渲染 React 组件
 
 - Docusaurus 支持标准的 Markdown 语法，并使用 `MDX` 作为解析引擎；`MDX` 不仅仅能够解析 Markdown，还提供了更多功能，还能在文档内渲染 React 组件；
 - 渲染 React 组件时，可以直接在 Markdown 中引入并使用；或者在 **代码块** 中引入，只需将该代码块定义为 `mdx-code-block` 的代码格式即可；
 
-```md title="doc.md 示例"
+```js title="doc.md 示例"
 ### 封装 details 标签组件
 
 <!-- 在 md 中定义 React 组件时，一定要进行导出 export -->
+
 export const CustomDetails = ({ children, title }) => (
+  <!-- 📢 书写组件代码时，切记不能有空行 -->
   <details>
     <summary>{title}</summary>
     <div>
@@ -67,7 +68,7 @@ export const CustomDetails = ({ children, title }) => (
 ```
 
 ```md title="doc.md 示例"
-import MarkdownExample from '../_example.mdx';
+import MarkdownExample from '../\_example.mdx';
 
 ### 引入 Markdown 文档片段
 
@@ -85,98 +86,141 @@ import MarkdownExample from '../_example.mdx';
 </BrowserWindow>
 ```
 
-## 选项卡组件 `<Tabs>`
+## 导入文件原始代码 📦
 
-- Docusaurus 提供的内置组件；
-- 文档或页面内如果有多个 `<Tabs>` 标签组时， 需对每一个 `<Tabs>` 指定 `groupId` 属性，以免多个标签组相互干扰；
+- 有时在书写文档时，可能会需要将其他文件中的代码拷贝在文档中，由于复制太繁琐，可以借助 **webpack** 的辅助插件 `raw-loader`，将文件代码转换为 **字符串**，再进行引入;
+- 安装插件:
 
-```jsx title="doc.md 示例"
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs groupId="fruits-type">
-  <TabItem value="apple" label="Apple" default>
-    This is an apple 🍎
-  </TabItem>
-  <TabItem value="orange" label="Orange">
-    This is an orange 🍊
-  </TabItem>
-</Tabs>
+```bash npm2yarn
+npm install --save-dev raw-loader
 ```
 
-- 效果展示如下：
+- 代码示例 & 效果展示
+
+```js title="代码示例"
+import CodeBlock from '@theme/CodeBlock';
+import IconFontComponent from '!!raw-loader!@site/src/components/IconFont'; // 通过 !!raw-loader! 的方式引入文件，将代码转为字符串
+
+<CodeBlock language='jsx'>{IconFontComponent}</CodeBlock>;
+```
 
 ```mdx-code-block
+import CodeBlock from '@theme/CodeBlock';
+import IconFontComponent from '!!raw-loader!@site/src/components/IconFont'
+
 <BrowserWindow>
-  <Tabs>
-    <TabItem value="apple" label="Apple" default>
-      This is an apple 🍎
-    </TabItem>
-    <TabItem value="orange" label="Orange">
-      This is an orange 🍊
-    </TabItem>
-  </Tabs>
+  <CodeBlock language='jsx' className='mb-0'>
+    {IconFontComponent}
+  </CodeBlock>
 </BrowserWindow>
 ```
 
-## `npm` & `yarn` 的辅助插件 
+## 引用静态资源
 
-- 在文档中，npm 和 yarn 同时显示 CLI 命令是一个很常见的需求，因此 Docusaurus 提供了一个辅助插件；
-- 该插件为 `@docusaurus/remark-plugin-npm2yarn`，无需重复书写 CLI 命令，仅需要写成代码块的形式，即可生成 npm 和 yarn 所对应的 CLI 命令；
-- 该插件会生成一个 `<Tabs>` 标签组，用于 npm 和 yarn 之间的相互切换；
-- 使用该插件时，还得需要在 **docusaurus.config.js** 文件中进行配置，对于需要用到此功能的文档，页面，博客等，在 `remarkPlugins` 选项中注册该插件，具体如下：
+- Docusaurus 中静态资源的目录默认为 `/static`；
+- 在文档中引用静态资源时，`/` 就表示 `/static` 目录，Docusaurus 提供了多种引用方式，如下:
 
-```jsx title="docusaurus.config.js 配置项"
-module.export = {
-  ...
-  presets: [
-    '@docusaurus/preset-classic',
-    {
-      docs: {
-        ...
-        // highlight-start
-        remarkPlugins: [
-          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
-        ],
-        // highlight-end
-      },
-      pages: {},
-      blog: {
-        ...
-        // highlight-start
-        remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
-        // highlight-end
-      }
-    }
-  ]
-}
+##### 原生的 Markdown 引用
+
+```md title="doc.md 示例"
+![Example Image](/img/...)
 ```
 
-- 配置完成之后，在文档中使用 `npm2yarn` 写成代码块的形式即可，如下；
+##### 使用 JS 的 `require` 引用，需使用 `<img>` 标签
 
+```jsx title="doc.md 示例"
+<img src={require('/img/...').default} alt='Example Image' />
+```
 
-    ```bash npm2yarn
-    npm install @docusaurus/remark-plugin-npm2yarn
-    ```
+##### 使用 ES6 的 `import` 引用，需使用 `<img>` 标签
 
-```bash npm2yarn
-npm install @docusaurus/remark-plugin-npm2yarn
+```jsx title="doc.md 示例"
+import imageUrl from '/img/...';
+
+<img src={imageUrl} alt='Example Image' />;
+```
+
+##### 使用 Docusaurus 内置的 `useBaseUrl` 钩子函数引用
+
+`useBaseUrl` 是基于 `siteConfig.baseUrl` 路径，需使用 `<img>` 标签，并且尽可能在 `mdx` 文件中使用;
+
+```jsx title="doc.md 示例" {1}
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+<img src={useBaseUrl('/img/...')} alt='Example Image' />;
+```
+
+效果展示如下：
+
+<BrowserWindow>
+  <img src={require('./img/markdown-features/wallhaven.png').default} alt='Example Image' />
+</BrowserWindow>
+
+### Docusaurus 的拓展资源
+
+##### 支持直接导入 `svg` 图像，并将其自动转换为 React 组件
+
+```jsx title="doc.md 示例"
+import ExampleSVG from '@site/static/img/example.svg';
+
+<ExampleSVG title='财运滚滚!' width={100} style={{ display: 'block', margin: '0 auto' }} />;
+```
+
+```mdx-code-block
+import GodOfWealthSVG from './img/markdown-features/caishenye.svg';
+
+<BrowserWindow>
+  <GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />
+</BrowserWindow>
+```
+
+##### 支持 **主题** 图像，其内置了一个 `ThemedImage` 组件，根据当前主题切换对应的图像
+
+```jsx title="doc.md 示例" {1}
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+// 最终的渲染效果是一个 <img /> 标签
+<ThemedImage
+  alt='Docusaurus 主题图像'
+  style={{}}
+  sources={{
+    light: useBaseUrl('/img/**.svg'), // 亮色主题下对应的图像
+    dark: useBaseUrl('/img/**.svg'), // 暗色主题下对应的图像
+  }}
+/>;
+```
+
+```mdx-code-block
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+<BrowserWindow>
+  <div style={{ textAlign: 'center' }}>
+    <ThemedImage
+      style={{ width: 100, margin: 0, boxShadow: 'none' }}
+      sources={{
+        light: useBaseUrl('/img/emoji-mantan.svg'),
+        dark: useBaseUrl('/img/emoji-mengb.svg'),
+      }}
+    />
+  </div>
+</BrowserWindow>
 ```
 
 ## 代码块
 
-> Docusaurus 对代码块赋予了很多功能，比如 **定义标题**，**多行代码高亮** 等；
-
 ### 定义标题
 
-- 通过指定 `title` 来定义代码块的标题；
+通过指定 `title` 来定义代码块的标题；
 
-
-    ```jsx title="代码块标题"
-    const HelloCodeTitle = (props) => {
-      return <h1>Hello, {props.name}</h1>;
-    };
-    ```
+````md
+```js title="代码块标题"
+const HelloCodeTitle = (props) => {
+  return <h1>Hello, {props.name}</h1>;
+};
+```
+````
 
 ```jsx title="代码块标题"
 const HelloCodeTitle = (props) => {
@@ -186,33 +230,35 @@ const HelloCodeTitle = (props) => {
 
 ### 代码高亮
 
-- 通过 `{n}` 来高亮指定的 **单行代码**；
+##### 通过 `{n}` 来高亮指定的 **单行代码**
 
-
-    ```jsx {2} title="单行代码高亮"
-    if (highlight) {
-      alert('高亮的文本内容...');
-    }
-    ```
-
+````md
 ```jsx {2} title="单行代码高亮"
 if (highlight) {
   alert('高亮的文本内容...');
 }
 ```
+````
 
-- 通过 `{n-m}` 来高亮指定的 **代码范围**;
+```js {2} title="单行代码高亮"
+if (highlight) {
+  alert('高亮的文本内容...');
+}
+```
 
+##### 通过 `{n-m}` 来高亮指定的 **代码范围**
 
-    ```jsx {2-4,6} title="代码范围高亮"
-    const HighlightSomeText = (highlight) => {
-        if (highlight) {
-          return '高亮的文本内容...';
-        }
+````md
+```js {2-4,6} title="代码范围高亮"
+const HighlightSomeText = (highlight) => {
+  if (highlight) {
+    return '高亮的文本内容...';
+  }
 
-        return '🚗🚗🚗';
-    };
-    ```
+  return '🚗🚗🚗';
+};
+```
+````
 
 ```jsx {2-4,6} title="代码范围高亮"
 const HighlightSomeText = (highlight) => {
@@ -224,27 +270,28 @@ const HighlightSomeText = (highlight) => {
 };
 ```
 
-:::caution 离谱小贴士
+:::tip 离离原上谱
 📢 指定多个高亮的行数时，之间不允许出现 **空格**;
 :::
 
-- 通过 `代码注释` 来高亮指定的代码或代码区域；
+##### 通过 `代码注释` 的形式来高亮指定的代码或代码区域
 
+````md
+```jsx title="多行代码高亮"
+const HighlightSomeText = (highlight) => {
+  if (highlight) {
+    // highlight-next-line
+    return '高亮的文本内容...';
+  }
 
-    ```jsx title="多行代码高亮"
-    const HighlightSomeText = (highlight) => {
-        if (highlight) {
-          {*/ highlight-next-line */}   // 在实际代码中，要改成 // highlight-next-line 的形式，这里只是说明一下
-          return '高亮的文本内容...';
-        }
-
-        {*/ highlight-start */}
-        return {
-          content: '这片区域的代码被高亮了...'
-        };
-        {*/ highlight-end */}
-    };
-    ```
+  // highlight-start
+  return {
+    content: '这片区域的代码被高亮了...',
+  };
+  // highlight-end
+};
+```
+````
 
 ```jsx title="多行代码高亮"
 const HighlightSomeText = (highlight) => {
@@ -255,15 +302,110 @@ const HighlightSomeText = (highlight) => {
 
   // highlight-start
   return {
-    content: '这片区域的代码被高亮了...'
+    content: '这片区域的代码被高亮了...',
   };
   // highlight-end
 };
 ```
 
+##### 通过 `magicComments` 自定义高亮代码的注释文本 & 高亮样式
+
+如果需要自定义高亮代码的注释文本，需要在 **docusaurus.config.js** 中的 `prism` 属性中设置，如下:
+
+<Tabs>
+  <TabItem value="docusaurus.config.js">
+
+```js
+module.exports = {
+  themeConfig: {
+    // ...
+    prism: {
+      magicComments: [
+        // 需要将 docusaurus 自带的注释文本也记录在此，否则会导致高亮不生效
+        {
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: { start: 'highlight-start', end: 'highlight-end' },
+        },
+        // highlight-start
+        {
+          className: 'code-block-error-line', // 指定高亮样式的 类名
+          line: 'This will error', // 指定注释文本
+        },
+        // highlight-end
+      ],
+    },
+  },
+};
+```
+
+  </TabItem>
+  <TabItem value="custom.css">
+
+```css
+/* 自定义高亮代码的样式 */
+.code-block-error-line {
+  background-color: #ff000020;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid #ff000080;
+}
+```
+
+  </TabItem>
+  <TabItem value="myDoc.md">
+
+````md
+```js title="代码示例"
+const name = null;
+// This will error
+console.log(name.toUpperCase());
+// 错误信息: Uncaught TypeError: Cannot read properties of null (reading 'toUpperCase')
+```
+````
+
+  </TabItem>
+</Tabs>
+
+结果:
+
+```js title="代码示例"
+const name = null;
+// This will error
+console.log(name.toUpperCase());
+// 错误信息: Uncaught TypeError: Cannot read properties of null (reading 'toUpperCase')
+```
+
+### 显示代码行数
+
+通过指定 `showLineNumbers` 属性来显示代码的 **行数**;
+
+````md
+```jsx {3} title="显示代码行数" showLineNumbers
+const HighlightSomeText = (highlight) => {
+  if (highlight) {
+    return '🚑 🚑 🚑 🚑 🚑 🚑';
+  }
+
+  // ...
+};
+```
+````
+
+```jsx {3} title="显示代码行数" showLineNumbers
+const HighlightSomeText = (highlight) => {
+  if (highlight) {
+    return '🚑 🚑 🚑 🚑 🚑 🚑';
+  }
+
+  // ...
+};
+```
+
 ### 在组件中使用代码块
 
-- 当需要在组件或页面中使用 Docusaurus 提供的代码块时，只需引入其对应的插件 `@theme/CodeBlock` 即可，如下；
+当需要在组件或页面中使用 Docusaurus 提供的代码块时，只需引入其对应的插件 `@theme/CodeBlock` 即可，如下；
 
 ```jsx title="src/pages/index.tsx"
 import React from 'react';
@@ -279,8 +421,8 @@ const WelcomeScreen = () => (
     <h1>Welcome to Dino's world. 👾</h1>
   </div>
 );
-  `
-}
+  `,
+};
 
 const Homepage = () => {
   // highlight-next-line
@@ -308,10 +450,11 @@ module.export = {
 
 - 使用该插件时, 只需在代码块上定义一个 `live` 即可, **该插件仅支持 React 语法**, 具体示例如下:
 
-
-    ```jsx live
-    逻辑代码...
-    ```
+````md
+```jsx live
+逻辑代码...
+```
+````
 
 ```jsx live
 function Clock(props) {
@@ -328,23 +471,20 @@ function Clock(props) {
     setDate(new Date());
   }
 
-  return (
-    <div>
-      <h3 style={{ color: '#C3272B' }}>It is {date.toLocaleTimeString()}</h3>
-    </div>
-  );
+  return <h4 style={{ color: '#C3272B' }}>🌝 {date.toLocaleTimeString()}</h4>;
 }
 ```
 
-:::caution 离谱小贴士
-- 由于 react-live 交互式代码编辑器不支持 **直接引入组件或方法**，因此可以在 **theme** 目录中创建 **ReactLiveScope** 文件(react-live 的作用域)，用来预先定义可用(导出)的组件或方法;
-- 创建该文件之后，需要 **重启该项目**（仅需重启一次即可）;   
-- 由于预定义的组件无法在 **服务端** 运行，所以需要使用 Docusaurus 内置的组件 `<BrowserOnly />` 进行包裹，让其只能在客户端(浏览器)中运行，不在服务端运行，如下:
+:::tip 离离原上谱
+
+- 由于 react-live 交互式代码编辑器不支持 **直接引入组件或方法**，因此可以在 **src/theme** 目录中创建 **ReactLiveScope** 文件(react-live 的作用域)，用来预先定义可用(导出)的组件或方法;
+- 创建该文件之后，需要 **重启该项目**（仅需重启一次即可）;
+- 由于预定义的组件无法在 **服务端** 运行，所以需要使用 Docusaurus 内置的组件 `<BrowserOnly />` 进行包裹，让其只在客户端(浏览器)中运行，不在服务端运行，如下:
 
 ```jsx title="src/theme/ReactLiveScope/index.tsx"
 import React from 'react';
-import BrowserOnly from '@docusaurus/BrowserOnly';  // 仅在客户端运行，不在服务端运行
-import utils from './utils';    // 引入自定义的方法
+import BrowserOnly from '@docusaurus/BrowserOnly'; // 仅在客户端运行，不在服务端运行
+import utils from './utils'; // 引入自定义的方法
 
 // 自定义组件
 const ButtonExample = (props) => {
@@ -366,7 +506,87 @@ const ReactLiveScope = {
 
 export default ReactLiveScope;
 ```
+
 :::
+
+## 选项卡组件
+
+- Docusaurus 提供的内置组件 `<Tabs>`;
+- 文档或页面内如果有多个 `<Tabs>` 标签组时， 需对每一个 `<Tabs>` 指定 `groupId` 属性，以免多个标签组相互干扰；
+
+```jsx title="doc.md 示例"
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId='fruits-type'>
+  <TabItem value='apple' label='Apple' default>
+    This is an apple 🍎
+  </TabItem>
+  <TabItem value='orange' label='Orange'>
+    This is an orange 🍊
+  </TabItem>
+</Tabs>;
+```
+
+- 效果展示如下：
+
+```mdx-code-block
+<BrowserWindow>
+  <Tabs>
+    <TabItem value="apple" label="Apple" default>
+      This is an apple 🍎
+    </TabItem>
+    <TabItem value="orange" label="Orange">
+      This is an orange 🍊
+    </TabItem>
+  </Tabs>
+</BrowserWindow>
+```
+
+## `npm` & `yarn` 的辅助插件
+
+- 在文档中，npm 和 yarn 同时显示 CLI 命令是一个很常见的需求，因此 Docusaurus 提供了一个辅助插件；
+- 该插件为 `@docusaurus/remark-plugin-npm2yarn`，无需重复书写 CLI 命令，仅需要写成代码块的形式，即可生成 npm 和 yarn 所对应的 CLI 命令；
+- 该插件会生成一个 `<Tabs>` 标签组，用于 npm 和 yarn 之间的相互切换；
+- 使用该插件时，还得需要在 **docusaurus.config.js** 文件中进行配置，对于需要用到此功能的文档，页面，博客等，在 `remarkPlugins` 选项中注册该插件，具体如下：
+
+```jsx title="docusaurus.config.js 配置项"
+module.export = {
+  // ...
+  presets: [
+    '@docusaurus/preset-classic',
+    {
+      docs: {
+        ...
+        // highlight-start
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+        ],
+        // highlight-end
+      },
+      pages: {},
+      blog: {
+        ...
+        // highlight-start
+        remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
+        // highlight-end
+      }
+    }
+  ]
+}
+```
+
+- 配置完成之后，在文档中使用 `npm2yarn` 写成代码块的形式即可，如下；
+
+````md
+```bash npm2yarn
+npm install @docusaurus/remark-plugin-npm2yarn
+```
+````
+
+```bash npm2yarn
+npm install @docusaurus/remark-plugin-npm2yarn
+```
 
 ## 告示框
 
@@ -375,55 +595,61 @@ export default ReactLiveScope;
 
 ```md title="doc.md 示例"
 :::note 标题
+
 文本内容（也可以是 React 组件或 HTML 标签）...
+
 :::
 ```
 
-- 多种状态的效果展示如下：
+- 告示框的多种状态效果展示如下：
 
 :::note note - 摘抄语句
 我们每个人好像一直在跑，却总觉得自己把心和最后一点安全感落在了千里之遥的家乡 - 暖小团
 :::
 
 :::tip tip - 摘抄语句
-<div className="flex flex-col heading-relaxed">
+
+<div className='flex flex-col heading-relaxed'>
   <span>曾经沧海难为水，除却巫山不是云。</span>
   <span>取次花丛懒回顾，半缘修道半缘君。</span>
-  <span className="self-end">---《离思五首·其四》[唐] 元稹</span>
+  <span className='self-end'>---《离思五首·其四》[唐] 元稹</span>
 </div>
 :::
 
 :::info info - 摘抄语句
-<div className="flex flex-col heading-relaxed">
+
+<div className='flex flex-col heading-relaxed'>
   <span>阅尽天涯离别苦，不道归来，零落花如许。花底相看无一语，绿窗春与天俱莫。</span>
   <span>待把相思灯下诉，一缕新欢，旧恨千千缕。最是人间留不住，朱颜辞镜花辞树。</span>
-  <span className="self-end">---《蝶恋花·阅尽天涯离别苦》[清] 王国维</span>
+  <span className='self-end'>---《蝶恋花·阅尽天涯离别苦》[清] 王国维</span>
 </div>
 :::
 
 :::caution caution - 摘抄语句
-<div className="flex flex-col heading-relaxed">
+
+<div className='flex flex-col heading-relaxed'>
   <span>世事一场大梦，人生几度秋凉。夜来风叶已鸣廊。看取眉头鬓上。</span>
   <span>酒贱常愁客少，月明多被云妨。中秋谁与共孤光。把盏凄然北望。</span>
-  <span className="self-end">---《西江月·世事一场大梦》[宋] 苏轼</span>
+  <span className='self-end'>---《西江月·世事一场大梦》[宋] 苏轼</span>
 </div>
 :::
 
 :::danger danger - 摘抄语句
-<div className="flex flex-col heading-relaxed">
+
+<div className='flex flex-col heading-relaxed'>
   <span>西风吹老洞庭波，一夜湘君白发多。</span>
   <span>醉后不知天在水，满船清梦压星河。</span>
-  <span className="self-end">---《题龙阳县青草湖》[元] 唐珙</span>
+  <span className='self-end'>---《题龙阳县青草湖》[元] 唐珙</span>
 </div>
 :::
 
 ## 锚点链接 & 内联目录
 
 - 定义锚点链接时，需要指定一个 `id`，Docusaurus 会让文档中的 **标题** 都自动生成一个与之对应的 `id`，便于链接跳转，比如 `### Hello` 的 id 为 `Hello`；
-- 当需要自定义 **标题** 的 `id` 时，在标题后添加 `{#[id]}` 即可，例如：
+- 当需要自定义 **标题** 的 `id` 时，在标题后添加 `{#id}` 即可，例如：
 
 ```md title="doc.md 示例"
-[Link - 链接](#custom-id)
+跳转至 [Hello](#custom-id)
 
 #### Hello {#custom-id}
 
@@ -431,89 +657,17 @@ export default ReactLiveScope;
 ```
 
 - 每个文档都默认存在一个 `toc` 的变量，该变量包含了当前文档中所有的标题；
-- 当需要在文档中显示 **内联目录** 时，只需引入 `@theme/TOCInline` 组件（无需安装），将 `toc` 变量配置在该组件中即可，例如：
+- 当需要在文档中显示 **内联目录** 时，只需引入 `@theme/TOCInline` 组件，将 `toc` 变量配置在该组件中即可，例如：
 
-
-    ```mdx-code-block
-    import TOCInline from '@theme/TOCInline';
-
-    <TOCInline toc={toc} />
-    ```
-
-## 引用静态资源
-
-- Docusaurus 中静态资源的目录默认为 `/static`；
-- 在文档中引用静态资源时，`/` 就表示 `/static` 目录，Docusaurus 提供了多种引用方式，例如：
-- **原生的 Markdown 语法** 引用：
-
-```md title="doc.md 示例"
-![Example Image](/img/...)
-```
-
-- **JSX 的** `require` **语法** 引用，需使用 `<img>` 标签：
-
-```jsx title="doc.md 示例"
-<img src={require('/img/...').default} alt='Example Image' />
-```
-
-- **ES 的** `import` **语法** 引用，需使用 `<img>` 标签：
-
-```jsx title="doc.md 示例"
-import imageUrl from '/img/...';
-
-<img src={imageUrl} alt='Example Image' />
-```
-
-- **Docusaurus 内置的** `useBaseUrl` **插件** 引用，它基于 `siteConfig.baseUrl` 路径，需使用 `<img>` 标签，并且尽可能在 `mdx` 文件中使用：
-
-```jsx title="doc.md 示例" {1}
-import useBaseUrl from '@docusaurus/useBaseUrl';
-
-<img src={useBaseUrl('/img/...')} alt='Example Image' />
-```
-
-效果展示如下：
-
+````md
 ```mdx-code-block
-<BrowserWindow>
-  <img src={require('./img/markdown-features/wallhaven.png').default} alt="Example Image" />
-</BrowserWindow>
+import TOCInline from '@theme/TOCInline';
+
+<TOCInline toc={toc} />
 ```
-
-### Docusaurus 的拓展资源
-
-- Ducusaurus 支持直接导入 `svg` 图像，并且将其自动转换为 React 组件:
-
-```jsx title="doc.md 示例"
-import ExampleSVG from '@site/static/img/example.svg';
-
-<ExampleSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />
-```
-
-```mdx-code-block
-import GodOfWealthSVG from './img/markdown-features/caishenye.svg';
-
-<BrowserWindow>
-  <GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />
-</BrowserWindow>
-```
-
-- Ducusaurus 支持 `主题` 图像，其内置了一个 `ThemedImage` 组件，根据当前主题切换对应的图像:
-
-```jsx title="doc.md 示例" {1}
-import ThemedImage from '@theme/ThemedImage';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-
-<ThemedImage
-  alt="Docusaurus 主题图像"
-  sources={{
-    light: useBaseUrl('/img/**.svg'), // 亮色主题下对应的图像
-    dark: useBaseUrl('/img/**.svg'),  // 暗色主题下对应的图像
-  }}
-/>
-```
+````
 
 ## 相关链接
 
-- [Markdown 基本使用 & 语法说明](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/markdown-basics)
-- [Docusaurus 官方文档 - 新增的 Markdown 功能](https://www.docusaurus.cn/docs/markdown-features)
+- 👉 [Markdown 基本使用 & 语法说明](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/markdown-basics)
+- 👉 [Docusaurus 官方文档 - Markdown 特性](https://docusaurus.io/zh-CN/docs/markdown-features)

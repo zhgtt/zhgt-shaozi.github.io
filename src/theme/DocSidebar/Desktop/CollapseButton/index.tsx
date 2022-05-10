@@ -1,38 +1,43 @@
 /**
- * @description 侧边栏展开收起 按钮
+ * @description 桌面侧边栏 - 菜单收起 按钮
+ *
+ * @代码修改内容 ✅ 修改按钮的类名，将图标替换为 <IconLeft /> 组件
  */
 
 import React from 'react';
 import clsx from 'clsx';
-// import IconArrow from '@theme/IconArrow';
-// import { translate } from '@docusaurus/Translate';
-import { IconRight, IconLeft } from '@arco-design/web-react/icon';
-import styles from './styles.module.scss';
+import IconArrow from '@theme/IconArrow';
+import { translate } from '@docusaurus/Translate';
+import type { Props } from '@theme/DocSidebar/Desktop/CollapseButton';
 
-interface IProps {
-  onClick?: React.MouseEventHandler;
-  onKeyDown?: React.KeyboardEventHandler;
-  title?: string;
-  direction?: 'left' | 'right';
-}
+// import styles from './styles.module.css';
 
-const HideableSidebarButton: React.FC<IProps> = (props) => {
-  const { onClick, onKeyDown, title = 'Collapse sidebar', direction = 'left' } = props;
+import { IconLeft } from '@arco-design/web-react/icon';
 
+export default function CollapseButton({ onClick }: Props): JSX.Element {
   return (
-    <div
-      title={title}
-      aria-label={title}
-      className={clsx(styles.collapseSidebarButton, 'dino-collapse-sidebar-btn')}
+    <button
+      type='button'
+      title={translate({
+        id: 'theme.docs.sidebar.collapseButtonTitle',
+        message: 'Collapse sidebar',
+        description: 'The title attribute for collapse button of doc sidebar',
+      })}
+      aria-label={translate({
+        id: 'theme.docs.sidebar.collapseButtonAriaLabel',
+        message: 'Collapse sidebar',
+        description: 'The title attribute for collapse button of doc sidebar',
+      })}
+      //  className={clsx(
+      //    'button button--secondary button--outline',
+      //    styles.collapseSidebarButton,
+      //  )}
+      className='collapse-sidebar-btn dino-collapse-sidebar-btn'
       onClick={onClick}
-      onKeyDown={onKeyDown}
-      role='button'
-      tabIndex={0}
     >
-      {direction === 'left' && <IconLeft className={styles.collapseSidebarButtonIcon} />}
-      {direction === 'right' && <IconRight className={styles.collapseSidebarButtonIcon} />}
-    </div>
-  );
-};
+      {/* <IconArrow className={styles.collapseSidebarButtonIcon} /> */}
 
-export default HideableSidebarButton;
+      <IconLeft className='collapse-sidebar-btn-icon' />
+    </button>
+  );
+}

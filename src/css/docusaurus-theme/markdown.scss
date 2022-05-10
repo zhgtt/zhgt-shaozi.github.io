@@ -92,16 +92,11 @@
   > ul + .tabs-container {
     margin-top: -1.25rem;
   }
-  > img {
+  img {
     display: block;
     max-height: 420px;
     margin: 0 auto var(--ifm-leading); // 1.25rem
     @include img-style;
-  }
-  div[class^='codeBlockContainer_'] {
-    div[class^='codeBlockContent_'] {
-      font-size: 13px;
-    }
   }
 
   // 对 arco-design 的样式做一些兼容
@@ -110,6 +105,7 @@
     margin: 0 auto var(--ifm-leading); // 1.25rem
     max-height: 420px;
     > img {
+      width: 100%;
       height: inherit;
       max-height: inherit;
       cursor: zoom-in;

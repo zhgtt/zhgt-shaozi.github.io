@@ -1,5 +1,7 @@
 /**
- * @description 桌面端的 侧边栏
+ * @description 桌面端侧边栏
+ *
+ * @代码修改内容 ✅ <Logo /> 组件添加一个父容器 div，修改样式
  */
 
 import React from 'react';
@@ -15,7 +17,9 @@ import styles from './styles.module.scss';
 function DocSidebarDesktop({ path, sidebar, onCollapse, isHidden }: Props) {
   const {
     navbar: { hideOnScroll },
-    hideableSidebar,
+    docs: {
+      sidebar: { hideable },
+    },
   } = useThemeConfig();
 
   return (
@@ -26,13 +30,16 @@ function DocSidebarDesktop({ path, sidebar, onCollapse, isHidden }: Props) {
         isHidden && styles.sidebarHidden
       )}
     >
+      {/* {hideOnScroll && <Logo tabIndex={-1} className={styles.sidebarLogo} />} */}
+
       {hideOnScroll && (
         <div className={styles.sidebarLogoBox}>
           <Logo tabIndex={-1} className={styles.sidebarLogo} />
         </div>
       )}
+
       <Content path={path} sidebar={sidebar} />
-      {hideableSidebar && <CollapseButton onClick={onCollapse} />}
+      {hideable && <CollapseButton onClick={onCollapse} />}
     </div>
   );
 }

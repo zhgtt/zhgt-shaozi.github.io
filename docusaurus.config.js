@@ -46,7 +46,7 @@ module.exports = {
   // 插件
   plugins: [
     // sass 插件
-    'docusaurus-plugin-sass',
+    [require.resolve('docusaurus-plugin-sass'), {}],
   ],
   // 主题
   themes: ['@docusaurus/theme-live-codeblock'],
@@ -61,15 +61,7 @@ module.exports = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      hideableSidebar: true, // 是否显示侧边栏收起功能
-      autoCollapseSidebarCategories: true,
-      colorMode: { disableSwitch: false },
-      // 公告条
-      // announcementBar: {
-      //   id: 'support_us',
-      //   content: '号外！号外！📢 📢 📢',
-      //   isCloseable: false,
-      // },
+      colorMode: {},
       // 导航栏
       navbar: {
         hideOnScroll: true, // 是否文档向下滚动时收起导航栏
@@ -104,6 +96,12 @@ module.exports = {
           },
         ],
       },
+      docs: {
+        sidebar: {
+          hideable: true,
+          autoCollapseCategories: true,
+        },
+      },
       // 底部内容
       footer: {
         logo: { alt: 'Dino', src: 'img/logo.svg' },
@@ -130,7 +128,24 @@ module.exports = {
         theme: require('prism-react-renderer/themes/github'),
         darkTheme: require('prism-react-renderer/themes/dracula'),
         defaultLanguage: 'javascript',
+        magicComments: [
+          {
+            className: 'theme-code-block-highlighted-line',
+            line: 'highlight-next-line',
+            block: { start: 'highlight-start', end: 'highlight-end' },
+          },
+          {
+            className: 'code-block-error-line',
+            line: 'This will error',
+          },
+        ],
       },
+      // 公告条
+      // announcementBar: {
+      //   id: 'support_us',
+      //   content: '号外！号外！📢 📢 📢',
+      //   isCloseable: false,
+      // },
       // algolia: {
       //   apiKey: '3ea6977f376e28eff0193fb54e110f95',
       //   indexName: 'ZXUQIANCN',
