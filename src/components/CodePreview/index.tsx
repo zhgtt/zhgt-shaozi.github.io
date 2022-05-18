@@ -27,7 +27,7 @@ const CodePreview: React.FC<IProps> = (props) => {
   const codeBlockRender = () => {
     if (Array.isArray(codeBlock)) {
       return (
-        <div className={styles.codeBlockList}>
+        <div className={clsx(styles.codeBlockList, 'thin-scrollbar')}>
           {codeBlock.map((item, index) => (
             <CodeBlock key={index} language={item.language || 'jsx'} title={item.title}>
               {item.code}

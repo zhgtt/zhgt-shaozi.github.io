@@ -1,7 +1,7 @@
 /* Footer - 底部内容 */
 .footer {
   margin-top: 4rem;
-  padding: 3rem 0 1rem;
+  padding: 3rem 0 2rem;
   .container {
     padding: 0 2rem;
   }
@@ -15,6 +15,12 @@
   &__item {
     font-size: var(--dino-font-size-sm);
     color: var(--color-text-2);
+  }
+  &__bottom {
+    img {
+      width: 108px;
+      height: 108px;
+    }
   }
   &__copyright {
     font-size: var(--dino-font-size-xs);

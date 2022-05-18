@@ -304,6 +304,7 @@ $--dino-2xl: 1536px;
 
 /* 滚动条样式 */
 @media (pointer: fine) {
+  div[class*='codeBlockContent_'],
   .thin-scrollbar {
     // 整体
     &::-webkit-scrollbar {

@@ -18,7 +18,11 @@ import { Image } from '@arco-design/web-react';
 - 进入 _[腾讯云服务器 - 控制台中心](https://console.cloud.tencent.com/lighthouse/instance/detail?rid=8&id=lhins-664fbkyy)_ 页面，就可以看到服务器对应的公网 `IP地址`;
 - **重置系统密码**，用于远程登录服务器中的 Linux 系统或 Windows 系统;
 
+<!--
 <Image src={require('./img/2022-01-17.jpg').default} height={360} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/2022-01-17.jpg' height={360} />
 
 - 重置密码时，Linux 系统默认用户名为 `root`；Windows 系统默认用户名为 `administrator`；当然都可以自定义用户名;
 - 服务器中的 **系统镜像** 是一个纯净版的操作系统，可以选择重装系统镜像（Linux 或 Windows），每次重装之后都需 **重置密码**;
@@ -41,6 +45,8 @@ import { Image } from '@arco-design/web-react';
 - **安装 SSL 证书**:
   - 开启 HTTPS 协议, 提供身份验证和数据加密传输等方案, 提高网站的安全性;
   - 进入 _[腾讯云 SSL 证书管理](https://console.cloud.tencent.com/ssl)_ 界面，可申请免费证书(仅支持**单域名**);
+  - 申请成功之后，可对证书进行下载（一般多为 nginx 的证书）;
+  - 👉 _[Nginx 服务器 SSL 证书安装部署](https://cloud.tencent.com/document/product/400/35244)_
 
 ## `ssh` 远程登录云服务器
 
@@ -68,11 +74,15 @@ mkdir [文件目录]    # 创建文件目录
 rm -r [文件目录]      # 删除文件目录
 ```
 
-:::caution 离谱小贴士
+:::caution 离离原上谱
 
 - 有时候在云服务器中进行 **系统重装** 后，在本地运行 `ssh` 远程登录，会出现以下错误:
 
+<!--
 <Image src={require('./img/2022-01-21-ssh-error.jpg').default} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/2022-01-21-ssh-error.jpg' />
 
 - 出现该错误的原因: 由于服务器的 **公钥(public key)** 发生了改变（比如重装了系统），而电脑客户端存储的信息并没有发生变化，导致 `ssh` 登录时，信息匹配不正确，从而产生错误警告;
 - 解决方法如下: 找到本地电脑 `ssh` 存储信息的文件目录（**.ssh/known_hsots**），手动将其删除，再重新进行远程登录:

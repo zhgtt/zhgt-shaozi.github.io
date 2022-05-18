@@ -11,7 +11,11 @@ import { IconClockCircle } from '@arco-design/web-react/icon';
 
 > http 和 https 是在开发中最常用的知识点，本章节内容会参考其他资料，对 http 的知识点做一个简单的总结
 
+<!--
 <Image src={require('./img/HTTP.png').default} style={{ maxHeight: 'initial' }} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/HTTP.png' style={{ maxHeight: 'initial' }} />
 
 ## HTTP 基础
 
@@ -197,7 +201,15 @@ HTTP 状态码可分为以下 **五类**:
 - `HTTP 1.1` 版本开始默认支持 **长连接**，又称持久连接，在客户端发起请求时，只需要建立一个 TCP 连接即可，使客户端到服务端的连接持续有效，多个 http 请求/响应会共用这一个 TCP 连接通道，避免了重新建立连接，提升了传输效率;
 - 在 **请求头** 中添加 `Connection: Keep-Alive` 属性，即可开启 长连接;
 
+<!--
 <Image src={require('./img/http-long-connection.jpg').default} height={360} width='60%' />
+-->
+
+<Image
+  src='//aone-time.icu/group1/dino/column-service/http-long-connection.jpg'
+  height={360}
+  width='60%'
+/>
 
 ##### 长连接的优点
 
@@ -218,7 +230,15 @@ HTTP 状态码可分为以下 **五类**:
 - 该模式是在同一个 TCP 连接中 **发一个请求不必等其响应，就可继续发其他请求**，也就是并发的状态，可以减少整体的响应时间，提高吞吐，但服务器还是会 **按照请求的顺序依次响应**;
 - 非管道化和管道化连接的状态如下:
 
+<!--
 <Image src={require('./img/2022-04-07-pipeline.jpg').default} height={360} width='60%' />
+-->
+
+<Image
+  src='//aone-time.icu/group1/dino/column-service/2022-04-07-pipeline.jpg'
+  height={360}
+  width='60%'
+/>
 
 - 如果请求较多时，排在前面的请求响应很慢，就会产生 [_队头阻塞_](#team-head) 问题;
 
@@ -284,14 +304,22 @@ http 对大文件的传输有以下几种方式，只做简单的介绍了解，
 - 该代理方式就相当于是一个中间人的角色; 它的角色功能如下图所示;
 - 它还可以实现一些负载均衡、过滤、缓存的功能;
 
+<!--
 <Image src={require('./img/http-agent.jpg').default} width='80%' height={360} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-agent.jpg' height={360} width='80%' />
 
 ##### 隧道代理
 
 - 由于普通代理服务器无法代理 https 的报文，客户端和代理服务器之间就无法创建 **TLS(安全传输层协议)**，无法支持数据的保密性和安全转发;
 - 隧道代理则解决了上述的问题，客户端发送 `CONNECT` 请求到代理服务器，然后和真实服务器之间建立 TCP 连接，创建成功之后客户端就可以和真实服务器进行数据的直接转发，加密传输，如下图;
 
+<!--
 <Image src={require('./img/http-agent-1.jpg').default} width='80%' height={360} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-agent-1.jpg' height={360} width='80%' />
 
 :::tip 参考资料
 
@@ -304,14 +332,28 @@ http 对大文件的传输有以下几种方式，只做简单的介绍了解，
 - 工作在 **客户端** 的代理为正向代理，也就是需要在客户端配置相关的代理服务器的信息，它可以隐藏真实的客户端，比如抓包工具及访问外网的代理插件等;
 - 正向代理通常用于访问一些无法访问的网站，屏蔽不健康的网站等;
 
+<!--
 <Image src={require('./img/http-agent-2.jpg').default} width='80%' height={360} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-agent-2.jpg' height={360} width='80%' />
 
 ##### 反向代理
 
 - 工作在 **服务端** 的代理为反向代理，无需在客户端中配置代理服务器，它可以隐藏真实的服务器，比如 nginx 代理;
 - 反向代理通常用于负载均衡，服务端缓存，流量隔离等;
 
+<!--
 <Image src={require('./img/http-agent-3.jpg').default} width='80%' height={360} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-agent-3.jpg' height={360} width='80%' />
+
+:::tip 参考资料
+
+👉 [http-proxy 源码解析以及实现(正向代理 & 反向代理理解) - github](https://github.com/hua1995116/proxy)
+
+:::
 
 ### HTTP 缓存 📦 {#http-cache}
 
@@ -324,7 +366,11 @@ http 对大文件的传输有以下几种方式，只做简单的介绍了解，
 - 强缓存不会再向服务器发起请求，直接从缓存中读取资源(第一次发起请求除外);
 - 在 Chorme 浏览器中，强缓存被分为 `disk cache`(存放在硬盘中) 和 `memory cache`(存放在内存中)，存放的位置是由浏览器控制的，当使用强缓存时，会在 **状态码(Status Code)** 的旁边显示 `from disk cache` 或 `from memory cache`，如下图;
 
+<!--
 <Image src={require('./img/http-cache.jpg').default} width='60%' height={360} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-cache.jpg' height={360} width='60%' />
 
 - 强缓存的缓存策略是由以下几个 **请求/响应头字段** 所控制的;
 
@@ -377,7 +423,11 @@ http 对大文件的传输有以下几种方式，只做简单的介绍了解，
 
 以上两种 http 缓存策略的流程图如下:
 
+<!--
 <Image src={require('./img/http-cache-1.jpg').default} width='90%' height={360} />
+-->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-cache-1.jpg' height={360} width='90%' />
 
 :::tip 参考资料
 
@@ -392,7 +442,11 @@ http 对大文件的传输有以下几种方式，只做简单的介绍了解，
 - 由于 http 的通信使用的是 **明文传输**，且不会验证通信方的身份，因此存在着很多安全问题，比如数据被中间人(黑客)拦截或伪造等;
 - https 是 **超文本安全传输协议**，相当于是强化版的 http，它是在 **应用层(HTTP)** 和 **传输层(TCP)** 之间增加了一个 **安全层(SSL/TLS 加密协议)**，并且所有的信息都是加密传输的，还配置了身份验证，因此大大提高了网络传输的安全性，如下图;
 
+<!--
 <Image src={require('./img/https.png').default} width='70%' height={360} />
+ -->
+
+<Image src='//aone-time.icu/group1/dino/column-service/https.png' height={360} width='70%' />
 
 ### SSL/TSL 中的加密算法
 
@@ -444,7 +498,11 @@ http 对大文件的传输有以下几种方式，只做简单的介绍了解，
   - 当服务器收到证书时，再次同样的算法生成摘要，然后用 CA 的公钥对数字签名解密，得到 CA 已创建好的摘要，二者一对比，就能知道 **证书是否被人篡改**，最大程度的保证通信的安全;
 - 引入证书之后，HTTPS 的信息传输整体过程分为 **证书验证** 和 **数据传输阶段**，如下图:
 
+<!--
 <Image src={require('./img/https-1.jpeg').default} width='50%' />
+ -->
+
+<Image src='//aone-time.icu/group1/dino/column-service/https-1.jpeg' width='50%' />
 
 - 证书认证又分为 **单向认证** 和 **双向认证**;
   - **单向认证**: 服务器发送证书，客户端验证证书(大多数 https 服务器都是单向认证);
@@ -551,6 +609,12 @@ export function IconClock() {
 - 👉 [HTTP 各版本特点 & 区别 - 博客园](https://www.cnblogs.com/FdWzy/p/12567822.html)
 
 :::
+
+## 前端安全 📦
+
+<!-- TODO -->
+
+待续...
 
 ## 参考资料
 

@@ -1,5 +1,5 @@
 ---
-title: 前端鉴权 方式
+title: 前端鉴权 & 跨域
 id: authentication
 toc_max_heading_level: 4
 ---
@@ -8,9 +8,11 @@ toc_max_heading_level: 4
 import { Image } from '@arco-design/web-react';
 ```
 
-> 本章节会简单的介绍前端和服务器之间用于 **身份认证**、**授权** 等一些鉴权类的方式，如 Cookie、Session、Token 等方式
+> 本章节会简单的介绍前端和服务器之间用于 **身份认证**、**授权** 等一些鉴权类的方式（如 Cookie、Session、Token 等），以及小小的总结一些解决跨域的方式（如 CORS、代理 等）;
 
-:::info 前言
+## 前端鉴权方式
+
+:::note 写在前面
 
 - 由于 http 是 `无状态` 的，**对事务处理没有记忆能力，每次客户端和服务器会话完成时，服务器不会保存任何会话信息**，且每个请求都是独立的，这样服务器就无法确认当前访问者的身份，无法分辨上一次和当前的请求发送者是不是同一个客户端;
 - 因此服务器和客户端为了进行**会话跟踪**(知道是谁在访问)，就必须主动去维护一个**状态**(类似于给每人发一张身份证);
@@ -18,7 +20,7 @@ import { Image } from '@arco-design/web-react';
 
 :::
 
-## 基石 - Cookie
+### 基石 - Cookie
 
 ##### 什么是 Cookie?
 
@@ -32,7 +34,11 @@ import { Image } from '@arco-design/web-react';
 - 客户端可以通过 JS 脚本(如: `document.cookie`、`XMLHttpRequest` 等)来设置 cookie;
 - 设置 cookie 时，要以 `key=value`(键值对) 的形式来设置，并且都是 **字符串** 类型，然后客户端在发起请求时，会将每一个 cookie 拼接起来，用 `;` 分隔，组成一段文本，发送给服务器，如下图;
 
+<!--
 <Image src={require('./img/http-cookie.jpg').default} width='80%' />
+ -->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-cookie.jpg' width='80%' />
 
 ##### Cookie 的一些属性
 
@@ -62,13 +68,17 @@ import { Image } from '@arco-design/web-react';
 
 - Chrome 浏览器默认是不允许携带 cookie 的，在 `<= 90` 版本的浏览器中，需手动设置以下内容(在地址栏输入 [_chrome://flags_](chrome://flags))，才能允许浏览器跨域携带 cookie，以防产生 **跨域的报错问题**;
 
+<!--
 <Image src={require('./img/http-cookie-3.jpg').default} width='90%' />
+ -->
+
+<Image src='//aone-time.icu/group1/dino/column-service/http-cookie-3.jpg' width='90%' />
 
 - 👉 [面试官 -- 跨域请求如何携带 cookie? - 微信](https://mp.weixin.qq.com/s/a9iLWiSgeKuUIYVaWXordw)
 
 :::
 
-## Session {#session}
+### Session {#session}
 
 ##### 什么是 Session?
 
@@ -81,7 +91,15 @@ import { Image } from '@arco-design/web-react';
 - Session 创建成功之后，在响应中将此 Session 的唯一的标识信息 `SessionId` **存到 cookie 中** 并返回给客户端;
 - 客户端再次发起请求时，服务端会根据 cookie 中携带的 `SessionId` 来查找其对应的 Session 信息，如果没有找到则登录失效; 找到则可继续操作;
 
+<!--
 <Image src={require('./img/http-cookie-1.jpg').default} width='80%' height={360} />
+ -->
+
+<Image
+  src='//aone-time.icu/group1/dino/column-service/http-cookie-1.jpg'
+  width='80%'
+  height={360}
+/>
 
 ##### Session 的缺点
 
@@ -100,7 +118,7 @@ _😶 答:_
 
 :::
 
-## Token
+### Token
 
 ##### 什么是 Token?
 
@@ -114,7 +132,15 @@ _😶 答:_
 - 服务器响应时，再将 token **存到 cookie 中**，或者通过一个特定的接口来返回 token，可以让客户端取到该值;
 - 客户端再次发起请求时，服务端会去验证 cookie 中携带的 token，验证成功即可继续操作;
 
+<!--
 <Image src={require('./img/http-cookie-2.jpg').default} width='80%' height={360} />
+ -->
+
+<Image
+  src='//aone-time.icu/group1/dino/column-service/http-cookie-2.jpg'
+  width='80%'
+  height={360}
+/>
 
 ##### Token 的特点
 
@@ -130,16 +156,16 @@ _😶 答:_
 - 这时可以选择再添加一个 token，一个用来 **更新 access token** 的 token，也就是 `Refresh Token`;
 - 当 access token 过期后，就可以使用 refresh token 再生成一个新的 token，这样既能保证业务的安全性，还能提高用户的体验；当 refresh token 也过期时，就只能重新登录了;
 
-## JWT
+### JWT
 
 - JWT 全称是 `JSON Web Token`，也称为 **Json 令牌**，和 Token 一样，都是 **无状态** 的，都是 **访问资源的凭证**;
 - JWT 是目前最流行的 **跨域身份认证** 的解决方案;
 - JWT 中存储的信息是安全的，因为是经过数字签名的，因此可以被信任，可以使用一些算法对 JWT 进行签名;
 - 更多内容可查看 👉 [_JSON Web Token(JWT) 入门教程 - 阮一峰_](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
 
-## 总结 📦
+### 总结 📦
 
-### Cookie 和 Session 的区别
+#### Cookie 和 Session 的区别
 
 |                       | `Cookie`                                                                                | `Session`                                        |
 | --------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------ |
@@ -151,7 +177,7 @@ _😶 答:_
 | **存值的多样性**      | 只能存储在 客户端                                                                       | 可存储在 Redis、数据库等                         |
 | **对移动端的支持性**  | 不友好                                                                                  | 由于是基于 Cookie 实现的，所以也不友好           |
 
-### Token 和 JWT 的区别
+#### Token 和 JWT 的区别
 
 |                               | `Token`                                                                                | `JWT`                                                                                                                              |
 | ----------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -161,9 +187,226 @@ _😶 答:_
 | **验证流程**                  | 服务端验证客户端发来的 token 时，**还需查询数据库**获取用户信息，再验证 token 是否有效 | 将 Token 和 Payload(用户信息或其他数据) 加密后存储于客户端，服务端只需要使用密钥解密进行校验即可，**不需要查询或者减少查询数据库** |
 | **对移动端的支持性**          | 友好                                                                                   | 友好                                                                                                                               |
 
-## 参考资料
+### 参考资料
 
 - 👉 [前端鉴权的兄弟们：cookie、session、token、jwt、单点登录 - 掘金](https://juejin.cn/post/6898630134530752520)
 - 👉 [傻傻分不清之 Cookie、Session、Token、JWT - 掘金](https://juejin.cn/post/6844904034181070861)
 - 👉 [看完这篇 Session、Cookie、Token、JWT，和面试官扯皮就没问题了 - 掘金](https://juejin.cn/post/6844904115080790023#heading-11)
 - 👉 [Token 身份认证优缺点分析以及常见问题解决方案 - 腾讯云](https://cloud.tencent.com/developer/article/1519926)
+
+## 前端跨域 & 常见解决方案
+
+:::note 写在前面
+
+##### 什么是 跨域问题?
+
+- **跨域** 问题简单来说就是由浏览器的 **同源策略** 所产生的问题，如果在开发中产生跨域，通常会报以下错误:
+
+<!--
+<Image src={require('./img/cors-error.jpg').default} width='90%' />
+ -->
+
+<Image src='//aone-time.icu/group1/dino/column-service/cors-error.jpg' width='90%' />
+
+##### 什么是 同源策略?
+
+- 所谓同源，就是 `url` 中的 **http 协议**、**域名(domain)**、**端口(port)** 三者一致，而同源策略则是一个重要的安全策略，它能帮助阻隔恶意文档，减少可能被攻击的媒介，比如 XSS、CSFR 攻击;
+- http 协议的默认端口号为 `80`，https 协议的默认端口号为 `443`;
+
+##### 同源策略所限制的行为有哪些?
+
+- Cookie、localStorage 和 IndexedDB 无法读取到数据;
+- AJAX 请求发送被中断，会报错;
+- DOM 和 JS 对象无法获得;
+
+:::
+
+### CORS {#cors}
+
+- CORS 是一个 W3C 制定的标准机制，全称为 **跨域资源共享(Cross-origin resource sharing)**，它通过添加额外的 **http 头信息**，允许浏览器对不同源的服务端发送请求，从而解决跨域问题;
+- CORS 需要服务端和浏览器同时支持，且浏览器将 CORS 请求分为 [_简单请求_](#cors-easy-request) 和 [_非简单请求_](#cors-noeasy-request);
+
+#### 简单请求 {#cors-easy-request}
+
+- 当某些请求不会触发 [_CORS 预检请求_](https://developer.mozilla.org/zh-CN/docs/Glossary/Preflight_request)，且符合以下几种条件之一，这样的请求称之为 **简单请求**;
+
+```js title="条件一: 请求方式是以下三种之一"
+HEAD;
+
+GET;
+
+POST;
+```
+
+```js title="条件二: HTTP 头信息字段不超出以下几种"
+Accept;
+
+Accept-Language;
+
+Content-Language;
+
+Content-Type: 'text/plain, multipart/form-data, application/x-www-form-urlencoded';  // 仅限于这三个值之一
+```
+
+- 浏览器在发送 CORS 请求时，可以在头信息中添加一个 `Origin` 字段，用来表示 **本次请求来自于 哪个源**;
+- 服务端接收到 `Origin` 的值后，来判断该值指定的源是否在允许范围内，如果在，则服务端会返回给浏览器一个 `Access-Control-Allow-Origin` 字段，表示 **接收哪些 源的请求**; 如果不在，则服务端返回正常的 http 响应，但是浏览器会抛出跨域的错误;
+
+:::info 离离原上谱
+
+- `Access-Control-Allow-Origin` 的值为 `*` 时，表示资源可以被任意外域访问，一般情况下，该值应与 `Origin` 的值保持一致;
+
+:::
+
+- 如果要携带 cookie 发送 CORS 请求，需要浏览器和服务端都配置以下头信息字段;
+
+```js
+// 服务端配置
+Access-Control-Allow-Credentials = true;
+Access-Control-Allow-Origin = '...域名';  // 该值不可为 *
+
+// 浏览器配置
+withCredentials = true
+```
+
+#### 非简单请求 {#cors-noeasy-request}
+
+- 非简单请求就是不符合上述中的条件，比如请求方式为 `PUT`，或者请求头包含其他字段等，且发起请求后会在通信之前进行一次 [_预检请求_](https://developer.mozilla.org/zh-CN/docs/Glossary/Preflight_request);
+- **预检请求:** 浏览器先询问服务器(会发送一个 `OPTIONS` 请求)，当前网页所在的域名是否可以请求该服务器，以及可以使用哪些 http 头信息，只有得到正确的答复，才可以进行正式的请求，该请求一般会携带以下头信息字段;
+
+```js
+Access-Control-Request-Method: 'PUT'   // 表示浏览器使用什么请求方式，如 PUT 等
+Access-Control-Request-Headers: 'X-Custom-Header'  // 表示浏览器发送的自定义字段，如 X-Custom-Header 为自定义的字段
+```
+
+:::tip 参考链接
+
+- 👉 [跨源资源共享（CORS）- MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)
+- 👉 [面试官问我 CORS 跨域，我直接一套操作斩杀！- 掘金](https://juejin.cn/post/6983852288091619342)
+
+:::
+
+### 代理请求
+
+利用服务端请求不会跨域的特性（因为服务端调用 HTTP 接口只是使用 HTTP 协议，不需要同源策略，所以也就不存在跨域问题），添加一个中间代理服务器，让服务端的接口和客户端站点同域，从而实现代理请求，解决跨域问题;
+
+#### Webpack 代理
+
+webpack 会通过 `webpack-dev-server` 启动一个本地代理服务器，将接收到的请求转发到目标(真实)服务器，从而解决本地接口请求跨域的问题，需要配置 `proxy` 属性，如下;
+
+```js title="webpack/config.js"
+module.exports = {
+  // ...
+  devServer: {
+    proxy: {
+      // 如下，表示发出的所有 /api 开头的接口都会被代理到 taget 指定的地址
+      '/api': {
+        target: 'http://...', // 需要代理的服务端接口地址
+        pathRewrite: {
+          // 重写请求路径，如果服务端接口中没有 /api，就可以在这里将 /api 替换成一个空值
+          '^/api': '', // 比如请求 http://localhost:3000/api/request 等同于请求 http://.../request
+        },
+        secure: false, // 默认情况下不接收转发到 https 的服务器，如果希望支持，可以设置为 false
+        changeOrigin: true, // 是否更新代理后请求的 headers 中 host 地址，设置为 true 后，headers 中 host 地址为 target 值
+      },
+    },
+  },
+};
+```
+
+:::info 离离原上谱
+
+`proxy` 实质上是利用了 [_http-proxy-middleware 代理中间件_](https://github.com/chimurai/http-proxy-middleware)，实现请求并转发到目标服务器; 且该代理方式仅适用于 **在本地开发中，调试服务端接口**，不能用于线上发布
+
+:::
+
+#### XSwitch 插件代理
+
+[_XSwitch_](https://github.com/yize/xswitch) 是一个 **Chrome 浏览器插件**，它和 `proxy` 的代理方式相反，是 **访问服务端地址，代理前端资源**，也可以避免跨域问题的产生，如下，实现一个简单的代理，来访问本地的前端资源;
+
+```js title="XSwitch 配置"
+{
+  "proxy": [
+    [
+      "(.*)/path1/path2/js/(.*)", // 服务端地址: https://www.sample.com/path1/path2/index.js
+      "http://localhost:3000/js/$2", // 本地地址: http://localhost:3000/index.js
+    ],
+    [
+      "(.*)/path1/path2/css/(.*)", // 服务端地址: https://www.sample.com/path1/path2/index.css
+      "http://localhost:3000/css/$2", // 本地地址: http://localhost:3000/index.css
+    ],
+  ],
+}
+```
+
+#### Nginx 反向代理
+
+由于 nginx 作用在服务器中，且是代理访问其他服务器的接口，因此不会产生跨域问题; 如下，实现一个简单的 nginx 反向代理;
+
+```bash title="nginx.conf 配置文件"
+# ...
+server {
+    listen  80;    # 端口号，默认为 80
+    server_name  www.domain.com;    # 服务器地址 / 指定的域名
+
+    location / {
+        root   html    # 资源根目录
+        index  index.html index.html;    # 依次查找资源文件的格式
+    }
+
+    # 访问以 /api 开头的所有路径时，都会转发到 proxy_pass 配置的地址中
+    location /api/ {
+        proxy_pass   www.domain2.com/api/...;    # 目标服务器地址
+    }
+
+    # 访问以 /blog 开头的所有路径时，都会转发到 proxy_pass 配置的地址中
+    location /blog/ {
+        proxy_pass   www.domain3.com/blog/...;
+
+        proxy_set_header  Host $host;    # 设置发送到目标服务器的请求头字段
+        proxy_set_header  #... 设置其他请求头字段 ;
+    }
+}
+```
+
+### JSONP
+
+- 大多数情况的跨域问题都可以使用 [_CORS_](#cors) 来解决，但是在 `IE <= 9` 版本的浏览器中，是不支持 CORS 的，这时就需要用到 JSONP;
+- JSONP 主要是利用 **`<script>` 标签没有跨域限制** 这个特性来实现的，通过 `<script>` 标签的 `src` 属性，发送带有 `callback` 参数的 `GET` 请求，然后服务端将接口数据拼凑到 `callback` 函数中，返回给浏览器，使浏览器能通过该方式获取到接口数据，解决跨域问题;
+
+##### 实现一个简易的 JSONP
+
+```html title="前端代码实现 - js 文件"
+<script type="text/javascript">
+  const callbackFun = function (res) {
+    alert(res);
+  };
+  // 提供 jsonp 服务的url地址（不管是什么类型的地址，最终生成的返回值都是一段 javascript 代码）
+  const url = 'http://...?callback=callbackFun';
+
+  // 创建script标签，设置其属性
+  const script = document.createElement('script');
+  script.setAttribute('src', url);
+  script.setAttribute('type', 'text/javascript');
+
+  // 把 script 标签加入 head 中，此时调用开始
+  document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+```
+
+```js title="服务端代码返回 - callback 参数"
+callbackFun({ success: true });
+```
+
+:::info 离离原上谱
+
+- JSONP 只能发送 `GET` 这一种请求，且不是很安全;
+- 参考资料:
+  - 👉 [JSONP 跨域详解 - 简书](https://www.jianshu.com/p/e1e2920dac95)
+  - [🎯 Code Game: Help the Lynx collect pine cones!](https://www.w3schools.com/codegame/index.html)
+
+:::
+
+### 参考资料
+
+- 👉 [10 种跨域解决方案（附终极大招） - 掘金](https://juejin.cn/post/6844904126246027278)
+- 👉 [9 种常见的前端跨域解决方案 - 掘金](https://juejin.cn/post/6844903882083024910)

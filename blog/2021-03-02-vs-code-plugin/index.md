@@ -25,23 +25,17 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 适用于 VS Code 的中文语言包，安装完重启 VS Code 即可;
 - 推荐指数: 👍 👍 👍
 
-<Image src={require('./img/Chinese-language.jpg').default} />
-
 ### `Project Manager 项目管理器`
 
 - 本地项目管理器，可以对本地多个项目进行统一管理;
 - **会在侧边工具栏中生成该插件菜单**，可在菜单中对项目进行配置，分类，快速切换 / 打开项目;
 - 推荐指数: 👍 👍 👍 👍 👍
 
-<Image src={require('./img/Project-manage.jpg').default} />
-
 ### `Todo Tree 代码标记`
 
 - 在代码的注释中定义标签，来标记该代码块，并且该标签可高亮显示，比如 `TODO`, `BUG` 等标记;
 - **会在侧边工具栏中生成该插件菜单**，可在菜单中找到自己标记过的代码，并快速定位到该代码块的位置；
 - 推荐指数: 👍 👍 👍
-
-<Image src={require('./img/todo-tree.jpg').default} />
 
 - 该插件的相关配置:
 
@@ -83,35 +77,25 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 快捷键：`Ctrl + Alt + N` 或 `option(⌥) + command(⌘) + N`；
 - 推荐指数: 👍 👍 👍
 
-<Image src={require('./img/advanced-new-file.jpg').default} />
-
 ### `Image preview 图片显示`
 
 - 代码中引入图片时，会自动在编辑器的左侧进行显示，便于查看自己引入的图片;
 - 推荐指数: 👍 👍 👍 👍
-
-<Image src={require('./img/image-preview.jpg').default} />
 
 ### `SVG Viewer 图片预览`
 
 - 可以在 VS Code 中预览 SVG 图片，选中 SVG 文件，**点击右键 - SVG Viewer 选项** 进行预览;
 - 推荐指数: 👍 👍 👍 👍
 
-<Image src={require('./img/svg-viewer.jpg').default} />
-
 ### `Live Server`
 
 - 可以将本地的项目启动一个静态服务，以便在浏览器中运行；
 - 推荐指数: 👍
 
-<Image src={require('./img/live-server.jpg').default} />
-
 ### `Jest 测试插件`
 
 - 代码单元测试时的辅助工具，保存即可自动运行 **run test**；
 - 推荐指数: 👍
-
-<Image src={require('./img/jest.jpg').default} />
 
 :::caution 离谱小贴士
 
@@ -126,42 +110,30 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 常用的主题库，以 蓝紫色 为主色调；
 - 推荐指数: 👍 👍 👍 👍
 
-<Image src={require('./img/Palenight-Theme.jpg').default} />
-
 ### `Material Theme`
 
 - 主题库，内置多种主题；
 - 推荐指数: 👍 👍 👍
-
-<Image src={require('./img/Material-Theme.jpg').default} />
 
 ### `Github Theme`
 
 - Github 主题色，提供暗色和亮色两种主题；
 - 推荐指数: 👍
 
-<Image src={require('./img/Github-Theme.jpg').default} />
-
 ### `Horizon Theme`
 
 - 夕阳主题色，想使用亮色主题时推荐该主题；
 - 推荐指数: 👍
-
-<Image src={require('./img/Horizon-Theme.jpg').default} height={320} />
 
 ### `Material Icon Theme`
 
 - 常用的图标库；
 - 推荐指数: 👍 👍 👍 👍
 
-<Image src={require('./img/Material-Icon-Theme.jpg').default} />
-
 ### `vscode-icons`
 
 - 图标库；
 - 推荐指数: 👍 👍
-
-<Image src={require('./img/vscode-icons.jpg').default} />
 
 ## 代码辅助类插件
 
@@ -171,49 +143,35 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 快捷键：`Ctrl + Shift + L` 或 `shift(⇧) + command(⌘) + L`；
 - 推荐指数: 👍 👍 👍 👍 👍
 
-<Image src={require('./img/js-console-utils.jpg').default} />
-
 ### `Bracket Pair Colorizer 代码括号高亮`
 
 - 将代码中的任意括号进行高亮显示，提升代码的辨识度;
 - 推荐指数: 👍 👍 👍 👍 👍
-
-<Image src={require('./img/Bracket-Pair-Colorizer.jpg').default} />
 
 ### `Path Intellisense 路径补全`
 
 - 在代码中引入文件路径时，会自动进行提示并补全;
 - 推荐指数: 👍 👍 👍 👍
 
-<Image src={require('./img/path-intellisense.jpg').default} />
-
 ### `JavaScript(ES6) Code snippets 代码提示`
 
 - js / es6 代码提示，代码块辅助；
 - 推荐指数: 👍 👍
-
-<Image src={require('./img/js-snippets.jpg').default} />
 
 ### `ES7 React/Redux/... 代码提示`
 
 - react / redux / react-native 等框架的代码提示，代码块辅助；
 - 推荐指数: 👍 👍
 
-<Image src={require('./img/react-snippets.jpg').default} />
-
 ### `Code Runner 代码运行`
 
 - 可以直接在 VS Code 的终端中对 js 文件运行并输出，**点击右键 - Run Code** 运行；
 - 推荐指数: 👍 👍
 
-<Image src={require('./img/code-runner.jpg').default} />
-
 ### `DotEnv 代码高亮`
 
 - 高亮 **.env** 文件中的代码；
 - 推荐指数: 👍 👍
-
-<Image src={require('./img/dot-env.jpg').default} />
 
 ## 代码检测 & 格式化插件
 
@@ -222,8 +180,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - js & ts 常用代码检测工具；
 - 推荐指数: 👍 👍 👍 👍
 
-<Image src={require('./img/eslint.jpg').default} />
-
 ### `Prettier - Code formatter 代码格式化`
 
 - 代码格式化插件，可以配合 **ESLint** 一起使用；
@@ -231,8 +187,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 在项目的根目录下创建 **.prettierignore** 文件，可指定一些文件，让其忽略格式化；
 - 通过快捷键 `Shift + Alt + F` 或 `option(⌥) + shift(⇧) + F` 快速格式化代码；
 - 推荐指数: 👍 👍 👍 👍 👍
-
-<Image src={require('./img/prettier.jpg').default} />
 
 - 该插件的相关配置:
 
@@ -289,8 +243,6 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 该插件会和 **ESLint** 中的一些默认配置冲突，可统一使用 **prettier** 插件进行格式化，或者在 **settings.json** 文件中单独配置；
 - 推荐指数: 👍 👍 👍
 
-<Image src={require('./img/vetur.jpg').default} />
-
 ## Git 相关插件
 
 ### `GitLens 查看 Git 提交信息`
@@ -299,22 +251,16 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 该插件的功能默认会显示在侧边菜单栏中的 **源代码管理** 中，如果想让它单独成一个菜单显示，需要调出 VS Code 命令面板，输入 **gitlens** 后，选择 `GitLens: Set Views Layout`，再选择 `GitLens Layout` 即可单独显示为一个菜单；
 - 推荐指数: 👍 👍 👍 👍 👍
 
-<Image src={require('./img/gitlens.jpg').default} />
-
 ### `Git History 查看文件的提交历史记录`
 
 - 查看当前分支的 git 提交历史记录 & 提交信息，以及当前文件的历史版本；
 - 调出 VS Code 命令面板，输入 **git history** 后选择 `Git: View File History` 或 `Git: View History(git log)` 或 `Git: View Line History` 以进行查看；
 - 推荐指数: 👍 👍 👍
 
-<Image src={require('./img/git-history.jpg').default} />
-
 ### `Git Emoji Commit`
 
 - 通过工具栏菜单提交代码时，可以给 commit 信息加一个表情；
 - 推荐指数: 👍 👍 👍
-
-<Image src={require('./img/git-emoji.jpg').default} />
 
 ## HTML & CSS 相关插件
 
@@ -324,63 +270,45 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 可以进行 **十六进制颜色码** 和 **RGB 颜色值** 之间的转换;
 - 推荐指数: 👍 👍 👍 👍 👍
 
-<Image src={require('./img/color-info.jpg').default} />
-
 ### `Open in browser`
 
 - 可以将本地的 HTML 文件在默认浏览器中打开，**点击右键 - Open In Default Browser** 运行即可（仅限于静态的 HTML 文件）；
 - 推荐指数: 👍
-
-<Image src={require('./img/open-in-browser.jpg').default} />
 
 ### `HTML Snippets 代码提示`
 
 - 书写 HTML 代码时的常用插件，对 HTML 代码，语法进行提示，补全;
 - 推荐指数: 👍 👍 👍
 
-<Image src={require('./img/html-snippets.jpg').default} />
-
 ### `Auto Rename Tag 标签自动补全`
 
 - 对 HTML 标签自动补全 / 重写，支持任何语言中的 HTML 标签;
 - 推荐指数: 👍 👍 👍 👍
-
-<Image src={require('./img/auto-rename-tag.jpg').default} />
 
 ### `Auto Close Tag 标签自动补全`
 
 - 对 HTML 标签自动闭合，对 `JSX` 的支持性很好，和 `Auto Rename Tag` 插件功能相似;
 - 推荐指数: 👍 👍 👍
 
-<Image src={require('./img/auto-close-tag.jpg').default} />
-
 ### `Highlight Matching Tag 标签高亮`
 
 - 高亮显示 HTML 的闭合标签，提升代码的辨识度;
 - 推荐指数: 👍 👍 👍 👍
-
-<Image src={require('./img/highlight-tag.jpg').default} height={320} />
 
 ### `SCSS Everywhere 类名提示`
 
 - 可在 HTML 标签中，对 scss 文件中的类名进行代码提示（有时不会很准）；
 - 推荐指数: 👍
 
-<Image src={require('./img/scss-everywhere.jpg').default} />
-
 ### `SCSS IntelliSense 代码提示`
 
 - scss 变量 & 方法的智能联想提示，即便没有引入 scss 变量的文件，也会自动找出定义过的 scss 变量（仅限于 scss 文件中使用）；
 - 推荐指数: 👍
 
-<Image src={require('./img/scss-intellisense.jpg').default} />
-
 ### `IntelliSense for CSS ... 类名提示`
 
 - 对 CSS 变量的智能联想提示（仅支持 CSS 语法）；
 - 推荐指数: 👍
-
-<Image src={require('./img/css-intellisense.jpg').default} />
 
 ## 娱乐 & 闲鱼类插件
 
@@ -389,15 +317,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 书写代码时的特效，内置多种效果样式；
 - 推荐指数: 👍 👍 👍 👍 👍
 
-<Image src={require('./img/power-mode.jpg').default} />
-
 ### `CodeSnap 截图`
 
 - 代码快照，截图，选中代码后，**点击右键** 选择运行 CodeSnap，会对代码进行截图；
 - 生成的截图可以调整大小，通过点击 **上方的快门图标** 对该图片保存到磁盘；
 - 推荐指数: 👍 👍 👍
-
-<Image src={require('./img/codesnap.jpg').default} />
 
 ### `Code Spell Checker 单词检测`
 
@@ -405,22 +329,16 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 - 使用快捷键：`Ctrl + .` 或 `command(⌘) + .` 可以给出单词的正确提示；
 - 推荐指数: 👍 👍 👍
 
-<Image src={require('./img/code-spell-checker.jpg').default} />
-
 ### `Time Master`
 
 - 阿里 ice 团队开源的 AppWorks 插件中的一个，用于查看当天使用编辑器的情况，以及项目的代码编写率；
 - **会在侧边工具栏中生成该插件菜单**，可点击该菜单以查看 Time Master 面板；
 - 推荐指数: 👍
 
-<Image src={require('./img/time-master.jpg').default} />
-
 ### `background-cover 设置编辑器的背景`
 
 - 自定义设置 VS Code 编辑器的背景图片，并可以进行透明度，是否随机出现等设置；
 - 推荐指数: 👍 👍
-
-<Image src={require('./img/background-cover.jpg').default} />
 
 ## 相关链接
 

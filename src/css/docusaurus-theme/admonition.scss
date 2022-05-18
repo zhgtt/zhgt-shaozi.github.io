@@ -1,4 +1,34 @@
 /* 告示框 组件 */
-.admonition {
+:root {
+  --ifm-list-margin: 0.75rem; // 原: 1rem
+  --ifm-list-margin-large: 1.25rem;
+}
+
+.admonition.alert {
   margin-bottom: 1.25rem;
+
+  .admonition-content {
+    padding-top: var(--ifm-list-margin);
+
+    h5 {
+      margin-bottom: var(--ifm-list-margin);
+    }
+    p:not(:last-child),
+    ul:not(:last-child) {
+      margin: 0 0 var(--ifm-list-margin-large);
+    }
+    a {
+      font-weight: 600;
+      color: var(--ifm-alert-border-color);
+    }
+    code:not(code[class^='codeBlockLines_']) {
+      background-color: var(--ifm-code-background);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      // font-size: var(--ifm-code-font-size); // 90%
+      padding: 0 5px;
+      vertical-align: middle;
+      color: initial;
+      line-height: 15px;
+    }
+  }
 }

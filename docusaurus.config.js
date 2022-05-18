@@ -121,12 +121,27 @@ module.exports = {
           },
         ],
         // 版权说明内容
-        copyright: `个人静态网站 ⓒ Copyright ${new Date().getFullYear()}`,
+        copyright: `<span>Copyright © 2022-2023 Dino 的笔记管理. Built with Docusaurus.</span>
+          <br />
+          <br />
+          <a href='https://beian.miit.gov.cn/#/Integrated/index' target='_blank'>蒙ICP备2022001054号-1</a>
+        `,
       },
       // 代码块主题配置
       prism: {
         theme: require('prism-react-renderer/themes/github'),
+        // theme: require('prism-react-renderer/themes/nightOwlLight'), // 🍋 备用
+        // theme: require('prism-react-renderer/themes/duotoneLight'),
+
         darkTheme: require('prism-react-renderer/themes/dracula'),
+        // darkTheme: require('prism-react-renderer/themes/duotoneDark'),
+        // darkTheme: require('prism-react-renderer/themes/nightOwl'),
+        // darkTheme: require('prism-react-renderer/themes/oceanicNext'),
+        // darkTheme: require('prism-react-renderer/themes/okaidia'),
+        // darkTheme: require('prism-react-renderer/themes/palenight'),
+        // darkTheme: require('prism-react-renderer/themes/shadesOfPurple'),
+        // darkTheme: require('prism-react-renderer/themes/synthwave84'),
+        // darkTheme: require('prism-react-renderer/themes/vsDark'),
         defaultLanguage: 'javascript',
         magicComments: [
           {

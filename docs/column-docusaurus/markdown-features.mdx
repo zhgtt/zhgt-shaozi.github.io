@@ -153,7 +153,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 效果展示如下：
 
 <BrowserWindow>
-  <img src={require('./img/markdown-features/wallhaven.png').default} alt='Example Image' />
+  {/* <img src={require('./img/markdown-features/wallhaven.png').default} alt='Example Image' /> */}
+  <img src='//aone-time.icu/group1/dino/Bg/wallhaven.png' />
 </BrowserWindow>
 
 ### Docusaurus 的拓展资源
@@ -167,7 +168,7 @@ import ExampleSVG from '@site/static/img/example.svg';
 ```
 
 ```mdx-code-block
-import GodOfWealthSVG from './img/markdown-features/caishenye.svg';
+import GodOfWealthSVG from '@site/static/img/caishenye.svg';
 
 <BrowserWindow>
   <GodOfWealthSVG title="财运滚滚!" width={100} style={{ display: 'block', margin: '0 auto' }} />

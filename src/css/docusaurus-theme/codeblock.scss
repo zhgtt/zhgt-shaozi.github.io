@@ -9,8 +9,11 @@ div[class*='codeBlockContainer_'] {
   }
   > div[class*='codeBlockContent_'] {
     max-height: 1000px;
-    overflow-y: auto;
     font-size: var(--dino-font-size-xs);
+    overflow-y: hidden;
+    &:hover {
+      overflow-y: auto;
+    }
     > pre {
       border-radius: 2px;
     }

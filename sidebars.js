@@ -38,7 +38,6 @@ const sidebars = {
         'column-service/http',
         'column-service/authentication',
         'column-service/web-storage',
-        'column-service/cors',
         {
           type: 'category',
           label: '前端项目部署 📦',

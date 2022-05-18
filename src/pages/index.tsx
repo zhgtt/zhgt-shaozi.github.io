@@ -11,7 +11,7 @@ import Admonition from '@theme/Admonition';
 import { Button, Menu } from '@arco-design/web-react';
 import axios from 'axios';
 
-import { Lottie_Dashboard_2 } from '@site/src/utils/lotties';
+import { Lottie_Dashboard } from '@site/src/utils/lotties';
 import styles from './styles.module.scss';
 
 const Homepage = () => {
@@ -37,7 +37,7 @@ const Homepage = () => {
               loop: true, // 是否循环
               autoplay: true, // 是否自动播放
               renderer: 'svg', // 渲染动画的方式
-              animationData: Lottie_Dashboard_2, // 数据源
+              animationData: Lottie_Dashboard, // 数据源
             }}
             // width={700}
             height={365}

@@ -31,6 +31,9 @@
   }
   // 引言
   > blockquote {
+    border-left-width: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     p {
       font-size: 13px;
       color: var(--dino-color-blockquote);
@@ -66,21 +69,6 @@
     padding-left: 18px;
     code {
       font-size: var(--dino-font-size-sm);
-    }
-  }
-  .alert {
-    a {
-      font-weight: 600;
-      color: var(--ifm-alert-border-color);
-    }
-    code:not(code[class^='codeBlockLines_']) {
-      background-color: var(--ifm-code-background);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      // font-size: var(--ifm-code-font-size); // 90%
-      padding: 0 5px;
-      vertical-align: middle;
-      color: initial;
-      line-height: 15px;
     }
   }
   ul li,
