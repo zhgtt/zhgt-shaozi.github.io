@@ -5,11 +5,12 @@
  */
 
 import React from 'react';
-import { useDocsSidebar } from '@docusaurus/theme-common';
 import clsx from 'clsx';
-import styles from './index.module.scss';
-import type { Props } from '@theme/DocPage/Layout/Main';
+import { useDocsSidebar } from '@docusaurus/theme-common';
 import Footer from '@theme/Footer';
+import type { Props } from '@theme/DocPage/Layout/Main';
+
+import styles from './index.module.scss';
 
 export default function DocPageLayoutMain({
   hiddenSidebarContainer,

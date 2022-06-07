@@ -1,0 +1,78 @@
+---
+title: JS 常用工具函数
+id: js-tools
+sidebar_position: 2
+toc_max_heading_level: 4
+---
+
+> 本章节记录 JavaScript 对 **字符串 / 浏览器 / 正则校验** 进行处理的一些工具函数;
+
+<img src='//aone-time.icu/group1/dino/Bg/wp11164545-spy-x-family-anya-wallpapers.jpeg' />
+
+## 字符串 & 数值
+
+### 实现金钱格式化
+
+```jsx title="代码实现 - 壹" showLineNumbers
+
+```
+
+```jsx title="代码实现 - 贰" showLineNumbers
+
+```
+
+### 字节 & 单位 之间的转换
+
+#### 字节 → 单位
+
+获取一段文本内容的字节(`bytes`)大小，并将其转换成 `KB`、`MB` 等单位大小;
+
+```jsx title="代码实现" showLineNumbers
+export const _bytesToSize = (value: string) => {
+  if (!value) return '0.0 B';
+
+  const num = 1024;
+  // 获取文本内容的 字节大小
+  const bytes = new Blob([value]).size;
+
+  if (bytes < num) return `${bytes} B`;
+  if (bytes < Math.pow(num, 2)) return `${(bytes / num).toFixed(2)} KB`; // Math.pow() 方法表示一个数值的 n 次方
+  if (bytes < Math.pow(num, 3)) return `${(bytes / Math.pow(num, 2)).toFixed(2)} MB`; // 保留两位小数
+  if (bytes < Math.pow(num, 4)) return `${(bytes / Math.pow(num, 3)).toFixed(2)} GB`;
+};
+
+// 调用
+_bytesToSize('天行健，君子以自强不息；地势坤，君子以厚德载物。');
+```
+
+#### 单位 → 字节
+
+将带有单位(`MB`、`KB` 等)的字符串，转换成对应的字节大小;
+
+```jsx title="代码实现" showLineNumbers
+export const _sizeToBytes = (size: string) => {
+  const num = 1024;
+
+  if (!size) return 0;
+  if (size.endsWith('KB')) return +size.replace('KB', '') * Math.pow(num, 1); // String.endsWith() 方法用来判断字符串是否以指定的字符结尾（区分大小写）
+  if (size.endsWith('MB')) return +size.replace('MB', '') * Math.pow(num, 2);
+  if (size.endsWith('GB')) return +size.replace('GB', '') * Math.pow(num, 3);
+  return +size.replace('B', '');
+};
+```
+
+:::tip 拓展链接
+
+- 👉 [在线字节转换工具](https://tooltt.com/byte-convert/)
+
+:::
+
+## DOM 交互
+
+### 防抖
+
+### 节流
+
+## 浏览器
+
+### 获取地址栏中的参数

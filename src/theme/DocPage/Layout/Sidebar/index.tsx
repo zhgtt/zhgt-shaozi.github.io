@@ -5,15 +5,14 @@
  */
 
 import React, { type ReactNode, useState, useCallback } from 'react';
-import DocSidebar from '@theme/DocSidebar';
-import { useLocation } from '@docusaurus/router';
-import type { Props } from '@theme/DocPage/Layout/Sidebar';
-import ExpandButton from '@theme/DocPage/Layout/Sidebar/ExpandButton';
-
 import clsx from 'clsx';
-import styles from './index.module.scss';
-
 import { ThemeClassNames, useDocsSidebar } from '@docusaurus/theme-common';
+import { useLocation } from '@docusaurus/router';
+import DocSidebar from '@theme/DocSidebar';
+import ExpandButton from '@theme/DocPage/Layout/Sidebar/ExpandButton';
+import type { Props } from '@theme/DocPage/Layout/Sidebar';
+
+import styles from './index.module.scss';
 
 function ResetOnSidebarChange({ children }: { children: ReactNode }) {
   const sidebar = useDocsSidebar();

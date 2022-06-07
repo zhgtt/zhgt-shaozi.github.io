@@ -9,15 +9,17 @@ import styles from './styles.module.scss';
 
 interface BrowserWindowProps {
   children: React.ReactNode;
-  minHeight: number;
-  url: string;
+  url?: string;
+  className?: string;
+  bodyStyle?: React.CSSProperties;
 }
 
 const BrowserWindow: React.FC<BrowserWindowProps> = (props) => {
-  const { children, minHeight, url = 'http://localhost:3000' } = props;
+  const { children, url = 'http://localhost:3000', className, bodyStyle } = props;
 
   return (
-    <div className={styles.browserWindow} style={{ minHeight }}>
+    <div className={clsx(className, styles.browserWindow)}>
+      {/* header */}
       <div className={clsx('flex items-center py-2 px-4', styles.browserWindowHeader)}>
         <div>
           <span className={styles.dot} style={{ background: '#f25f58' }} />
@@ -34,7 +36,10 @@ const BrowserWindow: React.FC<BrowserWindowProps> = (props) => {
         </div>
       </div>
 
-      <div className={styles.browserWindowBody}>{children}</div>
+      {/* body */}
+      <div style={bodyStyle} className={styles.browserWindowBody}>
+        {children}
+      </div>
     </div>
   );
 };

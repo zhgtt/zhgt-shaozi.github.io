@@ -19,6 +19,33 @@ export const Tags = ({ type }) => {
   return <Tag color={tagList[type].color}>{tagList[type].name}</Tag>;
 };
 
+## Nodejs 版本升级
+
+### Mac 电脑升级 node
+
+```bash
+# 查看当前 node 版本
+node -v
+
+# 清除 npm 的缓存
+sudo npm cache clean -f
+
+# 安装 n 模块，用来升级更新 node
+sudo npm install -g n
+
+# 查看 node 的所有版本
+npm view node versions
+
+# 升级 node 到 最新版
+sudo n latest
+
+# 升级 node 到稳定版（截止 2022-05-29，稳定版本为 v16.15.0）
+sudo n stable
+
+# 升级 node 到指定版本
+sudo n xx.xx
+```
+
 ## 通用插件(库)
 
 通用的插件(库)是不限于在 React, Vue 项目中使用的;
@@ -48,5 +75,6 @@ export const Tags = ({ type }) => {
 | _[react-json-view](https://github.com/mac-s-g/react-json-view)_                    | 格式化 `JSON` 数据，展示在页面中                                      | <Tags type='components' /> | [JSON 数据展示神器 - 博客园](https://www.cnblogs.com/soyxiaobi/p/9713814.html) |
 | _[react-lottie](https://github.com/mac-s-g/react-json-view)_                       | 基于 React 的 Lottie 动画库                                           | <Tags type='components' /> |                                                                                |
 | _[clsx](https://github.com/lukeed/clsx)_                                           | 用于合并类名 `className`                                              | <Tags type='tools' />      |                                                                                |
+| _[rc-resize-observer](https://www.npmjs.com/package/rc-resize-observer)_           | 用于窗口的大小响应                                                    | <Tags type='components' /> |                                                                                |
 
 ## Vue 相关插件(库)

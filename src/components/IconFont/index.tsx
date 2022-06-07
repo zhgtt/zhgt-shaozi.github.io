@@ -5,6 +5,6 @@
 import React from 'react';
 import { Icon } from '@arco-design/web-react';
 
-const IconFont = Icon.addFromIconFontCn({ src: '//at.alicdn.com/t/font_2788953_zjxd57xomdl.js' });
+const IconFont = Icon.addFromIconFontCn({ src: '//at.alicdn.com/t/font_2788953_f7s9gb0pkmb.js' });
 
 export default IconFont;

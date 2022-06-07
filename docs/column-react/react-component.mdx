@@ -15,7 +15,7 @@ import Demo from '@site/src/components/Demo';
 
 实现一个 TodoList 组件，要对数组的操作有 **上移**， **下移**，**置顶**，**删除**，**添加**，**编辑**;
 
-:::tip 组件开发中需要处理的逻辑
+:::info 组件开发中需要处理的逻辑
 
 - 列表中的每一条数据都应该有其对应的 **顺序**;
 - 若列表中不存在置顶数据的时候，不管怎么操作，顺序的值都以 **索引** 为值;
@@ -36,15 +36,31 @@ import todoListCssCode from '!!raw-loader!@site/src/components/Demo/TodoList/sty
 
 <CodePreview
   codeBlock={[
-    { code: todoListCode, title: 'index.tsx' },
-    { code: todoListEditCode, title: 'Editable.tsx' },
-    { code: todoListCssCode, title: 'styles.module.scss', language: 'scss' },
+    { code: todoListCode },
+    { code: todoListEditCode },
+    { code: todoListCssCode, language: 'scss' },
   ]}
   codeSandBoxHref='https://codesandbox.io/s/todo-list-component-ukblvc'
 >
   <Demo.TodoList />
 </CodePreview>
 
-## 无限滚动列表 组件
+## 实现指定文字高亮
 
-## 相关链接
+输入指定的文字，让该文字在一段文本内容中进行高亮显示，组件示例 如下:
+
+```mdx-code-block
+import TextHighLightCode from '!!raw-loader!@site/src/components/Demo/TextHighLight';
+```
+
+<CodePreview codeBlock={TextHighLightCode}>
+  <Demo.TextHighLight />
+</CodePreview>
+
+:::tip 参考资料
+
+- 👉 [JavaScript replace 的高级用法](https://segmentfault.com/a/1190000018173355)
+
+:::
+
+## 无限滚动列表 组件

@@ -2,7 +2,7 @@
  * @description JavaScript 工具函数
  */
 
-import { cloneDeep, isEqual } from 'lodash';
+import { cloneDeep, isEqual, shuffle, sum, sumBy, uniqBy, groupBy, isEmpty } from 'lodash';
 
 // 🍋 获取数组中随机一项
 export const _randomArr = (arr: (string | number | boolean)[]) => {
@@ -314,4 +314,19 @@ export const _productFilter = (data: any[], params = {}) => {
   const Keys = Object.keys(params);
 
   return data.filter((item) => Keys.every((key) => item[key] && item[key].includes(params[key])));
+};
+
+// 求和
+export const _getSumBy = (arr: any[], prop: string) => {
+  return arr.reduce((prev, cur) => prev + cur[prop], 0);
+};
+
+// 乱序
+export const _shuffle = (arr: Array<string | number>) => {
+  const len = arr.length;
+  for (let i = 0; i < len; i++) {
+    const m = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[m]] = [arr[m], arr[i]];
+  }
+  return arr;
 };

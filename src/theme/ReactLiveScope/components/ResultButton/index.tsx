@@ -3,6 +3,7 @@ import { Button, Space } from '@arco-design/web-react';
 import type { ButtonProps } from '@arco-design/web-react/es/Button';
 import type { ReactJsonViewProps } from 'react-json-view'; // 格式化渲染 json 对象
 import ReactJsonView from '@site/src/components/ReactJsonView';
+import IconFont from '@site/src/components/IconFont';
 
 interface IProps {
   results?: any;
@@ -42,7 +43,10 @@ const DocButton: React.FC<IProps & ButtonProps> = ({
       {openJsonView ? (
         <ReactJsonView src={results} collapsed={2} {...jsonViewProps} />
       ) : (
-        <span>RESULT: {results}</span>
+        <Space>
+          <IconFont type='icon-dino--dizzy' />
+          RESULT: {results}
+        </Space>
       )}
     </Space>
   );

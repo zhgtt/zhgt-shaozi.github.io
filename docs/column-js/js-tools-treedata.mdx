@@ -1,7 +1,7 @@
 ---
 title: JS 工具函数 - TreeData 篇
 id: js-tools-treedata
-sidebar_position: 2
+sidebar_position: 4
 toc_max_heading_level: 4
 ---
 
@@ -9,13 +9,9 @@ toc_max_heading_level: 4
 import { Image } from '@arco-design/web-react';
 ```
 
-> 本章节记录 JavaScript `TreeData`(树结构) 相关的一些工具函数，包括树结构的转换，查找等方法
+> 本章节记录 JavaScript 对 **树结构** 进行处理的一些工具函数，包括树结构的转换，查找等方法
 
-<!--
-<img src={require('./img/js-tools-treedata/wallhaven.png').default} style={{ maxHeight: 360 }} />
- -->
-
-<img src='//aone-time.icu/group1/dino/Bg/wallhaven-2.png' style={{ maxHeight: 360 }} />
+<img src='//aone-time.icu/group1/dino/Bg/b29f2454efdc4ccb84ce2feb7fa24b83.jpeg' />
 
 ## 树结构的转换
 
@@ -55,7 +51,7 @@ export const _dataToTree = (arr: TreeDataTypes[]) => {
 };
 ```
 
-```jsx title="代码实现 - 贰"
+```jsx title="代码实现 - 贰 🐸"
 export const _dataToTree = (arr: TreeDataTypes[]) => {
   // 与 代码实现-壹 相似，通过转换成对象取值映射的形式，从而降低时间复杂度
   const node = arr.reduce((prev, cur) => {
@@ -71,7 +67,7 @@ export const _dataToTree = (arr: TreeDataTypes[]) => {
 };
 ```
 
-```jsx title="代码实现 - 叁"
+```jsx title="代码实现 - 叁 🐸"
 export const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
   // 针对一级数组没有 pid 的情况，将其 pid 设置为 0
   if (!id) {
@@ -171,7 +167,7 @@ interface TreeDataTypes {
 ```
 
 ```js title="代码实现 - 壹"
-// 递归添加属性
+// 递归添加属性 🐸
 export const _updateTreeKey = (tree: TreeDataTypes[]) => {
   return tree.map((item) => {
     const isHasChild = Array.isArray(item?.childList);
@@ -203,7 +199,7 @@ export const _updateTreeKey = (tree: TreeDataTypes[]) => {
 ```
 
 ```jsx title="代码实现 - 贰"
-// 替换属性，转换成字符串后再进行替换，简单粗暴
+// 替换属性，转换成字符串后再进行替换，简单粗暴，但并不通用
 export const _updateTreeKey = (tree: TreeDataTypes[]) => {
   const str = JSON.stringify(tree)
     .replace(/"code"/g, '"key"') // 替换的内容一定要加引号
@@ -457,6 +453,6 @@ function ExampleComponent(props) {
 }
 ```
 
-## 相关链接
+## 参考资料
 
-- [JS 树结构操作：查找、遍历、筛选、树结构和列表结构相互转换 - 微信](https://mp.weixin.qq.com/s/2fYDzu1Qz6CPBBUOQlTX6A)
+- 👉 [JS 树结构操作：查找、遍历、筛选、树结构和列表结构相互转换 - 微信](https://mp.weixin.qq.com/s/2fYDzu1Qz6CPBBUOQlTX6A)

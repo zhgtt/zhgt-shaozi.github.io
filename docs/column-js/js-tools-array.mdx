@@ -1,17 +1,17 @@
 ---
 title: JS 工具函数 - Array 篇
 id: js-tools-array
-sidebar_position: 1
+sidebar_position: 3
 toc_max_heading_level: 4
 ---
 
-> 本章节记录 JavaScript `Array` 相关的一些工具函数，包括数组的去重，分组，过滤等方法
+> 本章节记录 JavaScript 对 **数组 / 对象** 进行处理的一些工具函数，包括数组的去重，分组，过滤等方法
 
 <!--
 <img src={require('./img/js-tools-array/wallhaven.jpeg').default} style={{ maxHeight: 360 }} />
 -->
 
-<img src='//aone-time.icu/group1/dino/Bg/wallhaven-1.jpeg' style={{ maxHeight: 360 }} />
+<img src='//aone-time.icu/group1/dino/Bg/wallhaven-1kwqd3_1920x1080.png' />
 
 ## 取值 & 统计
 
@@ -57,9 +57,64 @@ function ExampleComponent(props) {
 
 ### 计算数组中元素之和
 
+```jsx title="代码实现 - 普通数组的 求和"
+export const _getSum = (arr: number[]) => {
+  // 1️⃣ 通过 Array.reduce() 实现
+  return arr.reduce((prev, cur) => prev + cur, 0);
+
+  // 2️⃣ 通过 Array.forEach() 遍历实现
+  let total = 0;
+  arr.forEach((value) => {
+    total += value;
+  });
+  return total;
+};
+
+// 3️⃣ 使用第三方库 lodash 中的 sum() 方法
+import { sum } from 'lodash';
+
+const total = sum(arr);
+```
+
+```jsx title="代码实现 - 对象数组的 求和"
+export const _getSumBy = (arr: any[], prop: string) => {
+  // 1️⃣ 通过 Array.reduce() 实现
+  return arr.reduce((prev, cur) => prev + cur[prop], 0);
+
+  // 2️⃣ 通过 eval() 函数实现（计算 / 处理 字符串，并当做脚本代码来执行）
+  const propItem = arr.map((item) => item[prop]);
+  return eval(propItem.join('+'));
+};
+
+// 3️⃣ 使用第三方库 lodash 中的 sumBy() 方法
+import { sumBy } from 'lodash';
+
+const total = sumBy(arr, prop); // prop 为要进行计算的 key 属性
+// or
+const total = sumBy(arr, (item) => item[prop]);
+```
+
+示例:
+
+```jsx live
+function ExampleComponent(props) {
+  const array = [{ person: 120 }, { person: 80 }, { person: 225 }];
+
+  const [value, setValue] = useState();
+
+  return (
+    <ResultButton
+      openJsonView={false}
+      results={value}
+      onClick={() => setValue(_getSumBy(array, 'person'))}
+    />
+  );
+}
+```
+
 ## 过滤
 
-### 数组根据指定值进行过滤
+### 数组根据另一个数组的值过滤
 
 对象数组根据另一个数组中的值进行匹配，保留没有匹配到的数据;
 
@@ -107,7 +162,7 @@ function ExampleComponent(props) {
 
 ### 普通数组的去重
 
-```jsx title="代码实现 - 壹 🍏"
+```jsx title="代码实现 - 壹 🐸"
 // 使用 new Set() + 解构 的方式进行去重
 export const _unique = (arr: any[]) => {
   return [...new Set(arr)];
@@ -116,7 +171,7 @@ export const _unique = (arr: any[]) => {
 };
 ```
 
-```jsx title="代码实现 - 贰 🍏"
+```jsx title="代码实现 - 贰 🐸"
 // 使用 new Map() + Array.filter 的方法，利用 Map() 的键值对具有唯一性的特点进行去重
 export const _unique = (arr: any[]) => {
   const map = new Map();
@@ -155,7 +210,7 @@ export const _unique = (arr: any[]) => {
 };
 ```
 
-```jsx title="代码实现 - 陆 🍏"
+```jsx title="代码实现 - 陆 🐸"
 // 使用 Array.reduce + Array.includes 的方式进行去重
 export const _unique = (arr: any[]) => {
   return arr.reduce((prev, cur) => {
@@ -177,16 +232,11 @@ export const _unique = (arr: any[]) => {
 };
 ```
 
-示例:
+```jsx title="代码实现 - 捌"
+// 使用第三方库 lodash 中的 uniq() 方法
+import { uniq } from 'lodash';
 
-```jsx live
-function ExampleComponent(props) {
-  const array = [25, '😄', 25, '😄', null, NaN, null, NaN, '2022-02-25', '2022-02-25', 'China 🇨🇳'];
-
-  const [value, setValue] = useState();
-
-  return <ResultButton results={value} onClick={() => setValue(_unique(array))} />;
-}
+const total = uniq(arr);
 ```
 
 ### 对象数组的去重
@@ -206,7 +256,7 @@ export const _uniqueObj = (arr: any[], prop: string) => {
 };
 ```
 
-```jsx title="代码实现 - 贰 🍏"
+```jsx title="代码实现 - 贰 🐸"
 // 根据某字段(prop)，使用 Array.reduce 的方式去重
 export const _uniqueObj = (arr: any[], prop: string) => {
   const obj = {};
@@ -224,6 +274,13 @@ export const _uniqueObj = (arr: any[], prop: string) => {
     return self.findIndex((el) => el[prop] === item[prop]) === index;
   });
 };
+```
+
+```jsx title="代码实现 - 肆 🐸"
+// 使用第三方库 lodash 中的 uniqBy() 方法
+import { uniqBy } from 'lodash';
+
+const total = uniqBy(arr, prop); // prop 为指定的对象的 key 属性
 ```
 
 示例:
@@ -248,7 +305,7 @@ function ExampleComponent(props) {
 
 ### 数据的分组(一对多)
 
-根据数据中的某字段，对数据进行分组，**多条数据只对应一个分组**，返回一个 **对象 / 对象数组**，同 **lodash** 工具库中的 `_groupBy` 方法;
+根据数据中的某字段，对数据进行分组，**多条数据只对应一个分组**，返回一个 **对象 / 对象数组**;
 
 ```jsx title="代码实现 - 壹: 返回一个对象"
 // 根据指定字段，使用 普通循环 的方式分组，返回一个对象
@@ -263,7 +320,7 @@ export const _groupByObj = (arr: any[], prop: string) => {
 };
 ```
 
-```jsx title="代码实现 - 贰: 返回一个对象 🍏"
+```jsx title="代码实现 - 贰: 返回一个对象 🐸"
 // 根据指定字段，使用 Array.reduce 的方式分组，返回一个对象
 export const _groupByObj = (arr: any[], prop: string) => {
   return arr.reduce((prev, cur) => {
@@ -273,7 +330,14 @@ export const _groupByObj = (arr: any[], prop: string) => {
 };
 ```
 
-```jsx title="代码实现 - 叁: 返回一个对象数组"
+```jsx title="代码实现 - 叁: 返回一个对象 🐸"
+// 使用第三方库 lodash 中的 groupBy() 方法
+import { groupBy } from 'lodash';
+
+const total = groupBy(arr, prop); // prop 为指定的对象的 key 属性
+```
+
+```jsx title="代码实现 - 肆: 返回一个对象数组 🐸"
 export const _groupByArray = (arr: any[]) => {
   const dest = [];
   const groups = {};
@@ -406,7 +470,7 @@ function ExampleComponent(props) {
 
 ## 拷贝
 
-:::tip 为什么要进行拷贝？
+:::caution 为什么要进行拷贝？
 
 - **原始(基础)数据类型** 存储在 `栈(系统自动分配)` 中，存储的是 `值`;
 - **引用(复杂)数据类型** 存储在 `堆(人为申请开辟)` 中，`栈` 中存储的是 **地址**，是指向 `堆` 的引用地址；`堆` 中存储的是 **该数据的属性或值**;
@@ -485,7 +549,7 @@ function ExampleComponent(props) {
 
 数据的深拷贝简单来说就是将一个 **引用类型** 的数据从内存中完整的拷贝一份出来，从 `堆` 内存中开辟一个新的区域存放该对象，且修改新数据不会影响到原数据;
 
-```jsx title="代码实现 - 壹"
+```jsx title="代码实现 - 壹 🐸"
 // 使用 JSON 自带的两个方法进行深拷贝;
 // 📢 缺点：虽然可以应对大部分的数据场景，但是对于拷贝函数，循环引用等不起作用
 export const _deepClone = (data: any) => {
@@ -554,7 +618,7 @@ export const _deepClone = (target: any, map = new WeakMap()) => {
 };
 ```
 
-```jsx title="代码实现 - 叁"
+```jsx title="代码实现 - 叁 🐸"
 // 使用第三方库 lodash 的 cloneDeep() 函数;
 import { cloneDeep } from 'lodash';
 
@@ -590,7 +654,7 @@ function ExampleComponent(props) {
 
 :::tip 参考资料
 
-- [如何写出一个惊艳面试官的深拷贝? - 掘金](https://juejin.cn/post/6844903929705136141)
+- 👉 [如何写出一个惊艳面试官的深拷贝? - 掘金](https://juejin.cn/post/6844903929705136141)
 
 :::
 
@@ -644,7 +708,7 @@ export const _equals = (origin: any, target: any): boolean => {
 };
 ```
 
-```jsx title="代码实现 - 叁"
+```jsx title="代码实现 - 叁 🐸"
 // 使用第三方库 lodash 的 isEqual() 函数;
 import { isEqual } from 'lodash';
 
@@ -680,6 +744,185 @@ function ExampleComponent(props) {
 
 ### 打乱一个数组的顺序
 
-### 冒泡排序
+```jsx title="代码实现 - 壹"
+// 使用 Array.sort() 排序的方式将数据打乱;
+// 📢 该方法并不能实现真正意义上的乱序，在一些特别场景中会有问题，比如抽奖等
+export const _shuffle = (arr: Array<string | number>) => {
+  return arr.sort(() => Math.random() - 0.5);
+  // 假设被比较的前后两个值分别为 a 和 b，会有以下三种情况;
+  // 若 返回值 > 0，a 会排到 b 的后面
+  // 若 返回值 = 0，a 和 b 的位置不变
+  // 若 返回值 < 0，a 会排到 b 的前面
+};
+```
 
-## 相关链接
+```jsx title="代码实现 - 贰 🐸"
+// 使用 Fisher–Yates shuffle 洗牌算法 将数据打乱，效果更明显;
+export const _shuffle = (arr: Array<string | number>) => {
+  const len = arr.length;
+  for (let i = 1; i < len; i++) {
+    // 定义一个 随机位置
+    const m = Math.floor(Math.random() * (i + 1)); // Math.floor() 表示浮点数向下取整; Math.random() 取随机值要从 * 2 开始，因为 * 1 时，随机值只会为 0;
+    // 利用 es6 的解构交换 指定位置 中数组的值
+    [arr[i], arr[m]] = [arr[m], arr[i]];
+  }
+  return arr;
+};
+```
+
+```jsx title="代码实现 - 叁 🐸"
+// 使用第三方库 lodash 的 shuffle() 函数;
+import { shuffle } from 'lodash';
+
+const newArr = shuffle(target);
+```
+
+```jsx live
+function ExampleComponent(props) {
+  const arr = ['A', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', '🤡'];
+
+  const [value, setValue] = useState();
+
+  return <ResultButton results={value} onClick={() => setValue(_shuffle(arr))} />;
+}
+```
+
+:::tip 参考资料
+
+- 👉 [如何将一个 JavaScript 数组打乱顺序？ - 知乎](https://www.zhihu.com/question/68330851)
+
+:::
+
+### 部分排序算法
+
+```jsx title="封装的公用方法，下文会用到"
+// 交换元素 函数
+const swap = (arr, indexA: number, indexB: number) =>
+  ([arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]]);
+```
+
+#### 冒泡排序
+
+- 依次比较相邻的元素，按照 **从小到大的顺序** 对元素进行交换（若符合该规则，无需交换）;
+
+```jsx title="代码实现 - 壹"
+// 普通的冒泡排序方法
+export const _sortBy = (arr: Array<string | number>) => {
+  const len = arr.length;
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
+      }
+    }
+  }
+  // 或
+  for (let i = arr.length - 1; i > 0; i--) {
+    for (let j = 0; j < i; j++) {
+      // 同上 ...
+    }
+  }
+  return arr;
+};
+```
+
+```jsx title="代码实现 - 贰"
+// 定义一个 标记性 变量 pos，用于记录每次循环中的最后一次交换的位置，性能要比普通的冒泡排序方法要好
+export const _sortBy = (arr: Array<string | number>, compareFunc) => {
+  let i = arr.length - 1;
+  while (i > 0) {
+    let pos = 0; // 标记性变量
+
+    for (let j = 0; j < i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        pos = j;
+        swap(arr, j, j + 1);
+      }
+    }
+    i = pos;
+  }
+  return arr;
+};
+```
+
+:::caution 如何利用冒泡排序实现 升序和降序?
+
+在冒泡排序的方法中，传入第二个参数（参数为函数），作为控制升序和降序的条件，类似 `Array.sort()` 函数中的参数;
+
+```jsx title="代码实现"
+export const _sortBy = (arr: Array<string | number>, compareFunc) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (compareFunc(arr[j], arr[j + 1]) > 0) {
+        swap(arr, j, j + 1);
+      }
+    }
+  }
+  return arr;
+};
+
+// 调用
+_sortBy(arr, (a, b) => a - b); // 从小到大 排序
+_sortBy(arr, (a, b) => b - a); // 从大到小 排序
+```
+
+:::
+
+#### 选择排序
+
+- 首先在未排序的序列中找到一个 **最小（大）值**，将其放在序列的 **起始位置**，然后再从剩余未排序的序列中继续寻找最小（大）值，放到已排序序列的后面，以此类推，达到排序的效果;
+- 该排序方法最大的优点就是，减少了内存的占用空间;
+
+```jsx title="代码实现"
+export const _sortBy = (arr: Array<string | number>) => {
+  const len = arr.length;
+  let minIndex; // 定义一个最小值
+
+  for (let i = 0; i < len - 1; i++) {
+    minIndex = i;
+
+    for (let j = i + 1; j < len; j++) {
+      if (arr[j] < arr[minIndex]) {
+        // 从小到大 排序；如果要实现 从大到小 排序，改为 arr[j] > arr[minIndex] 即可
+        minIndex = j;
+      }
+    }
+    if (i !== minIndex) {
+      swap(arr, i, minIndex);
+    }
+  }
+  return arr;
+};
+```
+
+#### 插入排序
+
+- 在有序序列中，对于剩余未排序的数据，可在已排序序列中 **从前向后** 扫描（通常序列中的第一个元素，可以被认为已排序），找到相应位置插入;
+- 该排序方法可以很好的减少对数据处理的开销;
+
+```jsx title="代码实现"
+export const _sortBy = (arr: Array<string | number>) => {
+  const len = arr.length;
+
+  for (let i = 1; i < len; i++) {
+    const current = arr[i]; // 记录当前位置的值
+    let preIndex = i - 1; // 定义上一个元素的下标
+
+    while (preIndex >= 0 && arr[preIndex] > current) {
+      arr[preIndex + 1] = arr[preIndex];
+      preIndex -= 1;
+      // 或
+      // preIndex--;
+    }
+    arr[preIndex + 1] = current;
+  }
+  return arr;
+};
+```
+
+:::tip 更多排序算法可查看以下 参考资料...
+
+- 👉 [优雅的 JavaScript 排序算法 - 掘金](https://juejin.cn/post/6844903582328717325)
+- 👉 [十大经典排序算法(javascript 实现) - Wenzi 个人博客](https://www.xiabingbao.com/post/sort/javascript-10-sort.html)
+
+:::
