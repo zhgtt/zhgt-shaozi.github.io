@@ -16,8 +16,8 @@ import styles from './styles.module.scss';
 
 const Homepage = () => {
   const { siteConfig } = useDocusaurusContext();
-  console.log('siteConfig: ', siteConfig);
-  console.log('useColorMode: ', useColorMode);
+  // console.log('siteConfig: ', siteConfig);
+  // console.log('useColorMode: ', useColorMode);
 
   const handleClick = () => {
     axios.get('https://getman.cn/mock/route/to/demo').then((response) => {
@@ -47,7 +47,7 @@ const Homepage = () => {
           />
         </div>
 
-        <div className={styles.box}>
+        {/* <div className={styles.box}>
           <div className={styles.content}>安静圣诞节</div>
           <div className={styles.content}>安静圣诞节sdsds</div>
           <div className={styles.content}>安静圣诞节爱神的箭as的哈安静圣诞节爱神</div>
@@ -55,7 +55,7 @@ const Homepage = () => {
           <div className={styles.content}>安静圣诞节爱神的箭as的哈</div>
         </div>
 
-        <Button onClick={handleClick}>按钮</Button>
+        <Button onClick={handleClick}>按钮</Button> */}
       </main>
     </Layout>
   );

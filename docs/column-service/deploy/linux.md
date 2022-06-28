@@ -48,9 +48,9 @@ nginx -s stop
 
 - 访问服务器 IP，出现以下页面时，表示可以正常运行;
 
-<!-- <Image src={require('./img/2022-01-17-nginx.jpg').default} width="90%" /> -->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-17-nginx.jpg' width="90%" />
+<Image
+src={require('@site/static/image/column-service/2022-01-17-nginx.jpg').default}
+width="90%" />
 
 - 如果要对 nginx 配置文件进行修改，需找到该文件，使用 `vim` 对其进行编辑;
 
@@ -78,9 +78,7 @@ cnpm -v
 - 由于 **yum** 安装的 nodejs 版本太低，所以需要手动重新安装 nodejs;
 - 打开 _[nodejs 官网](http://nodejs.cn/download/)_，下载官方编译好的 Linux 二进制文件，如图;
 
-<!-- <Image src={require('./img/2022-01-18.jpg').default} width="90%" /> _/} -->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-18.jpg' width="90%" />
+<Image src={require('@site/static/image/column-service/2022-01-18.jpg').default} width="90%" />
 
 - 点击右键 **复制链接地址**，然后使用 `wget` 和 `tar` 命令下载并解压该文件;
 

@@ -5,6 +5,10 @@ sidebar_position: 1
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
+import { Image } from '@arco-design/web-react';
+```
+
 > 本章节简单记录 JavaScript 的一些基础知识 & 面试常见的问题，如 原型、闭包 等;
 
 ## 数据类型
@@ -34,7 +38,7 @@ _getType(new Array()); // '[object Array]'，实例化对象
 
 最基本的原始数据类型 `string`、`number` 和 `boolean` 之间的转换;
 
-#### → String
+##### → String
 
 ```js title="代码实现" showLineNumbers
 // 1️⃣ 使用 toString() 方法
@@ -70,7 +74,7 @@ String(true); // "true"
 
 :::
 
-#### → Number
+##### → Number
 
 ```js title="代码实现" showLineNumbers
 // 1️⃣ 使用 parseInt() 方法，它会将 浮点数 转换成 整数
@@ -130,7 +134,7 @@ parseInt('g8', 32); // 520
 
 :::
 
-#### → Boolean
+##### → Boolean
 
 ```js title="代码实现" showLineNumbers
 // 1️⃣ 使用 Boolean() 方法
@@ -190,7 +194,7 @@ isEmpty(' '); // false，加了空格的字符串
 
 ## 运算符
 
-### 神奇的 == 运算符
+##### == 运算符
 
 - 使用 `==` 做比较时，只会比较值，不会比较类型，因此 **不建议在实际开发中使用**;
 - `==` 运算符 本质上是将两侧的内容转换成 `Number` 类型，再进行比较;
@@ -207,7 +211,7 @@ true == 2; // false
 null == undefined; // true，除此之外，null 和 undefined 与任意值进行比较，结果都为 false
 ```
 
-### + 运算符
+##### + 运算符
 
 - 当一侧为 `String` 类型，另一侧为任意类型，会优先将另一侧的内容转换为 `String` 类型，再进行字符串拼接;
 - 当一侧为 `Number` 类型，另一侧为 **原始类型（除 String 外）**，会将另一侧的内容转换为 `Number` 类型，再进行加法运算;
@@ -319,7 +323,7 @@ p.name; // 'dino'
 
 :::
 
-## 原型 & 原型链 📦
+## 原型 & 原型链
 
 ##### `prototype` 对象
 
@@ -380,18 +384,435 @@ Object.prototype.__proto__ === null; // true
 
 ## this 关键字
 
-##### `this`
+- this 关键字多用在函数体内，都有一个共同点，**总是返回一个 对象**，也就是简单理解成 this 定义的属性或方法是 **"当前" 所在的对象(可称之为 宿主)** 中的属性或方法，且 **不会继承上一层的对象**;
+- 简言之: 函数中的 this 指向 **当前调用该函数的 环境**;
+- this 在默认情况下指向的是 `window` 对象; 而在 严格模式 `use strict` 下，this 的默认值为 `undefined`;
+- this 的指向是 **动态改变的**，它会随着当前宿主的改变而发生改变，比如以下示例;
 
-##### `call()` 和 `bind()`
+```js title="代码示例" showLineNumbers
+const pets = {
+  names: '花卷',
+  func: function () {
+    return `Its name is ${this?.names}`; // 此时的 this 指向当前的 obj 对象
+  },
+  child: {
+    names: '哈批',
+    func: function () {
+      return `Its name is ${this.names}`; // 此时的 this 指向当前的 pets 对象，并不会继承上一层的对象
+    },
+  },
+};
+
+pets.func(); // "Its name is 花卷"
+pets.child.func(); // "Its name is 哈批"
+
+const f = pets.func; // 此时 obj.func() 函数被赋予了一个变量，则 this 指向为该变量，但该变量为全局变量，因此 this 指向 window 对象
+const names = 'Dino';
+f(); // "Its name is undefined"
+```
+
+- 函数内如果多层嵌套使用 this 时，则 内层的 this 不会指向上层的对象，而指向 `window` 对象，因此需要避免使用多层 this; 如果遇到该情况，可以使用 **中间变量** 来固定 this 或者改变 this 指向，比如以下示例;
+- 由于 **箭头函数 没有自己的 this**，因此箭头函数中的 this 会指向(继承)它的上一层对象;
+
+```js title="代码示例" showLineNumbers
+const pets = {
+  names: '花卷',
+  getNames: function () {
+    console.log('names: ', this.names); // this 指向 window 对象
+  },
+
+  // 使用嵌套函数的情况
+  func: function () {
+    console.log(this); // this 指向 pets 对象
+
+    const that = this; // 定义一个中间变量，将 this 保存住
+    // 定义一个立即执行函数
+    (function () {
+      console.log('内层 this: ', this); // this 指向 window 对象，严格模式下为 undefined
+
+      console.log('内层 this: ', that); // this 指向 pets 对象
+    })();
+  },
+
+  // 使用箭头函数的情况
+  getFoods: () => {
+    console.log('names: ', this.names); // this 指向上一层的 window 对象
+  },
+  getNamesResult: function () {
+    setTimeout(() => {
+      console.log('setTimeout 中的 this: ', this); // this 指向上一层的 pets 对象（若换成普通函数，则 this 指向 window 对象）
+    }, 1000);
+
+    return () => {
+      console.log('返回结果中的 names: ', this.names); // this 指向上一层的 pets 对象
+    };
+  },
+};
+
+setTimeout(pets.getNames, 2000); // 这里等同于在 setTimeout 中，pets.getNames 被赋予了一个变量，然后再执行该变量
+
+pets.func();
+
+pets.getFoods();
+
+const fun = pets.getNamesResult(); // 这一步只会执行 getNamesResult() 函数内的代码
+fun(); // 这一步才会执行 getNamesResult() 函数内 return 中的代码
+```
+
+:::caution 离离原上谱
+
+- 当 this 指向 `window` 对象时，对于 `const` / `let` 定义的全局变量，因为它们是 **块级作用域**，不会挂载在 `window` 中，因此不能被 this 获取到; 而 `var` 是可以的;
+
+:::
+
+#### 改变 this 指向的方式
+
+JavaScript 提供了 `call`、`apply`、`bind` 这三种函数特有的方法来手动改变 this 的指向，让 this 可以指向更明确的对象，它们的作用都是一样的，只是写法不同;
+
+##### Function.prototype.call()
+
+- 语法 & 参数:
+
+```js
+Function.prototype.call(thisArg, params1, params2, ...);
+
+// thisArg: 表示 this 要指向哪个对象;
+// params1: 表示传递若干个额外参数;
+```
+
+- 当第一个参数为 `null` 或 `undefined` 时，this 指向 `window` 对象;
+- 该函数执行后，会返回 **原函数内的返回值**;
+
+##### Function.prototype.apply()
+
+- 语法 & 参数:
+
+```js
+Function.prototype.apply(thisArg, [params1, params2, ...]);
+
+// thisArg: 表示 this 要指向哪个对象;
+// [params1]: 表示传递由 若干个额外参数 组成的数组集合; 📢 并不表示该参数为数组类型，实际上还是等同于 function(thisArg, params1, params2, ...);
+```
+
+- 它和 `call` 的作用完全一致，唯一不同点就在于 **传参的方式不同**;
+
+##### Function.prototype.bind()
+
+- 语法 & 参数:
+
+```js
+Function.prototype.bind(thisArg, params1, params2, ...);
+
+// thisArg: 表示 this 要指向哪个对象;
+// params1: 表示传递若干个额外参数;
+```
+
+- 该函数执行后，会返回 **一个新的函数**，也就是 **原函数的拷贝**，并保存了其参数;
+
+##### call、apply 和 bind 的使用示例
+
+```js title="代码示例" showLineNumbers
+// 想让 pets.func 中的 this 指向 foods 对象
+const foods = { names: '🍋' };
+
+const pets = {
+  names: '花卷',
+  func: function (str, str_1) {
+    console.log('str: ', str); // 'Go!'
+    console.log('str_1: ', str_1); // 'Sit Down!'
+    console.log(this.names); // '🍋'
+  },
+};
+
+// 使用 call
+pets.func.call(foods, 'Go!', 'Sit Down!'); // 将 this 的指向由原来的 pets 对象改变为 foods 对象
+
+// 使用 apply
+pets.func.apply(foods, ['Go!', 'Sit Down!']);
+
+// 使用 bind
+const fn = pets.func.bind(foods, 'Go!', 'Sit Down!'); // bind 方法不会立即执行，所以需要将其赋予一个变量 或者 多调用一次
+fn();
+```
+
+##### call、apply 和 bind 的部分区别
+
+|                            | `call`                    | `apply`                   | `bind`                                |
+| -------------------------- | ------------------------- | ------------------------- | ------------------------------------- |
+| **执行函数的时机**         | 立即执行                  | 立即执行                  | 不执行                                |
+| **执行函数后，返回的结果** | 返回 **原函数内的返回值** | 返回 **原函数内的返回值** | 返回 **原函数的拷贝**，并保存了其参数 |
+
+##### call 和 apply 的部分使用场景
+
+- 获取数组中的最大值 / 最小值;
+
+```js
+const array = [1, 5, 10];
+
+// 获取最大值
+Math.max.apply(null, array); // 10，等同于 Math.max(1, 5, 10)
+// 或
+Math.max(...array);
+
+// 获取最小值
+Math.min.apply(null, array); // 1
+// 或
+Math.min(...array);
+```
+
+- 将类数组对象转换成真正的数组;
+
+```js
+Array.prototype.slice.apply({ 0: 1, 1: 'Dino', length: 2 }); // [1, "Dino"]
+```
 
 :::tip 参考资料
 
 - 👉 [this 关键字 - 网道文档](https://wangdoc.com/javascript/oop/this.html)
+- 👉 [js 基础-面试官想知道你有多理解 call,apply,bind？ - 掘金](https://juejin.cn/post/6844903906279964686)
 
 :::
 
 ## 闭包
 
+##### 什么是闭包?
+
+- 闭包是一种函数的 **表现方式**，可简单解释为当 **一个函数内部 能够访问到 另一个函数作用域中的变量或方法**，这样的写法即为闭包;
+- 也可以把闭包比喻成一个 "背包"，当一个函数 **被创建并被赋予了一个变量** 或 **被另一个函数作为返回值** 时，该函数都会携带一个 "背包"，"背包" 中存放的是 **函数声明时作用域内所有的变量或方法**;
+
+##### 闭包是如何形成的?
+
+- 闭包的形成简单来说是 **内部作用域(函数) 存在对 外部作用域 的引用**，就会导致闭包，比如 上级作用域内的变量或方法 被 下级作用域(函数)所引用，而导致其未被释放(不会被垃圾回收机制回收)，**会将变量存到 堆内存 中**，只能等到下级作用域执行完之后才得以被释放;
+
+```js title="代码示例 - 一个简单的闭包" showLineNumbers
+function createCounter() {
+  let counter = 0;
+
+  const myFunction = function () {
+    counter = counter + 1; // 引用了 外部作用域 中的变量 counter，导致该变量一直未被释放，所以在每次调用它时，该值会递增
+    return counter;
+  };
+  return myFunction; // 返回一个函数
+}
+const increment = createCounter();
+
+const c1 = increment(); // 1
+const c2 = increment(); // 2
+const c3 = increment(); // 3
+```
+
+##### 闭包的作用 & 特点
+
+- 保护函数中的 **私有变量 / 方法**，使其不受外部干扰或回收，避免全局污染;
+- 可以模仿块级作用域，实现 JS 的模块化;
+- 闭包函数中的 this 依然指向 `window` 对象;
+
+##### 闭包的缺点
+
+- 闭包中的变量 / 方法会常驻内存，从而增大内存使用量，过度使用会容易造成内存泄漏;
+
+##### 闭包常见的使用场景
+
+```js title="场景壹 - 自执行函数（IIFE）" showLineNumbers
+// 简单的 自执行函数
+const names = '花卷';
+(function () {
+  console.log(names);
+})();
+
+// React 中通过 useEffect 自执行异步方法
+useEffect(() => {
+  (async function () {
+    await fetch('/api/...');
+  })();
+}, []);
+```
+
+```js title="场景贰 - 函数中 return 一个函数" showLineNumbers
+function func() {
+  let num = 20;
+  // 调用 addTo() 时，它就是闭包函数，存在上级作用域的引用
+  return function addTo(val) {
+    num += val; // 等同于 num = num + val
+    return num;
+  };
+}
+const f = func();
+
+const c1 = f(5); // 25
+const c2 = f(4); // 29
+```
+
+```js title="场景叁 - 函数作为 参数 传递" showLineNumbers
+function fn() {
+  const names = '花卷';
+  return function getNames() {
+    return names;
+  };
+}
+
+function fn2(f) {
+  console.log(f()); // '花卷'，实际上是执行 getNames 函数
+}
+
+fn2(fn()); // 将执行后的 fn 函数作为参数传入
+```
+
+```js title="场景肆 - 循环赋值（经典面试题）" showLineNumbers
+for (var i = 0; i < 10; i++) {
+  setTimeout(function () {
+    console.log(i); // 输出 10 个 10
+  }, 1000);
+}
+
+// 🍋 原因分析: 因为 JS 是单线程执行，遇到异步代码不会先执行，会等待同步的代码（i++）运行完才会执行异步的 setTimeout，此时的 i = 10，所以会连续输出 10
+
+// 🍋 解决方式壹: 使用 let 代替 var
+// 🍋 解决方式贰: 使用闭包的方式解决，创建自执行函数，将 i 作为参数传入，形成私有作用域
+for (var i = 0; i < 10; i++) {
+  (function (index) {
+    setTimeout(function () {
+      console.log(index); // 依次输出 0 - 9
+    }, 1000);
+  })(i);
+}
+```
+
+```js title="场景伍 - 函数 柯里化（将一个使用多个参数的函数 转换成 一系列使用一个或多个参数的函数）" showLineNumbers
+function curry(func) {
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      // func.length 表示原始函数，也就是 function (a, b, c, d, e) {} 中参数的总个数，
+      return func.apply(this, args); // 由于 this 指向 window 对象，所以需将参数 func 函数指向 全局中的 func 函数，这样就能顺利拿到输出结果
+    } else {
+      return function (...args2) {
+        return curried.apply(this, args.concat(args2)); // 重新调用 curried 函数，将每次传入的参数进行合并
+      };
+    }
+  };
+}
+
+// curry() 等同于调用 curried()
+const func = curry(function (a, b, c, d, e) {
+  return a + b + c + d + e;
+});
+
+func(1, 2, 3, 4, 5); // 15
+func(1, 2)(3, 4, 5); // 15
+func(1, 2)(3)(4)(5); // 15
+func(1)(2)(3)(4)(5); // 15
+```
+
+:::tip 参考资料
+
+- 👉 [JS 闭包经典使用场景和含闭包必刷题 - 掘金](https://juejin.cn/post/6937469222251560990)
+- 👉 [我从来不理解 JavaScript 闭包，直到有人这样向我解释它 - 掘金](https://juejin.cn/post/6844903858636849159#heading-5)
+- 👉 [柯里化（Currying）- JavaScript.Info 教程](https://zh.javascript.info/currying-partials)
+
+:::
+
 ## JS 事件循环机制 📦
 
-## JS 设计模式 📦
+### 任务队列
+
+- 由于 JavaScript 是 **单线程语言**，就意味着所有任务都需要排队，前一个任务结束，才会执行下一个任务，如果遇到耗时比较长的任务，就会造成阻塞，或者导致 CPU 处于空闲状态，这样效率会很低;
+- 所有被执行的任务被分为两种，**同步任务** 和 **异步任务**;
+
+##### 同步任务
+
+- 在主线程中排队等待执行的任务，前一个任务执行完成，后一个任务才能开始执行，因此形成了一个 **执行栈**(队列);
+- 主线程会不断 **循环**，从执行栈中读取、执行任务，会执行完所有栈中的同步任务;
+
+##### 异步任务
+
+- 当遇到异步任务时，并不会一直等待其任务结束，而是会将该任务放置在一个与执行栈不同的队列中，称之为 **任务(事件)队列**，遵循 **先进先出** 的原则，然后主线程则继续跑执行栈中的其他任务;
+- 当主线程将 **执行栈** 中的所有同步任务跑完之后，就会读取 **任务(事件)队列**，查看有哪些异步任务，然后将已经执行完成的任务取出，将该任务的回调放入执行栈中，执行其中的同步代码;
+
+:::caution 总结 - 任务执行机制
+
+- 由于主线程从 **任务(事件)队列** 中读取任务的过程是 **不断循环** 的，所以整个流程的运行机制又称为 **Event Loop（事件循环）**;
+- 可以使用 [_loupe_](http://latentflip.com/loupe) 可视化工具来了解 JavaScript 的执行机制;
+
+<Image
+  src={require('@site/static/image/column-js/2402010291-b9a57af85eebdab7.png').default}
+  width='90%'
+  style={{ maxHeight: 380 }}
+/>
+
+:::
+
+### 宏任务 & 微任务
+
+- 不同的 **异步任务** 有不同的优先级，当放置在任务队列中时，就无法准确分辨它们在队列中的位置，因此根据异步任务的类型将其分为 **宏任务** 或 **微任务**，再依次放入其对应的任务队列中，然后等待主线程将它们依次取出并放入执行栈;
+
+##### 部分 宏任务(macrotask)
+
+```js showLineNumbers
+script （整体代码）
+setTimeout()
+setInterval()
+UI 渲染 / 交互事件
+I/O
+window.postMessage()  // 跨源(窗口)通信
+setImmediate （Node.js 环境）
+```
+
+##### 部分 微任务(microtask)
+
+```js showLineNumbers
+new Promise().then();
+await ...;
+MutationObserver(); // 监视对 DOM 树所做的改动
+process.nextTick （Node.js环境）
+```
+
+### Event Loop 的运行机制
+
+事件循环是发生在 **任务队列** 中的，它的每一次循环的关键步骤如下:
+
+- 首先进入 **宏任务队列** 中查找宏任务（通常是 `script 整体`），如果有则执行;
+- 在执行过程中，如果碰到 **微任务**，就将其添加到 **微任务队列** 中;
+- 宏任务跑完之后，就依次执行当前微任务队列中的任务，如果微任务中又生成了一个新的微任务，则继续执行，直到所有的微任务执行完成;
+- 宏任务执行完成之后，可能会触发 / 更新浏览器页面的渲染;
+- 再次进入 **宏任务队列** 中执行下一次 宏任务;
+
+简单来说就是 **每一次 `Event Loop` 循环中**，都会处理一个 **宏任务**，以及这次循环中产生的 **所有微任务**;
+
+```js title="代码示例" showLineNumbers
+console.log('start');
+
+setTimeout(() => {
+  console.log('setTimeout');
+}, 0);
+
+new Promise((resolve) => {
+  console.log('Promise 同步代码');
+  resolve();
+}).then(() => {
+  console.log('promise.then');
+});
+
+console.log('end');
+
+// 输出顺序
+// 'start'
+// 'Promise 同步代码'
+// 'end'
+// 'promise.then'
+// 'setTimeout'
+```
+
+:::tip 参考资料
+
+- 👉 [JS 运行机制最全面的一次梳理 - 微信](https://mp.weixin.qq.com/s/cqlhO6N8pGCjNkdHNSio4g) <!--或 https://segmentfault.com/a/1190000012925872-->
+- 👉 [JavaScript 运行机制详解：再谈 Event Loop - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2014/10/event-loop.html)
+- 👉 [事件循环：微任务和宏任务 - JavaScript.Info 教程](https://zh.javascript.info/event-loop)
+- 👉 [彻底搞懂 JavaScript 事件循环 - 掘金](https://juejin.cn/post/6992167223523541023)
+- 👉 [JavaScript 中的 Event Loop（事件循环）机制 - 思否](https://segmentfault.com/a/1190000022805523)
+- 👉 [深入 JavaScript 之执行上下文与执行栈 - 知乎](https://zhuanlan.zhihu.com/p/438019987)
+
+:::
+
+<!-- ## JS 设计模式 -->
+
+<!-- 手写 Promise & 原理 -->

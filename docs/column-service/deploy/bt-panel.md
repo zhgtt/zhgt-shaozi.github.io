@@ -31,29 +31,23 @@ bt
 
 - 安装成功之后，会回显宝塔的 **登录地址** 和 **用户名 & 密码**，这需要自己将这些信息记录好，如图:
 
-<!--
-<Image src={require('./img/2022-01-21.jpg').default} width='80%' height={260} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-21.jpg' width='80%' height={260} />
+<Image
+src={require('@site/static/image/column-service/2022-01-21.jpg').default}
+width='80%' height={260} />
 
 - 按照图片中的地址访问宝塔面板时，默认的 `8888` 的端口号需要在云服务器的 **防火墙** 中添加 **安全组端口规则** 之后，才能正常访问，如图（以腾讯云服务器为例，各服务器的添加规则可能不一样）:
 
-<!--
-<Image src={require('./img/2022-01-21-anquanzu.jpg').default} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-21-anquanzu.jpg' />
+<Image
+src={require('@site/static/image/column-service/2022-01-21-anquanzu.jpg').default}
+/>
 
 ### 腾讯云 宝塔专享版
 
 - 腾讯云服务器中内置了 **宝塔应用镜像系统**，只需要在重装系统中选择该应用镜像即可;
 
-<!--
-<Image src={require('./img/2022-01-21-system.jpg').default} height={360} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-21-system.jpg' height={360} />
+<Image
+src={require('@site/static/image/column-service/2022-01-21-system.jpg').default}
+height={360} />
 
 - 安装完成之后，再远程登录服务器，输入以下命令查看宝塔的 **默认信息** & **账号密码**;
 
@@ -72,11 +66,9 @@ bt
 - 登录成功之后，就可以在服务器进行快捷的 **应用安装** 或 **网站部署**;
 - 为了提高安全性，建议修改进入宝塔的 **安全入口**，**默认端口号**，**默认的账号密码** 等信息;
 
-<!--
-<Image src={require('./img/2022-01-22.jpg').default} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-22.jpg' />
+<Image
+src={require('@site/static/image/column-service/2022-01-22.jpg').default}
+/>
 
 ## 前端静态网站部署
 
@@ -89,19 +81,15 @@ bt
 - 输入网站的 **域名**(无域名，输入 ip 地址即可; 可添加多个域名);
 - **根目录** - 指定存放前端资源的 **文件目录**;
 
-<!--
-<Image src={require('./img/2022-01-22-web-create.jpg').default} height={360} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-22-web-create.jpg' height={360}/>
+<Image
+src={require('@site/static/image/column-service/2022-01-22-web-create.jpg').default}
+height={360}/>
 
 - 网站添加好之后，宝塔会自动将 nginx 配置好，若需要修改，只需要在 **设置** 中修改配置即可; 当然还可以在这里配置其他设置项;
 
-<!--
-<Image src={require('./img/bt-website.jpg').default} height={360} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/bt-website.jpg' height={360}/>
+<Image
+src={require('@site/static/image/column-service/bt-website.jpg').default}
+height={360}/>
 
 ### 上传前端资源
 
@@ -115,21 +103,17 @@ tar -czvf build.tar.gz build/
 
 - 然后在宝塔的 **文件** 面板中将该资源上传并解压到指定的网站目录即可;
 
-<!--
-<Image src={require('./img/2022-01-22-file-panel.jpg').default} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-22-file-panel.jpg' />
+<Image
+src={require('@site/static/image/column-service/2022-01-22-file-panel.jpg').default}
+/>
 
 :::caution 离离原上谱
 
 - 有时项目在 **打包** 时，会因为 **nodejs 内存溢出** 而导致项目打包失败，如图:
 
-<!--
-<Image src={require('./img/2022-01-18-iTerm.jpg').default} width='80%' height={260} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/2022-01-18-iTerm.jpg' width='80%' height={260} />
+<Image
+src={require('@site/static/image/column-service/2022-01-18-iTerm.jpg').default}
+width='80%' height={260} />
 
 - 尝试通过 `node --max-old-space-size=[容量(MB)]` 命令来 **扩大 nodejs 内存** 以解决此问题，容量的可选值为 `[4096, 6096, 8192, ...]`， 可在项目的 `package.json` 文件的脚本命令中修改以下代码:
 
@@ -153,21 +137,17 @@ tar -czvf build.tar.gz build/
 - **Let's Encrypt 证书** - 宝塔提供的免费证书，可以直接在线申请，但有效期只有三个月，添加好之后保存即可;
 - **自定义证书** - 添加自己申请好的证书，如腾讯云、阿里云的证书，添加好之后保存即可;
 
-<!--
-<Image src={require('./img/bt-panel-1.jpg').default} height={360} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/bt-panel-1.jpg' height={360} />
+<Image
+src={require('@site/static/image/column-service/bt-panel-1.jpg').default}
+height={360} />
 
 :::caution 离离原上谱
 
 如果 SSL 证书添加好之后，不能使用 https 访问网站，有可能是安全组中没有成功放行 `443` 端口，可以在 **安全** 页面中重新添加(放行) `443` 端口;
 
-<!--
-<Image src={require('./img/bt-panel-2.jpg').default} height={260} width='80%' />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/bt-panel-2.jpg' height={260} width='80%' />
+<Image
+src={require('@site/static/image/column-service/bt-panel-2.jpg').default}
+height={260} width='80%' />
 
 :::
 
@@ -186,7 +166,7 @@ mkdir /home/gofastdfs && cd /home/gofastdfs/     # 在 /home 目录中创建 gof
 - 按照官方文档中的方式，下载 go-fastdfs，并赋予相关权限（最新版本可在 [_开源地址_](https://github.com/sjqzhang/go-fastdfs/releases) 中查看）;
 
 ```bash
-wget --no-check-certificate https://github.com/sjqzhang/go-fastdfs/releases/download/v1.4.2/fileserver -O fileserver && chmod +x fileserver && ./fileserver
+wget --no-check-certificate https://github.com/sjqzhang/go-fastdfs/releases/download/v1.4.3/fileserver -O fileserver && chmod +x fileserver && ./fileserver
 ```
 
 - 下载好之后查看文件目录，或修改对应的配置文件（或直接在宝塔的 **文件面板** 中进行操作）;
@@ -199,11 +179,9 @@ ll
 cd conf/ && vim cfg.json
 ```
 
-<!--
-<Image src={require('./img/go-fastdfs.jpg').default} width='60%' />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/go-fastdfs.jpg' width='60%' />
+<Image
+src={require('@site/static/image/column-service/go-fastdfs.jpg').default}
+width='60%' />
 
 ### 运行服务 & 上传文件
 
@@ -217,11 +195,9 @@ cd conf/ && vim cfg.json
 
 - 在上传中如果要 **自定义路径**，需要先将 **默认场景 default** 的内容 **清空** 再上传;
 
-<!--
-<Image src={require('./img/go-fastdfs-1.jpg').default} height={360} width="90%" />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/go-fastdfs-1.jpg' height={360} width="90%" />
+<Image
+src={require('@site/static/image/column-service/go-fastdfs-1.jpg').default}
+height={360} width="90%" />
 
 :::caution 离离原上谱
 
@@ -247,7 +223,9 @@ ps -def | grep fileserver
 
 - 根据 `PID` 来删除 / 结束进程，如图，第二列的内容即 `PID`;
 
-<Image src='//aone-time.icu/group1/dino/column-service/nohub-1.png'  width="70%" />
+<Image
+src={require('@site/static/image/column-service/nohub-1.png').default}
+width="70%" />
 
 ```bash
 kill -9 ['PID']  # 9 表示删除的编号
@@ -372,7 +350,9 @@ ps -aux | grep goFastDfsWeb.sh
 
 - 访问对应的端口号，出现以下界面即运行成功，再按照提示进行对应的配置后，方可登录;
 
-<Image src='//aone-time.icu/group1/dino/column-service/go-fastdfs-web.jpg' height={360} width='90%' />
+<Image
+src={require('@site/static/image/column-service/go-fastdfs-web.jpg').default}
+height={360} width='90%' />
 
 :::tip 参考资料
 
@@ -399,11 +379,8 @@ ps -aux | grep goFastDfsWeb.sh
 
 如图所示，开启 SSL 并且选择了类型为自签证书，从而导致页面无法访问;
 
-<!--
-<Image src={require('./img/bt-panel.jpg').default} height={360} />
--->
-
-<Image src='//aone-time.icu/group1/dino/column-service/bt-panel.jpg' height={360} />
+<Image
+src={require('@site/static/image/column-service/bt-panel.jpg').default}height={360} />
 
 解决方法: 使用 `ssh` 进入到服务器中，输入以下命令，之后再刷新页面即可;
 

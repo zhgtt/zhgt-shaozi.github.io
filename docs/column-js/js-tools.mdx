@@ -7,18 +7,46 @@ toc_max_heading_level: 4
 
 > 本章节记录 JavaScript 对 **字符串 / 浏览器 / 正则校验** 进行处理的一些工具函数;
 
-<img src='//aone-time.icu/group1/dino/Bg/wp11164545-spy-x-family-anya-wallpapers.jpeg' />
+<img src={require('@site/static/image/Bg/wp11164545-spy-x-family-anya-wallpapers.jpeg').default} />
 
 ## 字符串 & 数值
 
 ### 实现金钱格式化
 
-```jsx title="代码实现 - 壹" showLineNumbers
+将一段数值每隔 **3 位** 加一个逗号;
 
+```jsx title="代码实现 - 壹" showLineNumbers
+// 利用正则来处理
+export const _formatCash = (value: string) => {
+  if (!value) return null;
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
 ```
 
 ```jsx title="代码实现 - 贰" showLineNumbers
+// 将字符串转成数组再处理
+export const _formatCash = (value: string) => {
+  if (!value) return null;
+  return value
+    .split('')
+    .reverse()
+    .reduce((prev, next, index) => {
+      console.log('prev: ', prev); // 表示每次循环 return 出去的值
+      return (index % 3 ? next : `${next},`) + prev;
+    });
+};
+```
 
+```jsx live
+function ExampleComponent(props) {
+  const str = '1234567890';
+
+  const [value, setValue] = useState('');
+
+  return (
+    <ResultButton results={value} onClick={() => setValue(_formatCash(str))} openJsonView={false} />
+  );
+}
 ```
 
 ### 字节 & 单位 之间的转换
@@ -32,7 +60,7 @@ export const _bytesToSize = (value: string) => {
   if (!value) return '0.0 B';
 
   const num = 1024;
-  // 获取文本内容的 字节大小
+  // 使用 Blob 构造函数 获取文本内容的 字节大小
   const bytes = new Blob([value]).size;
 
   if (bytes < num) return `${bytes} B`;

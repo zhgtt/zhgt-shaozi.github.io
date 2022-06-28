@@ -12,7 +12,7 @@ import { Image } from '@arco-design/web-react';
 
 ## 前端鉴权方式
 
-:::note 写在前面
+:::info 写在前面
 
 - 由于 http 是 `无状态` 的，**对事务处理没有记忆能力，每次客户端和服务器会话完成时，服务器不会保存任何会话信息**，且每个请求都是独立的，这样服务器就无法确认当前访问者的身份，无法分辨上一次和当前的请求发送者是不是同一个客户端;
 - 因此服务器和客户端为了进行**会话跟踪**(知道是谁在访问)，就必须主动去维护一个**状态**(类似于给每人发一张身份证);
@@ -34,11 +34,7 @@ import { Image } from '@arco-design/web-react';
 - 客户端可以通过 JS 脚本(如: `document.cookie`、`XMLHttpRequest` 等)来设置 cookie;
 - 设置 cookie 时，要以 `key=value`(键值对) 的形式来设置，并且都是 **字符串** 类型，然后客户端在发起请求时，会将每一个 cookie 拼接起来，用 `;` 分隔，组成一段文本，发送给服务器，如下图;
 
-<!--
-<Image src={require('./img/http-cookie.jpg').default} width='80%' />
- -->
-
-<Image src='//aone-time.icu/group1/dino/column-service/http-cookie.jpg' width='80%' />
+<Image src={require('@site/static/image/column-service/http-cookie.jpg').default} width='80%' />
 
 ##### Cookie 的一些属性
 
@@ -68,11 +64,7 @@ import { Image } from '@arco-design/web-react';
 
 - Chrome 浏览器默认是不允许携带 cookie 的，在 `<= 90` 版本的浏览器中，需手动设置以下内容(在地址栏输入 [_chrome://flags_](chrome://flags))，才能允许浏览器跨域携带 cookie，以防产生 **跨域的报错问题**;
 
-<!--
-<Image src={require('./img/http-cookie-3.jpg').default} width='90%' />
- -->
-
-<Image src='//aone-time.icu/group1/dino/column-service/http-cookie-3.jpg' width='90%' />
+<Image src={require('@site/static/image/column-service/http-cookie-3.jpg').default} width='90%' />
 
 - 👉 [面试官 -- 跨域请求如何携带 cookie? - 微信](https://mp.weixin.qq.com/s/a9iLWiSgeKuUIYVaWXordw)
 
@@ -91,12 +83,8 @@ import { Image } from '@arco-design/web-react';
 - Session 创建成功之后，在响应中将此 Session 的唯一的标识信息 `SessionId` **存到 cookie 中** 并返回给客户端;
 - 客户端再次发起请求时，服务端会根据 cookie 中携带的 `SessionId` 来查找其对应的 Session 信息，如果没有找到则登录失效; 找到则可继续操作;
 
-<!--
-<Image src={require('./img/http-cookie-1.jpg').default} width='80%' height={360} />
- -->
-
 <Image
-  src='//aone-time.icu/group1/dino/column-service/http-cookie-1.jpg'
+  src={require('@site/static/image/column-service/http-cookie-1.jpg').default}
   width='80%'
   height={360}
 />
@@ -132,12 +120,8 @@ _😶 答:_
 - 服务器响应时，再将 token **存到 cookie 中**，或者通过一个特定的接口来返回 token，可以让客户端取到该值;
 - 客户端再次发起请求时，服务端会去验证 cookie 中携带的 token，验证成功即可继续操作;
 
-<!--
-<Image src={require('./img/http-cookie-2.jpg').default} width='80%' height={360} />
- -->
-
 <Image
-  src='//aone-time.icu/group1/dino/column-service/http-cookie-2.jpg'
+  src={require('@site/static/image/column-service/http-cookie-2.jpg').default}
   width='80%'
   height={360}
 />
@@ -196,17 +180,13 @@ _😶 答:_
 
 ## 前端跨域 & 常见解决方案
 
-:::note 写在前面
+:::info 写在前面
 
 ##### 什么是 跨域问题?
 
 - **跨域** 问题简单来说就是由浏览器的 **同源策略** 所产生的问题，如果在开发中产生跨域，通常会报以下错误:
 
-<!--
-<Image src={require('./img/cors-error.jpg').default} width='90%' />
- -->
-
-<Image src='//aone-time.icu/group1/dino/column-service/cors-error.jpg' width='90%' />
+<Image src={require('@site/static/image/column-service/cors-error.jpg').default} width='90%' />
 
 ##### 什么是 同源策略?
 

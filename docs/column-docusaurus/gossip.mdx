@@ -7,6 +7,7 @@ toc_max_heading_level: 4
 
 ```mdx-code-block
 import BrowserWindow from '@site/src/components/BrowserWindow';
+import { Image } from '@arco-design/web-react';
 ```
 
 > 本章节学习 Docusaurus 常用的全局 API & 搜索功能
@@ -369,10 +370,37 @@ export const ExampleComponent = () => {
   <ExampleComponent />
 </BrowserWindow>
 
-## 使用 Algolia DocSearch 📦
+## 使用 Algolia DocSearch
 
-### 申请 DocSearch 程序
+- [_Algolia_](https://www.algolia.com/) 是一款强大的 **网站搜索工具**，尤其是对 **在线文档搜索** 这一功能更有优势，它不需要繁琐的配置，也不需要有数据库等软硬件支持，只需要在项目中插入少量代码就可以实现文档搜索功能;
+- Docusaurus 提供了 [_Algolia DocSearch_](https://docsearch.algolia.com/docs/who-can-apply) 的官方支持，但它并不是免费的，需要 [_申请 DocSearch 应用_](https://docsearch.algolia.com/apply/) 才能使用;
+- 申请之后需要等待对方的邮件回复（可能需要数日），在等待期间，可以先注册一个 Algolia 账号并登录;
+- 如果申请的网站符合 DocSearch 的要求，它们会回复一个邮件，并自动帮忙创建好搜索应用，邮件中有该应用的链接地址，和对应的 `Application ID` 等信息，点击链接出现以下界面即可;
 
-- Algolia 是一款强大且一流的 **网站搜索工具**，尤其是对 **在线文档搜索** 这一功能更有优势，它不需要繁琐的配置，也不需要有数据库等软硬件支持，只需要在项目中插入少量代码就可以实现文档搜索功能;
-- 由于 [_Algolia DocSearch_](https://docsearch.algolia.com/docs/who-can-apply) 并不完全是免费的，所以在使用时要先 [_申请 DocSearch 程序_](https://docsearch.algolia.com/apply/)，并且需满足一些必要的条件，获得专属的 `apiKey`，才能继续使用;
-- 申请时要填写该网站的 **部署地址** 和 **个人 📮**，以便 Algolia 抓取网站上的内容并进行分析，对文档中的各级标题，段落内容等信息建立 **索引**，这样在搜索关键字时，就可以请求 DocSearch 的接口并显示搜索结果;
+<Image
+  src={require('@site/static/image/column-docusaurus/20220616125428.jpg').default}
+  width='90%'
+/>
+
+- 也可以找到该应用所对应的 [_API Keys 面板_](https://www.algolia.com/account/api-keys/all?applicationId=M1R9ZAH22W)，其中有它的 `Application ID` 和搜索要用到的 `Search-Only API Key` 等信息;
+
+<Image
+  src={require('@site/static/image/column-docusaurus/20220613160556.jpg').default}
+  width='90%'
+/>
+
+- 上述步骤都完成之后，在 **docusaurus.config.js** 中对 Algolia 进行配置，配置完之后重新启动项目，就会在页面的顶部导航栏出现 Algolia 搜索框，它会每 24 小时爬取网站的数据，建立搜索;
+
+```js
+module.exports = {
+  // ...
+  themeConfig: {
+    // ...
+    algolia: {
+      apiKey: '******', // 对应 Algolia 中的 Search-Only API Key
+      appId: '******', // 对应 Algolia 中的 Application ID
+      indexName: 'dino_search', // 对应 Algolia 中自行创建的索引名称
+    },
+  },
+};
+```

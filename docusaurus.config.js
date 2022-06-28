@@ -161,10 +161,10 @@ module.exports = {
       //   content: '号外！号外！📢 📢 📢',
       //   isCloseable: false,
       // },
-      // algolia: {
-      //   apiKey: '3ea6977f376e28eff0193fb54e110f95',
-      //   indexName: 'ZXUQIANCN',
-      //   appId: 'VJOWHW5GGG',
-      // },
+      algolia: {
+        apiKey: '41f121f3ef3d3303d817f66b4d97e3d5',
+        appId: 'YQ0KGVCVJQ',
+        indexName: 'aone-time',
+      },
     }),
 };

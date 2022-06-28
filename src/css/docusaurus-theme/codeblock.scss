@@ -8,7 +8,7 @@ div[class*='codeBlockContainer_'] {
     border-top-right-radius: 2px;
   }
   > div[class*='codeBlockContent_'] {
-    max-height: 1000px;
+    max-height: 600px;
     font-size: var(--dino-font-size-xs);
     overflow-y: hidden;
     &:hover {

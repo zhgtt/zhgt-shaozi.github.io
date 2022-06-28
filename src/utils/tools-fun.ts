@@ -330,3 +330,9 @@ export const _shuffle = (arr: Array<string | number>) => {
   }
   return arr;
 };
+
+// 金钱格式化
+export const _formatCash = (value: string) => {
+  if (!value) return null;
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
