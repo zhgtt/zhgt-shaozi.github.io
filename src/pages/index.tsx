@@ -8,22 +8,41 @@ import Lottie from 'react-lottie'; // react 版 lottie - 加载 json 格式的�
 import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
-import { Button, Menu } from '@arco-design/web-react';
+import { Button, Menu, Input } from '@arco-design/web-react';
 import axios from 'axios';
 
 import { Lottie_Dashboard } from '@site/src/utils/lotties';
 import styles from './styles.module.scss';
 
+import {} from '@site/src/utils/tools-fun';
+import { debounce, throttle } from 'lodash';
+
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
 const Homepage = () => {
   const { siteConfig } = useDocusaurusContext();
+  const [value, setValue] = useState('');
+
   // console.log('siteConfig: ', siteConfig);
   // console.log('useColorMode: ', useColorMode);
 
   const handleClick = () => {
-    axios.get('https://getman.cn/mock/route/to/demo').then((response) => {
-      console.log(response);
-    });
+    // axios.get('https://getman.cn/mock/route/to/demo').then((response) => {
+    //   console.log(response);
+    // });
+    // _smoothScroll();
+    // document.querySelector('.element').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // const a: ScrollLogicalPosition = 'nearest';
+    // _toFullScreen();
   };
+
+  const onChange = (val) => {
+    sayHi(val);
+  };
+
+  const sayHi = throttle((val) => {
+    console.log('Hello! ', val);
+  }, 2000);
 
   return (
     <Layout
@@ -45,6 +64,10 @@ const Homepage = () => {
             isPaused={false} // 是否暂停动画
             isStopped={false} //是否停止动画（动画回到起点）
           />
+        </div>
+
+        <div style={{ width: 300, marginLeft: 50 }}>
+          <Button onClick={handleClick}>按钮</Button>
         </div>
 
         {/* <div className={styles.box}>

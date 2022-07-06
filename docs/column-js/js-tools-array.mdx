@@ -5,6 +5,10 @@ sidebar_position: 3
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
+import BrowserWindow from '@site/src/components/BrowserWindow'
+```
+
 > 本章节记录 JavaScript 对 **数组 / 对象** 进行处理的一些工具函数，包括数组的去重，分组，过滤等方法
 
 ## 取值 & 统计
@@ -17,6 +21,27 @@ toc_max_heading_level: 4
 export const _randomArr = (arr: (string | number | boolean)[]) => {
   const len = arr.length;
   return arr[Math.floor(Math.random() * len)];
+};
+```
+
+### 获取数组最后一个元素
+
+```js title="代码实现"
+export const _getLastEle = (arr: any[]) => {
+  // 1️⃣ 通过 length 获取
+  return arr[arr.length - 1];
+
+  // 2️⃣ 使用 Array.slice() 截取数组再获取
+  return arr.slice(-1)[0];
+
+  // 3️⃣ 使用 Array.reverse() 将数组翻转再获取
+  return arr.reverse()[0];
+
+  // 4️⃣ 使用 Array.pop()，该方法会删除数组最后一项，返回被删除的元素，由于会改变原数组，因此需要浅拷贝一下
+  return [...arr].pop();
+
+  // 5️⃣ 使用 Array.at() 来获取，该方法接收一个下标索引，返回其对应的元素
+  return arr.at(-1);
 };
 ```
 
@@ -39,6 +64,8 @@ export const _totalObj = (arr: (string | number)[]) => {
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const array = ['普却信 🤖', '普却信 🤖', 'sunny 🌞', '普却信 🤖', 'sunny 🌞', 'dino 🦖'];
@@ -48,6 +75,8 @@ function ExampleComponent(props) {
   return <ResultButton results={value} onClick={() => setValue(_totalObj(array))} />;
 }
 ```
+
+</BrowserWindow>
 
 ### 计算数组中元素之和
 
@@ -88,24 +117,6 @@ const total = sumBy(arr, prop); // prop 为要进行计算的 key 属性
 const total = sumBy(arr, (item) => item[prop]);
 ```
 
-示例:
-
-```jsx live
-function ExampleComponent(props) {
-  const array = [{ person: 120 }, { person: 80 }, { person: 225 }];
-
-  const [value, setValue] = useState();
-
-  return (
-    <ResultButton
-      openJsonView={false}
-      results={value}
-      onClick={() => setValue(_getSumBy(array, 'person'))}
-    />
-  );
-}
-```
-
 ## 过滤
 
 ### 数组根据另一个数组的值过滤
@@ -133,6 +144,8 @@ export const _productFilter = (data: any[], params = {}) => {
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const array = [
@@ -151,6 +164,8 @@ function ExampleComponent(props) {
   );
 }
 ```
+
+</BrowserWindow>
 
 ## 去重
 
@@ -279,6 +294,8 @@ const total = uniqBy(arr, prop); // prop 为指定的对象的 key 属性
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const array = [
@@ -294,6 +311,8 @@ function ExampleComponent(props) {
   return <ResultButton results={value} onClick={() => setValue(_uniqueObj(array, 'area_id'))} />;
 }
 ```
+
+</BrowserWindow>
 
 ## 分组
 
@@ -349,6 +368,8 @@ export const _groupByArray = (arr: any[]) => {
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const array = [
@@ -374,6 +395,8 @@ function ExampleComponent(props) {
   );
 }
 ```
+
+</BrowserWindow>
 
 ### 数据的分组(多对多)
 
@@ -408,6 +431,8 @@ export const _groupByManyArray = (arr: any[]) => {
 ```
 
 示例:
+
+<BrowserWindow>
 
 ```jsx live
 function ExampleComponent(props) {
@@ -462,6 +487,30 @@ function ExampleComponent(props) {
 }
 ```
 
+</BrowserWindow>
+
+## 转换
+
+### 对象数组 → 对象
+
+```js title="代码实现"
+export const _arrToObject = (arr: any[]) => {
+  // return arr.reduce((prev, cur, index) => {
+  //   prev[index] = cur;
+  //   return prev;
+  // }, {});
+  // 或 简写为
+  return arr.reduce((prev, cur, index) => ((prev[index] = cur), prev), {});
+};
+
+// 调用
+const array = [
+  { id: 1, name: 'Dino' },
+  { id: 2, name: '脸脸' },
+];
+_arrToObject(array); // { 0: { id: 1, name: 'Dino' }, 1: { id: 2, name: '脸脸' } }
+```
+
 ## 拷贝
 
 :::caution 为什么要进行拷贝？
@@ -513,6 +562,8 @@ export const _cloneByArray = (arr: any[]) => {
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const arr = [25, { name: 'dino' }];
@@ -538,6 +589,8 @@ function ExampleComponent(props) {
   );
 }
 ```
+
+</BrowserWindow>
 
 ### 复杂数据的深拷贝
 
@@ -621,6 +674,8 @@ const cloneTarget = cloneDeep(target);
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const arr = ['基础数据类型', { name: 'dino' }];
@@ -645,6 +700,8 @@ function ExampleComponent(props) {
   );
 }
 ```
+
+</BrowserWindow>
 
 :::tip 参考资料
 
@@ -711,6 +768,8 @@ const flag = isEqual(target, target_1);
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const arr = ['😄😄', { name: 'dino 🦖' }];
@@ -733,6 +792,8 @@ function ExampleComponent(props) {
   );
 }
 ```
+
+</BrowserWindow>
 
 ## 排序
 
@@ -771,6 +832,8 @@ import { shuffle } from 'lodash';
 const newArr = shuffle(target);
 ```
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const arr = ['A', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', '🤡'];
@@ -780,6 +843,8 @@ function ExampleComponent(props) {
   return <ResultButton results={value} onClick={() => setValue(_shuffle(arr))} />;
 }
 ```
+
+</BrowserWindow>
 
 :::tip 参考资料
 

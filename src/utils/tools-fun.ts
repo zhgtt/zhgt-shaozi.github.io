@@ -3,6 +3,7 @@
  */
 
 import { cloneDeep, isEqual, shuffle, sum, sumBy, uniqBy, groupBy, isEmpty } from 'lodash';
+import qs from 'query-string';
 
 // 🍋 获取数组中随机一项
 export const _randomArr = (arr: (string | number | boolean)[]) => {
@@ -335,4 +336,60 @@ export const _shuffle = (arr: Array<string | number>) => {
 export const _formatCash = (value: string) => {
   if (!value) return null;
   return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+// 获取随机颜色色值
+export const _randomColor = () => {
+  const color = Math.floor(Math.random() * 0xffffff);
+  return `#${color.toString(16).padEnd(6, '0')}`.toUpperCase();
+};
+
+// 生成随机字符串
+export const _randomString = (len: number) => {
+  const chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz1234567890';
+  const strLen = chars.length;
+
+  let randomStr = '';
+  for (let i = 0; i < len; i++) {
+    randomStr += chars.charAt(Math.floor(Math.random() * strLen)); // String.charAt(index) 返回指定下标位置的字符
+  }
+
+  return randomStr;
+};
+
+// 转成中文大写金额
+export const _digitUppercase = (num: number) => {
+  const fraction = ['角', '分'];
+  const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+  const unit = [
+    ['元', '万', '亿'],
+    ['', '拾', '佰', '仟'],
+  ];
+  let money = Math.abs(num);
+  let s = '';
+
+  // 通过遍历 fraction，来获取 & 处理 num 后的小数位是几，并转成相应的金额
+  for (let i = 0; i < fraction.length; i++) {
+    // Math.pow(x, y) 表示 x 的 y 次幂(方)
+    s += (digit[Math.floor(money * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, ''); // 使用 replace 将以零为开头的金额替换成空
+  }
+
+  s = s || '整';
+  money = Math.floor(money); // 取整，截取掉小数位
+
+  // 双重遍历 unit 中的两个数组，来获取 & 处理整数位，并转成响应的金额
+  for (let i = 0; i < unit[0].length && money > 0; i++) {
+    let p = '';
+    for (let j = 0; j < unit[1].length && money > 0; j++) {
+      p = digit[money % 10] + unit[1][j] + p; // 获取 & 处理整数的最后一位，并和上一个 p 值相加
+      money = Math.floor(money / 10); // 每次都从后开始缩减一个整数位，如 102 处理成 10
+    }
+    console.log('p: ', p);
+    s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s; // 将空值替换成 '零'，将以 零*零 为结尾的字符替换成空，如 '零拾零'
+  }
+
+  return s
+    .replace(/(零.)*零元/, '元')
+    .replace(/(零.)+/g, '零')
+    .replace(/^整$/, '零元整');
 };

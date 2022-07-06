@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 ---
 
 ```mdx-code-block
-import { Image } from '@arco-design/web-react';
+import BrowserWindow from '@site/src/components/BrowserWindow'
 ```
 
 > 本章节记录 JavaScript 对 **树结构** 进行处理的一些工具函数，包括树结构的转换，查找等方法
@@ -82,6 +82,8 @@ export const _dataToTree = (arr: TreeDataTypes[], id = 0) => {
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const array = [
@@ -101,6 +103,8 @@ function ExampleComponent(props) {
 }
 ```
 
+</BrowserWindow>
+
 ### 树结构 → 数组
 
 将树结构数据进行平铺展示，转换为一个普通数组，并且包含层级信息
@@ -117,6 +121,8 @@ export const _treeToData = (tree: any[], result: any[] = [], level = 0) => {
 ```
 
 示例:
+
+<BrowserWindow>
 
 ```jsx live
 function ExampleComponent(props) {
@@ -150,6 +156,8 @@ function ExampleComponent(props) {
   );
 }
 ```
+
+</BrowserWindow>
 
 ## 更改树结构的 key 值
 
@@ -210,6 +218,8 @@ export const _updateTreeKey = (tree: TreeDataTypes[]) => {
 
 示例:
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const array = [
@@ -236,6 +246,8 @@ function ExampleComponent(props) {
   return <ResultButton results={value} onClick={() => setValue(_updateTreeKey(array))} />;
 }
 ```
+
+</BrowserWindow>
 
 ## 树结构节点的查找
 
@@ -366,6 +378,8 @@ export const _findTreeNodeToLast = (tree: TreeListTypes[]) => {
 
 ### 综合示例 📦
 
+<BrowserWindow>
+
 ```jsx live
 function ExampleComponent(props) {
   const array = [
@@ -392,6 +406,8 @@ function ExampleComponent(props) {
 }
 ```
 
+</BrowserWindow>
+
 ## 计算树结构层级数
 
 递归树结构数据，计算一共有多少层级;
@@ -414,6 +430,8 @@ export const _getMaxLevel = (tree: any[]) => {
 ```
 
 示例:
+
+<BrowserWindow>
 
 ```jsx live
 function ExampleComponent(props) {
@@ -450,6 +468,8 @@ function ExampleComponent(props) {
   );
 }
 ```
+
+</BrowserWindow>
 
 ## 参考资料
 

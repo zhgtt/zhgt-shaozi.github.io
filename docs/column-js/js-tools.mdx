@@ -1,25 +1,31 @@
 ---
-title: JS 常用工具函数
+title: JS 工具函数（记录）
 id: js-tools
 sidebar_position: 2
 toc_max_heading_level: 4
 ---
 
+```mdx-code-block
+import BrowserWindow from '@site/src/components/BrowserWindow'
+```
+
 > 本章节记录 JavaScript 对 **字符串 / 浏览器 / 正则校验** 进行处理的一些工具函数;
 
+<!--
 <img src={require('@site/static/image/Bg/wp11164545-spy-x-family-anya-wallpapers.jpeg').default} />
+-->
 
 ## 字符串 & 数值
 
-### 实现金钱格式化
+### 实现 💰 格式化
 
 将一段数值每隔 **3 位** 加一个逗号;
 
-```jsx title="代码实现 - 壹" showLineNumbers
+```jsx title="代码实现 - 壹 🐸" showLineNumbers
 // 利用正则来处理
 export const _formatCash = (value: string) => {
   if (!value) return null;
-  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // \B 表示词边界
 };
 ```
 
@@ -31,11 +37,15 @@ export const _formatCash = (value: string) => {
     .split('')
     .reverse()
     .reduce((prev, next, index) => {
-      console.log('prev: ', prev); // 表示每次循环 return 出去的值
+      console.log('prev: ', prev); // 遍历每个 return 出去的值
       return (index % 3 ? next : `${next},`) + prev;
     });
 };
 ```
+
+示例:
+
+<BrowserWindow>
 
 ```jsx live
 function ExampleComponent(props) {
@@ -49,9 +59,11 @@ function ExampleComponent(props) {
 }
 ```
 
+</BrowserWindow>
+
 ### 字节 & 单位 之间的转换
 
-#### 字节 → 单位
+##### 字节 → 单位
 
 获取一段文本内容的字节(`bytes`)大小，并将其转换成 `KB`、`MB` 等单位大小;
 
@@ -73,7 +85,7 @@ export const _bytesToSize = (value: string) => {
 _bytesToSize('天行健，君子以自强不息；地势坤，君子以厚德载物。');
 ```
 
-#### 单位 → 字节
+##### 单位 → 字节
 
 将带有单位(`MB`、`KB` 等)的字符串，转换成对应的字节大小;
 
@@ -95,12 +107,649 @@ export const _sizeToBytes = (size: string) => {
 
 :::
 
+### 去除字符串空格 🍋
+
+去除字符串中的空格，其中 es6 中提供了 `trim()` 方法，用于去除字符串两边的空格;
+
+```js title="代码实现" showLineNumbers
+export const _trim = (str: string) => {
+  // 1️⃣ 去除所有空格
+  return str.replace(/\s/g, '');
+
+  // 2️⃣ 去除前后空格，对 es6 的 trim() 方法进行向下兼容
+  return str?.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
+
+  // 3️⃣ 去除前空格
+  return str.replace(/^\s/g, '');
+
+  // 4️⃣ 去除后空格
+  return str.replace(/\s$/g, '');
+};
+```
+
+### 字符串补齐
+
+模仿 es6 提供的 `padEnd()` 或 `padStart()` 方法对一个字符串进行补齐，也是为了向下兼容;
+
+```js title="代码实现" showLineNumbers
+export const _padEnd = (str: string, len: number, value: string) => {
+  if (str.length < len) {
+    const diffLen = len - str.length;
+
+    const endVal = Array.from(new Array(diffLen), (item) => value) // 快速创建一个数组
+      .join('')
+      .slice(0, diffLen);
+    // 或
+    // const endVal = [...new Array(diffLen).keys()]
+    //   .map((item) => '*')
+    //   .join('')
+    //   .slice(0, diffLen);
+
+    return str + endVal; // 如果需要左补齐，只需对调一下相加的位置即可
+  }
+
+  return str;
+};
+
+// 调用
+_padEnd('007', 6, '*'); // '007***'
+```
+
+### 检索字符串的开头 / 结尾
+
+检索字符串是否以指定的字符开头 / 结尾，模仿 es6 的 `startsWith()` 和 `endsWith()`，也是为了向下兼容;
+
+```js title="代码实现 - 模仿 startsWith" showLineNumbers
+export const _startsWith = (str: string, target: string, position?: number) => {
+  const { length } = str;
+  let pos = !position ? 0 : position;
+  if (pos < 0) pos = 0;
+
+  const start = pos;
+  pos += target.length;
+  return pos >= 0 && str.slice(start, pos) === target;
+};
+
+// 调用
+_startsWith('abc', 'a'); // true
+_startsWith('abc', 'b'); // false
+_startsWith('abc', 'b', 1); // true
+```
+
+```js title="代码实现 - 模仿 endsWith" showLineNumbers
+export const _endsWith = (str: string, target: string, position?: number) => {
+  const { length } = str;
+  let pos = position || length;
+  if (pos < 0) pos = 0;
+  if (pos > length) pos = length;
+
+  const end = pos;
+  pos -= target.length;
+  return pos >= 0 && str.slice(pos, end) === target;
+};
+
+// 调用
+_endsWith('abc', 'c'); // true
+_endsWith('abc', 'b'); // false
+_endsWith('abc', 'b', 2); // true
+```
+
+### 随机生成字符串
+
+随机生成指定长度的字符串;
+
+```js title="代码实现" showLineNumbers
+export const _randomString = (len: number) => {
+  const chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz1234567890';
+  const strLen = chars.length;
+
+  let randomStr = '';
+  for (let i = 0; i < len; i++) {
+    randomStr += chars.charAt(Math.floor(Math.random() * strLen)); // String.charAt(index) 返回指定下标位置的字符
+  }
+
+  return randomStr;
+};
+
+// 调用
+_randomString(12); // 'Rxsc6ZPetNZs'
+```
+
+示例:
+
+<BrowserWindow>
+
+```jsx live
+function ExampleComponent(props) {
+  const [value, setValue] = useState('');
+
+  return (
+    <ResultButton
+      results={value}
+      onClick={() => setValue(_randomString(12))} // 随机生成长度为 12 的字符串
+      openJsonView={false}
+    />
+  );
+}
+```
+
+</BrowserWindow>
+
+### 单词首字母大写
+
+将一串英文单词的首字母大写;
+
+```js title="代码实现" showLineNumbers
+export const _capitalize = (str: string) => {
+  const [first, ...rest] = str; // 对字符串进行解构，rest 的值为一个数组
+
+  return `${first.toUpperCase()}${rest.join('')}`;
+};
+
+// 调用
+_capitalize('hello'); // 'Hello'
+```
+
+### 单词命名转驼峰
+
+将带有下划线或横线的单词命名，转换为驼峰命名;
+
+```js title="代码实现" showLineNumbers
+export const _toHump = (str: string) => {
+  return str.replace(/\_(\w)/g, (match, letter, index) => {
+    // match - 表示匹配到的字符 & 其后一个字符的组合
+    // letter - 表示匹配到的字符的后一个字符
+    // index - 表示匹配到的字符的下标
+    return letter ? letter.toUpperCase() : '';
+  });
+};
+
+// 调用
+_toHump('string_to_number'); // stringToNumber
+```
+
+### 生成两值间 随机整数
+
+获取任意两个数值(`x <= num <= y`)之间的随机整数;
+
+```js title="代码实现" showLineNumbers
+export const _random = (min: number, max: number) => {
+  const minNum = Math.ceil(min); // 向上取整
+  const maxNum = Math.floor(max); // 向下取整
+
+  return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum);
+};
+```
+
+### 数值 → 中文大写金额
+
+将一个数值转换成大写的中文，常用于发票、支票中的金额显示;
+
+```js title="代码实现" showLineNumbers
+export const _digitUppercase = (num: number) => {
+  const fraction = ['角', '分'];
+  const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+  const unit = [
+    ['元', '万', '亿'],
+    ['', '拾', '佰', '仟'],
+  ];
+  let money = Math.abs(num);
+  let s = '';
+
+  // 通过遍历 fraction，来获取 & 处理 num 后的小数位是几，并转成相应的金额
+  for (let i = 0; i < fraction.length; i++) {
+    // Math.pow(x, y) 表示 x 的 y 次幂(方)
+    s += (digit[Math.floor(money * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, ''); // 使用 replace 将以零为开头的金额替换成空
+  }
+
+  s = s || '整';
+  money = Math.floor(money); // 取整，截取掉小数位
+
+  // 双重遍历 unit 中的两个数组，来获取 & 处理整数位，并转成响应的金额
+  for (let i = 0; i < unit[0].length && money > 0; i++) {
+    let p = '';
+    for (let j = 0; j < unit[1].length && money > 0; j++) {
+      p = digit[money % 10] + unit[1][j] + p; // 获取 & 处理整数的最后一位，并和上一个 p 值相加
+      money = Math.floor(money / 10); // 每次都从后开始缩减一个整数位，如 102 处理成 10
+    }
+    console.log('p: ', p);
+    s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s; // 将空值替换成 '零'，将以 零*零 为结尾的字符替换成空，如 '零拾零'
+  }
+
+  return s
+    .replace(/(零.)*零元/, '元')
+    .replace(/(零.)+/g, '零')
+    .replace(/^整$/, '零元整');
+};
+```
+
+示例:
+
+<BrowserWindow>
+
+```jsx live
+function ExampleComponent(props) {
+  const num = 53020.45;
+
+  const [value, setValue] = useState('');
+
+  return (
+    <ResultButton
+      results={value}
+      onClick={() => setValue(_digitUppercase(num))}
+      openJsonView={false}
+    />
+  );
+}
+```
+
+</BrowserWindow>
+
+### 四舍五入到指定位数
+
+将一个数值 四舍五入 到指定位数，返回 number 类型;
+
+```js title="代码实现" showLineNumbers
+export const _round = (num: number, decimals = 0) => {
+  // 1️⃣ 使用 Number.toFixed() 方法，但是会返回一个字符串
+  return +num.toFixed(decimals);
+
+  // 2️⃣ 利用 Math.round() 方法
+  return +`${Math.round(+`${num}e${decimals}`)}e-${decimals}`;
+};
+```
+
 ## DOM 交互
 
-### 防抖
+### 防抖 & 节流 🍋
 
-### 节流
+##### 防抖 函数
+
+- **定义**: 对于一个事件来说，**在指定的时间(n 秒)内，如果频繁的触发该事件，则时间会重新计算，且其绑定的函数不会执行**; **如果停止触发该事件，则在 n 秒后，其绑定的函数会只执行一次**;
+- **使用场景**: 常用于在输入框中执行一些异步任务;
+
+```js title="代码实现 - 壹" showLineNumbers
+// 原生 js 实现 防抖函数
+export const _debounce = (fn, delay = 500) => {
+  let timeout = null;
+  return (...args) => {
+    timeout && clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+};
+```
+
+```js title="代码实现 - 贰 🐸" showLineNumbers
+// 使用第三方库 lodash 中的 debounce() 方法
+import { debounce } from 'lodash';
+
+// 输入框 change 事件
+const onChange = (val) => getName(val);
+
+const getName = debounce((val) => {
+  console.log('val: ', val);
+}, 500);
+```
+
+##### 节流 函数
+
+- **定义**: 相比于防抖要好理解一些，简言之就是 **指定一个时间(n 秒)，若频繁的触发一个事件，该事件函数会每隔 n 秒执行一次**;
+- **使用场景**: 常用于滚动条滚动事件的处理;
+
+```js title="代码实现 - 壹" showLineNumbers
+// 原生 js 实现 节流函数
+export const _throttle = (fn, delay = 500) => {
+  let timeout = null;
+  return (...args) => {
+    !timeout &&
+      (timeout = setTimeout(() => {
+        fn.apply(this, args);
+        timeout = null;
+      }, delay));
+  };
+};
+```
+
+```js title="代码实现 - 贰 🐸" showLineNumbers
+// 使用第三方库 lodash 中的 throttle() 方法
+import { throttle } from 'lodash';
+
+// ... 用法同 防抖函数 一致
+```
+
+### 颜色色值 & RGB 之间的转换
+
+##### 十六进制色值 → RGB 色值
+
+```js title="代码实现" showLineNumbers
+export const _colorToRGB = (value: string) => {
+  const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/; // 16进制颜色值的正则
+  let color = value.toLowerCase(); // 把颜色值变成小写
+
+  if (reg.test(color)) {
+    // 如果只有三位的值，需变成六位，如：#fff => #ffffff
+    if (color.length === 4) color = color.padEnd(7, color.slice(1));
+
+    // 处理六位的颜色值，转为RGB
+    const colorChange = [];
+    for (let i = 1; i < 7; i += 2) {
+      colorChange.push(parseInt('0x' + color.slice(i, i + 2))); // 将颜色值三等分，与 '0x' 进行拼接，利用 parseInt() 将其转换成十进制的值，如 parseInt('0xff') => 255
+    }
+    return `rgb(${colorChange.join(', ')})`;
+  }
+  return color;
+};
+
+// 调用
+_colorToRGB('#60ccc7'); // 'rgb(96, 204, 199)'
+```
+
+##### RGB 色值 → 十六进制色值
+
+```js title="代码实现" showLineNumbers
+export const _rgbToColor = (value: string) => {
+  const reg = /^(rgb|RGB)/;
+
+  if (reg.test(value)) {
+    let strHex = '#';
+    const colorArr = value.replace(/(?:\(|\)|rgb|RGB)*/g, '').split(','); // 把 RGB 的 3个数值 变成数组
+
+    colorArr.forEach((item) => {
+      let hex = (+item).toString(16); // 转成 16进制值
+      if (hex === '0') hex += hex;
+      strHex += hex;
+    });
+    return strHex;
+  }
+  return value;
+};
+
+// 调用
+_rgbToColor('rgb(96, 204, 199)'); // '#60ccc7'
+```
+
+:::caution 如何判断一个颜色为 深色 / 浅色（明亮度），从而改变其前置色、背景色等样式
+
+```js title="代码实现" showLineNumbers
+export const _isColorDarkOrLight = (value: string) => {
+  // value 需是一个 rgb 类型的色值
+  const colorArr = value.replace(/(?:\(|\)|rgb|RGB)*/g, '').split(','); // 把 RGB 的 3个数值 变成数组
+  const ranges = [0.299, 0.587, 0.114]; // 给 rgb 中的每个值指定相应的阀值
+
+  // 获取颜色的 明亮度
+  const grayLevel = colorArr
+    .map((item, index) => ({ num: +item, range: ranges[index] }))
+    .reduce((prev, cur) => {
+      return prev + cur.num * cur.range;
+    }, 0);
+
+  // 若明亮度 >= 136（可自定义，参考网上资料，很多为 192），则为 浅色；反之为 深色
+  if (grayLevel >= 136) return 'light';
+  return 'dark';
+};
+
+// 调用
+_isColorDarkOrLight('rgb(255, 255, 255)'); // 'light'
+```
+
+:::
+
+### 随机生成颜色色值
+
+随机生成 **十六进制** 的颜色色值;
+
+```js title="代码实现" showLineNumbers
+export const _randomColor = () => {
+  const color = Math.floor(Math.random() * 0xffffff); // 0x 表示十六进制，0xffffff 的十进制为 16777215，该随机数表示在 0-16777215 之间获取
+
+  // 生成的随机数再通过 toString() 转换成十六进制的值
+  return `#${color.toString(16).padEnd(6, '0')}`.toUpperCase();
+};
+```
+
+示例:
+
+<BrowserWindow>
+
+```mdx-code-block
+import { Button, Space } from '@arco-design/web-react';
+import { _randomColor } from '@site/src/utils/tools-fun';
+```
+
+export const ExampleComponent = (props) => {
+  const [color, setColor] = React.useState(_randomColor());
+  return (
+    <>
+      <Button type='primary' onClick={() => setColor(_randomColor())}>
+        点击生成颜色
+      </Button>
+      <div
+        style={{
+          marginTop: 10,
+          padding: '0 12px',
+          width: 268,
+          height: 36,
+          borderRadius: 2,
+          backgroundColor: 'var(--color-fill-2)',
+        }}
+      >
+        <Space style={{ width: '100%', height: '100%', justifyContent: 'space-between' }}>
+          {color}
+          <div style={{ width: 60, height: 24, borderRadius: 2, backgroundColor: color }} />
+        </Space>
+      </div>
+    </>
+  );
+};
+
+<ExampleComponent />
+
+</BrowserWindow>
 
 ## 浏览器
 
-### 获取地址栏中的参数
+### 获取地址栏中的参数 🍋
+
+获取地址栏中所有的参数，并组成一个对象集合;
+
+```js title="代码实现 - 壹" showLineNumbers
+export const _getUrlParams = () => {
+  const result = {};
+  const url = window.location.search; // 获取地址栏参数
+  const reg = /[?&][^?&]+=[^?&]+/g;
+  const arr = url.match(reg) || []; // String.match() 方法会根据正则将匹配到的字符串分割，组成一个数组
+
+  if (arr.length > 0) {
+    arr.forEach((item) => {
+      const value = item.substring(1).split('='); // String.substring(start, end) 方法表示截取 start - end 索引位置的字符，且不会改变原数据;
+      result[value[0]] = value[1];
+    });
+  }
+  return result;
+};
+
+// 调用，例如地址为 https://xxx/xxx?name=dino&age=25
+_getUrlParams(); // { name: 'dino', age: '25' }
+```
+
+```js title="代码实现 - 贰 🐸" showLineNumbers
+// 使用 query-string 插件来获取，该插件可将字符串转为对象，例如地址为 http://xxx/xxx?name=dino&age=25#token=aaa
+import qs from 'query-string';
+
+const url = window.location.href; // 地址
+const params = window.location.search; // 地址后的参数
+const hash = window.location.hash; // 地址后的 hash 值
+
+// 获取地址 & 参数对象
+qs.parseUrl(url); // { url: 'http://xxx/xxx', query: { name: 'dino', age: '25' } }
+
+// 获取参数对象
+qs.parse(params); // { name: 'dino', age: '25' }
+
+// 获取参数对象，并将其中的 number 或 boolean 类型的值进行保留，也就是不会被转成 string 类型
+qs.parse(params, { parseNumbers: true, parseBooleans: true }); // { name: 'dino', age: 25 }
+
+// 获取 hash 值对象
+qs.parse(hash); // { token: 'aaa' }
+
+const obj = { name: 'dino', age: 25, favorite: null };
+
+// 将对象转成字符串并拼接，默认会排序
+qs.stringify(obj); // 'age=25&favorite&name=dino'
+
+// 将对象转成字符串，并始终过滤掉无效值 或 空值
+qs.stringify(obj, { skipNull: true, skipEmptyString: true }); // 'age=25&name=dino'
+```
+
+:::caution 离离原上谱
+
+- 在地址栏中传递参数时，如果遇到 `{}`、`[]`、`%` 等特殊字符，需要使用 `encodeURIComponent()` 方法对字符串进行 **编码**; 相应的，使用 `decodeURIComponent()` 对字符串进行 **解码**;
+
+:::
+
+### 获取窗口的高度 & 宽度
+
+在此之前，首先需知道在 JS 中可以获取到一个元素（不包括 `window` 对象）的宽度 / 高度有哪些属性，以及它们的区别是什么?
+
+| 高度 属性      | 宽度 属性     | 描述                                                             |
+| -------------- | ------------- | ---------------------------------------------------------------- |
+| `clientHeight` | `clientWidth` | 该高度 / 宽度不包含元素的 **边框**                               |
+| `offsetHeight` | `offsetWidth` | 该高度 / 宽度包含元素的 **边框**，也就是元素自身的高度           |
+| `scrollHeight` | `scrollWidth` | 该高度 / 宽度不包含元素的 **边框**，但是包含元素内文字溢出的部分 |
+
+##### 获取窗口的 高度
+
+```js title="代码实现" showLineNumbers
+export const _getBodyClientHeight = () => {
+  // 1️⃣ 获取高度（包含横向滚动条的高度）
+  return window.innerHeight;
+
+  // 2️⃣ 获取高度（包含窗体 + 横向滚动条的高度 + 工具栏高度）
+  return window.outerHeight;
+
+  // 3️⃣ 获取高度（不包含横向滚动条的高度），常用
+  return document.body.clientHeight || document.documentElement.clientHeight;
+};
+```
+
+##### 获取窗口的 宽度
+
+```js title="代码实现" showLineNumbers
+export const _getBodyClientWidth = () => {
+  // 1️⃣ 获取宽度（包含竖向滚动条的宽度）
+  return window.innerWidth;
+
+  // 2️⃣ 获取宽度（包含窗体 + 竖向滚动条的宽度 + 工具栏宽度）
+  return window.outerWidth;
+
+  // 3️⃣ 获取宽度（不包含竖向滚动条的宽度），常用
+  // 也可以通过 document.compatMode 来判断当前页面处于哪种模式，基本都为 'CSS1Compat'(标准模式)，会采用 document.documentElement 的宽度；若处于 'BackCompat'(怪异模式) 时，一般会采用 document.body 的宽度
+  return (
+    document.documentElement.clientWidth ||
+    document.documentElement.offsetWidth ||
+    document.body.clientWidth ||
+    document.body.offsetWidth
+  );
+};
+```
+
+### 滚动到指定位置 🍋
+
+让页面的滚动条平滑滚动到指定的位置，最常见的就是 **返回顶部** 的功能;
+
+```js title="代码实现 - 壹" showLineNumbers
+// 使用 window.scrollTo() 进行滚动，它有两个参数 xpos(横坐标) 和 ypos(纵坐标)，表示滚动到指定的坐标位置;
+
+// 但是当第一个参数为对象时，表示纵向滚动，它有两个属性，如下:
+// top - 指定的位置;
+// behavior - 滚动的效果，'smooth'(平滑滚动) | 'auto'(瞬间滚动);
+
+export const _scrollTo = (top: number) => {
+  window.scrollTo({ top, behavior: 'smooth' });
+};
+```
+
+```js title="代码实现 - 贰 🐸" showLineNumbers
+// 使用 window.requestAnimationFrame() 进行动画滚动，它可以替代 setInterval 定时器，实现一些动画效果;
+// 该方法的参数是一个回调函数，会在浏览器下一次重绘之前调用该函数来更新动画，因此一旦调用该方法就无法停止;
+
+// 该方法会返回一个 number 类型的值，表示唯一标识，可以将这个标识传入 window.cancelAnimationFrame() 中，来取消该方法的运行，以停止动画
+
+export const _scrollTo = () => {
+  const c = document.documentElement.scrollTop || document.body.scrollTop; // 获取滚动条到页面顶部的距离
+  if (c > 0) {
+    window.requestAnimationFrame(_smoothScroll);
+    window.scrollTo(0, c - c / 8); // 滚动到顶部，可自定义滚动的速度，以实现平滑滚动
+  }
+};
+```
+
+:::tip 参考资料
+
+- 👉 [window.requestAnimationFrame 强大的前端动画神器 - CSDN](https://blog.csdn.net/yun_master/article/details/123110930)
+
+:::
+
+### 元素滚动到可视区域
+
+将某个 Dom 元素滚动到窗口的可视区域，也就是浏览器窗口的顶部、中间或底部，和页面中常见的锚点链接跳转的功能是一样的;
+
+```js title="代码实现" showLineNumbers
+// 使用 Element.scrollIntoView() 进行滚动，它的参数是一个 Boolean 值或一个对象;
+
+// 当参数为 Boolean 值时，true - 表示将元素的顶部与可视区域的顶部对齐; false - 表示将元素的底部与可视区域的底部对齐;
+
+// 当参数为一个对象时，它有如下属性:
+// behavior - 滚动的效果，'smooth'(平滑滚动) | 'auto'(瞬间滚动);
+// block - 可视区域的位置，'start'(顶部) | 'end'(底部) | 'center'(中间) | 'nearest'(最近距离);
+
+export const _smoothScroll = (element: string, block?: ScrollLogicalPosition = 'end') => {
+  document.querySelector(element).scrollIntoView({ behavior: 'smooth', block });
+};
+```
+
+:::tip 参考资料
+
+- 👉 [JS DOM 编程笔记 - scrollIntoView() - 知乎](https://zhuanlan.zhihu.com/p/429549072)
+
+:::
+
+### 识别运行环境 & 版本
+
+```js title="代码实现" showLineNumbers
+export const _inBrowser = () => {
+  // 判断运行环境是否为 浏览器
+  const isBrowser = typeof window !== 'undefined'; // 在浏览器环境中返回 true，node 环境下返回 false（因为 node 环境中没有 window）
+
+  // 判断运行环境是否为 微信
+  // const inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
+  // const weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
+
+  if (!isBrowser) return;
+
+  // 判断浏览器的类型和版本
+  const UA = window.navigator.userAgent.toLowerCase(); // 获取浏览器的厂商和版本信息
+
+  // const isAndroid = (UA && UA.indexOf('android') > 0) || weexPlatform === 'android'; // 是否为 Android
+  // const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || weexPlatform === 'ios'; // 是否为 Ios
+  const isEdge = UA && UA.indexOf('edg') > -1; // 是否为 Edge 浏览器
+  const isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge; // 是否为 Chrome 浏览
+  const isOpera = UA && UA.indexOf('opera') > -1; // 是否为 Opera 浏览器
+  const isFirefox = UA && UA.indexOf('firefox') > -1; // 是否为 Firefox 浏览器
+  const isSafari = UA && UA.indexOf('safari') > -1 && !isChrome && !isEdge; // 是否为 Safari 浏览器
+
+  // 对 IE 浏览器单独进行判断
+  const isIE = UA && /msie|trident/.test(UA); // 是否为 IE 浏览器
+  const isIE11 = UA && isIE && UA.indexOf('rv:11.0') > -1; // 是否为 IE11 浏览器
+  const isIE_else = UA && isIE && !isIE11; // 是否为 IE 其他版本浏览器
+
+  // 判断 IE < 11 浏览器的版本
+  if (isIE_else) {
+    const reIE = new RegExp('msie (\\d+\\.\\d+);');
+    reIE.test(UA);
+    const fIEVersion = parseFloat(RegExp['$1']); // 获取 IE 浏览器的版本
+  }
+};
+```

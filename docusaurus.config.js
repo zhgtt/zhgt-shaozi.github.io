@@ -89,7 +89,8 @@ module.exports = {
           // },
           { label: '博客', position: 'right', to: '/blog' },
           {
-            href: 'https://github.com/zhgt-shaozi/zhgt-shaozi.github.io',
+            // href: 'https://github.com/zhgt-shaozi/zhgt-shaozi.github.io',
+            href: 'https://gitee.com/zhgt__xu/zhgt-shaozi.github.io/tree/main/',
             // label: 'GitHub',
             position: 'right',
             className: 'header-github-link',

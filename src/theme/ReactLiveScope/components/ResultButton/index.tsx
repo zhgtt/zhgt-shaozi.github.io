@@ -6,7 +6,7 @@ import ReactJsonView from '@site/src/components/ReactJsonView';
 import IconFont from '@site/src/components/IconFont';
 
 interface IProps {
-  results?: any;
+  results?: React.ReactNode;
   openJsonView?: boolean;
   jsonViewProps?: ReactJsonViewProps;
   text?: string;

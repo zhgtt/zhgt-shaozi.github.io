@@ -1,0 +1,210 @@
+---
+title: JS 对 DOM 节点的操作
+id: js-dom
+sidebar_position: 6
+toc_max_heading_level: 4
+---
+
+> 本章节记录 JS 对 DOM 节点的一些操作方法，比如 DOM 节点的 增删改查 & 属性的设置
+
+:::caution 前言 - DOM 节点分为哪几部分?
+
+- **元素节点**: html 标签;
+- **文本节点**: 不被 html 标签所包含的内容，如 单独文本、空格、注释;
+
+:::
+
+## DOM 节点的创建 & 插入
+
+##### 创建 DOM 节点
+
+```js title="代码实现" showLineNumbers
+const span = document.createElement('span'); // 创建一个 span 标签
+```
+
+##### DOM 中插入 元素节点
+
+```js title="代码实现" showLineNumbers
+const ele = document.querySelector('h2.anchor'); // 定义一个目标节点
+
+// 将节点插入到目标节点中的 末尾
+ele.appendChild(span); // 将节点插入到 h2 中最后一个子节点之后（末尾）
+
+// 将节点插入到目标节点的 指定位置
+ele.insertAdjacentElement('beforebegin', span); // 将节点插入到 h2 节点的前面（与 h2 相邻）
+ele.insertAdjacentElement('afterend', span); // 将节点插入到 h2 节点的后面（与 h2 相邻）
+ele.insertAdjacentElement('afterbegin', span); // 将节点插入到 h2 中 第一个子节点 之前
+ele.insertAdjacentElement('beforeend', span); // 将节点插入到 h2 中 最后一个子节点 之后，同 appendChild() 方法
+
+// 将节点插入到目标节点中 指定的子节点 之前
+ele.insertBefore(span, ele.querySelector('a.hash-link')); // 将节点插入到 h2 中的 a 节点之前
+```
+
+##### DOM 中插入 文本 / 节点字符串
+
+```js title="代码实现" showLineNumbers
+const ele = document.querySelector('h2.anchor'); // 定义一个目标节点
+
+// 获取 / 设置 目标节点中的内容
+ele.textContent; // 返回节点下的所有文本内容（包括空格）
+ele.textContent = '😄 文本'; // 设置 文本内容，会覆盖节点中原有的所有内容
+
+ele.innerText; // 返回节点下的所有文本内容（不包括空格）
+ele.innerText = '😄 文本'; // 设置 文本内容，会覆盖节点中原有的所有内容
+
+ele.outerText; // 返回节点下的所有文本内容，包括该节点本身（不包括空格）
+ele.outerText = '😄 文本'; // 设置 文本内容，会覆盖节点中原有的所有内容（包括该节点本身）
+
+ele.innerHTML; // 返回节点下的所有内容组成的字符串（不包括空格）
+ele.innerHTML = '😄 文本'; // 设置 文本内容 / 节点字符串，会覆盖节点中原有的所有内容
+ele.innerHTML = '<i>节点字符串</i>';
+
+ele.outerHTML; // 返回节点下的所有内容组成的字符串，包括该节点本身（不包括空格）
+ele.outerHTML = '😄 文本'; // 设置 文本内容 / 节点字符串，会覆盖节点中原有的所有内容，包括该节点本身
+ele.outerHTML = '<i>节点字符串</i>';
+
+// 将 文本 插入到目标节点的 指定位置
+ele.insertAdjacentText('beforebegin', '😄 文本'); // 将文本插入到 h2 节点的前面（与 h2 相邻）
+ele.insertAdjacentText('afterend', '😄 文本'); // 将文本插入到 h2 节点的后面（与 h2 相邻）
+ele.insertAdjacentText('afterbegin', '😄 文本'); // 将文本插入到 h2 中 第一个子节点 之前
+ele.insertAdjacentText('beforeend', '😄 文本'); // 将文本插入到 h2 中 最后一个子节点 之后
+
+// 将 文本 / 节点字符串 插入到目标节点的 指定位置
+ele.insertAdjacentHTML('beforebegin', '😄 文本'); // 将文本 / 节点字符串插入到 h2 节点的前面（与 h2 相邻）
+ele.insertAdjacentHTML('afterend', '<i>节点字符串<i>'); // 将文本 / 节点字符串插入到 h2 节点的后面（与 h2 相邻）
+ele.insertAdjacentHTML('afterbegin', '<i>😄 文本<i>'); // 将文本 / 节点字符串入到 h2 中第一个子节点之前
+ele.insertAdjacentHTML('beforeend', '<i>节点字符串<i>'); // 将文本 / 节点字符串插入到 h2 中最后一个子节点之后
+```
+
+## DOM 节点的查找
+
+##### 根据 CSS 选择器、标签名称、类名等 查找 DOM 节点
+
+```js title="代码实现 - 壹 🐸" showLineNumbers
+// 根据 css 选择器 进行查找，返回其找到的第一个节点
+document.querySelector('h2.anchor'); // 返回 class='anchor' 的 h2 标签
+
+document.querySelector('div#__docusaurus'); // 返回 id='__docusaurus' 的 div 标签
+
+document.querySelector('ul > li:nth-child(2)'); // 返回 ul 下的第二个 li 节点
+
+// 根据 css 选择器 进行查找，返回其找到的所有节点组成的 NodeList 数组
+document.querySelectorAll('h2.anchor'); // 返回所有 class='anchor' 的 h2 标签
+
+document.querySelectorAll('h2.anchor, div#__docusaurus'); // 会按照 DOM 树中节点的顺序返回匹配到的所有节点
+```
+
+```js title="代码实现 - 贰" showLineNumbers
+// 根据 id 属性进行查找
+document.getElementById('__docusaurus'); // 返回 id='__docusaurus' 的节点
+
+// 根据 class 属性进行查找，返回其找到的所有节点组成的 HTMLCollection 数组
+document.getElementsByClassName('anchor'); // 返回所有 class='anchor' 的节点
+
+// 根据 html 标签进行查找，返回其找到的所有节点组成的 HTMLCollection 数组
+document.getElementsByTagName('h2'); // 返回所有的 h2 标签
+```
+
+:::caution `NodeList` 和 `HTMLCollection` 的区别是什么?
+
+- `NodeList` 中的内容可以为任意节点；`HTMLCollection` 中的内容只能是 **元素节点**;
+- 二者都是 **类数组对象**，如需遍历，可使用 `Array.from()` 方法将其转换成真正的数组，再进行操作;
+
+```js title="代码示例" showLineNumbers
+const nodeList = document.querySelectorAll('h2.anchor');
+const htmlCollection = document.getElementsByClassName('anchor');
+
+const nodeArray = Array.from(nodeList); // 转为数组
+nodeArray.map((item) => item);
+
+// 获取 nodeList / htmlCollection 中的第 n 个节点，相当于数组的索引（在不转为数组的情况下）
+nodeList.item(0);
+htmlCollection.item(1);
+
+// 根据指定的 id / name 属性来查找 htmlCollection 中对应的节点，优先以 id 属性查找（在不转为数组的情况下）
+htmlCollection.namedItem('__title'); // 返回 id / name 属性为 '__title' 的节点
+```
+
+:::
+
+##### 根据 DOM 节点之间的关系 查找 DOM 节点
+
+```js title="代码实现" showLineNumbers
+const doc = document.getElementById('__docusaurus');
+
+// 查找某节点的 父节点
+doc.parentNode;
+
+// 查找某节点的 第一个子节点
+doc.firstChild; // 包括 文本节点
+doc.firstElementChild; // 仅查找 元素节点
+
+// 查找某节点的 最后一个子节点
+doc.lastChild; // 包括 文本节点
+doc.lastElementChild; // 仅查找 元素节点
+
+// 🐸 查找某节点的 所有子节点
+doc.children; // 返回所有子节点组成的 HTMLCollection 数组
+doc.childNodes; // 返回所有子节点组成的 NodeList 数组
+
+// 查找与某节点相邻的 前一个节点
+doc.previousSibling; // 包括 文本节点
+doc.previousElementSibling; // 仅查找 元素节点
+
+// 查找与某节点相邻的 后一个节点
+doc.nextSibling; // 包括 文本节点
+doc.nextElementSibling; // 仅查找 元素节点
+```
+
+## DOM 节点的删除 & 拷贝
+
+```js title="代码实现" showLineNumbers
+const ele = document.querySelector('h2.anchor'); // 定义一个目标节点
+
+// 删除 目标节点
+ele.remove();
+
+// 删除 指定子节点
+ele.removeChild(ele.querySelector('a.hash-link')); // 删除目标节点中的 a 标签（被删除的节点不再是 DOM 的一部分，但依然会存在于内存中，处理不当会造成内存泄漏）
+
+// 替换 指定子节点
+const newNode = document.createElement('span');
+ele.replaceChild(newNode, ele.querySelector('a.hash-link')); // 将目标节点中的 a 标签替换成 span 标签
+
+// 拷贝 指定节点及其属性
+ele.cloneNode(); // 浅拷贝，只单纯的拷贝 h2 标签
+ele.cloneNode(true); // 深拷贝，将 h2 标签中的子节点也进行了拷贝
+```
+
+## 操作 DOM 节点的属性
+
+```js title="代码实现" showLineNumbers
+const ele = document.querySelector('h2.anchor'); // 定义一个目标节点
+
+// 🐸 获取 节点指定的属性（也可以直接获取）
+ele.getAttribute('class'); // 返回节点的 class 属性的内容
+
+ele.className; // 返回节点的 class 属性的内容
+ele.classList; // 返回节点的 class 属性中所有内容组成的 DOMTokenList 数组
+ele.id; // 返回节点的 id 属性的内容
+ele.title; // 返回节点的 title 属性的内容
+ele.style; // 返回节点的 style 属性的内容
+ele.style.cssText; // 返回节点的 style 属性的所有内容组成的字符串
+
+window.getComputedStyle(ele).color; // 返回节点的 color 样式
+window.getComputedStyle(ele).display; // 返回节点的 display 样式
+
+// 🐸 设置 节点属性
+ele.setAttribute('title', '😄'); // 设置节点的 title 属性
+
+ele.id = '😄'; // 设置节点 id 属性的内容
+ele.style.color = '#f00'; // 设置节点的 行内样式
+ele.style = 'color: #f00; font-size: 12px';
+ele.style.cssText = 'color: #f00; font-size: 12px: '; // 设置节点的 多个行内样式
+
+// 判断 属性 是否存在于节点上，返回 Boolean 值
+ele.hasAttribute('title'); // 判断 title 属性是否存在于节点上
+
+// 删除 节点属性
+ele.removeAttribute('id'); // 删除节点上的 id 属性
+```
