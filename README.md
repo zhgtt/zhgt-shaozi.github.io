@@ -1,6 +1,6 @@
 # 个人博客网站
 
-本博客基于 Ract + [Docusaurus 2](https://docusaurus.io/zh-CN/docs) 静态网站生成器实现，也使用了字节跳动开源的 [arco.design - React](https://arco.design/react/docs/start) 作为 UI 框架，以快速实现一些组件的开发;
+本博客基于 React + [Docusaurus 2](https://docusaurus.io/zh-CN/docs) 静态网站生成器实现，也使用了字节跳动开源的 [arco.design - React](https://arco.design/react/docs/start) 作为 UI 框架，以快速实现一些组件的开发;
 
 ## 开始
 
