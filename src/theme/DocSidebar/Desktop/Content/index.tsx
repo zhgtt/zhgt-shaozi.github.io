@@ -6,7 +6,8 @@
 
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { ThemeClassNames, useAnnouncementBar, useScrollPosition } from '@docusaurus/theme-common';
+import { ThemeClassNames } from '@docusaurus/theme-common';
+import { useAnnouncementBar, useScrollPosition } from '@docusaurus/theme-common/internal';
 import DocSidebarItems from '@theme/DocSidebarItems';
 import type { Props } from '@theme/DocSidebar/Desktop/Content';
 

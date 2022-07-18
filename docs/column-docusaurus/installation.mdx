@@ -244,11 +244,12 @@ module.exports = {
 | `baseUrlIssueBanner` | `Boolean`                         | 当网站无法加载 CSS 或 JavaScript 文件时，则会在页面上显示一段内容来通知此问题（此问题一般由 `baseUrl` 配置错误引起）            |          |
 | `clientModules`      | `any[]`                           | 配置 **模块** 列表，用于网站全局加载                                                                                            |          |
 
-:::tip 举个栗子，如果把参数 `baseUrl` 配置为 `/metro/` 之后，会出现以下几种情况
+:::caution 离离原上谱
 
-- 项目编译后，线上项目的根目录下会多一个 **metro** 目录，用来存放当前页面的 **源代码**；
-- 网站的基础路径会随之改变，例如 **首页** 变为 `http://localhost:3000/metro`；
-- 由于项目编译后，会将本地的 **static** 目录下的文件暴露在线上项目的 **根目录** 下，所以网站的静态资源路径会随之改变，例如 `favicon` 属性由原来的 **img/favicon.ico** 需改为 **../img/favicon.ico**；
+- 举个栗子，如果把参数 `baseUrl` 配置为 `/metro/` 之后，会出现以下几种情况:
+  - 项目编译后，线上项目的根目录下会多一个 **metro** 目录，用来存放当前页面的 **源代码**；
+  - 网站的基础路径会随之改变，例如 **首页** 变为 `http://localhost:3000/metro`；
+  - 由于项目编译后，会将本地的 **static** 目录下的文件暴露在线上项目的 **根目录** 下，所以网站的静态资源路径会随之改变，例如 `favicon` 属性由原来的 **img/favicon.ico** 需改为 **../img/favicon.ico**；
 
 <Image src={require('@site/static/image/column-docusaurus/2021-11-03.jpeg').default} width='90%' />
 
@@ -268,7 +269,7 @@ module.exports = {
 | `prism`           | `Object`     | **代码块主题 & 语言** 的配置项，详情可查看下方 _[代码块](#themeConfig-prism)_ 配置项                                                    | ✅       |
 | `tableOfContents` | `Object`     | 文档右侧的 **TOC 目录** 的全局配置项，详情可查看下方 _[TOC 目录](#themeConfig-toc)_ 配置项                                              |          |
 
-:::tip 离离原上谱
+:::caution 离离原上谱
 `themeConfig` 除了上述的配置项外，还可以额外配置 `themes` 中注册的主题插件或 Docusaurus 自带的主题插件，可查看下方 _[themeConfig 配置项示例](#themeConfig-example)_；
 :::
 
@@ -326,7 +327,7 @@ module.exports = {
 | `docSidebar`          | 文档菜单组，须和 `sidebarId` 搭配使用（指定该类型后，`to` 属性就失效，默认跳转为菜单组中的第一个菜单） | ✅       |
 | `html`                | 自定义菜单，需和 `value` 属性搭配使用                                                                  |          |
 
-:::tip 离离原上谱
+:::caution 离离原上谱
 
 `navbar.items` 的配置项除上述的属性外，还可配置应用于 HTML 标签上的其他任意属性，例如 `'aria-label'`，`target` 等属性；
 
@@ -373,8 +374,10 @@ module.exports = {
 | `textColor`       |           | 公告条的文本颜色，默认为 `#000`                           |          |
 | `isCloseable`     | `boolean` | 是否显示公告条的关闭按钮，默认为 `true`                   |          |
 
-:::tip 离离原上谱
+:::caution 离离原上谱
+
 在网站中如果将 `announcementBar` 公告条关闭，那么接下来它就不会再出现到该网站中，除非更改它的唯一标识 `id`（因为在关闭时，会将该 `id` 存到浏览器缓存中）；
+
 :::
 
 #### 底部内容 `footer` {#themeConfig-footer}

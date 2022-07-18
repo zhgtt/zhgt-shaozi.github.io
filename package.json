@@ -16,10 +16,10 @@
   "dependencies": {
     "@ant-design/charts": "^1.3.6",
     "@arco-design/web-react": "^2.32.2",
-    "@docusaurus/core": "^2.0.0-beta.21",
-    "@docusaurus/preset-classic": "^2.0.0-beta.21",
-    "@docusaurus/remark-plugin-npm2yarn": "^2.0.0-beta.21",
-    "@docusaurus/theme-live-codeblock": "^2.0.0-beta.21",
+    "@docusaurus/core": "^2.0.0-beta.22",
+    "@docusaurus/preset-classic": "^2.0.0-beta.22",
+    "@docusaurus/remark-plugin-npm2yarn": "^2.0.0-beta.22",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-beta.22",
     "@mdx-js/react": "^1.6.21",
     "axios": "^0.26.1",
     "clsx": "^1.1.1",
@@ -43,7 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.21",
+    "@docusaurus/module-type-aliases": "^2.0.0-beta.22",
     "@tsconfig/docusaurus": "^1.0.4",
     "@types/react": "^17.0.19",
     "@types/react-helmet": "^6.1.2",

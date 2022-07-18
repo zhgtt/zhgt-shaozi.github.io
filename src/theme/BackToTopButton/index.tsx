@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { translate } from '@docusaurus/Translate';
-import { ThemeClassNames, useBackToTopButton } from '@docusaurus/theme-common';
+import { ThemeClassNames } from '@docusaurus/theme-common';
+import { useBackToTopButton } from '@docusaurus/theme-common/internal';
 import clsx from 'clsx';
 import styles from './styles.module.scss';
 

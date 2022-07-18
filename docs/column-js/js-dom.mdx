@@ -105,10 +105,11 @@ document.getElementsByClassName('anchor'); // 返回所有 class='anchor' 的节
 document.getElementsByTagName('h2'); // 返回所有的 h2 标签
 ```
 
-:::caution `NodeList` 和 `HTMLCollection` 的区别是什么?
+:::caution 离离原上谱
 
-- `NodeList` 中的内容可以为任意节点；`HTMLCollection` 中的内容只能是 **元素节点**;
-- 二者都是 **类数组对象**，如需遍历，可使用 `Array.from()` 方法将其转换成真正的数组，再进行操作;
+- `NodeList` 和 `HTMLCollection` 的区别是什么?
+  - `NodeList` 中的内容可以为任意节点；`HTMLCollection` 中的内容只能是 **元素节点**;
+  - 二者都是 **类数组对象**，如需遍历，可使用 `Array.from()` 方法将其转换成真正的数组，再进行操作;
 
 ```js title="代码示例" showLineNumbers
 const nodeList = document.querySelectorAll('h2.anchor');

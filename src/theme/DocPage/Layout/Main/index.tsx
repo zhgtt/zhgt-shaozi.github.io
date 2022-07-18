@@ -6,7 +6,7 @@
 
 import React from 'react';
 import clsx from 'clsx';
-import { useDocsSidebar } from '@docusaurus/theme-common';
+import { useDocsSidebar } from '@docusaurus/theme-common/internal';
 import Footer from '@theme/Footer';
 import type { Props } from '@theme/DocPage/Layout/Main';
 

@@ -60,7 +60,7 @@ String(true); // "true"
 '' + 123; // '123'
 ```
 
-:::caution `toString()` 的参数
+:::caution 离离原上谱
 
 - `toString()` 对 **数值(number 类型)** 来说，是转换成对应的 **进制字符串**，该方法可传一个参数，表示对应的 **进制**，默认为 **十进制**;
 
@@ -112,10 +112,11 @@ Number('0xff'); // 255，0x 开头的值为十六进制的值，此处是将其�
 +'3.14'; // 3.14
 ```
 
-:::caution `Number()` 在对目标值转换的过程中，会发生什么?
+:::caution 离离原上谱
 
-- 目标对象 先调用自身的 `valueOf()` 方法(返回目标对象的原始值)，若返回的是 **原始类型**，则直接使用 `Number()` 方法; 若返回的是 **引用类型**，会再调用 `toString()` 方法;
-- 若调用 `toString()` 方法后，返回的还是一个对象，则会抛出错误;
+- `Number()` 在对目标值转换的过程中，会发生什么?
+  - 目标对象 先调用自身的 `valueOf()` 方法(返回目标对象的原始值)，若返回的是 **原始类型**，则直接使用 `Number()` 方法; 若返回的是 **引用类型**，会再调用 `toString()` 方法;
+  - 若调用 `toString()` 方法后，返回的还是一个对象，则会抛出错误;
 
 ```js showLineNumbers
 Number(['5']); // 相当于 Number(['5'].valueOf().toString())
@@ -123,7 +124,7 @@ Number(['5']); // 相当于 Number(['5'].valueOf().toString())
 
 :::
 
-:::caution `parseInt()` 的参数
+:::caution 离离原上谱
 
 - `parseInt()` 可传第二个参数，表示对应的 **进制数**，默认为 **十进制**; 但它和 `toString()` 的计算方式刚好相反;
 
@@ -307,7 +308,9 @@ p1.age; // undefined
 - 执行构造函数中 A 中的代码，给这个新对象添加属性或方法;
 - 返回这个新对象;
 
-:::caution 如何手动实现一个 `new`?
+:::caution 离离原上谱
+
+- 如何手动实现一个 `new`?
 
 ```js title="代码实现" showLineNumbers
 function newOperator(fn, ...args) {
@@ -831,9 +834,9 @@ console.log('end');
 
 - 👉 [JS 运行机制最全面的一次梳理 - 微信](https://mp.weixin.qq.com/s/cqlhO6N8pGCjNkdHNSio4g) <!--或 https://segmentfault.com/a/1190000012925872-->
 - 👉 [JavaScript 运行机制详解：再谈 Event Loop - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2014/10/event-loop.html)
-- 👉 [事件循环：微任务和宏任务 - JavaScript.Info 教程](https://zh.javascript.info/event-loop)
+- 👉 [这一次，彻底弄懂 JavaScript 执行机制](https://juejin.cn/post/6844903512845860872)
 - 👉 [彻底搞懂 JavaScript 事件循环 - 掘金](https://juejin.cn/post/6992167223523541023)
-- 👉 [JavaScript 中的 Event Loop（事件循环）机制 - 思否](https://segmentfault.com/a/1190000022805523)
+- 👉 [事件循环：微任务和宏任务 - JavaScript.Info 教程](https://zh.javascript.info/event-loop)
 - 👉 [深入 JavaScript 之执行上下文与执行栈 - 知乎](https://zhuanlan.zhihu.com/p/438019987)
 
 :::

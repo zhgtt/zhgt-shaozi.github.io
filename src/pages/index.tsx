@@ -66,9 +66,10 @@ const Homepage = () => {
           />
         </div>
 
-        <div style={{ width: 300, marginLeft: 50 }}>
-          <Button onClick={handleClick}>按钮</Button>
-        </div>
+        {/* <div style={{ width: 300, marginLeft: 50 }}>
+          <Button onClick={handleClick}>按钮 </Button>
+          <kbd>Ctrl</kbd>
+        </div> */}
 
         {/* <div className={styles.box}>
           <div className={styles.content}>安静圣诞节</div>
