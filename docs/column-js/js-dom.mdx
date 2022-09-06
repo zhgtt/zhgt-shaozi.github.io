@@ -179,7 +179,7 @@ ele.cloneNode(true); // 深拷贝，将 h2 标签中的子节点也进行了拷�
 
 ## 操作 DOM 节点的属性
 
-```js title="代码实现" showLineNumbers
+```js title="获取节点的属性" showLineNumbers
 const ele = document.querySelector('h2.anchor'); // 定义一个目标节点
 
 // 🐸 获取 节点指定的属性（也可以直接获取）
@@ -194,6 +194,10 @@ ele.style.cssText; // 返回节点的 style 属性的所有内容组成的字符
 
 window.getComputedStyle(ele).color; // 返回节点的 color 样式
 window.getComputedStyle(ele).display; // 返回节点的 display 样式
+```
+
+```js title="设置节点的属性" showLineNumbers
+const ele = document.querySelector('h2.anchor'); // 定义一个目标节点
 
 // 🐸 设置 节点属性
 ele.setAttribute('title', '😄'); // 设置节点的 title 属性
@@ -202,6 +206,10 @@ ele.id = '😄'; // 设置节点 id 属性的内容
 ele.style.color = '#f00'; // 设置节点的 行内样式
 ele.style = 'color: #f00; font-size: 12px';
 ele.style.cssText = 'color: #f00; font-size: 12px: '; // 设置节点的 多个行内样式
+
+ele.classList.add('className'); // 添加额外的 class 类名
+ele.classList.remove('className'); // 删除指定的 class 类名
+ele.classList.contains('className'); // 查找指定的 class 类名是否存在
 
 // 判断 属性 是否存在于节点上，返回 Boolean 值
 ele.hasAttribute('title'); // 判断 title 属性是否存在于节点上

@@ -29,6 +29,9 @@
   code {
     font-size: var(--dino-font-size-xs);
   }
+  a:hover {
+    text-decoration: underline !important;
+  }
   // 引言
   > blockquote {
     border-left-width: 4px;

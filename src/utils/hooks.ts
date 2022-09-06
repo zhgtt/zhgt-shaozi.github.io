@@ -2,7 +2,7 @@
  * @description 自定义 Hooks 钩子函数
  */
 
-import React, { useRef, DependencyList } from 'react'; // DependencyList 表示依赖数据，它只是一个类型：只读的数组 ReadonlyArray<any>
+import React, { useEffect, useState, useRef, useCallback, DependencyList } from 'react'; // DependencyList 表示依赖数据，它只是一个类型：只读的数组 ReadonlyArray<any>
 import { isEqual } from 'lodash';
 import { _isEqual } from '@site/src/utils/tools-fun';
 
@@ -20,4 +20,35 @@ export const usePrevious = (value: DependencyList | undefined) => {
   }
 
   return ref.current;
+};
+
+export const useDebounce = (value, delay = 500) => {
+  const [debounceValue, setDebounceValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebounceValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [value, delay]);
+
+  return debounceValue;
+};
+
+export const useThrottle = (fn, delay = 500) => {
+  const timer = useRef(-1);
+
+  const throttle = useCallback(() => {
+    if (timer.current > -1) return;
+    timer.current = setTimeout(() => {
+      fn();
+      timer.current = -1;
+      clearTimeout(timer.current);
+    }, delay);
+  }, [fn, delay]);
+
+  return throttle;
 };

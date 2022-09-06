@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'; // 获取 .docusaurus.config 配置上下文内容
@@ -16,17 +16,27 @@ import styles from './styles.module.scss';
 
 import {} from '@site/src/utils/tools-fun';
 import { debounce, throttle } from 'lodash';
+import message from '../components/Message';
 
 import BrowserWindow from '@site/src/components/BrowserWindow';
+
+import { useDebounce, useThrottle } from '../utils/hooks';
 
 const Homepage = () => {
   const { siteConfig } = useDocusaurusContext();
   const [value, setValue] = useState('');
 
+  const debounceValue = useDebounce(value);
+
+  useEffect(() => {
+    console.log('防抖: ', debounceValue);
+  }, [debounceValue]);
+
   // console.log('siteConfig: ', siteConfig);
   // console.log('useColorMode: ', useColorMode);
 
   const handleClick = () => {
+    message.info({ content: '哈哈哈' });
     // axios.get('https://getman.cn/mock/route/to/demo').then((response) => {
     //   console.log(response);
     // });
@@ -36,9 +46,17 @@ const Homepage = () => {
     // _toFullScreen();
   };
 
-  const onChange = (val) => {
-    sayHi(val);
-  };
+  // const onChange = (val) => {
+  // sayHi(val);
+  // setValue(val);
+  // const v = useDebounce(val);
+  // console.log('v: ', v);
+  // setValue(v);
+  // };
+
+  const onChange = useThrottle((val) => {
+    console.log('val: ', val);
+  });
 
   const sayHi = throttle((val) => {
     console.log('Hello! ', val);
@@ -77,9 +95,11 @@ const Homepage = () => {
           <div className={styles.content}>安静圣诞节爱神的箭as的哈安静圣诞节爱神</div>
           <div className={styles.content}>安静圣诞节爱神的箭as的哈</div>
           <div className={styles.content}>安静圣诞节爱神的箭as的哈</div>
-        </div>
+        </div> */}
 
-        <Button onClick={handleClick}>按钮</Button> */}
+        <Button onClick={handleClick}>按钮</Button>
+
+        <Input value={value} onChange={onChange} />
       </main>
     </Layout>
   );
